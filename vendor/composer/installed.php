@@ -118,15 +118,6 @@
             'reference' => '1034e5e71f89978b80f9c1570e7226f6c3b9b6fb',
             'dev_requirement' => false,
         ),
-        'drupal/bootstrap_barrio' => array(
-            'pretty_version' => '5.5.6',
-            'version' => '5.5.6.0',
-            'type' => 'drupal-theme',
-            'install_path' => __DIR__ . '/../../themes/contrib/bootstrap_barrio',
-            'aliases' => array(),
-            'reference' => '5.5.6',
-            'dev_requirement' => false,
-        ),
         'drupal/console' => array(
             'pretty_version' => '1.9.8',
             'version' => '1.9.8.0',
@@ -964,15 +955,6 @@
             'reference' => 'c2b28c10fb3b7ac67bafa7b8f952cd83f35acde2',
             'dev_requirement' => false,
         ),
-        'twbs/bootstrap' => array(
-            'pretty_version' => '5.2.0',
-            'version' => '5.2.0.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../twbs/bootstrap',
-            'aliases' => array(),
-            'reference' => 'edf9c40956d19e6ab3f9151bfe0dfac6be06fa21',
-            'dev_requirement' => false,
-        ),
         'twig/twig' => array(
             'pretty_version' => 'v2.15.1',
             'version' => '2.15.1.0',
@@ -981,12 +963,6 @@
             'aliases' => array(),
             'reference' => '3b7cedb2f736899a7dbd0ba3d6da335a015f5cc4',
             'dev_requirement' => false,
-        ),
-        'twitter/bootstrap' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => '5.2.0',
-            ),
         ),
         'typo3/phar-stream-wrapper' => array(
             'pretty_version' => 'v3.1.7',
