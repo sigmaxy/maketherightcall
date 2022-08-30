@@ -1,10 +1,10 @@
 #/index.php
 sites/default/files/*
 sites/stag/files/*
-!sites/stag/files/f4f
+!sites/stag/files/mtrc
 sites/prod/files/*
 
-!sites/*/files/f4f
+!sites/*/files/mtrc
 !sites/*/files/config
 
 sites/local/*.*
