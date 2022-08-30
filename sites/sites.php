@@ -58,4 +58,4 @@
 $sites['local.mtrc.sigmaxu.com'] = 'local';
 // $sites['f4f-erp.localhost'] = 'local';
 // $sites['dev.erp.first4figures.com'] = 'dev';
-// $sites['stagerp.first4figures.com'] = 'stag';
+$sites['stagmtrc.sigmaxu.com'] = 'stag';
