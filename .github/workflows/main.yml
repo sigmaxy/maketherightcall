@@ -26,9 +26,9 @@ jobs:
       # - name: drupalconsole update cr
       #   uses: appleboy/ssh-action@master
       #   with:
-      #     host: ${{ secrets.AWS_SSH_STAG_HOST }}
+      #     host: ${{ secrets.SSH_ALI_STAGE_HOST }}
       #     username: ec2-user
-      #     key: ${{ secrets.AWS_SSH_STAG_PRIVATE_KEY }}
+      #     key: ${{ secrets.SSH_ALI_STAGE_PRIVATE_KEY }}
       #     port: 22
       #     script: |
       #       whoami
