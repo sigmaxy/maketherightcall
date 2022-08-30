@@ -13,7 +13,7 @@ jobs:
     environment: STAG
     steps:
       - name: rsync file to folder
-      # - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_ALI_STAGE_PRIVATE_KEY }}
