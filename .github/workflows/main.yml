@@ -23,23 +23,22 @@ jobs:
           REMOTE_USER: root
           TARGET: /var/www/mtrc
           # EXCLUDE: "/src/"
-      # - name: drupalconsole update cr
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.SSH_ALI_STAGE_HOST }}
-      #     username: ec2-user
-      #     key: ${{ secrets.SSH_ALI_STAGE_PRIVATE_KEY }}
-      #     port: 22
-      #     script: |
-      #       whoami
-      #       cat << EOF >> /var/www/f4f_erp/sites/stag/settings.php
-      #       ${{ secrets.AWS_STAG_SETTINGS }}
-      #       EOF
-      #       cd /var/www/f4f_erp
-      #       chmod -R 777 sites/stag/files/
-      #       chmod -R 777 sites/stag/files/f4f/
-      #       vendor/bin/drupal --uri=stagerp.first4figures.com update:execute system
-      #       vendor/bin/drupal --uri=stagerp.first4figures.com cr all
+      - name: drupalconsole update cr
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_ALI_STAGE_HOST }}
+          username: root
+          key: ${{ secrets.SSH_ALI_STAGE_PRIVATE_KEY }}
+          port: 22
+          script: |
+            whoami
+            cat << EOF >> /var/www/mtrc/sites/stag/settings.php
+            ${{ secrets.STAG_MTRC_SETTINGS }}
+            EOF
+            cd /var/www/mtrc
+            chmod -R 777 sites/stag/files/
+            vendor/bin/drupal --uri=stagmtrc.sigmaxu.com update:execute system
+            vendor/bin/drupal --uri=stagmtrc.sigmaxu.com cr all
   # deploy_production:
   #   runs-on: ubuntu-latest
   #   environment: PRODUCTION
