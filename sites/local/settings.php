@@ -794,15 +794,32 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 # if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
-$databases['default']['default'] = array (
-  'database' => 'mtrc',
-  'username' => 'root',
-  'password' => 'P@$$w0rd',
-  'prefix' => '',
-  'host' => 'localhost',
-  'port' => '3306',
-  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
-  'driver' => 'mysql',
-  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
-);
-$settings['config_sync_directory'] = 'sites/default/files/config_pZppIMWZpmfqMdXvWVNtqHq_25XNwR0nv1Mk8P_I7zoveca9J9Rgd4IeehJQ78FU3YvT8u_H5w/sync';
+
+$settings['trusted_host_patterns'] = [ 
+  '^localhost$',
+  '^.+\.sigmaxu\.com$',
+  '^.+\.f4fonline\.com$'
+];
+
+$settings['config_sync_directory'] = $site_path.'/files/config/sync';
+$databases['default']['default']['database'] = 'mtrc';
+$databases['default']['default']['prefix'] = '';
+$databases['default']['default']['namespace'] = 'Drupal\\Core\\Database\\Driver\\mysql';
+$databases['default']['default']['driver'] = 'mysql';
+$databases['default']['default']['autoload'] = 'core/modules/mysql/src/Driver/Database/mysql/';
+
+//local
+$databases['default']['default']['username'] = 'root';
+$databases['default']['default']['password'] = 'P@$$w0rd';
+$databases['default']['default']['host'] = 'localhost';
+$databases['default']['default']['port'] = '3306';
+$settings['email_username'] = 'noreply@first4figures.com';
+$settings['email_password'] = 'P@$$w0rd';
+
+// staging:
+// $databases['default']['default']['username'] = 'root';
+// $databases['default']['default']['password'] = 'P@$$w0rd';
+// $databases['default']['default']['host'] = 'db-stag-mtrc.sigmaxu.com';
+// $databases['default']['default']['port'] = '3306';
+// $settings['email_username'] = 'noreply@first4figures.com';
+// $settings['email_password'] = 'P@$$w0rd';

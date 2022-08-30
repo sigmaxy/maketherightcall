@@ -55,7 +55,6 @@
  * @see \Drupal\Core\DrupalKernel::getSitePath()
  * @see https://www.drupal.org/documentation/install/multi-site
  */
+$sites['localhost'] = 'default';
 $sites['local.mtrc.sigmaxu.com'] = 'local';
-// $sites['f4f-erp.localhost'] = 'local';
-// $sites['dev.erp.first4figures.com'] = 'dev';
 $sites['stagmtrc.sigmaxu.com'] = 'stag';
