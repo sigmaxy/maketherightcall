@@ -1,0 +1,6 @@
+name: 'Chubb Life'
+type: module
+description: 'Chubb Life Insurance Company'
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: 'MTRC'

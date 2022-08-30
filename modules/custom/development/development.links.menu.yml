@@ -1,0 +1,15 @@
+development.admin:
+  title: 'Development Action'
+  description: 'test action'
+  parent: system.admin
+  route_name: development.developer_controller_action
+  route_parameters: { actionname: 'test' }
+  weight: 100
+  options:
+    # query:
+    #   uid: 1
+    attributes:
+      target: _blank
+      class:
+        - toolbar-icon-system-admin-config
+        # - anotherclass

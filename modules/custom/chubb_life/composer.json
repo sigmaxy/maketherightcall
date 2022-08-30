@@ -1,0 +1,13 @@
+{
+    "name": "chubb_life",
+    "type": "drupal-module",
+    "description": "Chubb Life Insurance Company",
+    "keywords": [
+    ],
+    "homepage": "https://www.drupal.org/project/chubb_life",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/chubb_life",
+        "source": "http://cgit.drupalcode.org/chubb_life",
+    },
+}

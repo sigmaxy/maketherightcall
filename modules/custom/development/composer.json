@@ -1,0 +1,13 @@
+{
+    "name": "development",
+    "type": "drupal-module",
+    "description": "Make The Right Call Development",
+    "keywords": [
+    ],
+    "homepage": "https://www.drupal.org/project/development",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/development",
+        "source": "http://cgit.drupalcode.org/development",
+    },
+}

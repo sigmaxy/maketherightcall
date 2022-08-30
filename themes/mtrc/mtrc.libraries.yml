@@ -1,6 +1,10 @@
 global-styling:
   version: VERSION
   css:
+    theme:
+      css/styles.css: {}
+      css/datatables.min.css: {}
+      https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css: { type: external, minified: true }
     base:
       css/base/fonts.css: {}
       css/base/variables.css: {}
@@ -54,6 +58,9 @@ global-styling:
   js:
     js/checkbox.js: {}
     js/navigation-utils.js: {}
+    js/script.js: {}
+    js/datatables.min.js: {}
+    https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js: { type: external, minified: true }
 
   dependencies:
     - core/drupal.element.closest
@@ -62,6 +69,9 @@ global-styling:
     - core/drupal
     - core/once
     - core/tabbable
+    - core/jquery #Just to be safe
+    - core/drupal.dialog.ajax #Required for dialogs
+    - core/jquery.form #If you also want to use Ajax for form operations
 
 book:
   version: VERSION

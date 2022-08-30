@@ -1,0 +1,4 @@
+access developer coniguration:
+  title: 'Develop Access Configuration'
+  description: 'Access development functions'
+  restrict access: true

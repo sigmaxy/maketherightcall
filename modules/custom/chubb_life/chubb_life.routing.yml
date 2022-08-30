@@ -1,0 +1,22 @@
+
+chubb_life.customer_controller_hello:
+  path: '/chubb_life/hello/{name}'
+  defaults:
+    _controller: '\Drupal\chubb_life\Controller\CustomerController::hello'
+    _title: 'test'
+  requirements:
+    _permission: 'access content'
+chubb_life.edit_customer_form:
+  path: '/chubb_life/form/edit_customer/{customer_id}'
+  defaults:
+    _form: '\Drupal\chubb_life\Form\EditCustomerForm'
+    _title: 'Edit Customer Form'
+  requirements:
+    _permission: 'access chubb_life coniguration'
+chubb_life.list_customer_form:
+  path: '/chubb_life/form/list_customer'
+  defaults:
+    _form: '\Drupal\chubb_life\Form\ListCustomerForm'
+    _title: 'ListCustomerForm'
+  requirements:
+   _permission: 'access chubb_life coniguration'

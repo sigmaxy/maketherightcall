@@ -1,0 +1,8 @@
+
+development.developer_controller_action:
+  path: '/development/action/{actionname}'
+  defaults:
+    _controller: '\Drupal\development\Controller\DeveloperController::action'
+    _title: 'action'
+  requirements:
+    _permission: 'access developer coniguration'

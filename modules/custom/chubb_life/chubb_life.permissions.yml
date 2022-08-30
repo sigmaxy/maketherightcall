@@ -1,0 +1,4 @@
+access chubb_life coniguration:
+  title: 'chubb_life Access Configuration'
+  description: 'chubb_life functions'
+  restrict access: true
