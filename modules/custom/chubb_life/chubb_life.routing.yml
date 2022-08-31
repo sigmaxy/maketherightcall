@@ -17,6 +17,6 @@ chubb_life.list_customer_form:
   path: '/chubb_life/form/list_customer'
   defaults:
     _form: '\Drupal\chubb_life\Form\ListCustomerForm'
-    _title: 'ListCustomerForm'
+    _title: 'List Customer Form'
   requirements:
    _permission: 'access chubb_life coniguration'
