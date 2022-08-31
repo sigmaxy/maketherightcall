@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f89ac6d707938a33e22473e84f1013ea5f513348',
+        'reference' => 'e1c13762b86b2327b2f04c52b74b5dd5709ee958',
         'name' => 'drupal/legacy-project',
         'dev' => true,
     ),
@@ -355,7 +355,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f89ac6d707938a33e22473e84f1013ea5f513348',
+            'reference' => 'e1c13762b86b2327b2f04c52b74b5dd5709ee958',
             'dev_requirement' => false,
         ),
         'egulias/email-validator' => array(
