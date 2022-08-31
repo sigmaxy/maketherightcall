@@ -21,9 +21,9 @@ class ListCustomerForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form[''] = [
-      '#type' => 'tel',
-      '#title' => $this->t(''),
+    $form['sigma'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('sigma'),
       '#weight' => '0',
     ];
     $form['submit'] = [
