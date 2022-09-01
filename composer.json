@@ -21,6 +21,10 @@
         "drupal/core-project-message": "^9.4",
         "drupal/core-recommended": "^9.4",
         "drupal/core-vendor-hardening": "^9.4",
+        "drupal/encrypt": "^3.0",
+        "drupal/ga_login": "^1.0@alpha",
+        "drupal/real_aes": "^2.4",
+        "drupal/tfa": "^1.0@alpha",
         "phpoffice/phpspreadsheet": "^1.24"
     },
     "conflict": {
