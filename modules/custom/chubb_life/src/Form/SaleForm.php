@@ -37,7 +37,7 @@ class SaleForm extends FormBase {
     $solicitation_opt = AttributeController::get_solicitation_options();
     $currency_opt = AttributeController::get_currency_options();
     $form['owner'] = [
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => $this->t('Customer Details (Owner)'),
       '#open'  => true,
       '#weight' => '1',
@@ -176,7 +176,7 @@ class SaleForm extends FormBase {
       '#weight' => '14',
     ];
     $form['address'] = [
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => $this->t('Residential Address (in English)'),
       '#open'  => true,
       '#weight' => '2',
@@ -259,7 +259,7 @@ class SaleForm extends FormBase {
       '#weight' => '12',
     ];
     $form['payor'] = [
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => $this->t('Customer Details (Payor)'),
       '#open'  => true,
       '#weight' => '3',
@@ -314,7 +314,7 @@ class SaleForm extends FormBase {
       '#weight' => '6',
     ];
     $form['beneficiary'] = [
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => $this->t('Beneficiary'),
       '#open'  => true,
       '#weight' => '4',
@@ -330,7 +330,7 @@ class SaleForm extends FormBase {
       '#weight' => '1',
     ];
     $form['policy'] = [
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => $this->t('Policy Details'),
       '#open'  => true,
       '#weight' => '5',
@@ -376,7 +376,7 @@ class SaleForm extends FormBase {
       '#weight' => '5',
     ];
     $form['information'] = [
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => $this->t('Coverage Information'),
       '#open'  => true,
       '#weight' => '6',
@@ -410,7 +410,7 @@ class SaleForm extends FormBase {
       '#weight' => '4',
     ];
     $form['micellaneous'] = [
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => $this->t('Micellaneous'),
       '#open'  => true,
       '#weight' => '7',

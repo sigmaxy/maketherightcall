@@ -41,7 +41,7 @@ class ListOrderForm extends FormBase {
       $rows[$data->id] = $row_data;
     }
     $form['order_filter'] = [
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => $this->t('Import Customer'),
       '#open'  => true,
       '#weight' => '2',
@@ -59,7 +59,7 @@ class ListOrderForm extends FormBase {
       ],
     ];
     $form['function_filters'] = [
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => $this->t('Function'),
       '#open'  => true,
       '#weight' => '3',

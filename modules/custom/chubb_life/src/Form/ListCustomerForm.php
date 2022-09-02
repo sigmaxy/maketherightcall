@@ -48,7 +48,7 @@ class ListCustomerForm extends FormBase {
       $rows[$data->id] = $row_data;
     }
     $form['upload_filters'] = [
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => $this->t('Function'),
       '#open'  => true,
       '#weight' => '1',
@@ -72,7 +72,7 @@ class ListCustomerForm extends FormBase {
     // //   '#weight' => '2',
     // // ];
     $form['import_customer_filter'] = [
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => $this->t('Import Customer'),
       '#open'  => true,
       '#weight' => '2',
@@ -90,7 +90,7 @@ class ListCustomerForm extends FormBase {
       ],
     ];
     $form['function_filters'] = [
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => $this->t('Function'),
       '#open'  => true,
       '#weight' => '3',

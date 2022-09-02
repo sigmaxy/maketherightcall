@@ -11,3 +11,6 @@
 table.dataTable td{
     text-align: center;
 }
+fieldset.collapsible {
+    position: inherit !important;
+}

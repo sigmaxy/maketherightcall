@@ -51,7 +51,7 @@ class ListCallForm extends FormBase {
       $rows[$data->id] = $row_data;
     }
     $form['call_filter'] = [
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => $this->t('Assigned Call'),
       '#open'  => true,
       '#weight' => '2',
