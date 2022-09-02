@@ -3,6 +3,7 @@
 namespace Drupal\chubb_life\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Database;
 
 /**
  * Class AttributeController.
@@ -15,12 +16,121 @@ class AttributeController extends ControllerBase {
    * @return string
    *   Return Hello string.
    */
-  public static function get_list() {
+  public static function get_call_status_options() {
+    $results = array();
+    $results[1] = t('Pending');
+    $results[2] = t('Consider');
+    $results[3] = t('DNQ');
+    $results[4] = t('Reject');
+    $results[5] = t('RTT');
+    return $results;
+  }
+  public static function get_id_type_options() {
+    $results = array();
+    $results[1] = t('HKID');
+    $results[2] = t('Consider');
+    $results[3] = t('DNQ');
+    $results[4] = t('Reject');
+    $results[5] = t('RTT');
+    return $results;
+  }
+  public static function list_premium(){
     $connection = Database::getConnection();
-    $query = $connection->select('f4f_mapping_license_relation', 'fmlr');
-    $query->fields('fmlr');
+    $query = $connection->select('mtrc_premium', 'mp');
+    $query->fields('mp');
     $record = $query->execute()->fetchAll();
     return $record;
   }
-
+  public static function get_country_list() {
+    $connection = Database::getConnection();
+    $query = $connection->select('mtrc_attribute_country', 'mac');
+    $query->fields('mac');
+    $record = $query->execute()->fetchAll();
+    return $record;
+  }
+  public static function get_country_options() {
+    $record = self::get_country_list();
+    $results = array();
+    foreach ($record as $data) {
+      $results[$data->code] = $data->en.'/'.$data->hk.'/'.$data->cn;
+    }
+    return $results;
+  }
+  public static function get_relation_list() {
+    $connection = Database::getConnection();
+    $query = $connection->select('mtrc_attribute_relation', 'mar');
+    $query->fields('mar');
+    $record = $query->execute()->fetchAll();
+    return $record;
+  }
+  public static function get_relation_options() {
+    $record = self::get_relation_list();
+    $results = array();
+    foreach ($record as $data) {
+      $results[$data->code] = $data->en.'/'.$data->hk.'/'.$data->cn;
+    }
+    return $results;
+  }
+  public static function get_marital_status_options() {
+    $results = array();
+    $results[1] = t('Single');
+    $results[2] = t('Married');
+    $results[3] = t('Divorced');
+    $results[4] = t('Widowed');
+    return $results;
+  }
+  public static function get_occupations_group_options() {
+    $connection = Database::getConnection();
+    $query = $connection->select('mtrc_attribute_industry', 'mai');
+    $query->fields('mai');
+    $record = $query->execute()->fetchAll();
+    foreach ($record as $each_industry) {
+      $query_occ = $connection->select('mtrc_attribute_occupation', 'mao');
+      $query_occ->fields('mao');
+      $query_occ->condition('industry_id', $each_industry->id);
+      $record_occ = $query_occ->execute()->fetchAll();
+      $sub_results = array();
+      foreach ($record_occ as $each_occupation) {
+        $sub_results[$each_occupation->code] = $each_occupation->hk;
+      }
+      $results[$each_industry->hk] = $sub_results;
+      # code...
+    }
+    return $results;
+  }
+  public static function get_yn_options() {
+    $results = array();
+    $results['Y'] = t('Yes');
+    $results['N'] = t('No');
+    return $results;
+  }
+  public static function get_gender_options() {
+    $results = array();
+    $results['M'] = t('Male');
+    $results['F'] = t('Female');
+    return $results;
+  }
+  public static function get_monthly_income_options() {
+    $results = array();
+    $results[0] = t('None');
+    $results[1] = t('Less than HK$10,000');
+    $results[2] = t('HK$10,000 - HK$19,999');
+    $results[3] = t('HK$20,000 - HK$49,999');
+    $results[4] = t('HK$50,000 - HK$100,000');
+    $results[5] = t('Over HK$100,000');
+    return $results;
+  }
+  public static function get_solicitation_options() {
+    $results = array();
+    $results[0] = t('None');
+    $results[1] = t('Opt Out');
+    $results[2] = t('Not Opt Out');
+    return $results;
+  }
+  public static function get_currency_options() {
+    $results = array();
+    $results['HKD'] = t('HKD');
+    $results['USD'] = t('USD');
+    return $results;
+  }
 }

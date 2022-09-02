@@ -1,0 +1,12 @@
+chubb_life:
+    version: 1.x
+    # css:
+    #     theme:
+    #         css/inventory.css: {}
+    #         css/datatables.min.css: {}
+    js:
+      js/chubb_life.js: {}
+    dependencies:
+      - core/jquery
+      - mtrc/global-styling
+
