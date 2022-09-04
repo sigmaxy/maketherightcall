@@ -57,3 +57,11 @@ chubb_life.list_order_form:
     _title: 'List Smart Form'
   requirements:
     _permission: 'access chubb_life_manager coniguration'
+    
+chubb_life.edit_order_form:
+  path: '/chubb_life/form/edit_order/{order_id}'
+  defaults:
+    _form: '\Drupal\chubb_life\Form\EditOrderForm'
+    _title: 'Edit Order Form'
+  requirements:
+    _permission: 'access chubb_life_manager coniguration'

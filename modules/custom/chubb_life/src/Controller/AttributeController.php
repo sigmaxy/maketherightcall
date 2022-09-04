@@ -26,12 +26,13 @@ class AttributeController extends ControllerBase {
     return $results;
   }
   public static function get_id_type_options() {
-    $results = array();
-    $results[1] = t('HKID');
-    $results[2] = t('Consider');
-    $results[3] = t('DNQ');
-    $results[4] = t('Reject');
-    $results[5] = t('RTT');
+    $results = array(
+      'I' => 'HKID',
+      'B' => 'Birth Certificate',
+      'P' => 'Passport',
+      'O' => 'Other ID card',
+      'C' => 'PRC Residen Identity Card',
+    );
     return $results;
   }
   public static function list_premium(){
@@ -112,25 +113,52 @@ class AttributeController extends ControllerBase {
   }
   public static function get_monthly_income_options() {
     $results = array();
-    $results[0] = t('None');
-    $results[1] = t('Less than HK$10,000');
-    $results[2] = t('HK$10,000 - HK$19,999');
-    $results[3] = t('HK$20,000 - HK$49,999');
-    $results[4] = t('HK$50,000 - HK$100,000');
-    $results[5] = t('Over HK$100,000');
+    $results['10,000'] = t('Less than HK$10,000');
+    $results['14,999.5'] = t('HK$10,000 - HK$19,999');
+    $results['34,999.5'] = t('HK$20,000 - HK$49,999');
+    $results['75,000'] = t('HK$50,000 - HK$100,000');
+    $results['100,000'] = t('Over HK$100,000');
     return $results;
   }
   public static function get_solicitation_options() {
     $results = array();
-    $results[0] = t('None');
-    $results[1] = t('Opt Out');
-    $results[2] = t('Not Opt Out');
+    $results['N'] = t('Opt Out');
+    $results['Y'] = t('Not Opt Out');
+    return $results;
+  }
+  public static function get_opt_out_reason_options() {
+    $results = array(
+      'DND' => 'Do Not Disturb',
+      'OFTA' => 'Report to OFTA',
+      'COPS' => 'Report to Police',
+      'Ptners' => 'Complained to Partners',
+      'Media' => 'Complained to Media',
+      'Online' => 'Post on Social media',
+      'CHUBBTM' => 'CHUBB TM approaching',
+    );
     return $results;
   }
   public static function get_currency_options() {
     $results = array();
     $results['HKD'] = t('HKD');
     $results['USD'] = t('USD');
+    $results['CNY'] = t('CNY');
+    return $results;
+  }
+  public static function get_payment_mode_options() {
+    $results = array(
+      '12' => 'Annual',
+      '1' => 'Monthly',
+      '3' => 'Quarterly',
+      '6' => 'Semi-Annual',
+    );
+    return $results;
+  }
+  public static function get_bill_type_options() {
+    $results = array(
+      'Credit Card' => 'Credit Card',
+      'CUP' => 'CUP',
+    );
     return $results;
   }
 }

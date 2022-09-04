@@ -31,8 +31,8 @@ class ListOrderForm extends FormBase {
     $order_list = OrderController::list_order();
     foreach($order_list as $key=>$data){
       // $edit   = Url::fromUserInput('/chubb_life/form/editcall/'.$data->id);
-      $row_data['last_name'] = $data->last_name;
-      $row_data['first_name'] = $data->first_name;
+      $row_data['last_name'] = $data->surname;
+      $row_data['first_name'] = $data->givenName;
       $row_data['mobile'] = $data->mobile;
       $row_data['plan_code'] = $data->plan_code;
       $row_data['created_at'] = date('Y-m-d',$data->created_at);
@@ -92,18 +92,21 @@ class ListOrderForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $order_selected = $form_state->getValue('order_list_table');
-    $json_arr = array();
+    $json_arr = array(
+      'batchDate' => date("Y-m-d"),
+      'applications' => array(),
+    );
     foreach ($order_selected as $order_id => $checked) {
       if ($checked) {
         $call = array();
         $db_order = OrderController::get_order_by_id($order_id);
-        $json_arr[] = $db_order;
+        $one_json_record = OrderController::order_format_json($db_order);
+        $json_arr['applications'][] = $one_json_record;
       }
     }
-    $contents = json_encode($json_arr);
     $json_file_name = 'smart_'.time().'.txt';
     $json_file_path = 'public://temp/'.$json_file_name;
-    $file = file_save_data(json_encode($json_arr), $json_file_path, 1);
+    $file = file_save_data(json_encode($json_arr,JSON_PRETTY_PRINT), $json_file_path, 1);
     $link = file_create_url($json_file_path); 
     \Drupal::messenger()->addMessage(t('Download json File <a href="@link">Right Click and Save Link As</a>', array('@link' => $link)));
   }

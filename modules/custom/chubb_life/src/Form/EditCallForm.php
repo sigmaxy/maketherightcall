@@ -177,7 +177,10 @@ class EditCallForm extends FormBase {
     \Drupal::messenger()->addMessage('Call has been updated');
   }
   public function sales_call(array &$form, FormStateInterface $form_state) {
-    $url = Url::fromUserInput('/chubb_life/form/sale/'.$this->call_id);
+    $url = Url::fromRoute('chubb_life.edit_order_form', [
+      'order_id' => 'add',
+      'call_id' => $this->call_id,
+    ]);
     $form_state->setRedirectUrl($url);
   }
 
