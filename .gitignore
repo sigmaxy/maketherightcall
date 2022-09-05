@@ -5,7 +5,7 @@ sites/prod/files/*
 sites/win10/files/*
 
 !sites/*/files/mtrc
-!sites/*/files/config
+!sites/*/files/sync
 
 sites/local/*.*
 sites/local/*
