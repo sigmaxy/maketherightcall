@@ -809,13 +809,19 @@ $databases['default']['default']['driver'] = 'mysql';
 $databases['default']['default']['autoload'] = 'core/modules/mysql/src/Driver/Database/mysql/';
 
 //local
-$databases['default']['default']['username'] = 'root';
-$databases['default']['default']['password'] = '*Mtrc97878887*';
-$databases['default']['default']['host'] = 'localhost';
-$databases['default']['default']['port'] = '3306';
+// $databases['default']['default']['username'] = 'root';
+// $databases['default']['default']['password'] = '*Mtrc97878887*';
+// $databases['default']['default']['host'] = 'localhost';
+// $databases['default']['default']['port'] = '3306';
 
 // staging:
 // $databases['default']['default']['username'] = 'root';
 // $databases['default']['default']['password'] = 'P@$$w0rd';
 // $databases['default']['default']['host'] = 'db-stag-mtrc.sigmaxu.com';
 // $databases['default']['default']['port'] = '3306';
+
+//win10
+$databases['default']['default']['username'] = 'root';
+$databases['default']['default']['password'] = 'P@$$w0rd';
+$databases['default']['default']['host'] = 'db-stag-mtrc.sigmaxu.com';
+$databases['default']['default']['port'] = '3306';
