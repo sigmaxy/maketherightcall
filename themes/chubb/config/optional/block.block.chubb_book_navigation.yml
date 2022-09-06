@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - book
+  theme:
+    - chubb
+id: chubb_book_navigation
+theme: chubb
+region: sidebar
+weight: 0
+provider: null
+plugin: book_navigation
+settings:
+  id: book_navigation
+  label: 'Book navigation'
+  label_display: visible
+  provider: book
+  block_mode: 'book pages'
+visibility: {  }
