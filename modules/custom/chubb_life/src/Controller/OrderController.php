@@ -34,6 +34,18 @@ class OrderController extends ControllerBase {
     $query->fields('mo');
     $query->condition('id', $order_id);
     $record = $query->execute()->fetchAssoc();
+    $record['owner'] = self::get_order_client_by_type($record['id'],1);
+    $record['insured'] = self::get_order_client_by_type($record['id'],2);
+    $record['payor'] = self::get_order_client_by_type($record['id'],3);
+    return $record;
+  }
+  public static function get_order_client_by_type($order_id,$client_type){
+    $connection = Database::getConnection();
+    $query = $connection->select('mtrc_order_client', 'moc');
+    $query->fields('moc');
+    $query->condition('order_id', $order_id);
+    $query->condition('client_type', $client_type);
+    $record = $query->execute()->fetchAssoc();
     return $record;
   }
   public static function list_order(){
@@ -46,144 +58,238 @@ class OrderController extends ControllerBase {
 
   public static function update_order($order){
     $connection = Database::getConnection();
-    $db_record = self::check_order_existed($order['id']);
+    $db_order_id = self::check_order_existed($order['id']);
     $order['updated_at'] = time();
     $order['updated_by'] = \Drupal::currentUser()->id();
-    if($db_record){
+    $client_owner = $order['owner'];
+    unset($order['owner']);
+    $client_insured = $order['insured'];
+    unset($order['insured']);
+    $client_payor = $order['payor'];
+    unset($order['payor']);
+    if($db_order_id){
       $connection->update('mtrc_order')
         ->fields($order)
-        ->condition('id', $db_record)
+        ->condition('id', $db_order_id)
         ->execute();
     }else{
-      $call_insert_id = $connection->insert('mtrc_order')
+      $order['created_at'] = time();
+      $order['created_by'] = \Drupal::currentUser()->id();
+      $db_order_id = $connection->insert('mtrc_order')
         ->fields($order)
+        ->execute();
+    }
+    $client_owner['order_id'] = $db_order_id;
+    $client_owner['client_type'] = 1;
+    self::update_order_client($client_owner);
+    $client_insured['order_id'] = $db_order_id;
+    $client_insured['client_type'] = 2;
+    self::update_order_client($client_insured);
+    $client_payor['order_id'] = $db_order_id;
+    $client_payor['client_type'] = 3;
+    self::update_order_client($client_payor);
+  }
+  public static function check_order_client_existed($client){
+    $connection = Database::getConnection();
+    $query = $connection->select('mtrc_order_client', 'moc');
+    $query->fields('moc');
+    $query->condition('order_id', $client['order_id']);
+    $query->condition('client_type', $client['client_type']);
+    $record = $query->execute()->fetchAssoc();
+    if (isset($record['id'])) {
+      return $record['id'];
+    }
+    return false;
+  }
+  public static function update_order_client($client){
+    $connection = Database::getConnection();
+    $db_order_client_id = self::check_order_client_existed($client);
+    if($db_order_client_id){
+      $connection->update('mtrc_order_client')
+        ->fields($client)
+        ->condition('id', $db_order_client_id)
+        ->execute();
+    }else{
+      $db_order_client_id = $connection->insert('mtrc_order_client')
+        ->fields($client)
         ->execute();
     }
   }
   public static function order_format_json($order){
+    $dateOfBirth = $order['owner']['birthDate'];
+    $today = date("Y-m-d");
+    $diff = date_diff(date_create($dateOfBirth), date_create($today));
+    $owner_age = $diff->y;
+
+
     $results = array(
-      'applicationDto'=>array(
-        'referenceNumber'=>$order['referenceNumber'],
+      'applicationDto'=>[
+        'referenceNumber'=>sprintf('TM%06d',$order['id']),
         'aeonRefNumber'=>$order['aeonRefNumber'],
-        'accountHolder1'=>array(
+        'accountHolder1'=>[
           'holderName'=>'',
           'identityNumber'=>'',
           'identityType'=>'',
-        ),
+        ],
         'accountNumber'=>'',
-        'agentCode'=>$order['agents_code'],
-        'billingType'=>$order['billing_type'],
+        'agentCode'=>$order['agentCode'],
+        'billingType'=>$order['billingType'],
         'currency'=>$order['currency'],
-        'ecopy'=>$order['ecopy'],
-        'mailingAddressIndicator'=>'',
+        'ecopy'=>$order['ecopy']=='Y'?true:false,
+        'mailingAddressIndicator'=>'R',
         'paymentMode'=>$order['paymentMode'],
-        'pep'=>$order['pep'],
+        'pep'=>$order['pep']=='Y'?true:false,
         'promoCode'=>'',
         'taxResidency1'=>array(
-          'taxResidency'=>$order['taxResidency'],
-          'taxResidencyTin'=>$order['taxResidencyTin'],
+          'taxResidency'=>$order['owner']['taxResidency1'],
+          'taxResidencyTin'=>$order['owner']['taxResidencyTin1'],
         ),
-      ),
-      'beneficiaryDtos'=>array(
-        'beneficiaryClass'=>'',
-        'beneficiarySequence'=>'',
-        'chineseName'=>$order['customer_insured_chineseName'],
-        'customerType'=>'',
-        'givenName'=>$order['customer_insured_givenName'],
-        'identityNumber'=>$order['customer_insured_identityNumber'],
-        'relationship'=>$order['beneficiary_relationship'],
-        'shared'=>'',
-        'surname'=>$order['customer_insured_surname'],
-      ),
-      'benefitDtos'=>array(
-        'attachTo'=>'',
-        'coverageClass'=>'',
-        'coverageCode'=>'',
-        'coverageNumber'=>'',
-        'currency'=>$order['currency'],
-        'customerSequence'=>'',
-        'customerType'=>'',
-        'faceAmount'=>$order['face_amount'],
-        'plannedPremium'=>$order['plan_code'],
-        'protectionFaceAmount'=>'',
-        'savingFaceAmount'=>'',
-      ),
-      'customerDtos'=>array(
-        'age'=>'',
-        'birthDate'=>$order['birthDate'],
-        'birthPlace'=>'',
-        'chineseName'=>$order['chineseName'],
-        'citizenship'=>$order['nationality'],
-        'countryRegionCode'=>$order['issueCountry'],
-        'customerSequence'=>'',
-        'customerType'=>'',
-        'email'=>$order['email'],
-        'gender'=>$order['gender'],
-        'givenName'=>$order['givenName'],
-        'identityNumber'=>$order['referenceNumber'],
-        'identityType'=>$order['referenceNumber'],
-        'isPermanentHkid'=>$order['isPermanentHkid'],
-        'isValidIdType'=>'',
-        'issueCountry'=>$order['issueCountry'],
-        'mailing'=>array(
-          'address1'=>$order['mailing_address1'],
-          'address2'=>$order['mailing_address2'],
-          'address3'=>$order['mailing_address3'],
-          'city'=>$order['mailing_city'],
-          'country'=>$order['mailing_country'],
-          'postalCode'=>'',
-          'telephone'=>'',
-          'telephoneCountryCode'=>'',
+        'taxResidency2'=>array(
+          'taxResidency'=>$order['owner']['taxResidency2'],
+          'taxResidencyTin'=>$order['owner']['taxResidencyTin2'],
         ),
-        'marital'=>$order['marital_status'],
-        'mobileNumber'=>$order['mobile'],
-        'mobileNumberCountryCode'=>'',
-        'nationality'=>$order['nationality'],
-        'occupationCode'=>$order['referenceNumber'],
-        'relationship'=>$order['relationship'],
-        'residence'=>array(
-          'address1'=>$order['residence_address1'],
-          'address2'=>$order['residence_address2'],
-          'address3'=>$order['residence_address3'],
-          'city'=>$order['residence_city'],
-          'country'=>$order['residence_country'],
-          'postalCode'=>'',
-          'telephone'=>'',
-          'telephoneCountryCode'=>'',
+        'taxResidency3'=>array(
+          'taxResidency'=>$order['owner']['taxResidency3'],
+          'taxResidencyTin'=>$order['owner']['taxResidencyTin3'],
         ),
-        'solicitation'=>$order['referenceNumber'],
-        'optOutReason'=>$order['referenceNumber'],
-        'surname'=>$order['surname'],
-      ),
+      ],
+      'beneficiaryDtos'=>[
+        [
+          'beneficiaryClass'=>'1',
+          'beneficiarySequence'=>'1',
+          'chineseName'=>$order['owner']['chineseName'],
+          'customerType'=>'',
+          'givenName'=>$order['owner']['givenName'],
+          'identityNumber'=>$order['owner']['identityNumber'],
+          'relationship'=>$order['beneficiary_relationship'],
+          'shared'=>'',
+          'surname'=>$order['owner']['surname'],
+        ],
+      ],
+      'benefitDtos'=>[
+        [
+          'attachTo'=>'',
+          'coverageClass'=>'',
+          'coverageCode'=>$order['plan_code'],
+          'coverageNumber'=>'',
+          'currency'=>$order['currency'],
+          'customerSequence'=>'',
+          'customerType'=>'',
+          'faceAmount'=>$order['face_amount'],
+          'plannedPremium'=>$order['initial_premium'],
+          'protectionFaceAmount'=>$order['modal_premium_payment'],
+          'savingFaceAmount'=>'',
+        ],
+      ],
+      'customerDtos'=>[
+        [
+          'age'=>$owner_age,
+          'birthDate'=>$order['owner']['birthDate'],
+          'birthPlace'=>'',
+          'chineseName'=>$order['owner']['chineseName'],
+          'citizenship'=>$order['owner']['nationality'],
+          'countryRegionCode'=>$order['owner']['issueCountry'],
+          'customerSequence'=>'',
+          'customerType'=>'',
+          'email'=>$order['owner']['email'],
+          'gender'=>$order['owner']['gender'],
+          'givenName'=>$order['owner']['givenName'],
+          'identityNumber'=>$order['owner']['identityNumber'],
+          'identityType'=>$order['owner']['identityType'],
+          'isPermanentHkid'=>$order['owner']['isPermanentHkid']=='Y'?true:false,
+          'isValidIdType'=>true,
+          'issueCountry'=>$order['owner']['issueCountry'],
+          'mailing'=>array(
+            'address1'=>$order['owner']['mailing_address1'],
+            'address2'=>$order['owner']['mailing_address2'],
+            'address3'=>$order['owner']['mailing_address3'],
+            'city'=>$order['owner']['mailing_city'],
+            'country'=>$order['owner']['mailing_country'],
+            'postalCode'=>'',
+            'telephone'=>'',
+            'telephoneCountryCode'=>'',
+          ),
+          'marital'=>$order['owner']['marital'],
+          'mobileNumber'=>$order['owner']['mobile'],
+          'mobileNumberCountryCode'=>'',
+          'nationality'=>$order['owner']['nationality'],
+          'occupationCode'=>$order['owner']['occupationCode'],
+          'relationship'=>$order['owner']['relationship'],
+          'residence'=>array(
+            'address1'=>$order['owner']['residence_address1'],
+            'address2'=>$order['owner']['residence_address2'],
+            'address3'=>$order['owner']['residence_address3'],
+            'city'=>$order['owner']['residence_city'],
+            'country'=>$order['owner']['residence_country'],
+            'postalCode'=>'',
+            'telephone'=>'',
+            'telephoneCountryCode'=>'',
+          ),
+          'solicitation'=>$order['owner']['solicitation'],
+          'optOutReason'=>$order['owner']['referenceNumber'],
+          'surname'=>$order['owner']['surname'],
+        ],
+        
+      ],
       'paymentTransactionDto'=>array(
         'amount'=>'',
         'amountInPolicyCurrency'=>'',
-        'authorizationCode'=>'',
+        'authorizationCode'=>$order['authorizationCode'],
         'bankName'=>'',
         'basicPlanCode'=>'',
         'cardHolderName'=>'',
         'cardType'=>'',
         'currency'=>$order['currency'],
-        'insuredFirstName'=>$order['customer_insured_givenName'],
-        'insuredLastName'=>$order['customer_insured_surname'],
-        'ownerFirstName'=>$order['givenName'],
-        'ownerLastName'=>$order['surname'],
+        'insuredFirstName'=>$order['insured']['givenName'],
+        'insuredLastName'=>$order['insured']['surname'],
+        'ownerFirstName'=>$order['owner']['givenName'],
+        'ownerLastName'=>$order['owner']['surname'],
         'paymentReceivedDate'=>'',
-        'payorFirstName'=>$order['customer_payor_givenName'],
-        'payorLastName'=>$order['customer_payor_surname'],
+        'payorFirstName'=>$order['owner']['givenName'],
+        'payorLastName'=>$order['owner']['surname'],
         'payorRole'=>'',
         'policyCurrency'=>'',
         'referenceNumber'=>'',
         'transactionStatus'=>'',
         'transactionUpdatedDate'=>'',
       ),
-      'questionnaireDtos'=>array(
-        'customerType'=>'',
-        'questionnaireNumber'=>'',
-        'questionnaireSectionId'=>'',
-        'questionnaireText'=>'',
-        'questionnaireYesOrNo'=>'',
-      ),
+      'questionnaireDtos'=>[
+        [
+          'customerType'=>'I',
+          'questionnaireNumber'=>1,
+          'questionnaireSectionId'=>'',
+          'questionnaireText'=>'',
+          'questionnaireYesOrNo'=>$order['health_details_q_1']=='Y'?true:false,
+        ],
+        [
+          'customerType'=>'I',
+          'questionnaireNumber'=>2,
+          'questionnaireSectionId'=>'',
+          'questionnaireText'=>'',
+          'questionnaireYesOrNo'=>$order['health_details_q_2']=='Y'?true:false,
+        ],
+        [
+          'customerType'=>'I',
+          'questionnaireNumber'=>3,
+          'questionnaireSectionId'=>'',
+          'questionnaireText'=>'',
+          'questionnaireYesOrNo'=>$order['health_details_q_3']=='Y'?true:false,
+        ],
+        [
+          'customerType'=>'I',
+          'questionnaireNumber'=>4,
+          'questionnaireSectionId'=>'',
+          'questionnaireText'=>'',
+          'questionnaireYesOrNo'=>$order['health_details_q_4']=='Y'?true:false,
+        ],
+        [
+          'customerType'=>'I',
+          'questionnaireNumber'=>5,
+          'questionnaireSectionId'=>'',
+          'questionnaireText'=>'',
+          'questionnaireYesOrNo'=>$order['health_details_q_5']=='Y'?true:false,
+        ],
+      ],
     );
     return $results;
   }

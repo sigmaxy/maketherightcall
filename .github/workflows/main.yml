@@ -39,6 +39,7 @@ jobs:
             chmod -R 777 sites/stag/files/
             vendor/bin/drupal --uri=stagmtrc.sigmaxu.com update:execute system
             vendor/bin/drupal --uri=stagmtrc.sigmaxu.com cr all
+  # vendor/bin/drupal --uri=locahost/maketherightcall cr all
   # deploy_production:
   #   runs-on: ubuntu-latest
   #   environment: PRODUCTION

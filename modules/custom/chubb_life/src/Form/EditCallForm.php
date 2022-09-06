@@ -22,6 +22,7 @@ class EditCallForm extends FormBase {
     return 'edit_call_form';
   }
   public $call_id;
+  public $import_customer_id;
   /**
    * {@inheritdoc}
    */
@@ -30,6 +31,8 @@ class EditCallForm extends FormBase {
       $this->call_id = $call_id;
     }
     $db_call = CallController::get_call_by_id($call_id);
+    // print_r($db_call);exit;
+    $this->import_customer_id = $db_call['import_customer_id'];
     $import_customer = CustomerController::get_import_customer_by_id($db_call['import_customer_id']);
     $customer_detail = '
     <table>
@@ -103,7 +106,7 @@ class EditCallForm extends FormBase {
           'data' => $header_table,
         ),
       ),
-      '#rows' => $rows,
+      // '#rows' => $rows,
       '#empty' => t('No Premium found'),
       '#attributes' => [   
         'class' => ['premium_list'],
@@ -118,7 +121,7 @@ class EditCallForm extends FormBase {
       '#title' => $this->t('Call Status'),
       '#weight' => '3',
       '#options' => $call_status_opt,
-      '#value' => isset($db_call['status'])?$db_call['status']:0,
+      '#default_value' => isset($db_call['status'])?$db_call['status']:0,
     ];
     $form['remark'] = array(
       '#type' => 'textarea',
@@ -179,7 +182,7 @@ class EditCallForm extends FormBase {
   public function sales_call(array &$form, FormStateInterface $form_state) {
     $url = Url::fromRoute('chubb_life.edit_order_form', [
       'order_id' => 'add',
-      'call_id' => $this->call_id,
+      'customer_id' => $this->import_customer_id,
     ]);
     $form_state->setRedirectUrl($url);
   }

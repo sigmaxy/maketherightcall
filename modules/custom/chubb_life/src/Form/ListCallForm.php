@@ -36,7 +36,6 @@ class ListCallForm extends FormBase {
     $header_table['opt'] = t('Opt');
     $rows=array();
     $current_uid = \Drupal::currentUser()->id();
-    $current_uid = 3;
     $call_list = CallController::list_call_by_assignee($current_uid);
     foreach($call_list as $key=>$data){
       $edit   = Url::fromUserInput('/chubb_life/form/edit_call/'.$data->id);

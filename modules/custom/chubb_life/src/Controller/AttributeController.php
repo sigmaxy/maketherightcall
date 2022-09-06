@@ -4,6 +4,8 @@ namespace Drupal\chubb_life\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class AttributeController.
@@ -41,6 +43,17 @@ class AttributeController extends ControllerBase {
     $query->fields('mp');
     $record = $query->execute()->fetchAll();
     return $record;
+  }
+  public static function ajax_datatable_list_premium(){
+    $results = [];
+    $results['draw'] = 1;
+    $premium_list = self::list_premium();
+    $results['recordsTotal'] = count($premium_list);
+    $results['recordsFiltered'] = count($premium_list);
+    foreach($premium_list as $key => $data){
+      $results['data'][] = [$data->plan_code,$data->plan_level,$data->smokers_code,$data->gender,$data->age,$data->currency,$data->premium];
+    }
+    return new JsonResponse($results);
   }
   public static function get_country_list() {
     $connection = Database::getConnection();

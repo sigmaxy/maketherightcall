@@ -5,7 +5,8 @@ namespace Drupal\chubb_life\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\chubb_life\Controller\OrderController;
-
+use Drupal\Core\Url;
+use Drupal\Core\Link;
 /**
  * Class ListOrderForm.
  */
@@ -27,17 +28,18 @@ class ListOrderForm extends FormBase {
     $header_table['mobile'] = t('Mobile');
     $header_table['plan_code'] = t('Plan Code');
     $header_table['created_at'] = t('Created At');
+    $header_table['opt'] = t('Operation');
     $rows=array();
     $order_list = OrderController::list_order();
     foreach($order_list as $key=>$data){
-      // $edit   = Url::fromUserInput('/chubb_life/form/editcall/'.$data->id);
-      $row_data['last_name'] = $data->surname;
-      $row_data['first_name'] = $data->givenName;
-      $row_data['mobile'] = $data->mobile;
+      $edit   = Url::fromUserInput('/chubb_life/form/edit_order/'.$data->id);
+      $client_owner = OrderController::get_order_client_by_type($data->id,1);
+      $row_data['last_name'] = $client_owner['surname'];
+      $row_data['first_name'] = $client_owner['givenName'];
+      $row_data['mobile'] = $client_owner['mobile'];
       $row_data['plan_code'] = $data->plan_code;
       $row_data['created_at'] = date('Y-m-d',$data->created_at);
-      
-      // $row_data['opt'] = Link::fromTextAndUrl('Edit', $edit);
+      $row_data['opt'] = Link::fromTextAndUrl('Edit', $edit);
       $rows[$data->id] = $row_data;
     }
     $form['order_filter'] = [

@@ -26,7 +26,13 @@ chubb_life.upload_customer_form:
 #     _format: json
 #   requirements:
 #    _permission: 'access chubb_life coniguration'
-
+chubb_life.list_premium_data:
+  path: '/chubb_life/data/listpremium'
+  defaults:
+    _controller: '\Drupal\chubb_life\Controller\AttributeController::ajax_datatable_list_premium'
+    _title: 'List Premium'
+  requirements:
+    _permission: 'access chubb_life_assignee configuration'
 chubb_life.list_call_form:
   path: '/chubb_life/form/list_call'
   defaults:
