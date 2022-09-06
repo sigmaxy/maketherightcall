@@ -813,13 +813,9 @@ $databases['default']['default']['username'] = 'root';
 $databases['default']['default']['password'] = 'P@$$w0rd';
 $databases['default']['default']['host'] = 'localhost';
 $databases['default']['default']['port'] = '3306';
-$settings['email_username'] = 'noreply@first4figures.com';
-$settings['email_password'] = 'P@$$w0rd';
 
 // staging:
 // $databases['default']['default']['username'] = 'root';
 // $databases['default']['default']['password'] = 'P@$$w0rd';
 // $databases['default']['default']['host'] = 'db-stag-mtrc.sigmaxu.com';
 // $databases['default']['default']['port'] = '3306';
-// $settings['email_username'] = 'noreply@first4figures.com';
-// $settings['email_password'] = 'P@$$w0rd';
