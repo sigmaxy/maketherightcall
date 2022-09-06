@@ -51,7 +51,15 @@ class AttributeController extends ControllerBase {
     $results['recordsTotal'] = count($premium_list);
     $results['recordsFiltered'] = count($premium_list);
     foreach($premium_list as $key => $data){
-      $results['data'][] = [$data->plan_code,$data->plan_level,$data->smokers_code,$data->gender,$data->age,$data->currency,$data->premium];
+      $results['data'][] = [
+        $data->plan_code,
+        $data->plan_level,
+        $data->smokers_code,
+        $data->gender,
+        $data->age,
+        $data->currency,
+        $data->premium,
+      ];
     }
     return new JsonResponse($results);
   }
