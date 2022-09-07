@@ -62,7 +62,7 @@ chubb_life.list_order_form:
     _form: '\Drupal\chubb_life\Form\ListOrderForm'
     _title: 'List Smart Form'
   requirements:
-    _permission: 'access chubb_life_manager coniguration'
+    _permission: 'access chubb_life_assignee coniguration'
     
 chubb_life.edit_order_form:
   path: '/chubb_life/form/edit_order/{order_id}'
@@ -70,4 +70,20 @@ chubb_life.edit_order_form:
     _form: '\Drupal\chubb_life\Form\EditOrderForm'
     _title: 'Edit Order Form'
   requirements:
-    _permission: 'access chubb_life_manager coniguration'
+    _permission: 'access chubb_life_assignee coniguration'
+
+chubb_life.ajax_call_log:
+  path: '/chubb_life/ajax_call_log/{call_id}'
+  defaults:
+    _controller: '\Drupal\chubb_life\Controller\CallController::ajax_call_log'
+    _title: 'Call log'
+  requirements:
+    _permission: 'access chubb_life_assignee coniguration'
+
+chubb_life.list_call_log_form:
+  path: '/chubb_life/form/list_call_log/{call_id}'
+  defaults:
+    _form: '\Drupal\chubb_life\Form\ListCallLogForm'
+    _title: 'List Call Log'
+  requirements:
+    _permission: 'access chubb_life_assignee coniguration'

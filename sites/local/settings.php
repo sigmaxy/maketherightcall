@@ -800,7 +800,8 @@ $settings['trusted_host_patterns'] = [
   '^.+\.sigmaxu\.com$',
   '^.+\.f4fonline\.com$'
 ];
-
+// $config['system.logging']['error_level'] = 'verbose';
+$settings['pickup_call_url'] = 'https://maketherightcall.com/';
 $settings['config_sync_directory'] = $site_path.'/files/sync';
 $databases['default']['default']['database'] = 'mtrc';
 $databases['default']['default']['prefix'] = '';

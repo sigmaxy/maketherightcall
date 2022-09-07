@@ -40,9 +40,16 @@ jQuery(document).ready(function($){
             $('#edit-customer-insured').show();
         }
     }
-    
 });
 
+
+
+
+(function($) {
+	$.fn.open_new_tab = function(data){
+		open(data, '_blank')
+	}
+})(jQuery);
 function sale_sample_data(){
     jQuery('input[name="aeonRefNumber"]').val('aeonRefNumber');
     jQuery('input[name="same_as_owner"]').val('Y');

@@ -32,11 +32,23 @@ class ListCustomerForm extends FormBase {
     $header_table['name'] = t('Name');
     $header_table['gender'] = t('Gender');
     $header_table['tel_mbl'] = t('Mobile');
-    $header_table['tel_hom'] = t('Tel');
+    $header_table['status'] = t('Status');
+    $header_table['assignee'] = t('Assignee');
+    $header_table['created_at'] = t('Assignee');
     $rows=array();
     $import_customer_list = CustomerController::list_import_customer();
+    $call_status_opt = AttributeController::get_call_status_options();
     foreach($import_customer_list as $key=>$data){
       // $edit   = Url::fromUserInput('/chubb_life/form/editcall/'.$data->id);
+      $db_call = CallController::get_call_by_import_customer_id($data->id);
+      if (isset($db_call['id'])) {
+        $row_data['status'] = $call_status_opt[$db_call['status']];
+        $user = \Drupal\user\Entity\User::load($db_call['assignee_id']);
+        $row_data['assignee'] = $user->get('mail')->getString();
+      }else{
+        $row_data['status'] = 'Not Assigned';
+        $row_data['assignee'] = '';
+      }
       $row_data['cust_ref'] = $data->cust_ref;
       $row_data['name'] = $data->name;
       $row_data['gender'] = $data->gender;

@@ -9,6 +9,9 @@ use Drupal\chubb_life\Controller\CustomerController;
 use Drupal\Core\Render\Markup;
 use Drupal\chubb_life\Controller\AttributeController;
 use Drupal\Core\Url;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\MessageCommand;
 
 /**
  * Class EditCallForm.
@@ -137,9 +140,8 @@ class EditCallForm extends FormBase {
     $form['makecall'] = [
       '#type' => 'button',
       '#value' => $this->t('Make Call'),
-      '#attributes' => [   
-        'class' => ['next_button','load_data_po'],
-        'onclick' => 'return (false);',
+      '#ajax' => [
+        'callback' => '::make_call',
       ],
       '#weight' => '6',
     ];
@@ -178,6 +180,16 @@ class EditCallForm extends FormBase {
     $call['remark'] = $form_state->getValue('remark');
     CallController::update_call($call);
     \Drupal::messenger()->addMessage('Call has been updated');
+    $form_state->setRedirectUrl(Url::fromRoute('chubb_life.list_call_form'));
+  }
+  public function make_call(array $form, FormStateInterface $form_state) {
+    $field=$form_state->getValues();
+    $call_status = $field['status'];
+    CallController::make_call($this->call_id);
+    $response = new AjaxResponse();
+    $pickup_call_url = \Drupal\Core\Site\Settings::get('pickup_call_url');
+    $response->addCommand(new InvokeCommand(NULL, 'open_new_tab', [$pickup_call_url]));
+    return $response;
   }
   public function sales_call(array &$form, FormStateInterface $form_state) {
     $url = Url::fromRoute('chubb_life.edit_order_form', [

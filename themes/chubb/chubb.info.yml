@@ -2,7 +2,9 @@ name: chubb
 type: theme
 base theme: olivero
 description: 'An extension with basic overrides to Olivero: a clean, accessible, and flexible Drupal front-end theme.'
-alt text: 'Screenshot of Kodomo 2.0, Drupal front-end theme.'
+alt text: 'Screenshot of MTRC, front-end theme.'
 package: Core
 version: VERSION
 core_version_requirement: ^9
+libraries:
+  - chubb/global-styling

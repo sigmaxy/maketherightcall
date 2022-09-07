@@ -2,7 +2,7 @@
  * @file
  * This file is to add any custom js for the drupal8 w3css subtheme.
  */
- jQuery(document).ready(function($) {
+jQuery(document).ready(function($) {
 	var datatable = $('table.table_list_data');
 
 	/**
@@ -90,23 +90,5 @@
 	});
 
 	$('select:not(".noselect2")').select2();
-
-	var dialog = $( "#dialog-form" ).dialog({
-      autoOpen: false,
-      height: 250,
-      width: 350,
-      modal: true,
-      // buttons: {
-      //   // "Create an account": addUser,
-      //   Cancel: function() {
-      //     dialog.dialog( "close" );
-      //   }
-      // },
-      close: function() {
-        // form[ 0 ].reset();
-        // allFields.removeClass( "ui-state-error" );
-      }
-    });
-
 
 });

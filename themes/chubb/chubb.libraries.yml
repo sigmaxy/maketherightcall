@@ -2,4 +2,14 @@ global-styling:
   version: VERSION
   css:
     theme:
-      css/style.css: {}
+      css/styles.css: {}
+      css/datatables.min.css: {}
+      https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css: { type: external, minified: true }
+  js:
+    js/script.js: {}
+    js/datatables.min.js: {}
+    https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js: { type: external, minified: true }
+    # https://unpkg.com/@popperjs/core@2: { type: external, minified: true }
+    # https://unpkg.com/tippy.js@6: { type: external, minified: true }
+    # https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js: { type: external, minified: true }
+    # https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js: { type: external, minified: true }

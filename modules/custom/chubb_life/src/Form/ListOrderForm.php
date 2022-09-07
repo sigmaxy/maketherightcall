@@ -40,13 +40,13 @@ class ListOrderForm extends FormBase {
       $row_data['first_name'] = $client_owner['givenName'];
       $row_data['mobile'] = $client_owner['mobile'];
       $row_data['plan_code'] = $data->plan_code;
-      $row_data['created_at'] = date('Y-m-d',$data->created_at);
+      $row_data['created_at'] = date('Y-m-d H:i:s',$data->created_at);
       $row_data['opt'] = Link::fromTextAndUrl('Edit', $edit);
       $rows[$data->id] = $row_data;
     }
     $form['order_filter'] = [
       '#type'  => 'details',
-      '#title' => $this->t('Import Customer'),
+      '#title' => $this->t('Sales Order List'),
       '#open'  => true,
       '#weight' => '2',
     ];

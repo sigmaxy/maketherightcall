@@ -33,19 +33,28 @@ class ListCallForm extends FormBase {
     $header_table['gender'] = t('Gender');
     $header_table['tel_mbl'] = t('Mobile');
     $header_table['status'] = t('Status');
+    $header_table['count'] = t('Call Num');
     $header_table['opt'] = t('Opt');
     $rows=array();
     $current_uid = \Drupal::currentUser()->id();
     $call_list = CallController::list_call_by_assignee($current_uid);
+    $call_status_opt = AttributeController::get_call_status_options();
     foreach($call_list as $key=>$data){
-      $edit   = Url::fromUserInput('/chubb_life/form/edit_call/'.$data->id);
+      $edit = Url::fromUserInput('/chubb_life/form/edit_call/'.$data->id);
+      $view_log = Url::fromUserInput('/chubb_life/form/list_call_log/'.$data->id);
       $import_customer_id = $data->import_customer_id;
       $import_customer = CustomerController::get_import_customer_by_id($import_customer_id);
       $row_data['cust_ref'] = $import_customer['cust_ref'];
       $row_data['name'] = $import_customer['name'];
       $row_data['gender'] = $import_customer['gender'];
       $row_data['tel_mbl'] = $import_customer['tel_mbl'];
-      $row_data['status'] = $data->status;
+      $row_data['status'] = $call_status_opt[$data->status];
+      $row_data['count'] = [
+        'class'=>['call_count'],
+        'data-call_id'=>$data->id,
+        // 'data' => $data->count,
+        'data' => Link::fromTextAndUrl($data->count, $view_log),
+      ];
       $row_data['opt'] = Link::fromTextAndUrl('View', $edit);
       $rows[$data->id] = $row_data;
     }
