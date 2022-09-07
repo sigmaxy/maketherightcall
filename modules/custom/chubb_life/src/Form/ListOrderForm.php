@@ -118,7 +118,7 @@ class ListOrderForm extends FormBase {
     $json_file_path = 'public://temp/'.$json_file_name;
     $file = file_save_data(json_encode($json_arr,JSON_PRETTY_PRINT), $json_file_path, 1);
     $link = file_create_url($json_file_path); 
-    \Drupal::messenger()->addMessage(t('Download json File <a href="@link">Right Click and Save Link As</a>', array('@link' => $link)));
+    \Drupal::messenger()->addMessage(t('Download json File <a href="@link" target="_blank">Click Here</a>', array('@link' => $link)));
   }
 
 }
