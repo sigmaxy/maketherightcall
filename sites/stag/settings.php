@@ -22,3 +22,4 @@ $databases['default']['default']['prefix'] = '';
 $databases['default']['default']['namespace'] = 'Drupal\\Core\\Database\\Driver\\mysql';
 $databases['default']['default']['driver'] = 'mysql';
 $databases['default']['default']['autoload'] = 'core/modules/mysql/src/Driver/Database/mysql/';
+// $config['system.logging']['error_level'] = 'verbose';

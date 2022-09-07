@@ -2,7 +2,7 @@
  * @file
  * This file is to add any custom js for the drupal8 w3css subtheme.
  */
-jQuery(document).ready(function($) {
+ jQuery(document).ready(function($) {
 	var datatable = $('table.table_list_data');
 
 	/**
