@@ -44,7 +44,12 @@ class ListCustomerForm extends FormBase {
       if (isset($db_call['id'])) {
         $row_data['status'] = $call_status_opt[$db_call['status']];
         $user = \Drupal\user\Entity\User::load($db_call['assignee_id']);
-        $row_data['assignee'] = $user->getEmail();
+        if(!$user){
+          $row_data['assignee'] = $user->getEmail();
+        } 
+        else {
+          $row_data['assignee'] = $db_call['assignee_id'];
+        }
       }else{
         $row_data['status'] = 'Not Assigned';
         $row_data['assignee'] = '';

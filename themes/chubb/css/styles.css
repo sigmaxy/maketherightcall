@@ -20,5 +20,9 @@ fieldset.collapsible {
     background-size: 160px 100px;
 }
 .customer_detail{
+    /* border: 1px solid; */
+    border-collapse: collapse;
+}
+.customer_detail td{
     border: 1px solid;
 }
