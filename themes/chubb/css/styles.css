@@ -32,3 +32,6 @@ body {
     background-color: #fff;
     background-image: none;
 }
+.site-header__initial {
+    background-color: #ff3399;
+}
