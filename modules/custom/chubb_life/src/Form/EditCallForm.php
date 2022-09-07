@@ -128,7 +128,7 @@ class EditCallForm extends FormBase {
     ];
     $form['remark'] = array(
       '#type' => 'textarea',
-      '#title' => $this->t('remark'),
+      '#title' => $this->t('Remarks'),
       '#default_value' => $db_call['remark']?$db_call['remark']:'',
       '#weight' => '4',
     );

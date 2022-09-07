@@ -26,3 +26,9 @@ fieldset.collapsible {
 .customer_detail td{
     border: 1px solid;
 }
+body {
+    margin: 0;
+    color: #313637;
+    background-color: #fff;
+    background-image: none;
+}
