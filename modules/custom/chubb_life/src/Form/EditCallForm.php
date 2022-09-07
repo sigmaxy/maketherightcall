@@ -104,7 +104,7 @@ class EditCallForm extends FormBase {
       '#type'  => 'details',
       '#title' => $this->t('Product Detail'),
       '#open'  => true,
-      '#weight' => '2',
+      '#weight' => '3',
     ];
     $form['product_detail']['premium_list_table'] = [
       '#type' => 'table',
@@ -129,7 +129,7 @@ class EditCallForm extends FormBase {
       '#type'  => 'details',
       '#title' => $this->t('Call Functions'),
       '#open'  => true,
-      '#weight' => '3',
+      '#weight' => '2',
     ];
     $call_status_opt = AttributeController::get_call_status_options();
     $form['call_detail']['status'] = [
@@ -148,17 +148,18 @@ class EditCallForm extends FormBase {
       '#default_value' => $db_call['remark']?$db_call['remark']:'',
       '#weight' => '4',
     );
-    $form['call_detail']['submit'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Submit'),
-      '#weight' => '5',
-    ];
+    
     $form['call_detail']['makecall'] = [
       '#type' => 'button',
       '#value' => $this->t('Make Call'),
       '#ajax' => [
         'callback' => '::make_call',
       ],
+      '#weight' => '5',
+    ];
+    $form['call_detail']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Save'),
       '#weight' => '6',
     ];
     $form['call_detail']['sales'] = [
