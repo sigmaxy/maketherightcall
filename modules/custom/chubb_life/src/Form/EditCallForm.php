@@ -37,27 +37,47 @@ class EditCallForm extends FormBase {
     // print_r($db_call);exit;
     $this->import_customer_id = $db_call['import_customer_id'];
     $import_customer = CustomerController::get_import_customer_by_id($db_call['import_customer_id']);
+    // $customer_detail = '
+    // <table class="customer_detail">
+    // <tr><td>Cust Ref</td><td>'.$import_customer['cust_ref'].'</td></tr>
+    // <tr><td>Name</td><td>'.$import_customer['name'].'</td></tr>
+    // <tr><td>Gender</td><td>'.$import_customer['gender'].'</td></tr>
+    // <tr><td>Mobile</td><td>'.$import_customer['tel_mbl'].'</td></tr>
+    // <tr><td>Tel</td><td>'.$import_customer['tel_hom'].'</td></tr>
+    // <tr><td>HKID</td><td>'.$import_customer['hkid'].'</td></tr>
+    // <tr><td>ACC NO</td><td>'.$import_customer['acc_no'].'</td></tr>
+    // <tr><td>Card Brand</td><td>'.$import_customer['card_brand'].'</td></tr>
+    // <tr><td>Card Type</td><td>'.$import_customer['card_type'].'</td></tr>
+    // <tr><td>Date of Birth</td><td>'.$import_customer['dob'].'</td></tr>
+    // <tr><td>Married Status</td><td>'.$import_customer['married_status'].'</td></tr>
+    // <tr><td>Address</td><td>'.$import_customer['address'].'</td></tr>
+    // <tr><td>Living Person</td><td>'.$import_customer['living_person'].'</td></tr>
+    // <tr><td>Email</td><td>'.$import_customer['email'].'</td></tr>
+    // <tr><td>Member Since</td><td>'.$import_customer['member_since'].'</td></tr>
+    // <tr><td>Occupation</td><td>'.$import_customer['occupation'].'</td></tr>
+    // <tr><td>Position</td><td>'.$import_customer['position'].'</td></tr>
+    // </table>';
     $customer_detail = '
     <table class="customer_detail">
-    <tr><td>Cust Ref</td><td>'.$import_customer['cust_ref'].'</td></tr>
-    <tr><td>Name</td><td>'.$import_customer['name'].'</td></tr>
-    <tr><td>Gender</td><td>'.$import_customer['gender'].'</td></tr>
-    <tr><td>Mobile</td><td>'.$import_customer['tel_mbl'].'</td></tr>
-    <tr><td>Tel</td><td>'.$import_customer['tel_hom'].'</td></tr>
-    <tr><td>HKID</td><td>'.$import_customer['hkid'].'</td></tr>
-    <tr><td>ACC NO</td><td>'.$import_customer['acc_no'].'</td></tr>
-    <tr><td>Card Brand</td><td>'.$import_customer['card_brand'].'</td></tr>
-    <tr><td>Card Type</td><td>'.$import_customer['card_type'].'</td></tr>
-    <tr><td>Date of Birth</td><td>'.$import_customer['dob'].'</td></tr>
-    <tr><td>Married Status</td><td>'.$import_customer['married_status'].'</td></tr>
-    <tr><td>Address</td><td>'.$import_customer['address'].'</td></tr>
-    <tr><td>Living Person</td><td>'.$import_customer['living_person'].'</td></tr>
-    <tr><td>Email</td><td>'.$import_customer['email'].'</td></tr>
-    <tr><td>Member Since</td><td>'.$import_customer['member_since'].'</td></tr>
-    <tr><td>Occupation</td><td>'.$import_customer['occupation'].'</td></tr>
-    <tr><td>Position</td><td>'.$import_customer['position'].'</td></tr>
+    <tr><td><b>Cust Ref</b></td><td>'.$import_customer['cust_ref'].'</td><td><b>Name</b></td><td>'.$import_customer['name'].'</td></tr>
+    <tr><td><b>Gender</b></td><td>'.$import_customer['gender'].'</td><td><b>Mobile</b></td><td>'.$import_customer['tel_mbl'].'</td></tr>
+    <tr><td><b>Tel</b></td><td>'.$import_customer['tel_hom'].'</td><td><b>HKID</b></td><td>'.$import_customer['hkid'].'</td></tr>
+    <tr><td><b>ACC NO</b></td><td>'.$import_customer['acc_no'].'</td><td><b>Card Brand</b></td><td>'.$import_customer['card_brand'].'</td></tr>
+    <tr><td><b>Card Type</b></td><td>'.$import_customer['card_type'].'</td><td><b>Date of Birth</b></td><td>'.$import_customer['dob'].'</td></tr>
+    <tr><td><b>Married Status</b></td><td>'.$import_customer['married_status'].'</td><td><b>Address</b></td><td>'.$import_customer['address'].'</td></tr>
+    <tr><td><b>Living Person</b></td><td>'.$import_customer['living_person'].'</td><td><b>Email</b></td><td>'.$import_customer['email'].'</td></tr>
+    <tr><td><b>Member Since</b></td><td>'.$import_customer['member_since'].'</td><td><b>Occupation</b></td><td>'.$import_customer['occupation'].'</td></tr>
+    <tr><td><b>Position</b></td><td>'.$import_customer['position'].'</td><td></td><td></td></tr>
     </table>';
-    $form['detail'] = [
+    $form['customer_detail'] = [
+      '#type'  => 'details',
+      '#title' => $this->t('Customer Detail'),
+      '#open'  => true,
+      '#weight' => '1',
+    ];
+    
+    
+    $form['customer_detail']['detail'] = [
       '#markup' => Markup::create($customer_detail),
       '#weight' => '1',
     ];
@@ -68,25 +88,6 @@ class EditCallForm extends FormBase {
     $header_table['age'] = t('Age');
     $header_table['currency'] = t('Currency');
     $header_table['premium'] = t('Premium');
-    
-    // $header_table['row1']['plan_code'] = t('Code');
-    // $header_table['row1']['plan_level'] = t('Level');
-    // $header_table['row1']['smokers_code'] = t('Smoker');
-    // $header_table['row1']['gender'] = t('Gender');
-    // $header_table['row1']['age'] = t('Age');
-    // $header_table['row1']['currency'] = t('Currency');
-    // $header_table['row1']['premium'] = t('Premium');
-    // $header_table['row2']['plan_code'] = t('Code1');
-    // $header_table['row2']['plan_level'] = t('Level1');
-    // $header_table['row2']['smokers_code'] = t('Smoker1');
-    // $header_table['row2']['gender'] = t('Gender1');
-    // $header_table['row2']['age'] = t('Age1');
-    // $header_table['row2']['currency'] = t('Currenc1y');
-    // $header_table['row2']['premium'] = t('Premium1');
-
-    // $header_table['row1'] = ['plan_code','plan_level','smokers_code','gender','age','currency','premium'];
-    // $header_table = ['plan_cod1e','plan_le1vel','smoker1s_code','gen1der','ag1e','cu1rrency','pre1mium'];
-
     $rows=array();
     $premium_list = AttributeController::list_premium();
     foreach($premium_list as $key=>$data){
@@ -99,7 +100,13 @@ class EditCallForm extends FormBase {
       $row_data['premium'] = $data->premium;
       $rows[] = $row_data;
     }
-    $form['premium_list_table'] = [
+    $form['product_detail'] = [
+      '#type'  => 'details',
+      '#title' => $this->t('Product Detail'),
+      '#open'  => true,
+      '#weight' => '2',
+    ];
+    $form['product_detail']['premium_list_table'] = [
       '#type' => 'table',
       '#header' => $header_table,
       // '#footer' => $header_table,
@@ -118,26 +125,35 @@ class EditCallForm extends FormBase {
       ],
       '#weight' => '2',
     ];
+    $form['call_detail'] = [
+      '#type'  => 'details',
+      '#title' => $this->t('Call Functions'),
+      '#open'  => true,
+      '#weight' => '3',
+    ];
     $call_status_opt = AttributeController::get_call_status_options();
-    $form['status'] = [
+    $form['call_detail']['status'] = [
       '#type' => 'select',
       '#title' => $this->t('Call Status'),
       '#weight' => '3',
       '#options' => $call_status_opt,
       '#default_value' => isset($db_call['status'])?$db_call['status']:0,
+      '#attributes' => [   
+        'class' => ['noselect2'],
+      ],
     ];
-    $form['remark'] = array(
+    $form['call_detail']['remark'] = array(
       '#type' => 'textarea',
       '#title' => $this->t('Remarks'),
       '#default_value' => $db_call['remark']?$db_call['remark']:'',
       '#weight' => '4',
     );
-    $form['submit'] = [
+    $form['call_detail']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Submit'),
       '#weight' => '5',
     ];
-    $form['makecall'] = [
+    $form['call_detail']['makecall'] = [
       '#type' => 'button',
       '#value' => $this->t('Make Call'),
       '#ajax' => [
@@ -145,7 +161,7 @@ class EditCallForm extends FormBase {
       ],
       '#weight' => '6',
     ];
-    $form['sales'] = [
+    $form['call_detail']['sales'] = [
       '#type' => 'submit',
       '#value' => $this->t('Sales'),
       '#attributes' => [

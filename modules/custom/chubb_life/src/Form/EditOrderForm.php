@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\chubb_life\Controller\AttributeController;
 use Drupal\chubb_life\Controller\OrderController;
+use Drupal\Core\Url;
 
 /**
  * Class EditOrderForm.
@@ -1174,6 +1175,7 @@ class EditOrderForm extends FormBase {
     }
     OrderController::update_order($order);
     \Drupal::messenger()->addMessage('Order has been updated');
+    $form_state->setRedirectUrl(Url::fromRoute('chubb_life.list_order_form'));
   }
 
 }

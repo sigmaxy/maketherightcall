@@ -22,17 +22,18 @@ fieldset.collapsible {
 .customer_detail{
     /* border: 1px solid; */
     border-collapse: collapse;
-    width: 60%;
+    width: 100%;
 }
 .customer_detail td{
     border: 1px solid #f0f0f0;
 }
 body {
-    margin: 0;
-    color: #313637;
     background-color: #fff;
     background-image: none;
 }
 .site-header__initial {
+    background-color: #ff3399;
+}
+.sticky-header-toggle {
     background-color: #ff3399;
 }

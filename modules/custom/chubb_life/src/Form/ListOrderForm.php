@@ -28,7 +28,7 @@ class ListOrderForm extends FormBase {
     $header_table['first_name'] = t('First Name');
     $header_table['mobile'] = t('Mobile');
     $header_table['plan_code'] = t('Plan Code');
-    $header_table['created_at'] = t('Created At');
+    $header_table['updated_at'] = t('Updated At');
     $header_table['opt'] = t('Operation');
     $rows=array();
     $order_list = OrderController::list_order();
@@ -40,7 +40,7 @@ class ListOrderForm extends FormBase {
       $row_data['first_name'] = $client_owner['givenName'];
       $row_data['mobile'] = $client_owner['mobile'];
       $row_data['plan_code'] = $data->plan_code;
-      $row_data['created_at'] = date('Y-m-d H:i:s',$data->created_at);
+      $row_data['updated_at'] = date('Y-m-d H:i:s',$data->updated_at);
       $row_data['opt'] = Link::fromTextAndUrl('Edit', $edit);
       $rows[$data->id] = $row_data;
     }
@@ -58,8 +58,8 @@ class ListOrderForm extends FormBase {
       '#empty' => t('No Customer found'),
       '#attributes' => [   
         'class' => ['table_list_data'],
-        'col_sort_index' => 5,
-        // 'col_sort_type' => 'asc',
+        'col_sort_index' => 6,
+        'col_sort_type' => 'desc',
       ],
     ];
     $form['function_filters'] = [
