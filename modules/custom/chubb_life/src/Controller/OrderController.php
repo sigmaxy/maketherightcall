@@ -48,10 +48,13 @@ class OrderController extends ControllerBase {
     $record = $query->execute()->fetchAssoc();
     return $record;
   }
-  public static function list_order(){
+  public static function list_order($uid){
     $connection = Database::getConnection();
     $query = $connection->select('mtrc_order', 'mo');
     $query->fields('mo');
+    if(isset($uid)){
+      $query->condition('created_by', $uid);
+    }
     $record = $query->execute()->fetchAll();
     return $record;
   }

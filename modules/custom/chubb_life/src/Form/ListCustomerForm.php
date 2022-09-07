@@ -34,7 +34,7 @@ class ListCustomerForm extends FormBase {
     $header_table['tel_mbl'] = t('Mobile');
     $header_table['status'] = t('Status');
     $header_table['assignee'] = t('Assignee');
-    $header_table['created_at'] = t('Assignee');
+    $header_table['created_at'] = t('Created At');
     $rows=array();
     $import_customer_list = CustomerController::list_import_customer();
     $call_status_opt = AttributeController::get_call_status_options();

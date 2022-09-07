@@ -31,7 +31,13 @@ class ListOrderForm extends FormBase {
     $header_table['updated_at'] = t('Updated At');
     $header_table['opt'] = t('Operation');
     $rows=array();
-    $order_list = OrderController::list_order();
+    $roles = \Drupal::currentUser()->getRoles();
+    $uid = \Drupal::currentUser()->id();
+    if(in_array('manager', $roles)||in_array('administrator', $roles)) {
+      $order_list = OrderController::list_order(null);
+    }else{
+      $order_list = OrderController::list_order($uid);
+    }
     foreach($order_list as $key=>$data){
       $edit   = Url::fromUserInput('/chubb_life/form/edit_order/'.$data->id);
       $client_owner = OrderController::get_order_client_by_type($data->id,1);
