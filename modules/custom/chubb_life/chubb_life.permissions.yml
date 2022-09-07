@@ -1,8 +1,8 @@
-access chubb_life_assignee coniguration:
+access chubb_life_assignee configuration:
   title: 'chubb_life_assignee Access Configuration'
   description: 'chubb_life functions'
   restrict access: true
-access chubb_life_manager coniguration:
+access chubb_life_manager configuration:
   title: 'chubb_life_manager Access Configuration'
   description: 'chubb_life functions'
   restrict access: true
