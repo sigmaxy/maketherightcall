@@ -22,9 +22,10 @@ fieldset.collapsible {
 .customer_detail{
     /* border: 1px solid; */
     border-collapse: collapse;
+    width: 60%;
 }
 .customer_detail td{
-    border: 1px solid;
+    border: 1px solid #f0f0f0;
 }
 body {
     margin: 0;
