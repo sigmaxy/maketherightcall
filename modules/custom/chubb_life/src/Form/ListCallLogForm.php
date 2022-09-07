@@ -40,10 +40,15 @@ class ListCallLogForm extends FormBase {
     $call_log_list = CallController::list_call_log($this->call_id);
     foreach($call_log_list as $key=>$data){
       $user = \Drupal\user\Entity\User::load($data->assignee_id); // pass your uid
+      $agent_code = $user->field_agentcode->value;
+      
       $row_data['cust_ref'] = $import_customer['cust_ref'];
       $row_data['name'] = $import_customer['name'];
       $row_data['tel_mbl'] = $import_customer['tel_mbl'];
-      $row_data['assignee'] = $user->get('mail')->getString();
+      $row_data['assignee'] = $user->getEmail();
+      if(!empty($agent_code)){
+        $row_data['assignee'] = $agent_code;
+      }
       $row_data['dial_time'] = date('Y-m-d H:i:s',$data->dial_time);
       $rows[$data->id] = $row_data;
     }
