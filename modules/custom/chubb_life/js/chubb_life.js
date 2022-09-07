@@ -44,16 +44,12 @@ jQuery(document).ready(function($){
         }
     }
 });
-
-
-
-
 (function($) {
 	$.fn.open_new_tab = function(data){
 		open(data, '_blank')
 	}
 })(jQuery);
-function sale_sample_data(){
+function order_sample_data(){
     jQuery('input[name="aeonRefNumber"]').val('aeonRefNumber');
     jQuery('input[name="same_as_owner"]').val('Y');
     jQuery('input[name="surname"]').val('surname');
@@ -157,5 +153,4 @@ function sale_sample_data(){
     jQuery('input[name="initial_premium"]').val('initial_premium');
     jQuery('input[name="modal_premium_payment"]').val('modal_premium_payment');
     jQuery('select').change();
-    
 }
