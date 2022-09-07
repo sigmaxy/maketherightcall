@@ -28,6 +28,7 @@ class AssigneeController extends ControllerBase {
       ->condition('status', 1)
       // ->condition('roles', 'administrator')
       ->execute();
+    $users = User::loadMultiple($ids);
     foreach($users as $user){
       $uid = $user->get('uid')->getString();
       $mail =  $user->get('mail')->getString();
