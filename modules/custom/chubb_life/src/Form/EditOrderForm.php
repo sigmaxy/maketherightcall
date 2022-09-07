@@ -773,7 +773,6 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Beneficiary'),
       '#open'  => true,
       '#weight' => '5',
-      '#required'=> true,
     ];
     $form['beneficiary']['beneficiary_relationship'] = [
       '#type' => 'textfield',

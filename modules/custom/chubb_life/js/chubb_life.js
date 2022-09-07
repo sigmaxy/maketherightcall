@@ -18,11 +18,14 @@ jQuery(document).ready(function($){
                             var val = $.fn.dataTable.util.escapeRegex($(this).val());
                             column.search(val ? '^' + val + '$' : '', true, false).draw();
                         });
- 
                     column
                         .data()
                         .unique()
-                        .sort()
+                        .sort(function(a,b){
+                            // if(!isNaN(a)&&!isNaN(b)){
+                                return a-b;
+                            // }
+                        })
                         .each(function (d, j) {
                             select.append('<option value="' + d + '">' + d + '</option>');
                         });
