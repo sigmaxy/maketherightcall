@@ -38,7 +38,7 @@ class EditCallForm extends FormBase {
     $this->import_customer_id = $db_call['import_customer_id'];
     $import_customer = CustomerController::get_import_customer_by_id($db_call['import_customer_id']);
     $customer_detail = '
-    <table>
+    <table class="customer_detail">
     <tr><td>Cust Ref</td><td>'.$import_customer['cust_ref'].'</td></tr>
     <tr><td>Name</td><td>'.$import_customer['name'].'</td></tr>
     <tr><td>Gender</td><td>'.$import_customer['gender'].'</td></tr>

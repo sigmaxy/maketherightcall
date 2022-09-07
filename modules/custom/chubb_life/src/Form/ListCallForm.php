@@ -33,7 +33,7 @@ class ListCallForm extends FormBase {
     $header_table['gender'] = t('Gender');
     $header_table['tel_mbl'] = t('Mobile');
     $header_table['status'] = t('Status');
-    $header_table['count'] = t('Call Num');
+    $header_table['count'] = t('Attempts');
     $header_table['opt'] = t('Opt');
     $rows=array();
     $current_uid = \Drupal::currentUser()->id();

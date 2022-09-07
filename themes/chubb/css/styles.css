@@ -19,3 +19,6 @@ fieldset.collapsible {
     background-repeat: no-repeat;
     background-size: 160px 100px;
 }
+.customer_detail{
+    border: 1px solid;
+}
