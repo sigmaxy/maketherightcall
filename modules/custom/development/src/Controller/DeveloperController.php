@@ -43,6 +43,9 @@ class DeveloperController extends ControllerBase {
       case 'import_premium':
         self::import_premium();exit;
       break;
+      case 'clear_data':
+        self::clear_data();exit;
+      break;
       default:
         echo "no action"; exit;
       break;
@@ -55,6 +58,15 @@ class DeveloperController extends ControllerBase {
   }
   public static function php_info(){
     phpinfo();
+  }
+  public static function clear_data(){
+    $connection = Database::getConnection();
+    $query = $connection->truncate('mtrc_call')->execute();
+    $query = $connection->truncate('mtrc_call_log')->execute();
+    $query = $connection->truncate('mtrc_customer_import')->execute();
+    $query = $connection->truncate('mtrc_order')->execute();
+    $query = $connection->truncate('mtrc_order_client')->execute();
+    echo 'call/call_log/import_customer/order/order_client data clear';exit;
   }
   public static function import_attribute_relation(){
     $file_uri = \Drupal::service('file_system')->realpath('public://mtrc/'.'attribute_data.xlsx');

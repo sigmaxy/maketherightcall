@@ -800,7 +800,7 @@ $settings['trusted_host_patterns'] = [
   '^.+\.f4fonline\.com$'
 ];
 
-$settings['config_sync_directory'] = $site_path.'/files/config/sync';
+$settings['config_sync_directory'] = $site_path.'/files/sync';
 $databases['default']['default']['database'] = 'mtrc';
 $databases['default']['default']['prefix'] = '';
 $databases['default']['default']['namespace'] = 'Drupal\\Core\\Database\\Driver\\mysql';
