@@ -121,7 +121,7 @@ function order_sample_data(){
     jQuery('select[name="gender"]').val('F');
     jQuery('select[name="isPermanentHkid"]').val('Y');
     jQuery('input[name="birthDate"]').val('1990-12-31');
-    jQuery('select[name="marital_status"]').val('2');
+    jQuery('select[name="marital"]').val('3');
     jQuery('select[name="nationality"]').val('HK');
     jQuery('select[name="taxResidency1"]').val('CP');
     jQuery('input[name="taxResidencyTin1"]').val('OWTX01');
