@@ -32,26 +32,26 @@ jQuery(document).ready(function($){
                 });
         },
     });
-    function dial_mobile_number() {
-        console.log('mobile is '+$('#dial_mobile_no').val());
-    }
-    $( "#dialog_dial" ).dialog({
-        autoOpen: false,
-        height: 200,
-        width: 300,
-        modal: true,
-        buttons: {
-            "Press me and Call": dial_mobile_number,
-            Cancel: function() {
-                $(this).dialog( "close" );
-            }
-        },
-        close: function() {
-        }
-    });
 });
 (function($) {
 	$.fn.open_new_tab = function(data){
-        $( "#dialog_dial" ).dialog( "open" );
+        // $( "#dialog_dial" ).dialog( "open" );
+        let call_dialog = xdialog.create({
+            title: 'Call Customer', 
+            body: '<label for="mobile" style="margin-right:5px;">Mobile</label><input type="text" name="dial_mobile_no" id="dial_mobile_no" value="'+drupalSettings.mobile+'">',
+            buttons: {
+                ok: {
+                    text: 'Press me and Call',
+                    style: 'background:#ff3399;',
+                    clazz: 'call_button'
+                },
+                cancel: 'Cancel',
+            },
+            // onok: console.log('mobil11e is '+$('#dial_mobile_no').val()),
+        });
+        call_dialog.show();
 	}
+    $(document).on('click','.call_button',function(e) {
+        console.log('mobile is '+$('#dial_mobile_no').val());
+	});
 })(jQuery);

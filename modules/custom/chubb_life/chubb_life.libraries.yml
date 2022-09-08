@@ -12,6 +12,6 @@ chubb_life:
       - core/drupal.ajax
       - chubb/global-styling
       # - jquery_ui_tooltip/tooltip
-      - jquery_ui_dialog/dialog
-      - jquery_ui_checkboxradio/checkboxradio
+      # - jquery_ui_dialog/dialog
+      # - jquery_ui_checkboxradio/checkboxradio
 
