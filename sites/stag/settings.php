@@ -16,6 +16,7 @@ $settings['trusted_host_patterns'] = [
   '^.+\.sigmaxu\.com$',
   '^.+\.f4fonline\.com$'
 ];
+$settings['block_interest_cohort'] = FALSE;
 $settings['pickup_call_url'] = 'https://maketherightcall.com/';
 $settings['config_sync_directory'] = $site_path.'/files/sync';
 $databases['default']['default']['database'] = 'mtrc';

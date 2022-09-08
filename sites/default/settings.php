@@ -799,7 +799,7 @@ $settings['trusted_host_patterns'] = [
   '^.+\.sigmaxu\.com$',
   '^.+\.f4fonline\.com$'
 ];
-
+$settings['block_interest_cohort'] = FALSE;
 $settings['config_sync_directory'] = $site_path.'/files/sync';
 $databases['default']['default']['database'] = 'mtrc';
 $databases['default']['default']['prefix'] = '';
