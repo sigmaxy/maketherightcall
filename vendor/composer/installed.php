@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c18bd6eea727bbd0fb619928d78e3168b1d18f46',
+        'reference' => 'c7fcbb1aa15c4053d3b5e0ee4c3279cef342768b',
         'name' => 'drupal/legacy-project',
         'dev' => true,
     ),
@@ -403,6 +403,15 @@
             'reference' => '8.x-1.0-alpha6',
             'dev_requirement' => false,
         ),
+        'drupal/inactive_autologout' => array(
+            'pretty_version' => '2.0.0',
+            'version' => '2.0.0.0',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/inactive_autologout',
+            'aliases' => array(),
+            'reference' => '2.0.0',
+            'dev_requirement' => false,
+        ),
         'drupal/jquery_ui' => array(
             'pretty_version' => '1.4.0',
             'version' => '1.4.0.0',
@@ -490,7 +499,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c18bd6eea727bbd0fb619928d78e3168b1d18f46',
+            'reference' => 'c7fcbb1aa15c4053d3b5e0ee4c3279cef342768b',
             'dev_requirement' => false,
         ),
         'drupal/real_aes' => array(

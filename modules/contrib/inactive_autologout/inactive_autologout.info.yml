@@ -1,0 +1,12 @@
+name: 'Inactive Autologout'
+description: 'Light weight module for autologout'
+package: 'Login'
+
+type: module
+core_version_requirement: ^8 || ^9
+configure : inactive_autologout.admin_settings_form
+
+# Information added by Drupal.org packaging script on 2022-05-07
+version: '2.0.0'
+project: 'inactive_autologout'
+datestamp: 1651950909

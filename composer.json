@@ -23,6 +23,7 @@
         "drupal/core-vendor-hardening": "^9.4",
         "drupal/encrypt": "^3.0",
         "drupal/ga_login": "^1.0@alpha",
+        "drupal/inactive_autologout": "^2.0",
         "drupal/jquery_ui": "^1.4",
         "drupal/jquery_ui_dialog": "^1.0",
         "drupal/jquery_ui_tooltip": "^1.1",
