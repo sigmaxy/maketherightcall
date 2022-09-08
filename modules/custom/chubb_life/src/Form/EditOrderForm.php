@@ -43,8 +43,6 @@ class EditOrderForm extends FormBase {
     $occupations_opt = AttributeController::get_occupations_group_options();
     $monthly_income_opt = AttributeController::get_monthly_income_options();
     $yn_opt = AttributeController::get_yn_options();
-    $ynm_opt = AttributeController::get_yn_options();
-    unset($ynm_opt[0]);
     $gender_opt = AttributeController::get_gender_options();
     $solicitation_opt = AttributeController::get_solicitation_options();
     $opt_out_reason_opt = AttributeController::get_opt_out_reason_options();
@@ -100,7 +98,9 @@ class EditOrderForm extends FormBase {
         'class' => ['noselect2'],
         'id' => 'same_as_owner',
       ],
+      '#empty_option' => '--Select--',
       '#weight' => '1',
+      '#required'=> true,
     ];
     $form['customer_owner']['surname'] = [
       '#type' => 'textfield',
@@ -137,6 +137,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
+      '#empty_option' => '--Select--',
       '#weight' => '5',
       '#required'=> true,
     ];
@@ -148,6 +149,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
+      '#empty_option' => '--Select--',
       '#weight' => '6',
       '#required'=> true,
     ];
@@ -179,6 +181,7 @@ class EditOrderForm extends FormBase {
         'class' => ['noselect2'],
         'id' => 'owner_gender',
       ],
+      '#empty_option' => '--Select--',
       '#weight' => '9',
       '#required'=> true,
     ];
@@ -190,6 +193,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
+      '#empty_option' => '--Select--',
       '#weight' => '10',
     ];
     $form['customer_owner']['birthDate'] = [
@@ -210,6 +214,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
+      '#empty_option' => '--Select--',
       '#weight' => '11',
       '#required'=> true,
     ];
@@ -388,8 +393,8 @@ class EditOrderForm extends FormBase {
     $form['customer_owner']['smoker'] = [
       '#type' => 'select',
       '#title' => $this->t('Smoker'),
-      '#weight' => '4',
       '#options' => $yn_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['owner']['smoker'])?$record['owner']['smoker']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -402,6 +407,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Monthly income'),
       '#options' => $monthly_income_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['owner']['monthly_income'])?$record['owner']['monthly_income']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -413,6 +419,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Solicitation (Opt out Indicator)'),
       '#options' => $solicitation_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['owner']['solicitation'])?$record['owner']['solicitation']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -424,6 +431,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Opt out reason'),
       '#options' => $opt_out_reason_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['owner']['opt_out_reason'])?$record['owner']['opt_out_reason']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -461,6 +469,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('ID Type'),
       '#options' => $id_type_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['insured']['identityType'])?$record['insured']['identityType']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -488,6 +497,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Gender'),
       '#options' => $gender_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['insured']['gender'])?$record['insured']['gender']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -499,6 +509,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('HK Permanent ID Card holder'),
       '#options' => $yn_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['insured']['isPermanentHkid'])?$record['insured']['isPermanentHkid']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -518,6 +529,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Marital Status'),
       '#options' => $marital_status_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['insured']['marital'])?$record['insured']['marital']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -683,6 +695,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Smoker'),
       '#options' => $yn_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['insured']['smoker'])?$record['insured']['smoker']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -694,6 +707,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Monthly income'),
       '#options' => $monthly_income_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['insured']['monthly_income'])?$record['insured']['monthly_income']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -704,6 +718,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Solicitation (Opt out Indicator)'),
       '#options' => $solicitation_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['insured']['solicitation'])?$record['insured']['solicitation']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -714,6 +729,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Opt out reason'),
       '#options' => $opt_out_reason_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['insured']['opt_out_reason'])?$record['insured']['opt_out_reason']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -748,6 +764,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('ID Type'),
       '#options' => $id_type_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['payor']['identityType'])?$record['payor']['identityType']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -767,6 +784,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Gender'),
       '#options' => $gender_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['payor']['gender'])?$record['payor']['gender']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -792,6 +810,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Relationship'),
       '#options' => $beneficiary_relationship_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['beneficiary_relationship'])?$record['beneficiary_relationship']:'EST',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -809,6 +828,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Payment Mode'),
       '#options' => $payment_mode_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['paymentMode'])?$record['paymentMode']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -821,6 +841,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('PEP'),
       '#options' => $yn_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['pep'])?$record['pep']:'N',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -832,6 +853,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Acting on behalf of another person'),
       '#options' => $yn_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['another_person'])?$record['another_person']:'N',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -843,6 +865,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('eCopy'),
       '#options' => $yn_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['ecopy'])?$record['ecopy']:'Y',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -860,6 +883,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Plan Code'),
       '#options' => $plan_code_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['plan_code'])?$record['plan_code']:'',
       '#attributes' => [
         'class' => ['plan_code_select','noselect2'],
@@ -884,6 +908,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Currency'),
       '#options' => $currency_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['currency'])?$record['currency']:'HKD',
       '#default_value' => 'HKD',
       '#attributes' => [
@@ -916,7 +941,6 @@ class EditOrderForm extends FormBase {
     $form['micellaneous'] = [
       '#type'  => 'details',
       '#title' => $this->t('Micellaneous'),
-      '#default_value' => isset($record['micellaneous'])?$record['micellaneous']:'',
       '#open'  => true,
       '#weight' => '8',
     ];
@@ -924,6 +948,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Replacement Declaration'),
       '#options' => $yn_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['replacement_declaration'])?$record['replacement_declaration']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -935,6 +960,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('FNA'),
       '#options' => $yn_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['fna'])?$record['fna']:'Y',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -952,7 +978,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'radios',
       '#title' => 'Q1. Have any of your immediate family members (parents or siblings) whether living or dead ever suffered from cancer, alzheimer’s disease, parkinson disease, or other hereditary disease at or before the age of 60? 
       <br><br>Q1. 您的直系親屬（父母或兄弟姐妹）是否在 60 歲或之前患有癌症、阿爾滋海默氏症、柏金遜症或其他遺傳病？',
-      '#options' => $ynm_opt,
+      '#options' => $yn_opt,
       '#default_value' => isset($record['health_details_q_1'])?$record['health_details_q_1']:'',
       // '#required' => TRUE,
     ];
@@ -960,7 +986,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'radios',
       '#title' => 'Q2. Have you ever had any cancer or carcinoma-in-situ, heart attack, stroke, HIV infection or AIDS related complications?
       <br><br>Q2. 您是否曾患過癌症或原位癌、心臟病發作、中風、愛滋病病毒感染或愛滋病相關併發症?',
-      '#options' => $ynm_opt,
+      '#options' => $yn_opt,
       '#default_value' => isset($record['health_details_q_2'])?$record['health_details_q_2']:'',
       // '#required' => TRUE,
     ];
@@ -968,7 +994,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'radios',
       '#title' => 'Q3. In the past 5 years, have you ever suffered from physical disabilities, or illness related to nervous system, musculoskeletal system, skin lesion, autoimmune disease, or hearing disorder?
       <br><br>Q3. 在過去 5 年中，您是否因身體殘疾或被診斷有神經系統、肌肉骨骼系統、皮膚病變、自身免疫性疾病或聽覺障礙?',
-      '#options' => $ynm_opt,
+      '#options' => $yn_opt,
       '#default_value' => isset($record['health_details_q_3'])?$record['health_details_q_3']:'',
       // '#required' => TRUE,
     ];
@@ -978,7 +1004,7 @@ class EditOrderForm extends FormBase {
       <br>b. Been in a hospital or sanatorium for surgery, observation or treatment for a period of 14 consecutive days or more ?
       <br><br>a. 任何未完全治癒的疾病或者疾病,受傷未完全康復，或
       <br>b. 有關的疾病住院治療、接受手術或持續接受藥物治療連續 14 天或更長時間？',
-      '#options' => $ynm_opt,
+      '#options' => $yn_opt,
       '#default_value' => isset($record['health_details_q_4'])?$record['health_details_q_4']:'',
       // '#required' => TRUE,
     ];
@@ -986,7 +1012,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'radios',
       '#title' => 'Q4. In the past 12 months, have you ever undergone any unexplained weight loss of more than 5kgs, persistent fever, unexplained bleeding, any medical sign or symptoms, or medical check up with abnormal result, for which further testing, surgery or treatment was recommended, or have not sought for medical of a registered medical practitioner ?
       <br><br>Q4. 在過去 12 個月內，您是否有任何原因不明的體重減輕超過 5 公斤、持續發燒或不明原因的出血、任何醫學體徵或症狀、或體檢結果異常，您仍在調查中，或等待進一步檢查, 醫療建議或手術治療, 或沒有尋求醫生的醫療建議？',
-      '#options' => $ynm_opt,
+      '#options' => $yn_opt,
       '#default_value' => isset($record['health_details_q_5'])?$record['health_details_q_5']:'',
       // '#required' => TRUE,
     ];
@@ -1014,6 +1040,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Billing Type'),
       '#options' => $bill_type_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['billingType'])?$record['billingType']:'',
       '#attributes' => [
         'class' => ['noselect2'],
@@ -1115,6 +1142,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('DDA setup'),
       '#options' => $dda_setup_opt,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($record['dda_setup'])?$record['dda_setup']:'3',
       '#attributes' => [
         'class' => ['noselect2'],

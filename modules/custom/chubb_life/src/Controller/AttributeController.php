@@ -96,14 +96,12 @@ class AttributeController extends ControllerBase {
   }
   public static function get_yn_options() {
     $results = array();
-    $results[0] = t('--Select--');
     $results['Y'] = t('Yes');
     $results['N'] = t('No');
     return $results;
   }
   public static function get_gender_options() {
     $results = array();
-    $results[0] = t('--Select--');
     $results['M'] = t('Male');
     $results['F'] = t('Female');
     return $results;
@@ -119,7 +117,6 @@ class AttributeController extends ControllerBase {
   }
   public static function get_solicitation_options() {
     $results = array(
-      0 => t('--Select--'),
       'N' => 'Opt Out',
       'Y' => 'Not Opt Out',
     );
@@ -155,7 +152,6 @@ class AttributeController extends ControllerBase {
   }
   public static function get_bill_type_options() {
     $results = array(
-      0 => t('--Select--'),
       'Credit Card' => 'Credit Card',
       'CUP' => 'CUP',
     );
