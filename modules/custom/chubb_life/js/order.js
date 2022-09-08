@@ -1,10 +1,10 @@
 jQuery(document).ready(function($){
-    $(document).on('change','#edit-same-as-owner',function(e) {
+    $(document).on('change','#same_as_owner',function(e) {
         toggle_customer_insured_same_as_owner();
 	});
     toggle_customer_insured_same_as_owner();
     function toggle_customer_insured_same_as_owner(){
-        if($('#edit-same-as-owner').val()=='Y'){
+        if($('#same_as_owner').val()=='Y'){
             $('#edit-customer-insured').hide();
         }else{
             $('#edit-customer-insured').show();
