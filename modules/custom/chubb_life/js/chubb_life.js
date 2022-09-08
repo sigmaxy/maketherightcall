@@ -42,7 +42,7 @@ jQuery(document).ready(function($){
             buttons: {
                 ok: {
                     text: 'Press me and Call',
-                    style: 'background:#ff3399;',
+                    // style: 'background:#ff3399;',
                     clazz: 'call_button'
                 },
                 cancel: 'Cancel',
