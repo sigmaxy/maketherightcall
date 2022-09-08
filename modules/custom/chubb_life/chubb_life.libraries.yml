@@ -13,4 +13,5 @@ chubb_life:
       - chubb/global-styling
       # - jquery_ui_tooltip/tooltip
       - jquery_ui_dialog/dialog
+      - jquery_ui_checkboxradio/checkboxradio
 

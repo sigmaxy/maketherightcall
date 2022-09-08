@@ -94,8 +94,15 @@ jQuery(document).ready(function($){
         calculate_face_amount();
 	});
     function calculate_face_amount(){
-        if (typeof drupalSettings.face_amount[$('#plan_code').val()][$('#plan_level').val()][$('#currency').val()] !== 'undefined') {
-            $('#face_amount').val(drupalSettings.face_amount[$('#plan_code').val()][$('#plan_level').val()][$('#currency').val()]);
+        var plan_code = $('#plan_code').val();
+        var plan_level = $('#plan_level').val();
+        var currency = $('#currency').val();
+        if (typeof drupalSettings.face_amount[plan_code][plan_level] !== 'undefined') {
+            if (typeof drupalSettings.face_amount[plan_code][plan_level][currency] !== 'undefined') {
+                $('#face_amount').val(drupalSettings.face_amount[plan_code][plan_level][currency]);
+            }else{
+                $('#face_amount').val('');
+            }
         }else{
             $('#face_amount').val('');
         }
