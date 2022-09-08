@@ -70,6 +70,32 @@ class ProductController extends ControllerBase {
     }
     return $results;
   }
+  public static function get_product_name_options() {
+    $results = [
+      'RHC5' =>[
+        'chinese_name' => '貼心保費回贈住院保障',
+        'english_name' => 'WellCare Refundable Hospital Plan',
+      ],
+      'RHC10' =>[
+        'chinese_name' => '貼心保費回贈住院保障',
+        'english_name' => 'WellCare Refundable Hospital Plan',
+      ],
+      'PAB10' =>[
+        'chinese_name' => '「智全為您」意外保障計劃 ',
+        'english_name' => 'The One Accident Protector',
+      ],
+      'PAB20' =>[
+        'chinese_name' => '「智全為您」意外保障計劃 ',
+        'english_name' => 'The One Accident Protector',
+      ],
+      'MCE' =>[
+        'chinese_name' => '心安危疾保障計劃',
+        'english_name' => 'MatureCare Critical Illness Plan',
+      ],
+    ];
+    return $results;
+  }
+
   public static function ajax_get_premium($plan_code,$plan_level,$smoker,$gender,$age,$currency) {
     $connection = Database::getConnection();
     $query = $connection->select('mtrc_premium', 'mp');

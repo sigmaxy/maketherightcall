@@ -85,6 +85,7 @@ jQuery(document).ready(function($){
     }
     $(document).on('change','#plan_code',function(e) {
         calculate_face_amount();
+        fill_product_name();
 	});
     $(document).on('change','#plan_level',function(e) {
         calculate_face_amount();
@@ -97,6 +98,18 @@ jQuery(document).ready(function($){
             $('#face_amount').val(drupalSettings.face_amount[$('#plan_code').val()][$('#plan_level').val()][$('#currency').val()]);
         }else{
             $('#face_amount').val('');
+        }
+    }
+    function fill_product_name(){
+        if (typeof drupalSettings.product_name[$('#plan_code').val()]['chinese_name'] !== 'undefined') {
+            $('#product_name_chinese').val(drupalSettings.product_name[$('#plan_code').val()]['chinese_name']);
+        }else{
+            $('#product_name_chinese').val('');
+        }
+        if (typeof drupalSettings.product_name[$('#plan_code').val()]['english_name'] !== 'undefined') {
+            $('#product_name_english').val(drupalSettings.product_name[$('#plan_code').val()]['english_name']);
+        }else{
+            $('#product_name_english').val('');
         }
     }
 });

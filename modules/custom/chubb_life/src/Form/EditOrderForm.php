@@ -52,6 +52,7 @@ class EditOrderForm extends FormBase {
     $dda_setup_opt = AttributeController::get_dda_setup_options();
     $plan_code_opt = ProductController::get_plan_code_options();
     $plan_level_opt = ProductController::get_plan_level_options();
+    $product_name_opt = ProductController::get_product_name_options();
     $beneficiary_relationship_opt = AttributeController::get_beneficiary_relationship_options();
     $face_amount_opt = AttributeController::get_face_amount_options();
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id()); // pass your uid
@@ -892,6 +893,40 @@ class EditOrderForm extends FormBase {
       '#weight' => '1',
       '#required'=> true,
     ];
+    $form['information']['product_name_english'] = [
+      '#type' => 'textfield',
+      '#title' => 'Product Name (English)',
+      '#default_value' => isset($record['product_name_english'])?$record['product_name_english']:'',
+      '#maxlength' => 255,
+      '#attributes' => [
+        'id' => 'product_name_english',
+        'readonly' => 'readonly',
+      ],
+      '#weight' => '2',
+    ];
+    $form['information']['product_name_chinese'] = [
+      '#type' => 'textfield',
+      '#title' => 'Product Name (Chinese)',
+      '#default_value' => isset($record['product_name_chinese'])?$record['product_name_chinese']:'',
+      '#maxlength' => 255,
+      '#attributes' => [
+        'id' => 'product_name_chinese',
+        'readonly' => 'readonly',
+      ],
+      '#weight' => '3',
+    ];
+    $form['information']['face_amount'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Face amount'),
+      '#default_value' => isset($record['face_amount'])?$record['face_amount']:'',
+      '#maxlength' => 255,
+      '#attributes' => [
+        'id' => 'face_amount',
+        'readonly' => 'readonly',
+      ],
+      '#weight' => '6',
+      '#required'=> true,
+    ];
     $form['information']['plan_level'] = [
       '#type' => 'select',
       '#title' => $this->t('Plan Level (RS)'),
@@ -901,7 +936,7 @@ class EditOrderForm extends FormBase {
         'class' => ['plan_level_select','noselect2'],
         'id'=>'plan_level',
       ],
-      '#weight' => '2',
+      '#weight' => '7',
       '#required'=> true,
     ];
     $form['information']['currency'] = [
@@ -915,7 +950,7 @@ class EditOrderForm extends FormBase {
         'class' => ['noselect2'],
         'id' => 'currency',
       ],
-      '#weight' => '3',
+      '#weight' => '8',
       '#required'=> true,
     ];
     $form['information']['face_amount'] = [
@@ -927,7 +962,7 @@ class EditOrderForm extends FormBase {
         'id' => 'face_amount',
         'readonly' => 'readonly',
       ],
-      '#weight' => '4',
+      '#weight' => '9',
       '#required'=> true,
     ];
     $form['information']['promotion_code'] = [
@@ -935,7 +970,7 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Promotion Code'),
       '#default_value' => isset($record['promotion_code'])?$record['promotion_code']:'',
       '#maxlength' => 255,
-      '#weight' => '5',
+      '#weight' => '10',
       // '#required'=> true,
     ];
     $form['micellaneous'] = [
@@ -1155,6 +1190,7 @@ class EditOrderForm extends FormBase {
       '#value' => $this->t('Submit'),
       '#weight' => '20',
     ];
+    $form['#attached']['drupalSettings']['product_name'] = $product_name_opt;
     $form['#attached']['drupalSettings']['plan_level'] = $plan_level_opt;
     $form['#attached']['drupalSettings']['face_amount'] = $face_amount_opt;
     $form['#attached']['library'][] = 'chubb_life/chubb_life';
@@ -1266,6 +1302,8 @@ class EditOrderForm extends FormBase {
     $order['another_person'] = $form_state->getValue('another_person');
     $order['ecopy'] = $form_state->getValue('ecopy');
     $order['plan_code'] = $form_state->getValue('plan_code');
+    $order['product_name_english'] = $form_state->getValue('product_name_english');
+    $order['product_name_chinese'] = $form_state->getValue('product_name_chinese');
     $order['face_amount'] = $form_state->getValue('face_amount');
     $order['plan_level'] = $form_state->getValue('plan_level');
     $order['promotion_code'] = $form_state->getValue('promotion_code');
