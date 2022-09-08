@@ -7,6 +7,8 @@ use Drupal\Core\Database\Database;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\Component\Utility\Tags;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\chubb_life\Ajax\AjaxCommand;
 
 /**
  * Class ProductController.
@@ -68,41 +70,28 @@ class ProductController extends ControllerBase {
     }
     return $results;
   }
-  public static function autocomplete_product_plan_code(Request $request, $count) {
-    $results = [];
+  public static function ajax_get_premium($plan_code,$plan_level,$smoker,$gender,$age,$currency) {
     $connection = Database::getConnection();
     $query = $connection->select('mtrc_premium', 'mp');
-    $query->fields('mp',['plan_code']);
-    $record = $query->distinct()->execute()->fetchAll();
-    print_r($record);
-    
-    
-    exit;
-
-
-
-    // Get the typed string from the URL, if it exists.
-    if ($input = $request->query->get('q')) {
-      $typed_string = Tags::explode($input);
-      $typed_string = mb_strtolower(array_pop($typed_string));
-      $connection = Database::getConnection();
-      $query = $connection->select('mtrc_premium', 'mp');
-      $query->fields('mp');
-      $query->condition('plan_code', '%'.$typed_string.'%','LIKE');
-      $query->distinct()->groupBy('mp.plan_code')->orderBy('mp.plan_code');
-      $records = $query->execute()->fetchAll();
-      $i = 0;
-      foreach ($records as $each_data) {
-        if ($i< $count) {
-          $results[] = [
-            'value' => $each_data->plan_code,
-            'label' => $each_data->plan_code,
-          ];
-          $i++;
-        }
-        
-      }
+    $query->fields('mp');
+    $query->condition('plan_code', $plan_code);
+    $query->condition('plan_level', $plan_level);
+    $query->condition('smokers_code', $smoker);
+    $query->condition('gender', $gender);
+    $query->condition('age', $age);
+    $query->condition('currency', $currency);
+    $record = $query->execute()->fetchAssoc();
+    if (isset($record['id'])) {
+      $status = true;
+      $result = $record['premium'];
+      $message = 'Premium Found';
+    }else{
+      $status = false;
+      $result = null;
+      $message = 'Premium Not Found';
     }
-    return new JsonResponse($results);
+    $response = new AjaxResponse();
+    $response->addCommand( new AjaxCommand('ajax_get_premium',$status,$result,$message));
+    return $response;
   }
 }

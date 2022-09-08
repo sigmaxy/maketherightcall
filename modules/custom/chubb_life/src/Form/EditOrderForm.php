@@ -43,6 +43,8 @@ class EditOrderForm extends FormBase {
     $occupations_opt = AttributeController::get_occupations_group_options();
     $monthly_income_opt = AttributeController::get_monthly_income_options();
     $yn_opt = AttributeController::get_yn_options();
+    $ynm_opt = AttributeController::get_yn_options();
+    unset($ynm_opt[0]);
     $gender_opt = AttributeController::get_gender_options();
     $solicitation_opt = AttributeController::get_solicitation_options();
     $opt_out_reason_opt = AttributeController::get_opt_out_reason_options();
@@ -52,6 +54,8 @@ class EditOrderForm extends FormBase {
     $dda_setup_opt = AttributeController::get_dda_setup_options();
     $plan_code_opt = ProductController::get_plan_code_options();
     $plan_level_opt = ProductController::get_plan_level_options();
+    $beneficiary_relationship_opt = AttributeController::get_beneficiary_relationship_options();
+    $face_amount_opt = AttributeController::get_face_amount_options();
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id()); // pass your uid
     $agent_code = $user->field_agentcode->value;
     $form['application'] = [
@@ -91,9 +95,10 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Insured is same as owner'),
       '#weight' => '4',
       '#options' => $yn_opt,
-      '#default_value' => isset($record['same_as_owner'])?$record['same_as_owner']:'N',
+      '#default_value' => isset($record['same_as_owner'])?$record['same_as_owner']:'Y',
       '#attributes' => [
         'class' => ['noselect2'],
+        'id' => 'same_as_owner',
       ],
       '#weight' => '1',
     ];
@@ -172,6 +177,7 @@ class EditOrderForm extends FormBase {
       '#default_value' => isset($record['owner']['gender'])?$record['owner']['gender']:'',
       '#attributes' => [
         'class' => ['noselect2'],
+        'id' => 'owner_gender',
       ],
       '#weight' => '9',
       '#required'=> true,
@@ -190,6 +196,9 @@ class EditOrderForm extends FormBase {
       '#type' => 'date',
       '#title' => $this->t('Date of Birth'),
       '#default_value' => isset($record['owner']['birthDate'])?$record['owner']['birthDate']:'',
+      '#attributes' => [
+        'id' => 'owner_birthDate',
+      ],
       '#weight' => '11',
       '#required'=> true,
     ];
@@ -384,6 +393,7 @@ class EditOrderForm extends FormBase {
       '#default_value' => isset($record['owner']['smoker'])?$record['owner']['smoker']:'',
       '#attributes' => [
         'class' => ['noselect2'],
+        'id' => 'owner_smoker',
       ],
       '#weight' => '32',
       '#required'=> true,
@@ -481,6 +491,7 @@ class EditOrderForm extends FormBase {
       '#default_value' => isset($record['insured']['gender'])?$record['insured']['gender']:'',
       '#attributes' => [
         'class' => ['noselect2'],
+        'id' => 'insured_gender',
       ],
       '#weight' => '9',
     ];
@@ -498,6 +509,9 @@ class EditOrderForm extends FormBase {
       '#type' => 'date',
       '#title' => $this->t('Date of Birth'),
       '#default_value' => isset($record['insured']['birthDate'])?$record['insured']['birthDate']:'',
+      '#attributes' => [
+        'id' => 'insured_birthDate',
+      ],
       '#weight' => '11',
     ];
     $form['customer_insured']['customer_insured_marital'] = [
@@ -672,6 +686,7 @@ class EditOrderForm extends FormBase {
       '#default_value' => isset($record['insured']['smoker'])?$record['insured']['smoker']:'',
       '#attributes' => [
         'class' => ['noselect2'],
+        'id' => 'insured_smoker',
       ],
       '#weight' => '32',
     ];
@@ -774,10 +789,13 @@ class EditOrderForm extends FormBase {
       '#weight' => '5',
     ];
     $form['beneficiary']['beneficiary_relationship'] = [
-      '#type' => 'textfield',
+      '#type' => 'select',
       '#title' => $this->t('Relationship'),
-      '#default_value' => isset($record['beneficiary_relationship'])?$record['beneficiary_relationship']:'Estate',
-      '#maxlength' => 255,
+      '#options' => $beneficiary_relationship_opt,
+      '#default_value' => isset($record['beneficiary_relationship'])?$record['beneficiary_relationship']:'EST',
+      '#attributes' => [
+        'class' => ['noselect2'],
+      ],
       '#weight' => '1',
       '#required'=> true,
     ];
@@ -787,18 +805,6 @@ class EditOrderForm extends FormBase {
       '#open'  => true,
       '#weight' => '6',
     ];
-    $form['policy']['currency'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Currency'),
-      '#options' => $currency_opt,
-      '#default_value' => isset($record['currency'])?$record['currency']:'HKD',
-      '#default_value' => 'HKD',
-      '#attributes' => [
-        'class' => ['noselect2'],
-      ],
-      '#weight' => '1',
-      '#required'=> true,
-    ];
     $form['policy']['paymentMode'] = [
       '#type' => 'select',
       '#title' => $this->t('Payment Mode'),
@@ -806,6 +812,7 @@ class EditOrderForm extends FormBase {
       '#default_value' => isset($record['paymentMode'])?$record['paymentMode']:'',
       '#attributes' => [
         'class' => ['noselect2'],
+        'id' => 'paymentMode',
       ],
       '#weight' => '2',
       '#required'=> true,
@@ -814,7 +821,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('PEP'),
       '#options' => $yn_opt,
-      '#default_value' => isset($record['pep'])?$record['pep']:'',
+      '#default_value' => isset($record['pep'])?$record['pep']:'N',
       '#attributes' => [
         'class' => ['noselect2'],
       ],
@@ -825,7 +832,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Acting on behalf of another person'),
       '#options' => $yn_opt,
-      '#default_value' => isset($record['another_person'])?$record['another_person']:'',
+      '#default_value' => isset($record['another_person'])?$record['another_person']:'N',
       '#attributes' => [
         'class' => ['noselect2'],
       ],
@@ -849,24 +856,6 @@ class EditOrderForm extends FormBase {
       '#open'  => true,
       '#weight' => '7',
     ];
-    // $form['information']['plan_code'] = [
-    //   '#type' => 'textfield',
-    //   '#title' => $this->t('Plan Code'),
-    //   '#default_value' => isset($record['plan_code'])?$record['plan_code']:'',
-    //   '#maxlength' => 255,
-    //   '#weight' => '1',
-    //   '#required'=> true,
-    // ];
-    // $form['information']['plan_code'] = [
-    //   '#title'         => 'Plan Code',
-    //   '#type'          => 'search',
-    //   '#autocomplete_route_name' => 'chubb_life.autocomplete_product_plan_code',
-    //   '#autocomplete_route_parameters' => array('count' => 10),
-    //   '#default_value' => isset($record['plan_code'])?$record['plan_code']:'',
-    //   '#maxlength' => 255,
-    //   '#weight' => '1',
-    //   '#required'=> true,
-    // ];
     $form['information']['plan_code'] = [
       '#type' => 'select',
       '#title' => $this->t('Plan Code'),
@@ -874,27 +863,11 @@ class EditOrderForm extends FormBase {
       '#default_value' => isset($record['plan_code'])?$record['plan_code']:'',
       '#attributes' => [
         'class' => ['plan_code_select','noselect2'],
+        'id'=>'plan_code',
       ],
       '#weight' => '1',
       '#required'=> true,
     ];
-
-    $form['information']['face_amount'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Face amount'),
-      '#default_value' => isset($record['face_amount'])?$record['face_amount']:'',
-      '#maxlength' => 255,
-      '#weight' => '2',
-      '#required'=> true,
-    ];
-    // $form['information']['plan_level'] = [
-    //   '#type' => 'textfield',
-    //   '#title' => $this->t('Plan level (RS)'),
-    //   '#default_value' => isset($record['plan_level'])?$record['plan_level']:'',
-    //   '#maxlength' => 255,
-    //   '#weight' => '3',
-    //   '#required'=> true,
-    // ];
     $form['information']['plan_level'] = [
       '#type' => 'select',
       '#title' => $this->t('Plan Level (RS)'),
@@ -902,8 +875,34 @@ class EditOrderForm extends FormBase {
       '#default_value' => isset($record['plan_level'])?$record['plan_level']:'',
       '#attributes' => [
         'class' => ['plan_level_select','noselect2'],
+        'id'=>'plan_level',
+      ],
+      '#weight' => '2',
+      '#required'=> true,
+    ];
+    $form['information']['currency'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Currency'),
+      '#options' => $currency_opt,
+      '#default_value' => isset($record['currency'])?$record['currency']:'HKD',
+      '#default_value' => 'HKD',
+      '#attributes' => [
+        'class' => ['noselect2'],
+        'id' => 'currency',
       ],
       '#weight' => '3',
+      '#required'=> true,
+    ];
+    $form['information']['face_amount'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Face amount'),
+      '#default_value' => isset($record['face_amount'])?$record['face_amount']:'',
+      '#maxlength' => 255,
+      '#attributes' => [
+        'id' => 'face_amount',
+        'readonly' => 'readonly',
+      ],
+      '#weight' => '4',
       '#required'=> true,
     ];
     $form['information']['promotion_code'] = [
@@ -911,7 +910,7 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Promotion Code'),
       '#default_value' => isset($record['promotion_code'])?$record['promotion_code']:'',
       '#maxlength' => 255,
-      '#weight' => '4',
+      '#weight' => '5',
       // '#required'=> true,
     ];
     $form['micellaneous'] = [
@@ -936,7 +935,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('FNA'),
       '#options' => $yn_opt,
-      '#default_value' => isset($record['fna'])?$record['fna']:'',
+      '#default_value' => isset($record['fna'])?$record['fna']:'Y',
       '#attributes' => [
         'class' => ['noselect2'],
       ],
@@ -953,7 +952,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'radios',
       '#title' => 'Q1. Have any of your immediate family members (parents or siblings) whether living or dead ever suffered from cancer, alzheimer’s disease, parkinson disease, or other hereditary disease at or before the age of 60? 
       <br><br>Q1. 您的直系親屬（父母或兄弟姐妹）是否在 60 歲或之前患有癌症、阿爾滋海默氏症、柏金遜症或其他遺傳病？',
-      '#options' => $yn_opt,
+      '#options' => $ynm_opt,
       '#default_value' => isset($record['health_details_q_1'])?$record['health_details_q_1']:'',
       // '#required' => TRUE,
     ];
@@ -961,7 +960,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'radios',
       '#title' => 'Q2. Have you ever had any cancer or carcinoma-in-situ, heart attack, stroke, HIV infection or AIDS related complications?
       <br><br>Q2. 您是否曾患過癌症或原位癌、心臟病發作、中風、愛滋病病毒感染或愛滋病相關併發症?',
-      '#options' => $yn_opt,
+      '#options' => $ynm_opt,
       '#default_value' => isset($record['health_details_q_2'])?$record['health_details_q_2']:'',
       // '#required' => TRUE,
     ];
@@ -969,7 +968,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'radios',
       '#title' => 'Q3. In the past 5 years, have you ever suffered from physical disabilities, or illness related to nervous system, musculoskeletal system, skin lesion, autoimmune disease, or hearing disorder?
       <br><br>Q3. 在過去 5 年中，您是否因身體殘疾或被診斷有神經系統、肌肉骨骼系統、皮膚病變、自身免疫性疾病或聽覺障礙?',
-      '#options' => $yn_opt,
+      '#options' => $ynm_opt,
       '#default_value' => isset($record['health_details_q_3'])?$record['health_details_q_3']:'',
       // '#required' => TRUE,
     ];
@@ -979,7 +978,7 @@ class EditOrderForm extends FormBase {
       <br>b. Been in a hospital or sanatorium for surgery, observation or treatment for a period of 14 consecutive days or more ?
       <br><br>a. 任何未完全治癒的疾病或者疾病,受傷未完全康復，或
       <br>b. 有關的疾病住院治療、接受手術或持續接受藥物治療連續 14 天或更長時間？',
-      '#options' => $yn_opt,
+      '#options' => $ynm_opt,
       '#default_value' => isset($record['health_details_q_4'])?$record['health_details_q_4']:'',
       // '#required' => TRUE,
     ];
@@ -987,7 +986,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'radios',
       '#title' => 'Q4. In the past 12 months, have you ever undergone any unexplained weight loss of more than 5kgs, persistent fever, unexplained bleeding, any medical sign or symptoms, or medical check up with abnormal result, for which further testing, surgery or treatment was recommended, or have not sought for medical of a registered medical practitioner ?
       <br><br>Q4. 在過去 12 個月內，您是否有任何原因不明的體重減輕超過 5 公斤、持續發燒或不明原因的出血、任何醫學體徵或症狀、或體檢結果異常，您仍在調查中，或等待進一步檢查, 醫療建議或手術治療, 或沒有尋求醫生的醫療建議？',
-      '#options' => $yn_opt,
+      '#options' => $ynm_opt,
       '#default_value' => isset($record['health_details_q_5'])?$record['health_details_q_5']:'',
       // '#required' => TRUE,
     ];
@@ -1050,7 +1049,12 @@ class EditOrderForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Card Expiry Date'),
       '#default_value' => isset($record['card_expiry_date'])?$record['card_expiry_date']:'',
-      '#maxlength' => 255,
+      '#maxlength' => 7,
+      '#attributes' => [
+        'placeholder' => t('MM/YYYY'),
+        'id' => 'card_expiry_date',
+        'onkeyup'=>"addSlashes(this)",
+      ],
       '#weight' => '5',
       '#required'=> true,
     ];
@@ -1059,6 +1063,10 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Initial Premium (includes levy and discount)'),
       '#default_value' => isset($record['initial_premium'])?$record['initial_premium']:'',
       '#maxlength' => 255,
+      '#attributes' => [
+        'readonly' => 'readonly',
+        'id' => 'initial_premium',
+      ],
       '#weight' => '6',
       '#required'=> true,
     ];
@@ -1067,6 +1075,10 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Modal Premium Payment'),
       '#default_value' => isset($record['modal_premium_payment'])?$record['modal_premium_payment']:'',
       '#maxlength' => 255,
+      '#attributes' => [
+        'readonly' => 'readonly',
+        'id' => 'modal_premium_payment',
+      ],
       '#weight' => '7',
       '#required'=> true,
     ];
@@ -1075,15 +1087,28 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Levy'),
       '#default_value' => isset($record['levy'])?$record['levy']:'',
       '#maxlength' => 255,
+      '#attributes' => [
+        'readonly' => 'readonly',
+        'id' => 'levy',
+      ],
       '#weight' => '8',
       '#required'=> true,
+    ];
+    $form['billing_info']['calculate'] = [
+      '#type' => 'button',
+      '#value' => $this->t('Calculate'),
+      '#attributes' => [
+        'onclick' => 'return false;',
+        'id' => 'calculate_premium',
+      ],
+      '#weight' => '9',
     ];
     $form['billing_info']['remarks'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Remarks'),
       '#default_value' => isset($record['remarks'])?$record['remarks']:'',
       // '#maxlength' => 255,
-      '#weight' => '9',
+      '#weight' => '10',
       // '#required'=> true,
     ];
     $form['billing_info']['dda_setup'] = [
@@ -1094,7 +1119,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
-      '#weight' => '10',
+      '#weight' => '11',
       '#required'=> true,
     ];
     $form['submit'] = [
@@ -1103,6 +1128,7 @@ class EditOrderForm extends FormBase {
       '#weight' => '20',
     ];
     $form['#attached']['drupalSettings']['plan_level'] = $plan_level_opt;
+    $form['#attached']['drupalSettings']['face_amount'] = $face_amount_opt;
     $form['#attached']['library'][] = 'chubb_life/chubb_life';
     return $form;
   }

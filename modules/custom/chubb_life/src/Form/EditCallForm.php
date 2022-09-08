@@ -59,6 +59,10 @@ class EditCallForm extends FormBase {
     // <tr><td>Position</td><td>'.$import_customer['position'].'</td></tr>
     // </table>';
     $customer_detail = '
+    <div id="dialog_dial" title="Call Customer">
+          <label for="mobile">Mobile</label>
+          <input type="text" name="dial_mobile_no" id="dial_mobile_no" value="'.$import_customer['tel_mbl'].'">
+    </div>
     <table class="customer_detail">
     <tr><td><b>Cust Ref</b></td><td>'.$import_customer['cust_ref'].'</td><td><b>Name</b></td><td>'.$import_customer['name'].'</td></tr>
     <tr><td><b>Gender</b></td><td>'.$import_customer['gender'].'</td><td><b>Mobile</b></td><td>'.$import_customer['tel_mbl'].'</td></tr>

@@ -199,15 +199,20 @@ class DeveloperController extends ControllerBase {
     foreach ($sheetData as $key => $row_data) {
       if ($key>=2 && !empty($row_data[1])) {
         $currency_code = substr($row_data[1], -1);
+        $plan_code_raw = substr($row_data[1], 0, -1);
+        if($plan_code_raw=='RC10'){
+          $plan_code = 'RHC10';
+        }else{
+          $plan_code = $plan_code_raw;
+        }
         if($currency_code=='U'){
           $currency = 'USD';
         }else{
           $currency = 'HKD';
         }
-        $plan_code = substr($row_data[1], 0, -1);
-        $formatesheetData[$key]['plan_code']=substr($row_data[1], 0, -1);
+        $formatesheetData[$key]['plan_code']=$plan_code;
         $formatesheetData[$key]['plan_level']=$row_data[2];
-        $formatesheetData[$key]['smokers_code']=$row_data[3];
+        $formatesheetData[$key]['smokers_code']=$row_data[3]=='N'?'N':'Y';
         $formatesheetData[$key]['gender']=$row_data[5];
         $formatesheetData[$key]['age']=$row_data[8];
         $formatesheetData[$key]['currency']=$currency;
@@ -261,7 +266,7 @@ class DeveloperController extends ControllerBase {
       if ($key>=2 && !empty($row_data[1])) {
         $formatesheetData[$key]['plan_code']=$row_data[1];
         $formatesheetData[$key]['plan_level']=$row_data[2];
-        $formatesheetData[$key]['smokers_code']=$row_data[3];
+        $formatesheetData[$key]['smokers_code']=$row_data[3]=='N'?'N':'Y';
         $formatesheetData[$key]['gender']=$row_data[5];
         $formatesheetData[$key]['age']=$row_data[8];
         $formatesheetData[$key]['currency']='HKD';

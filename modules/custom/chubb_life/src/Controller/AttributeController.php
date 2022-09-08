@@ -96,12 +96,14 @@ class AttributeController extends ControllerBase {
   }
   public static function get_yn_options() {
     $results = array();
+    $results[0] = t('--Select--');
     $results['Y'] = t('Yes');
     $results['N'] = t('No');
     return $results;
   }
   public static function get_gender_options() {
     $results = array();
+    $results[0] = t('--Select--');
     $results['M'] = t('Male');
     $results['F'] = t('Female');
     return $results;
@@ -116,9 +118,11 @@ class AttributeController extends ControllerBase {
     return $results;
   }
   public static function get_solicitation_options() {
-    $results = array();
-    $results['N'] = t('Opt Out');
-    $results['Y'] = t('Not Opt Out');
+    $results = array(
+      0 => t('--Select--'),
+      'N' => 'Opt Out',
+      'Y' => 'Not Opt Out',
+    );
     return $results;
   }
   public static function get_opt_out_reason_options() {
@@ -151,6 +155,7 @@ class AttributeController extends ControllerBase {
   }
   public static function get_bill_type_options() {
     $results = array(
+      0 => t('--Select--'),
       'Credit Card' => 'Credit Card',
       'CUP' => 'CUP',
     );
@@ -161,6 +166,95 @@ class AttributeController extends ControllerBase {
       '3' => '3rd',
       '18' => '18th',
     );
+    return $results;
+  }
+  public static function get_beneficiary_relationship_options() {
+    $results = array(
+      'EST' => 'Estate',
+    );
+    return $results;
+  }
+  public static function get_face_amount_options() {
+    $results = [
+      'RHC5' =>[
+        '1' => [
+          'HKD'=>400,
+          'USD'=>50,
+        ],
+        '2' => [
+          'HKD'=>800,
+          'USD'=>100,
+        ],
+        '3' => [
+          'HKD'=>1200,
+          'USD'=>150,
+        ],
+        '4' => [
+          'HKD'=>1600,
+          'USD'=>200,
+        ],
+      ],
+      'RHC10' =>[
+        '1' => [
+          'HKD'=>400,
+          'USD'=>50,
+        ],
+        '2' => [
+          'HKD'=>800,
+          'USD'=>100,
+        ],
+        '3' => [
+          'HKD'=>1200,
+          'USD'=>150,
+        ],
+        '4' => [
+          'HKD'=>1600,
+          'USD'=>200,
+        ],
+      ],
+      'PAB10' =>[
+        'A' => [
+          'HKD'=>500000,
+          'USD'=>64100,
+        ],
+        'B' => [
+          'HKD'=>1000000,
+          'USD'=>128200,
+        ],
+        'C' => [
+          'HKD'=>1500000,
+          'USD'=>192300,
+        ],
+      ],
+      'PAB20' =>[
+        'A' => [
+          'HKD'=>500000,
+          'USD'=>64100,
+        ],
+        'B' => [
+          'HKD'=>1000000,
+          'USD'=>128200,
+        ],
+        'C' => [
+          'HKD'=>1500000,
+          'USD'=>192300,
+        ],
+      ],
+      'MCE' =>[
+        '1' => [
+          'HKD'=>1500000,
+        ],
+        '2' => [
+          'HKD'=>1000000,
+        ],
+        '3' => [
+          'HKD'=>500000,
+        ],
+        '4' => [
+          'HKD'=>1600,
+        ],
+      ],
+    ];
     return $results;
   }
 

@@ -24,6 +24,7 @@
         "drupal/encrypt": "^3.0",
         "drupal/ga_login": "^1.0@alpha",
         "drupal/jquery_ui": "^1.4",
+        "drupal/jquery_ui_dialog": "^1.0",
         "drupal/jquery_ui_tooltip": "^1.1",
         "drupal/real_aes": "^2.4",
         "drupal/tfa": "^1.0@alpha",

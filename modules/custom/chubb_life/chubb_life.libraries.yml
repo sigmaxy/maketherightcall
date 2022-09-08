@@ -5,10 +5,12 @@ chubb_life:
     #         css/datatables.min.css: {}
     js:
       js/chubb_life.js: {}
+      js/order.js: {}
       js/script.js: {}
     dependencies:
       - core/jquery
       - core/drupal.ajax
       - chubb/global-styling
       # - jquery_ui_tooltip/tooltip
+      - jquery_ui_dialog/dialog
 

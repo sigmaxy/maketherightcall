@@ -34,10 +34,10 @@ chubb_life.list_premium_data:
   requirements:
     _permission: 'access chubb_life_assignee configuration'
 
-chubb_life.autocomplete_product_plan_code:
-  path: '/chubb_life/data/autocomplete_product_plan_code/{count}'
+chubb_life.ajax_get_premium:
+  path: '/chubb_life/data/ajax_get_premium/{plan_code}/{plan_level}/{smoker}/{gender}/{age}/{currency}'
   defaults:
-    _controller: '\Drupal\chubb_life\Controller\ProductController::autocomplete_product_plan_code'
+    _controller: '\Drupal\chubb_life\Controller\ProductController::ajax_get_premium'
     _format: json
   requirements:
     _permission: 'access chubb_life_assignee configuration'
