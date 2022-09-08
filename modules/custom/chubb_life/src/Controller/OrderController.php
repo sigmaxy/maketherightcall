@@ -119,22 +119,19 @@ class OrderController extends ControllerBase {
     }
   }
   public static function order_format_json($order){
-    $dateOfBirth = $order['owner']['birthDate'];
     $today = date("Y-m-d");
-    $diff = date_diff(date_create($dateOfBirth), date_create($today));
-    $owner_age = $diff->y;
-
-
+    $owner_age = date_diff(date_create($order['owner']['birthDate']), date_create($today))->y;
+    $insured_age = date_diff(date_create($order['insured']['birthDate']), date_create($today))->y;
     $results = array(
       'applicationDto'=>[
         'referenceNumber'=>sprintf('TM%06d',$order['id']),
         'aeonRefNumber'=>$order['aeonRefNumber'],
         'accountHolder1'=>[
-          'holderName'=>'',
-          'identityNumber'=>'',
+          'holderName'=>$order['cardHolderName'],
+          'identityNumber'=>$order['cardholder_id_number'],
           'identityType'=>'',
         ],
-        'accountNumber'=>'',
+        'accountNumber'=>$order['authorizationCode'],
         'agentCode'=>$order['agentCode'],
         'billingType'=>$order['billingType'],
         'currency'=>$order['currency'],
@@ -159,29 +156,31 @@ class OrderController extends ControllerBase {
       'beneficiaryDtos'=>[
         [
           'beneficiaryClass'=>'1',
-          'beneficiarySequence'=>'1',
-          'chineseName'=>$order['owner']['chineseName'],
+          'beneficiarySequence'=>'',
+          'chineseName'=>'',
           'customerType'=>'',
-          'givenName'=>$order['owner']['givenName'],
-          'identityNumber'=>$order['owner']['identityNumber'],
+          'givenName'=>'',
+          'identityNumber'=>'',
           'relationship'=>$order['beneficiary_relationship'],
-          'shared'=>'',
-          'surname'=>$order['owner']['surname'],
+          'shared'=>100,
+          'surname'=>'',
         ],
       ],
       'benefitDtos'=>[
         [
           'attachTo'=>'',
-          'coverageClass'=>'',
+          'coverageClass'=>$order['plan_level'],
           'coverageCode'=>$order['plan_code'],
           'coverageNumber'=>'',
           'currency'=>$order['currency'],
           'customerSequence'=>'',
           'customerType'=>'',
           'faceAmount'=>$order['face_amount'],
-          'plannedPremium'=>$order['initial_premium'],
-          'protectionFaceAmount'=>$order['modal_premium_payment'],
+          'plannedPremium'=>'',
+          'protectionFaceAmount'=>'',
           'savingFaceAmount'=>'',
+          "plannedPremiumTM"=>$order['modal_premium_payment'],
+		      "levyTM"=>$order['levy'],
         ],
       ],
       'customerDtos'=>[
@@ -193,7 +192,7 @@ class OrderController extends ControllerBase {
           'citizenship'=>$order['owner']['nationality'],
           'countryRegionCode'=>$order['owner']['issueCountry'],
           'customerSequence'=>'',
-          'customerType'=>'',
+          'customerType'=>'O',
           'email'=>$order['owner']['email'],
           'gender'=>$order['owner']['gender'],
           'givenName'=>$order['owner']['givenName'],
@@ -228,9 +227,56 @@ class OrderController extends ControllerBase {
             'telephone'=>'',
             'telephoneCountryCode'=>'',
           ),
-          'solicitation'=>$order['owner']['solicitation'],
+          'solicitation'=>$order['owner']['solicitation']=='Y'?true:false,
           'optOutReason'=>$order['owner']['referenceNumber'],
           'surname'=>$order['owner']['surname'],
+        ],
+        [
+          'age'=>$insured_age,
+          'birthDate'=>$order['insured']['birthDate'],
+          'birthPlace'=>'',
+          'chineseName'=>$order['insured']['chineseName'],
+          'citizenship'=>$order['insured']['nationality'],
+          'countryRegionCode'=>$order['insured']['issueCountry'],
+          'customerSequence'=>'',
+          'customerType'=>'I',
+          'email'=>$order['insured']['email'],
+          'gender'=>$order['insured']['gender'],
+          'givenName'=>$order['insured']['givenName'],
+          'identityNumber'=>$order['insured']['identityNumber'],
+          'identityType'=>$order['insured']['identityType'],
+          'isPermanentHkid'=>$order['insured']['isPermanentHkid']=='Y'?true:false,
+          'isValidIdType'=>true,
+          'issueCountry'=>$order['insured']['issueCountry'],
+          'mailing'=>array(
+            'address1'=>$order['insured']['mailing_address1'],
+            'address2'=>$order['insured']['mailing_address2'],
+            'address3'=>$order['insured']['mailing_address3'],
+            'city'=>$order['insured']['mailing_city'],
+            'country'=>$order['insured']['mailing_country'],
+            'postalCode'=>'',
+            'telephone'=>'',
+            'telephoneCountryCode'=>'',
+          ),
+          'marital'=>$order['insured']['marital'],
+          'mobileNumber'=>$order['insured']['mobile'],
+          'mobileNumberCountryCode'=>'',
+          'nationality'=>$order['insured']['nationality'],
+          'occupationCode'=>$order['insured']['occupationCode'],
+          'relationship'=>$order['insured']['relationship'],
+          'residence'=>array(
+            'address1'=>$order['insured']['residence_address1'],
+            'address2'=>$order['insured']['residence_address2'],
+            'address3'=>$order['insured']['residence_address3'],
+            'city'=>$order['insured']['residence_city'],
+            'country'=>$order['insured']['residence_country'],
+            'postalCode'=>'',
+            'telephone'=>'',
+            'telephoneCountryCode'=>'',
+          ),
+          'solicitation'=>$order['insured']['solicitation']=='Y'?true:false,
+          'optOutReason'=>$order['insured']['referenceNumber'],
+          'surname'=>$order['insured']['surname'],
         ],
         
       ],

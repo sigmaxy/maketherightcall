@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\chubb_life\Controller\AttributeController;
 use Drupal\chubb_life\Controller\OrderController;
+use Drupal\chubb_life\Controller\ProductController;
 use Drupal\Core\Url;
 
 /**
@@ -48,6 +49,11 @@ class EditOrderForm extends FormBase {
     $currency_opt = AttributeController::get_currency_options();
     $payment_mode_opt = AttributeController::get_payment_mode_options();
     $bill_type_opt = AttributeController::get_bill_type_options();
+    $dda_setup_opt = AttributeController::get_dda_setup_options();
+    $plan_code_opt = ProductController::get_plan_code_options();
+    $plan_level_opt = ProductController::get_plan_level_options();
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id()); // pass your uid
+    $agent_code = $user->field_agentcode->value;
     $form['application'] = [
       '#type'  => 'details',
       '#title' => $this->t('Application Detail'),
@@ -701,7 +707,7 @@ class EditOrderForm extends FormBase {
     ];
     $form['customer_payor'] = [
       '#type'  => 'details',
-      '#title' => $this->t('Customer Details (Payor) (TBC)'),
+      '#title' => $this->t('Customer Details (Payor)'),
       '#open'  => true,
       '#weight' => '4',
     ];
@@ -722,13 +728,6 @@ class EditOrderForm extends FormBase {
       '#weight' => '3',
       // '#default_value' => $default_po_number,
       '#required'=> true,
-    ];
-    $form['customer_payor']['customer_payor_chineseName'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Name (Chinese)'),
-      '#default_value' => isset($record['payor']['chineseName'])?$record['payor']['chineseName']:'',
-      '#maxlength' => 255,
-      '#weight' => '4',
     ];
     $form['customer_payor']['customer_payor_identityType'] = [
       '#type' => 'select',
@@ -812,10 +811,13 @@ class EditOrderForm extends FormBase {
       '#required'=> true,
     ];
     $form['policy']['pep'] = [
-      '#type' => 'textfield',
+      '#type' => 'select',
       '#title' => $this->t('PEP'),
+      '#options' => $yn_opt,
       '#default_value' => isset($record['pep'])?$record['pep']:'',
-      '#maxlength' => 255,
+      '#attributes' => [
+        'class' => ['noselect2'],
+      ],
       '#weight' => '3',
       '#required'=> true,
     ];
@@ -847,37 +849,70 @@ class EditOrderForm extends FormBase {
       '#open'  => true,
       '#weight' => '7',
     ];
+    // $form['information']['plan_code'] = [
+    //   '#type' => 'textfield',
+    //   '#title' => $this->t('Plan Code'),
+    //   '#default_value' => isset($record['plan_code'])?$record['plan_code']:'',
+    //   '#maxlength' => 255,
+    //   '#weight' => '1',
+    //   '#required'=> true,
+    // ];
+    // $form['information']['plan_code'] = [
+    //   '#title'         => 'Plan Code',
+    //   '#type'          => 'search',
+    //   '#autocomplete_route_name' => 'chubb_life.autocomplete_product_plan_code',
+    //   '#autocomplete_route_parameters' => array('count' => 10),
+    //   '#default_value' => isset($record['plan_code'])?$record['plan_code']:'',
+    //   '#maxlength' => 255,
+    //   '#weight' => '1',
+    //   '#required'=> true,
+    // ];
     $form['information']['plan_code'] = [
-      '#type' => 'textfield',
+      '#type' => 'select',
       '#title' => $this->t('Plan Code'),
+      '#options' => $plan_code_opt,
       '#default_value' => isset($record['plan_code'])?$record['plan_code']:'',
-      '#maxlength' => 255,
+      '#attributes' => [
+        'class' => ['plan_code_select','noselect2'],
+      ],
       '#weight' => '1',
       '#required'=> true,
     ];
+
     $form['information']['face_amount'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Face amount (TBC)'),
+      '#title' => $this->t('Face amount'),
       '#default_value' => isset($record['face_amount'])?$record['face_amount']:'',
       '#maxlength' => 255,
       '#weight' => '2',
       '#required'=> true,
     ];
+    // $form['information']['plan_level'] = [
+    //   '#type' => 'textfield',
+    //   '#title' => $this->t('Plan level (RS)'),
+    //   '#default_value' => isset($record['plan_level'])?$record['plan_level']:'',
+    //   '#maxlength' => 255,
+    //   '#weight' => '3',
+    //   '#required'=> true,
+    // ];
     $form['information']['plan_level'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Plan level (RS)'),
+      '#type' => 'select',
+      '#title' => $this->t('Plan Level (RS)'),
+      '#options' => $plan_level_opt,
       '#default_value' => isset($record['plan_level'])?$record['plan_level']:'',
-      '#maxlength' => 255,
+      '#attributes' => [
+        'class' => ['plan_level_select','noselect2'],
+      ],
       '#weight' => '3',
       '#required'=> true,
     ];
-    $form['information']['family_package'] = [
+    $form['information']['promotion_code'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Family Package (TBC)'),
-      '#default_value' => isset($record['family_package'])?$record['family_package']:'',
+      '#title' => $this->t('Promotion Code'),
+      '#default_value' => isset($record['promotion_code'])?$record['promotion_code']:'',
       '#maxlength' => 255,
       '#weight' => '4',
-      '#required'=> true,
+      // '#required'=> true,
     ];
     $form['micellaneous'] = [
       '#type'  => 'details',
@@ -924,8 +959,8 @@ class EditOrderForm extends FormBase {
     ];
     $form['health_details']['health_details_q_2'] = [
       '#type' => 'radios',
-      '#title' => 'Q1. Have any of your immediate family members (parents or siblings) whether living or dead ever suffered from cancer, alzheimer’s disease, parkinson disease, or other hereditary disease at or before the age of 60? 
-      <br><br>Q1. 您的直系親屬（父母或兄弟姐妹）是否在 60 歲或之前患有癌症、阿爾滋海默氏症、柏金遜症或其他遺傳病？',
+      '#title' => 'Q2. Have you ever had any cancer or carcinoma-in-situ, heart attack, stroke, HIV infection or AIDS related complications?
+      <br><br>Q2. 您是否曾患過癌症或原位癌、心臟病發作、中風、愛滋病病毒感染或愛滋病相關併發症?',
       '#options' => $yn_opt,
       '#default_value' => isset($record['health_details_q_2'])?$record['health_details_q_2']:'',
       // '#required' => TRUE,
@@ -965,7 +1000,7 @@ class EditOrderForm extends FormBase {
     $form['agents_statement']['agentCode'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Agent Code'),
-      '#default_value' => isset($record['agentCode'])?$record['agentCode']:'',
+      '#default_value' => isset($record['agentCode'])?$record['agentCode']:$agent_code,
       '#maxlength' => 255,
       '#weight' => '4',
       '#required'=> true,
@@ -1029,10 +1064,37 @@ class EditOrderForm extends FormBase {
     ];
     $form['billing_info']['modal_premium_payment'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Modal Premium Payment '),
+      '#title' => $this->t('Modal Premium Payment'),
       '#default_value' => isset($record['modal_premium_payment'])?$record['modal_premium_payment']:'',
       '#maxlength' => 255,
       '#weight' => '7',
+      '#required'=> true,
+    ];
+    $form['billing_info']['levy'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Levy'),
+      '#default_value' => isset($record['levy'])?$record['levy']:'',
+      '#maxlength' => 255,
+      '#weight' => '8',
+      '#required'=> true,
+    ];
+    $form['billing_info']['remarks'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Remarks'),
+      '#default_value' => isset($record['remarks'])?$record['remarks']:'',
+      // '#maxlength' => 255,
+      '#weight' => '9',
+      // '#required'=> true,
+    ];
+    $form['billing_info']['dda_setup'] = [
+      '#type' => 'select',
+      '#title' => $this->t('DDA setup'),
+      '#options' => $dda_setup_opt,
+      '#default_value' => isset($record['dda_setup'])?$record['dda_setup']:'3',
+      '#attributes' => [
+        'class' => ['noselect2'],
+      ],
+      '#weight' => '10',
       '#required'=> true,
     ];
     $form['submit'] = [
@@ -1040,6 +1102,7 @@ class EditOrderForm extends FormBase {
       '#value' => $this->t('Submit'),
       '#weight' => '20',
     ];
+    $form['#attached']['drupalSettings']['plan_level'] = $plan_level_opt;
     $form['#attached']['library'][] = 'chubb_life/chubb_life';
     return $form;
   }
@@ -1151,7 +1214,7 @@ class EditOrderForm extends FormBase {
     $order['plan_code'] = $form_state->getValue('plan_code');
     $order['face_amount'] = $form_state->getValue('face_amount');
     $order['plan_level'] = $form_state->getValue('plan_level');
-    $order['family_package'] = $form_state->getValue('family_package');
+    $order['promotion_code'] = $form_state->getValue('promotion_code');
     $order['replacement_declaration'] = $form_state->getValue('replacement_declaration');
     $order['fna'] = $form_state->getValue('fna');
     $order['health_details_q_1'] = $form_state->getValue('health_details_q_1');
@@ -1167,6 +1230,9 @@ class EditOrderForm extends FormBase {
     $order['card_expiry_date'] = $form_state->getValue('card_expiry_date');
     $order['initial_premium'] = $form_state->getValue('initial_premium');
     $order['modal_premium_payment'] = $form_state->getValue('modal_premium_payment');
+    $order['levy'] = $form_state->getValue('levy');
+    $order['remarks'] = $form_state->getValue('remarks');
+    $order['dda_setup'] = $form_state->getValue('dda_setup');
     $order['customer_id'] = $this->import_customer_id;
     $order['status'] = 1;
     if (is_numeric($this->order_id)) {

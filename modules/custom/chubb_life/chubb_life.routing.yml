@@ -29,10 +29,19 @@ chubb_life.upload_customer_form:
 chubb_life.list_premium_data:
   path: '/chubb_life/data/listpremium'
   defaults:
-    _controller: '\Drupal\chubb_life\Controller\AttributeController::ajax_datatable_list_premium'
+    _controller: '\Drupal\chubb_life\Controller\ProductController::ajax_datatable_list_products'
     _title: 'List Premium'
   requirements:
     _permission: 'access chubb_life_assignee configuration'
+
+chubb_life.autocomplete_product_plan_code:
+  path: '/chubb_life/data/autocomplete_product_plan_code/{count}'
+  defaults:
+    _controller: '\Drupal\chubb_life\Controller\ProductController::autocomplete_product_plan_code'
+    _format: json
+  requirements:
+    _permission: 'access chubb_life_assignee configuration'
+
 chubb_life.list_call_form:
   path: '/chubb_life/form/list_call'
   defaults:

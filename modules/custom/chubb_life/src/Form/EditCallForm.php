@@ -8,6 +8,7 @@ use Drupal\chubb_life\Controller\CallController;
 use Drupal\chubb_life\Controller\CustomerController;
 use Drupal\Core\Render\Markup;
 use Drupal\chubb_life\Controller\AttributeController;
+use Drupal\chubb_life\Controller\ProductController;
 use Drupal\Core\Url;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
@@ -89,7 +90,7 @@ class EditCallForm extends FormBase {
     $header_table['currency'] = t('Currency');
     $header_table['premium'] = t('Premium');
     $rows=array();
-    $premium_list = AttributeController::list_premium();
+    $premium_list = ProductController::list_products();
     foreach($premium_list as $key=>$data){
       $row_data['plan_code'] = $data->plan_code;
       $row_data['plan_level'] = $data->plan_level;

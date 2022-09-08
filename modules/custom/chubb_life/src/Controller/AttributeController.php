@@ -37,32 +37,6 @@ class AttributeController extends ControllerBase {
     );
     return $results;
   }
-  public static function list_premium(){
-    $connection = Database::getConnection();
-    $query = $connection->select('mtrc_premium', 'mp');
-    $query->fields('mp');
-    $record = $query->execute()->fetchAll();
-    return $record;
-  }
-  public static function ajax_datatable_list_premium(){
-    $results = [];
-    $results['draw'] = 1;
-    $premium_list = self::list_premium();
-    $results['recordsTotal'] = count($premium_list);
-    $results['recordsFiltered'] = count($premium_list);
-    foreach($premium_list as $key => $data){
-      $results['data'][] = [
-        $data->plan_code,
-        $data->plan_level,
-        $data->smokers_code,
-        $data->gender,
-        $data->age,
-        $data->currency,
-        $data->premium,
-      ];
-    }
-    return new JsonResponse($results);
-  }
   public static function get_country_list() {
     $connection = Database::getConnection();
     $query = $connection->select('mtrc_attribute_country', 'mac');
@@ -182,4 +156,13 @@ class AttributeController extends ControllerBase {
     );
     return $results;
   }
+  public static function get_dda_setup_options() {
+    $results = array(
+      '3' => '3rd',
+      '18' => '18th',
+    );
+    return $results;
+  }
+
+
 }

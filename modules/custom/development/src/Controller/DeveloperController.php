@@ -198,12 +198,19 @@ class DeveloperController extends ControllerBase {
 
     foreach ($sheetData as $key => $row_data) {
       if ($key>=2 && !empty($row_data[1])) {
-        $formatesheetData[$key]['plan_code']=$row_data[1];
+        $currency_code = substr($row_data[1], -1);
+        if($currency_code=='U'){
+          $currency = 'USD';
+        }else{
+          $currency = 'HKD';
+        }
+        $plan_code = substr($row_data[1], 0, -1);
+        $formatesheetData[$key]['plan_code']=substr($row_data[1], 0, -1);
         $formatesheetData[$key]['plan_level']=$row_data[2];
         $formatesheetData[$key]['smokers_code']=$row_data[3];
         $formatesheetData[$key]['gender']=$row_data[5];
         $formatesheetData[$key]['age']=$row_data[8];
-        // $formatesheetData[$key]['currency']=$row_data[1];
+        $formatesheetData[$key]['currency']=$currency;
         $formatesheetData[$key]['premium']=$row_data[11];
       }
     }
@@ -257,7 +264,7 @@ class DeveloperController extends ControllerBase {
         $formatesheetData[$key]['smokers_code']=$row_data[3];
         $formatesheetData[$key]['gender']=$row_data[5];
         $formatesheetData[$key]['age']=$row_data[8];
-        // $formatesheetData[$key]['currency']=$row_data[2];
+        $formatesheetData[$key]['currency']='HKD';
         $formatesheetData[$key]['premium']=$row_data[11];
       }
     }

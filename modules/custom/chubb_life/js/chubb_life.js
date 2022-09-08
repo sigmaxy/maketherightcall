@@ -123,7 +123,7 @@ function order_sample_data(){
     jQuery('select[name="customer_insured_opt_out_reason"]').val('COPS');
     jQuery('input[name="customer_payor_surname"]').val('customer_payor_surname');
     jQuery('input[name="customer_payor_givenName"]').val('customer_payor_givenName');
-    jQuery('input[name="customer_payor_chineseName"]').val('customer_payor_chineseName');
+    // jQuery('input[name="customer_payor_chineseName"]').val('customer_payor_chineseName');
     jQuery('select[name="customer_payor_identityType"]').val('I');
     jQuery('input[name="customer_payor_identityNumber"]').val('A321654(7)');
     jQuery('select[name="customer_payor_gender"]').val('F');
@@ -133,10 +133,10 @@ function order_sample_data(){
     jQuery('input[name="pep"]').val('pep');
     jQuery('select[name="another_person"]').val('Y');
     jQuery('select[name="ecopy"]').val('Y');
-    jQuery('input[name="plan_code"]').val('plan_code');
-    jQuery('input[name="face_amount"]').val('face_amount');
-    jQuery('input[name="plan_level"]').val('plan_level');
-    jQuery('input[name="family_package"]').val('family_package');
+    jQuery('select[name="plan_code"]').val('RC10');
+    jQuery('input[name="face_amount"]').val('321');
+    jQuery('select[name="plan_level"]').val('3');
+    jQuery('input[name="promotion_code"]').val('promotion_code');
     jQuery('select[name="replacement_declaration"]').val('Y');
     jQuery('select[name="fna"]').val('Y');
     jQuery('input[name="health_details_q_1"]').attr('checked','checked');
@@ -144,7 +144,7 @@ function order_sample_data(){
     jQuery('input[name="health_details_q_3"]').attr('checked','checked');
     jQuery('input[name="health_details_q_4"]').attr('checked','checked');
     jQuery('input[name="health_details_q_5"]').attr('checked','checked');
-    jQuery('input[name="agentCode"]').val('agentCode');
+    // jQuery('input[name="agentCode"]').val('agentCode');
     jQuery('select[name="billingType"]').val('CUP');
     jQuery('input[name="authorizationCode"]').val('tokenized_card_number');
     jQuery('input[name="cardHolderName"]').val('cardHolderName');
@@ -152,5 +152,8 @@ function order_sample_data(){
     jQuery('input[name="card_expiry_date"]').val('card_expiry_date');
     jQuery('input[name="initial_premium"]').val('initial_premium');
     jQuery('input[name="modal_premium_payment"]').val('modal_premium_payment');
+    jQuery('input[name="levy"]').val('levy');
+    jQuery('textarea[name="remarks"]').val('remarks');
+    jQuery('select[name="dda_setup"]').val('18');
     jQuery('select').change();
 }
