@@ -57,6 +57,7 @@ class EditOrderForm extends FormBase {
     $face_amount_opt = AttributeController::get_face_amount_options();
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id()); // pass your uid
     $agent_code = $user->field_agentcode->value;
+    $agent_name = $user->field_agentname->value;
     $form['application'] = [
       '#type'  => 'details',
       '#title' => $this->t('Application Detail'),
@@ -1062,7 +1063,21 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Agent Code'),
       '#default_value' => isset($record['agentCode'])?$record['agentCode']:$agent_code,
       '#maxlength' => 255,
+      '#attributes' => [
+        'readonly' => 'readonly',
+      ],
       '#weight' => '4',
+      '#required'=> true,
+    ];
+    $form['agents_statement']['agentName'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Agent Name'),
+      '#default_value' => isset($record['agentName'])?$record['agentName']:$agent_name,
+      '#maxlength' => 255,
+      '#attributes' => [
+        'readonly' => 'readonly',
+      ],
+      '#weight' => '5',
       '#required'=> true,
     ];
     $form['billing_info'] = [
@@ -1315,6 +1330,7 @@ class EditOrderForm extends FormBase {
     $order['health_details_q_4'] = $form_state->getValue('health_details_q_4');
     $order['health_details_q_5'] = $form_state->getValue('health_details_q_5');
     $order['agentCode'] = $form_state->getValue('agentCode');
+    $order['agentName'] = $form_state->getValue('agentName');
     $order['billingType'] = $form_state->getValue('billingType');
     $order['authorizationCode'] = $form_state->getValue('authorizationCode');
     $order['cardHolderName'] = $form_state->getValue('cardHolderName');
