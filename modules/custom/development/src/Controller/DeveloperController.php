@@ -78,8 +78,9 @@ class DeveloperController extends ControllerBase {
     // self::print_dir_file($target_path);
     // print_r();
     // print_r($files1);
-    self::scanAllDir($target_path);
 
+    self::scanAllDir($target_path);
+echo '<br><br><br><br>';
     $connect = mysqli_connect ("localhost","root","*Mtrc97878887*","chubb_insurance");
     $query = "SELECT * FROM user_admin";
     $result =mysqli_query($connect, $query);
@@ -88,8 +89,8 @@ class DeveloperController extends ControllerBase {
       print_r($row);
     }
     
-
-    echo '$host = "localhost"; /* Host name */$user = "root"; /* User */$password = "*Mtrc97878887*"; /* Password */$dbname = "amorepacific_logging"; /* Database name */';
+    echo '<br><br><br><br>';
+    echo '$host = "localhost"; /* Host name */$user = "root"; /* User */$password = "*Mtrc97878887*"; /* Password */$dbname = "chubb_insurance"; /* Database name */';
   }
   public function print_dir_file($target){
     $target_dir_raw = scandir($target);
