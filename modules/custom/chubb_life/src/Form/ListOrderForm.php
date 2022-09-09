@@ -29,6 +29,7 @@ class ListOrderForm extends FormBase {
     $header_table['mobile'] = t('Mobile');
     $header_table['plan_code'] = t('Plan Code');
     $header_table['updated_at'] = t('Updated At');
+    $header_table['updated_by'] = t('Updated By');
     $header_table['opt'] = t('Operation');
     $rows=array();
     $roles = \Drupal::currentUser()->getRoles();
@@ -47,6 +48,8 @@ class ListOrderForm extends FormBase {
       $row_data['mobile'] = $client_owner['mobile'];
       $row_data['plan_code'] = $data->plan_code;
       $row_data['updated_at'] = date('Y-m-d H:i:s',$data->updated_at);
+      $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
+      $row_data['updated_by'] = $updated_user->field_agentname->value;
       $row_data['opt'] = Link::fromTextAndUrl('Edit', $edit);
       $rows[$data->id] = $row_data;
     }

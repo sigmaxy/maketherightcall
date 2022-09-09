@@ -35,6 +35,7 @@ class ListCustomerForm extends FormBase {
     $header_table['status'] = t('Status');
     $header_table['assignee'] = t('Assignee');
     $header_table['created_at'] = t('Created At');
+    $header_table['updated_by'] = t('Updated By');
     $rows=array();
     $import_customer_list = CustomerController::list_import_customer();
     $call_status_opt = AttributeController::get_call_status_options();
@@ -59,6 +60,8 @@ class ListCustomerForm extends FormBase {
       $row_data['tel_mbl'] = $data->tel_mbl;
       $row_data['tel_hom'] = $data->tel_hom;
       $row_data['created_at'] = date('Y-m-d',$data->created_at);
+      $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
+      $row_data['updated_by'] = $updated_user->field_agentname->value;
       
       // $row_data['opt'] = Link::fromTextAndUrl('Edit', $edit);
       $rows[$data->id] = $row_data;

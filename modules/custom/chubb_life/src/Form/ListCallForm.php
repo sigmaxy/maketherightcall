@@ -35,6 +35,7 @@ class ListCallForm extends FormBase {
     $header_table['status'] = t('Status');
     $header_table['count'] = t('Attempts');
     $header_table['updated_at'] = t('Lastest Modify');
+    $header_table['updated_by'] = t('Updated By');
     $header_table['opt'] = t('Opt');
     $rows=array();
     $current_uid = \Drupal::currentUser()->id();
@@ -57,6 +58,8 @@ class ListCallForm extends FormBase {
         'data' => Link::fromTextAndUrl($data->count, $view_log),
       ];
       $row_data['updated_at'] = date('Y-m-d H:i:s',$data->updated_at);
+      $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
+      $row_data['updated_by'] = $updated_user->field_agentname->value;
       $row_data['opt'] = Link::fromTextAndUrl('View', $edit);
       $rows[$data->id] = $row_data;
     }
