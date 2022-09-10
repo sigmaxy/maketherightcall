@@ -46,9 +46,6 @@ class DeveloperController extends ControllerBase {
       case 'clear_data':
         self::clear_data();exit;
       break;
-      case 'sql_inject':
-        self::sql_inject();exit;
-      break;
       default:
         echo "no action"; exit;
       break;
