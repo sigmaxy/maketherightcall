@@ -1,13 +1,29 @@
 jQuery(document).ready(function($){
     $(document).on('change','#same_as_owner',function(e) {
         toggle_customer_insured_same_as_owner();
+        relationship_lock_value();
 	});
     toggle_customer_insured_same_as_owner();
+    relationship_lock_value();
     function toggle_customer_insured_same_as_owner(){
         if($('#same_as_owner').val()=='Y'){
             $('#edit-customer-insured').hide();
         }else{
             $('#edit-customer-insured').show();
+        }
+    }
+    function relationship_lock_value(){
+        if($('#same_as_owner').val()=='Y'){
+            $("#relationship option").each(function(i){
+                $(this).attr('disabled','disabled');
+            });
+            $("#relationship option[value=INS]").removeAttr('disabled');
+            $("#relationship").val('INS');
+            $("#relationship").change();
+        }else{
+            $("#relationship option").each(function(i){
+                $(this).removeAttr('disabled');
+            });
         }
     }
     $(document).on('click','#calculate_premium',function(e) {
@@ -24,6 +40,16 @@ jQuery(document).ready(function($){
         return age;
     }
     function calculate_premium(){
+        var promotion_code = $('#promotion_code').val();
+        var discount = 0;
+        if (promotion_code) {
+            if(drupalSettings.promotion_code_arr.includes(promotion_code)){
+                discount = 0.15;
+            }else{
+                alert('Invalid Promotion Code');
+            }
+            
+        }
         var plan_code = $('#plan_code').val();
         var plan_level = $('#plan_level').val();
         var smoker = $('#insured_smoker').val();
@@ -38,7 +64,7 @@ jQuery(document).ready(function($){
         var currency = $('#currency').val();
         var payment_mode = $('#paymentMode').val();
         var initial_premium,modal_premium_payment;
-        var discount = 0;
+        
         if(plan_code&&plan_level&&smoker&&birthDate&&currency){
             $.ajax({
                 url: window.location.origin+drupalSettings.path.baseUrl+'chubb_life/data/ajax_get_premium/'+plan_code+'/'+plan_level+'/'+smoker+'/'+gender+'/'+age+'/'+currency,
@@ -51,10 +77,11 @@ jQuery(document).ready(function($){
                             levy = 100;
                         }else if(currency=='USD'&& premium>=12820){
                             levy = 12.82;
+                        }else if(currency=='CNY'&& premium>=83330){
+                            levy = 83.33;
                         }else{
                             levy = 0.001 * premium;
                         }
-                        
                         if(payment_mode==12){
                             initial_premium = premium - premium*discount + levy;
                             modal_premium_payment = premium;

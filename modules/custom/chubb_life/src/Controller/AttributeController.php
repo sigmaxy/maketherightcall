@@ -253,6 +253,9 @@ class AttributeController extends ControllerBase {
     ];
     return $results;
   }
-
+  public static function get_promotion_code_arr() {
+    $results = ['CC17'];
+    return $results;
+  }
 
 }

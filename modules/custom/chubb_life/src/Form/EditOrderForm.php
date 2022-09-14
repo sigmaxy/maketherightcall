@@ -55,6 +55,7 @@ class EditOrderForm extends FormBase {
     $product_name_opt = ProductController::get_product_name_options();
     $beneficiary_relationship_opt = AttributeController::get_beneficiary_relationship_options();
     $face_amount_opt = AttributeController::get_face_amount_options();
+    $promotion_code_arr = AttributeController::get_promotion_code_arr();
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id()); // pass your uid
     $agent_code = $user->field_agentcode->value;
     $agent_name = $user->field_agentname->value;
@@ -138,6 +139,7 @@ class EditOrderForm extends FormBase {
       '#default_value' => isset($record['owner']['relationship'])?$record['owner']['relationship']:'',
       '#attributes' => [
         'class' => ['noselect2'],
+        'id' => 'relationship',
       ],
       '#empty_option' => '--Select--',
       '#weight' => '5',
@@ -259,7 +261,7 @@ class EditOrderForm extends FormBase {
         'class' => ['country_select'],
       ],
       '#weight' => '15',
-      '#required'=> true,
+      // '#required'=> true,
     ];
     $form['customer_owner']['taxResidencyTin2'] = [
       '#type' => 'textfield',
@@ -267,7 +269,7 @@ class EditOrderForm extends FormBase {
       '#maxlength' => 255,
       '#default_value' => isset($record['owner']['taxResidencyTin2'])?$record['owner']['taxResidencyTin2']:'',
       '#weight' => '16',
-      '#required'=> true,
+      // '#required'=> true,
     ];
     $form['customer_owner']['taxResidency3'] = [
       '#type' => 'select',
@@ -278,7 +280,7 @@ class EditOrderForm extends FormBase {
         'class' => ['country_select'],
       ],
       '#weight' => '17',
-      '#required'=> true,
+      // '#required'=> true,
     ];
     $form['customer_owner']['taxResidencyTin3'] = [
       '#type' => 'textfield',
@@ -286,7 +288,7 @@ class EditOrderForm extends FormBase {
       '#maxlength' => 255,
       '#default_value' => isset($record['owner']['taxResidencyTin3'])?$record['owner']['taxResidencyTin3']:'',
       '#weight' => '18',
-      '#required'=> true,
+      // '#required'=> true,
     ];
     $form['customer_owner']['email'] = [
       '#type' => 'textfield',
@@ -971,6 +973,9 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Promotion Code'),
       '#default_value' => isset($record['promotion_code'])?$record['promotion_code']:'',
       '#maxlength' => 255,
+      '#attributes' => [
+        'id' => 'promotion_code',
+      ],
       '#weight' => '10',
       // '#required'=> true,
     ];
@@ -1205,6 +1210,7 @@ class EditOrderForm extends FormBase {
       '#value' => $this->t('Submit'),
       '#weight' => '20',
     ];
+    $form['#attached']['drupalSettings']['promotion_code_arr'] = $promotion_code_arr;
     $form['#attached']['drupalSettings']['product_name'] = $product_name_opt;
     $form['#attached']['drupalSettings']['plan_level'] = $plan_level_opt;
     $form['#attached']['drupalSettings']['face_amount'] = $face_amount_opt;
