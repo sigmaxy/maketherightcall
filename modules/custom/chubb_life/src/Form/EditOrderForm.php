@@ -1265,6 +1265,11 @@ class EditOrderForm extends FormBase {
     //   // @TODO: Validate fields.
     // }
     // parent::validateForm($form, $form_state);
+    $card_expiry_date = $form_state->getValue('card_expiry_date');
+    if (!preg_match("/^(0[1-9]|1[0-2])\/[0-9]{4}$/",$card_expiry_date)) {
+      $form_state->setErrorByName('card_expiry_date','Invalide Card Expiry Date');
+    }
+    parent::validateForm($form, $form_state);
   }
 
   /**

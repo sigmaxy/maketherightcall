@@ -11,6 +11,8 @@ global-styling:
     js/datatables.min.js: {}
     https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js: { type: external, minified: true }
     https://cdn.jsdelivr.net/gh/xxjapp/xdialog@3/xdialog.min.js: { type: external, minified: true }
+    # https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/bindings/inputmask.binding.js: { type: external, minified: true }
+    # https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js: { type: external, minified: true }
     # https://unpkg.com/tippy.js@6: { type: external, minified: true }
     # https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js: { type: external, minified: true }
     # https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js: { type: external, minified: true }
