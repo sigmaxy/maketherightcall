@@ -26,6 +26,51 @@ jQuery(document).ready(function($){
             });
         }
     }
+    function taxResidency_showmore_button(elements){
+        if(elements.hasClass('show_more')){
+            elements.removeClass('show_more');
+            elements.prop("value", "Show Less");
+        }else{
+            elements.addClass('show_more');
+            elements.prop("value", "Show More");
+        }
+    }
+    $(document).on('click','#owner_taxResidency_showmore',function(e) {
+        taxResidency_showmore_button($(this));
+        owner_taxResidency_showmore();
+	});
+    owner_taxResidency_showmore();
+    function owner_taxResidency_showmore() {
+        if(!$('#owner_taxResidency_showmore').hasClass('show_more')){
+            $('.form-item-taxresidency2').show()
+            $('.form-item-taxresidencytin2').show()
+            $('.form-item-taxresidency3').show()
+            $('.form-item-taxresidencytin3').show()
+        }else{
+            $('.form-item-taxresidency2').hide()
+            $('.form-item-taxresidencytin2').hide()
+            $('.form-item-taxresidency3').hide()
+            $('.form-item-taxresidencytin3').hide()
+        }
+    }
+    $(document).on('click','#insured_taxResidency_showmore',function(e) {
+        taxResidency_showmore_button($(this));
+        insured_taxResidency_showmore();
+	});
+    insured_taxResidency_showmore();
+    function insured_taxResidency_showmore() {
+        if(!$('#insured_taxResidency_showmore').hasClass('show_more')){
+            $('.form-item-customer-insured-taxresidency2').show()
+            $('.form-item-customer-insured-taxresidencytin2').show()
+            $('.form-item-customer-insured-taxresidency3').show()
+            $('.form-item-customer-insured-taxresidencytin3').show()
+        }else{
+            $('.form-item-customer-insured-taxresidency2').hide()
+            $('.form-item-customer-insured-taxresidencytin2').hide()
+            $('.form-item-customer-insured-taxresidency3').hide()
+            $('.form-item-customer-insured-taxresidencytin3').hide()
+        }
+    }
     $(document).on('click','#calculate_premium',function(e) {
         calculate_premium();
 	});

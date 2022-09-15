@@ -252,6 +252,26 @@ class EditOrderForm extends FormBase {
       '#weight' => '14',
       '#required'=> true,
     ];
+    $owner_taxResidency_showmore_title = 'Show More';
+    $owner_taxResidency_showmore_class = ['owner_taxResidency_showmore'];
+    if(!empty($record['owner']['taxResidencyTin2'])||!empty($record['owner']['taxResidencyTin3'])
+    ){
+      $owner_taxResidency_showmore_title = 'Show Less';
+    }else{
+      $owner_taxResidency_showmore_class[] = 'show_more';
+    }
+
+    $form['customer_owner']['owner_taxResidency_showmore'] = [
+      '#type' => 'button',
+      '#value' => $owner_taxResidency_showmore_title,
+      '#attributes' => [
+        'onclick' => 'return false;',
+        'id' => 'owner_taxResidency_showmore',
+        'class' => $owner_taxResidency_showmore_class,
+        // 'class' => ['owner_taxResidency_showmore','show_more'],
+      ],
+      '#weight' => '15',
+    ];
     $form['customer_owner']['taxResidency2'] = [
       '#type' => 'select',
       '#title' => $this->t('Tax Residency 2'),
@@ -260,7 +280,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['country_select'],
       ],
-      '#weight' => '15',
+      '#weight' => '16',
       // '#required'=> true,
     ];
     $form['customer_owner']['taxResidencyTin2'] = [
@@ -268,7 +288,7 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Tax Residency TIN 2'),
       '#maxlength' => 255,
       '#default_value' => isset($record['owner']['taxResidencyTin2'])?$record['owner']['taxResidencyTin2']:'',
-      '#weight' => '16',
+      '#weight' => '17',
       // '#required'=> true,
     ];
     $form['customer_owner']['taxResidency3'] = [
@@ -279,7 +299,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['country_select'],
       ],
-      '#weight' => '17',
+      '#weight' => '18',
       // '#required'=> true,
     ];
     $form['customer_owner']['taxResidencyTin3'] = [
@@ -287,7 +307,7 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Tax Residency TIN 3'),
       '#maxlength' => 255,
       '#default_value' => isset($record['owner']['taxResidencyTin3'])?$record['owner']['taxResidencyTin3']:'',
-      '#weight' => '18',
+      '#weight' => '19',
       // '#required'=> true,
     ];
     $form['customer_owner']['email'] = [
@@ -295,7 +315,7 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Email Address'),
       '#default_value' => isset($record['owner']['email'])?$record['owner']['email']:'',
       '#maxlength' => 255,
-      '#weight' => '19',
+      '#weight' => '20',
       '#required'=> true,
     ];
     $form['customer_owner']['residence_address1'] = [
@@ -303,27 +323,27 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Flat/Floor/Block'),
       '#default_value' => isset($record['owner']['residence_address1'])?$record['owner']['residence_address1']:'',
       '#prefix' => 'Residence Address',
-      '#weight' => '20',
+      '#weight' => '21',
       '#required'=> true,
     ];
     $form['customer_owner']['residence_address2'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Building/Street Number'),
       '#default_value' => isset($record['owner']['residence_address2'])?$record['owner']['residence_address2']:'',
-      '#weight' => '21',
+      '#weight' => '22',
       '#required'=> true,
     ];
     $form['customer_owner']['residence_address3'] = [
       '#type' => 'textfield',
       '#title' => $this->t('District'),
       '#default_value' => isset($record['owner']['residence_address3'])?$record['owner']['residence_address3']:'',
-      '#weight' => '22',
+      '#weight' => '23',
     ];
     $form['customer_owner']['residence_city'] = [
       '#type' => 'textfield',
       '#title' => $this->t('City'),
       '#default_value' => isset($record['owner']['residence_city'])?$record['owner']['residence_city']:'',
-      '#weight' => '23',
+      '#weight' => '24',
       '#required'=> true,
     ];
     $form['customer_owner']['residence_country'] = [
@@ -334,7 +354,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['country_select'],
       ],
-      '#weight' => '24',
+      '#weight' => '25',
       '#required'=> true,
     ];
     $form['customer_owner']['mailing_address1'] = [
@@ -342,27 +362,27 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Flat/Floor/Block'),
       '#default_value' => isset($record['owner']['mailing_address1'])?$record['owner']['mailing_address1']:'',
       '#prefix' => 'Mailing Address',
-      '#weight' => '25',
+      '#weight' => '26',
       '#required'=> true,
     ];
     $form['customer_owner']['mailing_address2'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Building/Street Number'),
       '#default_value' => isset($record['owner']['mailing_address2'])?$record['owner']['mailing_address2']:'',
-      '#weight' => '26',
+      '#weight' => '27',
       '#required'=> true,
     ];
     $form['customer_owner']['mailing_address3'] = [
       '#type' => 'textfield',
       '#title' => $this->t('District'),
       '#default_value' => isset($record['owner']['mailing_address3'])?$record['owner']['mailing_address3']:'',
-      '#weight' => '27',
+      '#weight' => '29',
     ];
     $form['customer_owner']['mailing_city'] = [
       '#type' => 'textfield',
       '#title' => $this->t('City'),
       '#default_value' => isset($record['owner']['mailing_city'])?$record['owner']['mailing_city']:'',
-      '#weight' => '28',
+      '#weight' => '29',
       '#required'=> true,
     ];
     $form['customer_owner']['mailing_country'] = [
@@ -373,7 +393,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['country_select'],
       ],
-      '#weight' => '29',
+      '#weight' => '30',
       '#required'=> true,
     ];
     $form['customer_owner']['occupationCode'] = [
@@ -384,14 +404,14 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['occupation_select'],
       ],
-      '#weight' => '30',
+      '#weight' => '31',
       '#required'=> true,
     ];
     $form['customer_owner']['mobile'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Mobile Phone Number'),
       '#default_value' => isset($record['owner']['mobile'])?$record['owner']['mobile']:'',
-      '#weight' => '31',
+      '#weight' => '32',
       '#required'=> true,
     ];
     $form['customer_owner']['smoker'] = [
@@ -404,7 +424,7 @@ class EditOrderForm extends FormBase {
         'class' => ['noselect2'],
         'id' => 'owner_smoker',
       ],
-      '#weight' => '32',
+      '#weight' => '33',
       '#required'=> true,
     ];
     $form['customer_owner']['monthly_income'] = [
@@ -416,7 +436,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
-      '#weight' => '33',
+      '#weight' => '34',
       '#required'=> true,
     ];
     $form['customer_owner']['solicitation'] = [
@@ -428,7 +448,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
-      '#weight' => '34',
+      '#weight' => '35',
       '#required'=> true,
     ];
     $form['customer_owner']['opt_out_reason'] = [
@@ -440,7 +460,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
-      '#weight' => '35',
+      '#weight' => '36',
     ];
     $form['customer_insured'] = [
       '#type'  => 'details',
@@ -567,6 +587,25 @@ class EditOrderForm extends FormBase {
       '#maxlength' => 255,
       '#weight' => '14',
     ];
+    $insured_taxResidency_showmore_title = 'Show More';
+    $insured_taxResidency_showmore_class = ['insured_taxResidency_showmore'];
+    if(!empty($record['insured']['taxResidencyTin2'])||!empty($record['insured']['taxResidencyTin3'])
+    ){
+      $insured_taxResidency_showmore_title = 'Show Less';
+    }else{
+      $insured_taxResidency_showmore_class[] = 'show_more';
+    }
+
+    $form['customer_insured']['insured_taxResidency_showmore'] = [
+      '#type' => 'button',
+      '#value' => $insured_taxResidency_showmore_title,
+      '#attributes' => [
+        'onclick' => 'return false;',
+        'id' => 'insured_taxResidency_showmore',
+        'class' => $insured_taxResidency_showmore_class,
+      ],
+      '#weight' => '15',
+    ];
     $form['customer_insured']['customer_insured_taxResidency2'] = [
       '#type' => 'select',
       '#title' => $this->t('Tax Residency 2'),
@@ -575,14 +614,14 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['country_select'],
       ],
-      '#weight' => '15',
+      '#weight' => '16',
     ];
     $form['customer_insured']['customer_insured_taxResidencyTin2'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tax Residency TIN 2'),
       '#default_value' => isset($record['insured']['taxResidencyTin2'])?$record['insured']['taxResidencyTin2']:'',
       '#maxlength' => 255,
-      '#weight' => '16',
+      '#weight' => '17',
     ];
     $form['customer_insured']['customer_insured_taxResidency3'] = [
       '#type' => 'select',
@@ -592,21 +631,21 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['country_select'],
       ],
-      '#weight' => '17',
+      '#weight' => '18',
     ];
     $form['customer_insured']['customer_insured_taxResidencyTin3'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tax Residency TIN 3'),
       '#default_value' => isset($record['insured']['taxResidencyTin3'])?$record['insured']['taxResidencyTin3']:'',
       '#maxlength' => 255,
-      '#weight' => '18',
+      '#weight' => '19',
     ];
     $form['customer_insured']['customer_insured_email'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Email Address'),
       '#default_value' => isset($record['insured']['email'])?$record['insured']['email']:'',
       '#maxlength' => 255,
-      '#weight' => '19',
+      '#weight' => '20',
     ];
     
     $form['customer_insured']['customer_insured_residence_address1'] = [
@@ -614,25 +653,25 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Flat/Floor/Block'),
       '#default_value' => isset($record['insured']['residence_address1'])?$record['insured']['residence_address1']:'',
       '#prefix' => 'Residence Address',
-      '#weight' => '20',
+      '#weight' => '21',
     ];
     $form['customer_insured']['customer_insured_residence_address2'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Building/Street Number'),
       '#default_value' => isset($record['insured']['residence_address2'])?$record['insured']['residence_address2']:'',
-      '#weight' => '21',
+      '#weight' => '22',
     ];
     $form['customer_insured']['customer_insured_residence_address3'] = [
       '#type' => 'textfield',
       '#title' => $this->t('District'),
       '#default_value' => isset($record['insured']['residence_address3'])?$record['insured']['residence_address3']:'',
-      '#weight' => '22',
+      '#weight' => '23',
     ];
     $form['customer_insured']['customer_insured_residence_city'] = [
       '#type' => 'textfield',
       '#title' => $this->t('City'),
       '#default_value' => isset($record['insured']['residence_city'])?$record['insured']['residence_city']:'',
-      '#weight' => '23',
+      '#weight' => '24',
     ];
     $form['customer_insured']['customer_insured_residence_country'] = [
       '#type' => 'select',
@@ -642,32 +681,32 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['country_select'],
       ],
-      '#weight' => '24',
+      '#weight' => '25',
     ];
     $form['customer_insured']['customer_insured_mailing_address1'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Flat/FloorBlock'),
       '#default_value' => isset($record['insured']['mailing_address1'])?$record['insured']['mailing_address1']:'',
       '#prefix' => 'Mailing Address',
-      '#weight' => '25',
+      '#weight' => '26',
     ];
     $form['customer_insured']['customer_insured_mailing_address2'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Building/Street Number'),
       '#default_value' => isset($record['insured']['mailing_address2'])?$record['insured']['mailing_address2']:'',
-      '#weight' => '26',
+      '#weight' => '27',
     ];
     $form['customer_insured']['customer_insured_mailing_address3'] = [
       '#type' => 'textfield',
       '#title' => $this->t('District'),
       '#default_value' => isset($record['insured']['mailing_address3'])?$record['insured']['mailing_address3']:'',
-      '#weight' => '27',
+      '#weight' => '28',
     ];
     $form['customer_insured']['customer_insured_mailing_city'] = [
       '#type' => 'textfield',
       '#title' => $this->t('City'),
       '#default_value' => isset($record['insured']['mailing_city'])?$record['insured']['mailing_city']:'',
-      '#weight' => '28',
+      '#weight' => '29',
     ];
     $form['customer_insured']['customer_insured_mailing_country'] = [
       '#type' => 'select',
@@ -677,7 +716,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['country_select'],
       ],
-      '#weight' => '29',
+      '#weight' => '30',
     ];
     $form['customer_insured']['customer_insured_occupationCode'] = [
       '#type' => 'select',
@@ -687,13 +726,13 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['occupation_select'],
       ],
-      '#weight' => '30',
+      '#weight' => '31',
     ];
     $form['customer_insured']['customer_insured_mobile'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Mobile Phone Number'),
       '#default_value' => isset($record['insured']['mobile'])?$record['insured']['mobile']:'',
-      '#weight' => '31',
+      '#weight' => '32',
     ];
     $form['customer_insured']['customer_insured_smoker'] = [
       '#type' => 'select',
@@ -705,7 +744,7 @@ class EditOrderForm extends FormBase {
         'class' => ['noselect2'],
         'id' => 'insured_smoker',
       ],
-      '#weight' => '32',
+      '#weight' => '33',
     ];
     $form['customer_insured']['customer_insured_monthly_income'] = [
       '#type' => 'select',
@@ -716,7 +755,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
-      '#weight' => '33',
+      '#weight' => '34',
     ];
     $form['customer_insured']['customer_insured_solicitation'] = [
       '#type' => 'select',
@@ -727,7 +766,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
-      '#weight' => '34',
+      '#weight' => '35',
     ];
     $form['customer_insured']['customer_insured_opt_out_reason'] = [
       '#type' => 'select',
@@ -738,7 +777,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
-      '#weight' => '35',
+      '#weight' => '36',
     ];
     $form['customer_payor'] = [
       '#type'  => 'details',
@@ -814,7 +853,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Relationship'),
       '#options' => $beneficiary_relationship_opt,
-      '#empty_option' => '--Select--',
+      // '#empty_option' => '--Select--',
       '#default_value' => isset($record['beneficiary_relationship'])?$record['beneficiary_relationship']:'EST',
       '#attributes' => [
         'class' => ['noselect2'],
