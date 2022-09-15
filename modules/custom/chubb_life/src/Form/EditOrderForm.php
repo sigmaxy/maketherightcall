@@ -1189,7 +1189,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'textarea',
       '#title' => $this->t('Remarks'),
       '#default_value' => isset($record['remarks'])?$record['remarks']:'',
-      // '#maxlength' => 255,
+      '#maxlength' => 255,
       '#weight' => '10',
       // '#required'=> true,
     ];
