@@ -64,4 +64,13 @@ class CustomerController extends ControllerBase {
         ->execute();
     }
   }
+  public static function delete_customer_by_id($imported_customer_id){
+    $connection = Database::getConnection();
+    $connection->delete('mtrc_customer_import')
+      ->condition('id', $imported_customer_id)
+      ->execute();
+    $connection->delete('mtrc_call')
+      ->condition('import_customer_id', $imported_customer_id)
+      ->execute();
+  }
 }

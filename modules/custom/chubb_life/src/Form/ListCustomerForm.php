@@ -133,6 +133,15 @@ class ListCustomerForm extends FormBase {
       '#submit' => array('::assign_customer'),
       '#weight' => '2',
     ];
+    $form['function_filters']['delete_customer'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Delete'),
+      '#attributes' => [   
+        'class' => ['next_button'],
+      ],
+      '#submit' => array('::delete_customer'),
+      '#weight' => '3',
+    ];
     // $form['#attributes'] = array('class' => 'wide_form');
     $form['#attached']['library'][] = 'chubb_life/chubb_life';
     return $form;
@@ -158,6 +167,17 @@ class ListCustomerForm extends FormBase {
         $call['assignee_id'] = $assignee_uid;
         $call['status'] = 1;
         CallController::update_call($call);
+      }
+    }
+    \Drupal::messenger()->addMessage('Call has been assigned');
+  }
+  public function delete_customer(array &$form, FormStateInterface $form_state) {
+    // Display result.
+    $customer_selected = $form_state->getValue('import_customer_list_table');
+    $assignee_uid = $form_state->getValue('assignee');
+    foreach ($customer_selected as $imported_customer_id => $checked) {
+      if ($checked) {
+        CustomerController::delete_customer_by_id($imported_customer_id);
       }
     }
     \Drupal::messenger()->addMessage('Call has been assigned');
