@@ -122,6 +122,14 @@ class OrderController extends ControllerBase {
     $today = date("Y-m-d");
     $owner_age = date_diff(date_create($order['owner']['birthDate']), date_create($today))->y;
     $insured_age = date_diff(date_create($order['insured']['birthDate']), date_create($today))->y;
+    $health_detail_question = false;
+    if($order['health_details_q_1']=='Y'
+      && $order['health_details_q_2']=='Y'
+      && $order['health_details_q_3']=='Y'
+      && $order['health_details_q_4']=='Y'
+    ){
+      $health_detail_question = true;
+    }
     $results = array(
       'applicationDto'=>[
         'referenceNumber'=>sprintf('TM%06d',$order['id']),
@@ -388,38 +396,45 @@ class OrderController extends ControllerBase {
       'questionnaireDtos'=>[
         [
           'customerType'=>'I',
-          'questionnaireNumber'=>1,
-          'questionnaireSectionId'=>'',
+          'questionnaireNumber'=>13,
+          'questionnaireSectionId'=>14,
           'questionnaireText'=>'',
           'questionnaireYesOrNo'=>$order['health_details_q_1']=='Y'?true:false,
         ],
         [
           'customerType'=>'I',
+          'questionnaireNumber'=>1,
+          'questionnaireSectionId'=>11,
+          'questionnaireText'=>'',
+          'questionnaireYesOrNo'=>$order['replacement_declaration']=='Y'?'E':'N',
+        ],
+        [
+          'customerType'=>'I',
+          'questionnaireNumber'=>30,
+          'questionnaireSectionId'=>11,
+          'questionnaireText'=>'',
+          'questionnaireYesOrNo'=>$order['fna']=='Y'?true:false,
+        ],
+        [
+          'customerType'=>'I',
           'questionnaireNumber'=>2,
-          'questionnaireSectionId'=>'',
-          'questionnaireText'=>'',
-          'questionnaireYesOrNo'=>$order['health_details_q_2']=='Y'?true:false,
+          'questionnaireSectionId'=>20,
+          'questionnaireText'=>$order['insured']['monthly_income'],
+          'questionnaireYesOrNo'=>'',
         ],
         [
           'customerType'=>'I',
-          'questionnaireNumber'=>3,
-          'questionnaireSectionId'=>'',
+          'questionnaireNumber'=>11,
+          'questionnaireSectionId'=>14,
           'questionnaireText'=>'',
-          'questionnaireYesOrNo'=>$order['health_details_q_3']=='Y'?true:false,
+          'questionnaireYesOrNo'=>$order['insured']['smoker']=='Y'?true:false,
         ],
         [
           'customerType'=>'I',
-          'questionnaireNumber'=>4,
-          'questionnaireSectionId'=>'',
-          'questionnaireText'=>'',
-          'questionnaireYesOrNo'=>$order['health_details_q_4']=='Y'?true:false,
-        ],
-        [
-          'customerType'=>'I',
-          'questionnaireNumber'=>5,
-          'questionnaireSectionId'=>'',
-          'questionnaireText'=>'',
-          'questionnaireYesOrNo'=>$order['health_details_q_5']=='Y'?true:false,
+          'questionnaireNumber'=>34,
+          'questionnaireSectionId'=>11,
+          'questionnaireText'=>$order['remarks'],
+          'questionnaireYesOrNo'=>'',
         ],
       ],
     );

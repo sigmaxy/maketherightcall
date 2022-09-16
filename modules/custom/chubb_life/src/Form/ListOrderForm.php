@@ -7,6 +7,9 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\chubb_life\Controller\OrderController;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
+use Symfony\Component\Filesystem;
+use Drupal\file\Entity\File;
+
 /**
  * Class ListOrderForm.
  */
@@ -83,7 +86,16 @@ class ListOrderForm extends FormBase {
       '#attributes' => [   
         'class' => ['next_button'],
       ],
-      '#weight' => '2',
+      '#weight' => '4',
+    ];
+    $form['function_filters']['post_sftp'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Post to SFTP'),
+      '#attributes' => [   
+        'class' => ['next_button'],
+      ],
+      '#submit' => array('::post_to_sftp'),
+      '#weight' => '3',
     ];
     // $form['#attributes'] = array('class' => 'wide_form');
     $form['#attached']['library'][] = 'chubb_life/chubb_life';
@@ -118,10 +130,17 @@ class ListOrderForm extends FormBase {
       }
     }
     $json_file_name = 'TM_APP_'.date('Ymd').'.txt';
-    $json_file_path = 'public://temp/'.$json_file_name;
+    $json_file_prefix = 'public://temp/'.date('Ymdhis').'/';
+    \Drupal::service('file_system')->prepareDirectory($json_file_prefix, \Drupal\Core\File\FileSystemInterface::CREATE_DIRECTORY);
+    $json_file_path = $json_file_prefix.$json_file_name;
     $file = file_save_data(json_encode($json_arr,JSON_PRETTY_PRINT), $json_file_path, 1);
     $link = file_create_url($json_file_path); 
     \Drupal::messenger()->addMessage(t('Download json File <a href="@link" target="_blank">Click Here</a>', array('@link' => $link)));
+
+    
+  }
+  public function post_to_sftp(array &$form, FormStateInterface $form_state) {
+    \Drupal::messenger()->addMessage('Json.txt has been post to SFTP');
   }
 
 }

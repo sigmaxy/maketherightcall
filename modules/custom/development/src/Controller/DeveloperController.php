@@ -53,8 +53,20 @@ class DeveloperController extends ControllerBase {
     exit;
   }
   public static function test(){
+    echo self::ftest(8181);
     echo 'sigma';exit;
     exit;
+  }
+  public static function ftest($n){
+    if($n==0){
+      $result = 0;
+    }else if($n==1){
+      $result = 1;
+    }else{
+      $result = self::ftest($n-1) + self::ftest($n-2);
+    }
+    
+    return $result;
   }
   public static function php_info(){
     phpinfo();

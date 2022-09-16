@@ -158,6 +158,7 @@ jQuery(document).ready(function($){
     $(document).on('change','#plan_code',function(e) {
         calculate_face_amount();
         fill_product_name();
+        questionair_display_toggle();
 	});
     $(document).on('change','#plan_level',function(e) {
         calculate_face_amount();
@@ -189,6 +190,14 @@ jQuery(document).ready(function($){
             $('#product_name_english').val(drupalSettings.product_name[$('#plan_code').val()]['english_name']);
         }else{
             $('#product_name_english').val('');
+        }
+    }
+    questionair_display_toggle();
+    function questionair_display_toggle(){
+        if ($('#plan_code').val()=='MCE') {
+            $('#edit-health-details').show();
+        }else{
+            $('#edit-health-details').hide();
         }
     }
 });

@@ -145,8 +145,8 @@ class AttributeController extends ControllerBase {
     $results = array(
       '12' => 'Annual',
       '1' => 'Monthly',
-      '3' => 'Quarterly',
-      '6' => 'Semi-Annual',
+      // '3' => 'Quarterly',
+      // '6' => 'Semi-Annual',
     );
     return $results;
   }
