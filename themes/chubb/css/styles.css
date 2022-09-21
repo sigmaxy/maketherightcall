@@ -12,7 +12,7 @@ table.dataTable td{
     text-align: center!important;
 }
 fieldset.collapsible {
-    position: inherit !important!important;
+    position: inherit !important;
 }
 .site-branding {
     background-image: url("../images/chubb.png")!important;
