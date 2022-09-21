@@ -1,0 +1,10 @@
+name: RabbitMQ
+type: module
+description: 'RabbitMQ Integration for Drupal.'
+core_version_requirement: ^9
+package: 'Performance and scalability'
+
+# Information added by Drupal.org packaging script on 2022-06-03
+version: '3.0.0'
+project: 'rabbitmq'
+datestamp: 1654283651
