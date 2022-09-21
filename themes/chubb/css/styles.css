@@ -1,39 +1,39 @@
 /* Add your css code here */
 .table_list{
-	max-width:100%;
+	max-width:100%!important;
 }
 .wide_form{
-	max-width:100%;
+	max-width:100%!important;
 }
 .grid-full {
-    display: block;
+    display: block!important;
 }
 table.dataTable td{
-    text-align: center;
+    text-align: center!important;
 }
 fieldset.collapsible {
-    position: inherit !important;
+    position: inherit !important!important;
 }
 .site-branding {
-    background-image: url("../images/chubb.png");
-    background-repeat: no-repeat;
-    background-size: 100px 100px;
+    background-image: url("../images/chubb.png")!important;
+    background-repeat: no-repeat!important;
+    background-size: 100px 100px!important;
 }
 .customer_detail{
     /* border: 1px solid; */
-    border-collapse: collapse;
-    width: 100%;
+    border-collapse: collapse!important;
+    width: 100%!important;
 }
 .customer_detail td{
-    border: 1px solid #f0f0f0;
+    border: 1px solid #f0f0f0!important;
 }
 body {
-    background-color: #fff;
-    background-image: none;
+    background-color: #fff!important;
+    background-image: none!important;
 }
 .site-header__initial {
-    background-color: #ff3399;
+    background-color: #ff3399!important;
 }
 .sticky-header-toggle {
-    background-color: #ff3399;
+    background-color: #ff3399!important;
 }
