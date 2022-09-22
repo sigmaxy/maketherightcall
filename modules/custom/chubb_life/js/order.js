@@ -200,6 +200,67 @@ jQuery(document).ready(function($){
             $('#edit-health-details').hide();
         }
     }
+    $(document).on('change','#customer_owner_solicitation',function(e) {
+        owner_solicitation_display_toggle();
+	});
+    owner_solicitation_display_toggle();
+    function owner_solicitation_display_toggle(){
+        if ($('#customer_owner_solicitation').val()=='Y') {
+            $('.form-item-opt-out-reason').show();
+        }else{
+            $('.form-item-opt-out-reason').hide();
+        }
+    }
+    $(document).on('change','#customer_insured_solicitation',function(e) {
+        insured_solicitation_display_toggle();
+	});
+    insured_solicitation_display_toggle();
+    function insured_solicitation_display_toggle(){
+        if ($('#customer_insured_solicitation').val()=='Y') {
+            $('.form-item-customer-insured-opt-out-reason').show();
+        }else{
+            $('.form-item-customer-insured-opt-out-reason').hide();
+        }
+    }
+
+    $(document).on('change','#mailing_same_as_residence',function(e) {
+        mailing_same_as_residence_display_toggle();
+	});
+    mailing_same_as_residence_display_toggle();
+    function mailing_same_as_residence_display_toggle(){
+        if ($('#mailing_same_as_residence').val()=='N') {
+            $('.form-item-mailing-address1').show();
+            $('.form-item-mailing-address2').show();
+            $('.form-item-mailing-address3').show();
+            $('.form-item-mailing-city').show();
+            $('.form-item-mailing-country').show();
+        }else{
+            $('.form-item-mailing-address1').hide();
+            $('.form-item-mailing-address2').hide();
+            $('.form-item-mailing-address3').hide();
+            $('.form-item-mailing-city').hide();
+            $('.form-item-mailing-country').hide();
+        }
+    }
+    $(document).on('change','#customer_insured_mailing_same_as_residence',function(e) {
+        insured_mailing_same_as_residence_display_toggle();
+	});
+    insured_mailing_same_as_residence_display_toggle();
+    function insured_mailing_same_as_residence_display_toggle(){
+        if ($('#customer_insured_mailing_same_as_residence').val()=='N') {
+            $('.form-item-customer-insured-mailing-address1').show();
+            $('.form-item-customer-insured-mailing-address2').show();
+            $('.form-item-customer-insured-mailing-address3').show();
+            $('.form-item-customer-insured-mailing-city').show();
+            $('.form-item-customer-insured-mailing-country').show();
+        }else{
+            $('.form-item-customer-insured-mailing-address1').hide();
+            $('.form-item-customer-insured-mailing-address2').hide();
+            $('.form-item-customer-insured-mailing-address3').hide();
+            $('.form-item-customer-insured-mailing-city').hide();
+            $('.form-item-customer-insured-mailing-country').hide();
+        }
+    }
 });
 function addSlashes (element) {
     let ele = document.getElementById(element.id);
