@@ -149,7 +149,7 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('ID Type'),
       '#options' => $id_type_opt,
-      '#default_value' => isset($record['owner']['identityType'])?$record['owner']['identityType']:'',
+      '#default_value' => isset($record['owner']['identityType'])?$record['owner']['identityType']:'I',
       '#attributes' => [
         'class' => ['noselect2'],
       ],
@@ -507,7 +507,7 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('ID Type'),
       '#options' => $id_type_opt,
       '#empty_option' => '--Select--',
-      '#default_value' => isset($record['insured']['identityType'])?$record['insured']['identityType']:'',
+      '#default_value' => isset($record['insured']['identityType'])?$record['insured']['identityType']:'I',
       '#attributes' => [
         'class' => ['noselect2'],
       ],
@@ -833,7 +833,7 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('ID Type'),
       '#options' => $id_type_opt,
       '#empty_option' => '--Select--',
-      '#default_value' => isset($record['payor']['identityType'])?$record['payor']['identityType']:'',
+      '#default_value' => isset($record['payor']['identityType'])?$record['payor']['identityType']:'I',
       '#attributes' => [
         'class' => ['noselect2'],
       ],
