@@ -295,7 +295,7 @@ function order_sample_data(){
     jQuery('select[name="ecopy"]').val('Y');
     jQuery('select[name="plan_code"]').val('RHC10');
     jQuery('select[name="plan_level"]').val('3');
-    jQuery('input[name="promotion_code"]').val('promotion_code');
+    jQuery('input[name="promotion_code"]').val('');
     jQuery('select[name="replacement_declaration"]').val('Y');
     jQuery('select[name="fna"]').val('Y');
     jQuery('input[name="health_details_q_1"]').attr('checked','checked');

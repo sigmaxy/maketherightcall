@@ -117,8 +117,8 @@ class AttributeController extends ControllerBase {
   }
   public static function get_solicitation_options() {
     $results = array(
-      'N' => 'Opt Out',
-      'Y' => 'Not Opt Out',
+      'N' => 'No',
+      'Y' => 'Yes',
     );
     return $results;
   }
