@@ -161,7 +161,10 @@ class EditOrderForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('HKID Card Number'),
       '#default_value' => isset($record['owner']['identityNumber'])?$record['owner']['identityNumber']:'',
-      '#maxlength' => 255,
+      '#maxlength' => 9,
+      '#attributes' => [
+        'placeholder' => 'Z1234567',
+      ],
       '#weight' => '7',
       '#required'=> true,
     ];
@@ -240,6 +243,7 @@ class EditOrderForm extends FormBase {
       '#default_value' => isset($record['owner']['taxResidency1'])?$record['owner']['taxResidency1']:'HK',
       '#attributes' => [
         'class' => ['country_select'],
+        'placeholder' => 'Z1234567',
       ],
       '#weight' => '13',
       '#required'=> true,
@@ -247,8 +251,11 @@ class EditOrderForm extends FormBase {
     $form['customer_owner']['taxResidencyTin1'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tax Residency TIN 1'),
-      '#maxlength' => 255,
+      '#maxlength' => 9,
       '#default_value' => isset($record['owner']['taxResidencyTin1'])?$record['owner']['taxResidencyTin1']:'',
+      '#attributes' => [
+        'placeholder' => 'Z1234567',
+      ],
       '#weight' => '14',
       '#required'=> true,
     ];
@@ -286,8 +293,11 @@ class EditOrderForm extends FormBase {
     $form['customer_owner']['taxResidencyTin2'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tax Residency TIN 2'),
-      '#maxlength' => 255,
+      '#maxlength' => 9,
       '#default_value' => isset($record['owner']['taxResidencyTin2'])?$record['owner']['taxResidencyTin2']:'',
+      '#attributes' => [
+        'placeholder' => 'Z1234567',
+      ],
       '#weight' => '17',
       // '#required'=> true,
     ];
@@ -305,8 +315,11 @@ class EditOrderForm extends FormBase {
     $form['customer_owner']['taxResidencyTin3'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tax Residency TIN 3'),
-      '#maxlength' => 255,
+      '#maxlength' => 9,
       '#default_value' => isset($record['owner']['taxResidencyTin3'])?$record['owner']['taxResidencyTin3']:'',
+      '#attributes' => [
+        'placeholder' => 'Z1234567',
+      ],
       '#weight' => '19',
       // '#required'=> true,
     ];
@@ -504,7 +517,10 @@ class EditOrderForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('HKID Card Number'),
       '#default_value' => isset($record['insured']['identityNumber'])?$record['insured']['identityNumber']:'',
-      '#maxlength' => 255,
+      '#attributes' => [
+        'placeholder' => 'Z1234567',
+      ],
+      '#maxlength' => 9,
       '#weight' => '7',
     ];
     $form['customer_insured']['customer_insured_issueCountry'] = [
@@ -584,7 +600,10 @@ class EditOrderForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Tax Residency TIN 1'),
       '#default_value' => isset($record['insured']['taxResidencyTin1'])?$record['insured']['taxResidencyTin1']:'',
-      '#maxlength' => 255,
+      '#attributes' => [
+        'placeholder' => 'Z1234567',
+      ],
+      '#maxlength' => 9,
       '#weight' => '14',
     ];
     $insured_taxResidency_showmore_title = 'Show More';
@@ -620,7 +639,10 @@ class EditOrderForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Tax Residency TIN 2'),
       '#default_value' => isset($record['insured']['taxResidencyTin2'])?$record['insured']['taxResidencyTin2']:'',
-      '#maxlength' => 255,
+      '#attributes' => [
+        'placeholder' => 'Z1234567',
+      ],
+      '#maxlength' => 9,
       '#weight' => '17',
     ];
     $form['customer_insured']['customer_insured_taxResidency3'] = [
@@ -637,7 +659,10 @@ class EditOrderForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Tax Residency TIN 3'),
       '#default_value' => isset($record['insured']['taxResidencyTin3'])?$record['insured']['taxResidencyTin3']:'',
-      '#maxlength' => 255,
+      '#attributes' => [
+        'placeholder' => 'Z1234567',
+      ],
+      '#maxlength' => 9,
       '#weight' => '19',
     ];
     $form['customer_insured']['customer_insured_email'] = [
@@ -819,7 +844,10 @@ class EditOrderForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('HKID Card Number'),
       '#default_value' => isset($record['payor']['identityNumber'])?$record['payor']['identityNumber']:'',
-      '#maxlength' => 255,
+      '#attributes' => [
+        'placeholder' => 'Z1234567',
+      ],
+      '#maxlength' => 9,
       '#weight' => '7',
       '#required'=> true,
     ];
@@ -1265,10 +1293,49 @@ class EditOrderForm extends FormBase {
     //   // @TODO: Validate fields.
     // }
     // parent::validateForm($form, $form_state);
-    $card_expiry_date = $form_state->getValue('card_expiry_date');
-    if (!preg_match("/^(0[1-9]|1[0-2])\/[0-9]{4}$/",$card_expiry_date)) {
+    // $card_expiry_date = $form_state->getValue('card_expiry_date');
+    if (!preg_match("/^(0[1-9]|1[0-2])\/[0-9]{4}$/",$form_state->getValue('card_expiry_date'))) {
       $form_state->setErrorByName('card_expiry_date','Invalide Card Expiry Date');
     }
+    if (!preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('identityNumber'))) {
+      $form_state->setErrorByName('identityNumber','Invalide HKID');
+    }
+    if (!empty($form_state->getValue('taxResidencyTin1')) &&
+      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('taxResidencyTin1'))) {
+      $form_state->setErrorByName('taxResidencyTin1','Invalide Tax Residency 1');
+    }
+    if (!empty($form_state->getValue('taxResidencyTin2')) &&
+      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('taxResidencyTin2'))) {
+      $form_state->setErrorByName('taxResidencyTin2','Invalide Tax Residency 2');
+    }
+    if (!empty($form_state->getValue('taxResidencyTin3')) &&
+      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('taxResidencyTin3'))) {
+      $form_state->setErrorByName('taxResidencyTin3','Invalide Tax Residency 3');
+    }
+
+    if (!empty($form_state->getValue('customer_insured_identityNumber')) &&
+      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_insured_identityNumber'))) {
+      $form_state->setErrorByName('customer_insured_identityNumber','Invalide Insured HKID');
+    }
+    if (!empty($form_state->getValue('customer_insured_taxResidencyTin1')) &&
+      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_insured_taxResidencyTin1'))) {
+      $form_state->setErrorByName('customer_insured_taxResidencyTin1','Invalide Insured Tax Residency 1');
+    }
+    if (!empty($form_state->getValue('customer_insured_taxResidencyTin2')) &&
+      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_insured_taxResidencyTin2'))) {
+      $form_state->setErrorByName('customer_insured_taxResidencyTin2','Invalide Insured Tax Residency 2');
+    }
+    if (!empty($form_state->getValue('customer_insured_taxResidencyTin3')) &&
+      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_insured_taxResidencyTin3'))) {
+      $form_state->setErrorByName('customer_insured_taxResidencyTin3','Invalide Insured Tax Residency 3');
+    }
+
+
+    if (!empty($form_state->getValue('customer_payor_identityNumber')) &&
+      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_payor_identityNumber'))) {
+      $form_state->setErrorByName('customer_payor_identityNumber','Invalide Payor HKID');
+    }
+
     parent::validateForm($form, $form_state);
   }
 

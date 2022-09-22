@@ -217,7 +217,7 @@ function order_sample_data(){
     jQuery('input[name="chineseName"]').val('中文名');
     jQuery('select[name="relationship"]').val('FAT');
     jQuery('select[name="identityType"]').val('I');
-    jQuery('input[name="identityNumber"]').val('A123456(7)');
+    jQuery('input[name="identityNumber"]').val('A1234567');
     jQuery('select[name="issueCountry"]').val('HK');
     jQuery('select[name="gender"]').val('F');
     jQuery('select[name="isPermanentHkid"]').val('Y');
@@ -225,11 +225,11 @@ function order_sample_data(){
     jQuery('select[name="marital"]').val('3');
     jQuery('select[name="nationality"]').val('HK');
     jQuery('select[name="taxResidency1"]').val('CP');
-    jQuery('input[name="taxResidencyTin1"]').val('OWTX01');
+    jQuery('input[name="taxResidencyTin1"]').val('A1234568');
     jQuery('select[name="taxResidency2"]').val('CP');
-    jQuery('input[name="taxResidencyTin2"]').val('OWTX02');
+    jQuery('input[name="taxResidencyTin2"]').val('A1234569');
     jQuery('select[name="taxResidency3"]').val('CP');
-    jQuery('input[name="taxResidencyTin3"]').val('OWTX03');
+    jQuery('input[name="taxResidencyTin3"]').val('A123456A');
     jQuery('input[name="email"]').val('email@email.com');
     jQuery('input[name="residence_address1"]').val('residence_address1');
     jQuery('input[name="residence_address2"]').val('residence_address2');
@@ -251,7 +251,7 @@ function order_sample_data(){
     jQuery('input[name="customer_insured_givenName"]').val('customer_insured_givenName');
     jQuery('input[name="customer_insured_chineseName"]').val('customer_insured_chineseName');
     jQuery('select[name="customer_insured_identityType"]').val('P');
-    jQuery('input[name="customer_insured_identityNumber"]').val('S232323(4)');
+    jQuery('input[name="customer_insured_identityNumber"]').val('S2323234');
     jQuery('select[name="customer_insured_issueCountry"]').val('HK');
     jQuery('select[name="customer_insured_gender"]').val('M');
     jQuery('select[name="customer_insured_isPermanentHkid"]').val('Y');
@@ -259,11 +259,11 @@ function order_sample_data(){
     jQuery('select[name="customer_insured_marital"]').val('2');
     jQuery('select[name="customer_insured_nationality"]').val('HK');
     jQuery('select[name="customer_insured_taxResidency1"]').val('MC');
-    jQuery('input[name="customer_insured_taxResidencyTin1"]').val('B123443(1)');
+    jQuery('input[name="customer_insured_taxResidencyTin1"]').val('B1234431');
     jQuery('select[name="customer_insured_taxResidency2"]').val('MC');
-    jQuery('input[name="customer_insured_taxResidencyTin2"]').val('B123443(2)');
+    jQuery('input[name="customer_insured_taxResidencyTin2"]').val('B1234432');
     jQuery('select[name="customer_insured_taxResidency3"]').val('MC');
-    jQuery('input[name="customer_insured_taxResidencyTin3"]').val('B123443(3)');
+    jQuery('input[name="customer_insured_taxResidencyTin3"]').val('B1234433');
     jQuery('input[name="customer_insured_email"]').val('email@email.com');
     jQuery('input[name="customer_insured_residence_address1"]').val('customer_insured_residence_address1');
     jQuery('input[name="customer_insured_residence_address2"]').val('customer_insured_residence_address2');
@@ -285,7 +285,7 @@ function order_sample_data(){
     jQuery('input[name="customer_payor_givenName"]').val('customer_payor_givenName');
     // jQuery('input[name="customer_payor_chineseName"]').val('customer_payor_chineseName');
     jQuery('select[name="customer_payor_identityType"]').val('I');
-    jQuery('input[name="customer_payor_identityNumber"]').val('A321654(7)');
+    jQuery('input[name="customer_payor_identityNumber"]').val('A3216547');
     jQuery('select[name="customer_payor_gender"]').val('F');
     jQuery('input[name="customer_payor_birthDate"]').val('2011-02-01');
     jQuery('select[name="currency"]').val('HKD');
