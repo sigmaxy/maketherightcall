@@ -1294,6 +1294,15 @@ class EditOrderForm extends FormBase {
     // }
     // parent::validateForm($form, $form_state);
     // $card_expiry_date = $form_state->getValue('card_expiry_date');
+    if (!empty($form_state->getValue('email')) &&
+      !\Drupal::service('email.validator')->isValid($form_state->getValue('email'))) {
+      $form_state->setErrorByName('email', $this->t('Email address is not a valid one.'));
+    }
+    if (!empty($form_state->getValue('customer_insured_email')) &&
+      !\Drupal::service('email.validator')->isValid($form_state->getValue('customer_insured_email'))) {
+      $form_state->setErrorByName('customer_insured_email', $this->t('Email address is not a valid one.'));
+    }
+
     if (!preg_match("/^(0[1-9]|1[0-2])\/[0-9]{4}$/",$form_state->getValue('card_expiry_date'))) {
       $form_state->setErrorByName('card_expiry_date','Invalide Card Expiry Date');
     }
