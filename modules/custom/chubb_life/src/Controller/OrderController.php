@@ -130,7 +130,6 @@ class OrderController extends ControllerBase {
     ){
       $health_detail_question = true;
     }
-    print_r($order);exit;
     $results = array(
       'applicationDto'=>[
         'referenceNumber'=>sprintf('TM%06d',$order['id']),
