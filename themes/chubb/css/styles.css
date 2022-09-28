@@ -37,3 +37,44 @@ body {
 .sticky-header-toggle {
     background-color: #ff3399!important;
 }
+.form-wrapper{
+    float: left;
+    width: 100%;;
+}
+.form-item {
+    float: left;
+    width: 30%;
+    margin-right: 3%;
+    min-height: 99px;
+}
+.form-item-agentcode{
+    width: 100%!important;
+    text-align: right;
+}
+.form-item-agentname{
+    width: 100%!important;
+    text-align: right;
+}
+.form_item_maxwidth{
+    width: 100%!important;
+    float: left;
+}
+.form-item-nationality{
+    margin-right: 60%;
+}
+.form-item-taxresidencytin2{
+    margin-right: 30%;
+}
+.form-item-taxresidencytin3{
+    margin-right: 30%;
+}
+
+.form-item-customer-insured-nationality{
+    margin-right: 30%;
+}
+.form-item-customer-insured-taxresidencytin2{
+    margin-right: 30%;
+}
+.form-item-customer-insured-taxresidencytin3{
+    margin-right: 30%;
+}
