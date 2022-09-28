@@ -52,6 +52,7 @@ class UploadCustomerForm extends FormBase {
       "#weight" => 1,
       '#url' => \Drupal::service('file_url_generator')->generate('public://mtrc/sample_customer.xlsx'),
       '#attributes' => ['target' => '_blank'],
+      '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
     ];
 
     $form['actions']['#type'] = 'actions';
