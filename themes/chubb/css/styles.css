@@ -47,6 +47,12 @@ body {
     margin-right: 3%;
     min-height: 99px;
 }
+.form-item-name{
+    width: 100%!important;
+}
+.form-item-pass{
+    width: 100%!important;
+}
 .form-item-agentcode{
     width: 100%!important;
     text-align: right;
