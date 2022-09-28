@@ -142,11 +142,13 @@ class EditCallForm extends FormBase {
       '#attributes' => [   
         'class' => ['noselect2'],
       ],
+      '#wrapper_attributes' => ['class' => ['form_item_maxwidth']],
     ];
     $form['call_detail']['remark'] = array(
       '#type' => 'textarea',
       '#title' => $this->t('Remarks'),
       '#default_value' => $db_call['remark']?$db_call['remark']:'',
+      '#wrapper_attributes' => ['class' => ['form_item_maxwidth']],
       '#weight' => '4',
     );
     

@@ -122,6 +122,7 @@ class ListCustomerForm extends FormBase {
       '#attributes' => [
         'class' => ['assignee_select'],
       ],
+      '#wrapper_attributes' => ['class' => ['form_item_maxwidth']],
       '#weight' => '1',
     ];
     $form['function_filters']['assign_customer'] = [
