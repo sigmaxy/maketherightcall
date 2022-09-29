@@ -404,8 +404,8 @@ class OrderController extends ControllerBase {
           'customerType'=>'I',
           'questionnaireNumber'=>1,
           'questionnaireSectionId'=>11,
-          'questionnaireText'=>null,
-          'questionnaireYesOrNo'=>$order['replacement_declaration']=='Y'?'E':'N',
+          'questionnaireText'=>$order['replacement_declaration']=='Y'?'E':'N',
+          'questionnaireYesOrNo'=>null,
         ],
         [
           'customerType'=>'I',
