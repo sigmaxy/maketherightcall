@@ -371,7 +371,7 @@ class OrderController extends ControllerBase {
       'paymentTransactionDto'=>array(
         'amount'=>$order['initial_premium'],
         'amountInPolicyCurrency'=>$order['currency'],
-        'authorizationCode'=>$order['authorizationCode'],
+        'authorizationCode'=>'',
         'bankName'=>'',
         'basicPlanCode'=>$order['plan_code'],
         'cardHolderName'=>$order['cardHolderName'],
