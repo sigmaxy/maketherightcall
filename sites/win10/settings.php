@@ -825,3 +825,6 @@ $databases['default']['default']['username'] = 'root';
 $databases['default']['default']['password'] = 'P@$$w0rd';
 $databases['default']['default']['host'] = 'db-stag-mtrc.sigmaxu.com';
 $databases['default']['default']['port'] = '3306';
+$settings['sftp']['url'] = 'sftpuat.apac.chubb.com';
+$settings['sftp']['username'] = 'UCHBHKLAUS';
+$settings['sftp']['password'] = 'UHKLaus@0108';

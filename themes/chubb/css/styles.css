@@ -41,7 +41,7 @@ body {
     float: left;
     width: 100%;;
 }
-.form-item {
+.edit-order-form .form-item {
     float: left;
     width: 30%;
     margin-right: 3%;

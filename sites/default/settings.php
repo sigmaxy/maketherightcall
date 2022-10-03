@@ -814,3 +814,6 @@ $databases['default']['default']['host'] = 'localhost';
 $databases['default']['default']['port'] = '3306';
 $settings['email_username'] = 'noreply@first4figures.com';
 $settings['email_password'] = 'P@$$w0rd';
+$settings['sftp']['url'] = 'sftpuat.apac.chubb.com';
+$settings['sftp']['username'] = 'UCHBHKLAUS';
+$settings['sftp']['password'] = 'UHKLaus@0108';
