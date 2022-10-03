@@ -152,7 +152,7 @@ class AttributeController extends ControllerBase {
   }
   public static function get_bill_type_options() {
     $results = array(
-      'Credit Card' => 'Credit Card',
+      'CCDDA' => 'Credit Card',
       'CUP' => 'CUP',
     );
     return $results;

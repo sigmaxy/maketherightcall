@@ -122,6 +122,7 @@ class OrderController extends ControllerBase {
     $today = date("Y-m-d");
     $owner_age = date_diff(date_create($order['owner']['birthDate']), date_create($today))->y;
     $insured_age = date_diff(date_create($order['insured']['birthDate']), date_create($today))->y;
+    $payor_age = date_diff(date_create($order['payor']['birthDate']), date_create($today))->y;
     $health_detail_question = false;
     if($order['health_details_q_1']=='Y'
       && $order['health_details_q_2']=='Y'
@@ -129,6 +130,11 @@ class OrderController extends ControllerBase {
       && $order['health_details_q_4']=='Y'
     ){
       $health_detail_question = true;
+    }
+    if (mb_substr($order['plan_code'], 0, 3)=='PAB') {
+      $coverageClass = null;
+    }else{
+      $coverageClass = $order['plan_level'];
     }
     $results = array(
       'applicationDto'=>[
@@ -214,7 +220,7 @@ class OrderController extends ControllerBase {
         [
           'annualDeductibleOption'=>'',
           'attachTo'=>'',
-          'coverageClass'=>$order['plan_level'],
+          'coverageClass'=>$coverageClass,
           'coverageCode'=>$order['plan_code'],
           'coverageNumber'=>1,
           'criticalIllnessCode1'=>'',
@@ -359,6 +365,53 @@ class OrderController extends ControllerBase {
           'solicitation'=>$order['insured']['solicitation']=='Y'?true:false,
           'optOutReason'=>$order['insured']['opt_out_reason'],
           'surname'=>$order['insured']['surname'],
+        ],
+        [
+          'age'=>$payor_age,
+          'birthDate'=>$order['payor']['birthDate'],
+          'birthPlace'=>'',
+          'chineseName'=>'',
+          'citizenship'=>'',
+          'countryRegionCode'=>null,
+          'customerSequence'=>3,
+          'customerType'=>'I',
+          'email'=>'',
+          'gender'=>$order['payor']['gender'],
+          'givenName'=>$order['payor']['givenName'],
+          'identityNumber'=>$order['payor']['identityNumber'],
+          'identityType'=>$order['payor']['identityType'],
+          'isPermanentHkid'=>true,
+          'isValidIdType'=>true,
+          'issueCountry'=>'',
+          'mailing'=>array(
+            'address1'=>'',
+            'address2'=>'',
+            'address3'=>'',
+            'city'=>'',
+            'country'=>'',
+            'postalCode'=>'',
+            'telephone'=>'',
+            'telephoneCountryCode'=>'',
+          ),
+          'marital'=>'',
+          'mobileNumber'=>'',
+          'mobileNumberCountryCode'=>'',
+          'nationality'=>'',
+          'occupationCode'=>'',
+          'relationship'=>'',
+          'residence'=>array(
+            'address1'=>'',
+            'address2'=>'',
+            'address3'=>'',
+            'city'=>'',
+            'country'=>'',
+            'postalCode'=>'',
+            'telephone'=>'',
+            'telephoneCountryCode'=>'',
+          ),
+          'solicitation'=>'',
+          'optOutReason'=>'',
+          'surname'=>$order['payor']['surname'],
         ],
         
       ],
