@@ -25,3 +25,6 @@ $databases['default']['default']['namespace'] = 'Drupal\\Core\\Database\\Driver\
 $databases['default']['default']['driver'] = 'mysql';
 $databases['default']['default']['autoload'] = 'core/modules/mysql/src/Driver/Database/mysql/';
 // $config['system.logging']['error_level'] = 'verbose';
+$settings['sftp']['url'] = 'sftpuat.apac.chubb.com';
+$settings['sftp']['username'] = 'UCHBHKLAUS';
+$settings['sftp']['password'] = 'UHKLaus@0108';
