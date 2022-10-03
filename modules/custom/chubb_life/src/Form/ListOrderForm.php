@@ -9,6 +9,8 @@ use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Symfony\Component\Filesystem;
 use Drupal\file\Entity\File;
+use phpseclib3\Net\SFTP;
+use Drupal\Core\Site\Settings;
 
 /**
  * Class ListOrderForm.
@@ -115,8 +117,9 @@ class ListOrderForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    $order_selected = $form_state->getValue('order_list_table');
+  public function prepare_json($order_selected) {
+    $json = array();
+    
     $json_arr = array(
       'batchDate' => date("Y-m-d"),
       'applications' => array(),
@@ -132,15 +135,29 @@ class ListOrderForm extends FormBase {
     $json_file_name = 'TM_APP_'.date('Ymd').'.txt';
     $json_file_prefix = 'public://temp/'.date('Ymdhis').'/';
     \Drupal::service('file_system')->prepareDirectory($json_file_prefix, \Drupal\Core\File\FileSystemInterface::CREATE_DIRECTORY);
-    $json_file_path = $json_file_prefix.$json_file_name;
-    $file = file_save_data(json_encode($json_arr,JSON_PRETTY_PRINT), $json_file_path, 1);
-    $link = file_create_url($json_file_path); 
+    $json['path'] = $json_file_prefix.$json_file_name;
+    $json['data'] = json_encode($json_arr,JSON_PRETTY_PRINT);
+    $json['name'] = $json_file_name;
+    $file = file_save_data($json['data'], $json['path'], 1);
+    return $json;
+  }
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $order_selected = $form_state->getValue('order_list_table');
+    $json = self::prepare_json($order_selected);
+    $link = file_create_url($json['path']); 
     \Drupal::messenger()->addMessage(t('Download json File <a href="@link" target="_blank">Click Here</a>', array('@link' => $link)));
-
-    
   }
   public function post_to_sftp(array &$form, FormStateInterface $form_state) {
-    \Drupal::messenger()->addMessage('Json.txt has been post to SFTP');
+    $order_selected = $form_state->getValue('order_list_table');
+    $json = self::prepare_json($order_selected);
+    $sftp_config = Settings::get('sftp');
+    $sftp = new SFTP($sftp_config['url']);
+    if (!$sftp->login($sftp_config['username'], $sftp_config['password'])) {
+        exit('Login Failed');
+    }
+    $file_uri = \Drupal::service('file_system')->realpath($json['path']);
+    $sftp->put($json['name'], $file_uri, SFTP::SOURCE_LOCAL_FILE);
+    \Drupal::messenger()->addMessage($json['name']. ' has been post to SFTP');
   }
 
 }

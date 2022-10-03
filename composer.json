@@ -30,7 +30,8 @@
         "drupal/rabbitmq": "^3.0",
         "drupal/real_aes": "^2.4",
         "drupal/tfa": "^1.0@alpha",
-        "phpoffice/phpspreadsheet": "^1.24"
+        "phpoffice/phpspreadsheet": "^1.24",
+        "phpseclib/phpseclib": "~3.0"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -43,7 +44,8 @@
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
             "drupal/core-vendor-hardening": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "drupal/console-extend-plugin": true
         },
         "sort-packages": true
     },

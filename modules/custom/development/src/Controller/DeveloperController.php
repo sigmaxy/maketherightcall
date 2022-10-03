@@ -11,6 +11,8 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
+use phpseclib3\Net\SFTP;
+use Drupal\Core\Site\Settings;
 
 /**
  * Class DeveloperController.
@@ -53,8 +55,16 @@ class DeveloperController extends ControllerBase {
     exit;
   }
   public static function test(){
-    echo self::ftest(8181);
-    echo 'sigma';exit;
+
+    $sftp_config = Settings::get('sftp');
+
+
+    $sftp = new SFTP($sftp_config['url']);
+    if (!$sftp->login($sftp_config['username'], $sftp_config['password'])) {
+        exit('Login Failed');
+    }
+    $file_uri = \Drupal::service('file_system')->realpath('public://temp/'.'TM_APP_20220915.txt');
+    $sftp->put('TM_APP_20220915.txt', $file_uri, SFTP::SOURCE_LOCAL_FILE);
     exit;
   }
   public static function ftest($n){
