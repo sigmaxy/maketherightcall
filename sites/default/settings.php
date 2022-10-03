@@ -817,3 +817,7 @@ $settings['email_password'] = 'P@$$w0rd';
 $settings['sftp']['url'] = 'sftpuat.apac.chubb.com';
 $settings['sftp']['username'] = 'UCHBHKLAUS';
 $settings['sftp']['password'] = 'UHKLaus@0108';
+
+// $settings['sftp']['url'] = 'sftp.apac.chubb.com';
+// $settings['sftp']['username'] = 'PCHBHKLAUS';
+// $settings['sftp']['password'] = 'HKLaus@2806';
