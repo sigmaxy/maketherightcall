@@ -108,11 +108,11 @@ class AttributeController extends ControllerBase {
   }
   public static function get_monthly_income_options() {
     $results = array();
-    $results['10,000'] = t('Less than HK$10,000');
-    $results['14,999.5'] = t('HK$10,000 - HK$19,999');
-    $results['34,999.5'] = t('HK$20,000 - HK$49,999');
-    $results['75,000'] = t('HK$50,000 - HK$100,000');
-    $results['100,000'] = t('Over HK$100,000');
+    $results['10000'] = t('Less than HK$10,000');
+    $results['14999.5'] = t('HK$10,000 - HK$19,999');
+    $results['34999.5'] = t('HK$20,000 - HK$49,999');
+    $results['75000'] = t('HK$50,000 - HK$100,000');
+    $results['100000'] = t('Over HK$100,000');
     return $results;
   }
   public static function get_solicitation_options() {

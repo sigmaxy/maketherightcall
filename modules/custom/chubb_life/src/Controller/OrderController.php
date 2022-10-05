@@ -162,7 +162,7 @@ class OrderController extends ControllerBase {
         'extraContribution'=>'',
         'isOcrDataChanged'=>'',
         'isSignedByVos'=>'',
-        'mailingAddressIndicator'=>'',
+        'mailingAddressIndicator'=>'R',
         'mgoDecision'=>'',
         'mgoOfferAcpt'=>'',
         'mgoStatus'=>'',
