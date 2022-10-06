@@ -23,6 +23,7 @@ class EditOrderForm extends FormBase {
   }
   public $order_id;
   public $import_customer_id;
+  public $copy_from;
   /**
    * {@inheritdoc}
    */
@@ -31,11 +32,11 @@ class EditOrderForm extends FormBase {
       $this->order_id = $order_id;
     }
     $this->import_customer_id = \Drupal::request()->query->get('customer_id'); 
+    $this->copy_from = \Drupal::request()->query->get('copy_from'); 
     $reference_number = 'NEW';
     if (is_numeric($order_id)) {
-      $record= OrderController::get_order_by_id($order_id);
+      $record= OrderController::get_order_by_id($this->order_id);
       $reference_number = sprintf('TM%06d',$order_id);
-
       $customer_surname = $record['owner']['surname'];
       $customer_givenName = $record['owner']['givenName'];
       $customer_gender = $record['owner']['gender'];
@@ -45,7 +46,6 @@ class EditOrderForm extends FormBase {
       $customer_residence_address1 = $record['owner']['residence_address1'];
       $customer_email = $record['owner']['email'];
       $customer_marital = $record['owner']['marital'];
-      
     }else if(is_numeric($this->import_customer_id)){
       $customer = CustomerController::get_import_customer_by_id($this->import_customer_id);
       $customer_surname = explode(' ',$customer['name'])[0];
@@ -57,6 +57,18 @@ class EditOrderForm extends FormBase {
       $customer_residence_address1 = $customer['address'];
       $customer_email = $customer['email'];
       $customer_marital = $customer['married_status'];
+    }else if(is_numeric($this->copy_from)){
+      $record= OrderController::get_order_by_id($this->copy_from);
+      unset($record['insured']);
+      $customer_surname = $record['owner']['surname'];
+      $customer_givenName = $record['owner']['givenName'];
+      $customer_gender = $record['owner']['gender'];
+      $customer_mobile = $record['owner']['mobile'];
+      $customer_identityNumber = $record['owner']['identityNumber'];
+      $customer_birthDate = $record['owner']['birthDate'];
+      $customer_residence_address1 = $record['owner']['residence_address1'];
+      $customer_email = $record['owner']['email'];
+      $customer_marital = $record['owner']['marital'];
     }else{
       $customer_surname = '';
       $customer_givenName = '';
@@ -1346,6 +1358,20 @@ class EditOrderForm extends FormBase {
       '#value' => $this->t('Submit'),
       '#weight' => '20',
     ];
+    $form['submit_and_new'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Submit'),
+      '#weight' => '20',
+    ];
+    $form['submit_and_new'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Submit and New'),
+      '#attributes' => [   
+        'class' => ['next_button'],
+      ],
+      '#submit' => array('::submit_and_new'),
+      '#weight' => '30',
+    ];
     $form['#attached']['drupalSettings']['promotion_code_arr'] = $promotion_code_arr;
     $form['#attached']['drupalSettings']['product_name'] = $product_name_opt;
     $form['#attached']['drupalSettings']['plan_level'] = $plan_level_opt;
@@ -1420,132 +1446,152 @@ class EditOrderForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    $order = array();
-    // $order['referenceNumber'] = $form_state->getValue('referenceNumber');
-    $order['aeonRefNumber'] = $form_state->getValue('aeonRefNumber');
-    $order['same_as_owner'] = $form_state->getValue('same_as_owner');
-    $order['owner']['surname'] = $form_state->getValue('surname');
-    $order['owner']['givenName'] = $form_state->getValue('givenName');
-    $order['owner']['chineseName'] = $form_state->getValue('chineseName');
-    $order['owner']['relationship'] = $form_state->getValue('relationship');
-    $order['owner']['identityType'] = $form_state->getValue('identityType');
-    $order['owner']['identityNumber'] = $form_state->getValue('identityNumber');
-    $order['owner']['issueCountry'] = $form_state->getValue('issueCountry');
-    $order['owner']['gender'] = $form_state->getValue('gender');
-    $order['owner']['isPermanentHkid'] = $form_state->getValue('isPermanentHkid');
-    $order['owner']['birthDate'] = $form_state->getValue('birthDate');
-    $order['owner']['marital'] = $form_state->getValue('marital');
-    $order['owner']['nationality'] = $form_state->getValue('nationality');
-    $order['owner']['taxResidency1'] = $form_state->getValue('taxResidency1');
-    $order['owner']['taxResidencyTin1'] = $form_state->getValue('taxResidencyTin1');
-    $order['owner']['taxResidency2'] = $form_state->getValue('taxResidency2');
-    $order['owner']['taxResidencyTin2'] = $form_state->getValue('taxResidencyTin2');
-    $order['owner']['taxResidency3'] = $form_state->getValue('taxResidency3');
-    $order['owner']['taxResidencyTin3'] = $form_state->getValue('taxResidencyTin3');
-    $order['owner']['email'] = $form_state->getValue('email');
-    $order['owner']['residence_address1'] = $form_state->getValue('residence_address1');
-    $order['owner']['residence_address2'] = $form_state->getValue('residence_address2');
-    $order['owner']['residence_address3'] = $form_state->getValue('residence_address3');
-    $order['owner']['residence_city'] = $form_state->getValue('residence_city');
-    $order['owner']['residence_country'] = $form_state->getValue('residence_country');
-    $order['owner']['mailing_same_as_residence'] = $form_state->getValue('mailing_same_as_residence');
-    $order['owner']['mailing_address1'] = $form_state->getValue('mailing_address1');
-    $order['owner']['mailing_address2'] = $form_state->getValue('mailing_address2');
-    $order['owner']['mailing_address3'] = $form_state->getValue('mailing_address3');
-    $order['owner']['mailing_city'] = $form_state->getValue('mailing_city');
-    $order['owner']['mailing_country'] = $form_state->getValue('mailing_country');
-    $order['owner']['occupationCode'] = $form_state->getValue('occupationCode');
-    $order['owner']['mobile'] = $form_state->getValue('mobile');
-    $order['owner']['smoker'] = $form_state->getValue('smoker');
-    $order['owner']['monthly_income'] = $form_state->getValue('monthly_income');
-    $order['owner']['solicitation'] = $form_state->getValue('solicitation');
-    $order['owner']['opt_out_reason'] = $form_state->getValue('opt_out_reason');
+  public function prepare_order($fields){
+    $order['aeonRefNumber'] = $fields['aeonRefNumber'];
+    $order['same_as_owner'] = $fields['same_as_owner'];
+    $order['owner']['surname'] = $fields['surname'];
+    $order['owner']['givenName'] = $fields['givenName'];
+    $order['owner']['chineseName'] = $fields['chineseName'];
+    $order['owner']['relationship'] = $fields['relationship'];
+    $order['owner']['identityType'] = $fields['identityType'];
+    $order['owner']['identityNumber'] = $fields['identityNumber'];
+    $order['owner']['issueCountry'] = $fields['issueCountry'];
+    $order['owner']['gender'] = $fields['gender'];
+    $order['owner']['isPermanentHkid'] = $fields['isPermanentHkid'];
+    $order['owner']['birthDate'] = $fields['birthDate'];
+    $order['owner']['marital'] = $fields['marital'];
+    $order['owner']['nationality'] = $fields['nationality'];
+    $order['owner']['taxResidency1'] = $fields['taxResidency1'];
+    $order['owner']['taxResidencyTin1'] = $fields['taxResidencyTin1'];
+    $order['owner']['taxResidency2'] = $fields['taxResidency2'];
+    $order['owner']['taxResidencyTin2'] = $fields['taxResidencyTin2'];
+    $order['owner']['taxResidency3'] = $fields['taxResidency3'];
+    $order['owner']['taxResidencyTin3'] = $fields['taxResidencyTin3'];
+    $order['owner']['email'] = $fields['email'];
+    $order['owner']['residence_address1'] = $fields['residence_address1'];
+    $order['owner']['residence_address2'] = $fields['residence_address2'];
+    $order['owner']['residence_address3'] = $fields['residence_address3'];
+    $order['owner']['residence_city'] = $fields['residence_city'];
+    $order['owner']['residence_country'] = $fields['residence_country'];
+    $order['owner']['mailing_same_as_residence'] = $fields['mailing_same_as_residence'];
+    $order['owner']['mailing_address1'] = $fields['mailing_address1'];
+    $order['owner']['mailing_address2'] = $fields['mailing_address2'];
+    $order['owner']['mailing_address3'] = $fields['mailing_address3'];
+    $order['owner']['mailing_city'] = $fields['mailing_city'];
+    $order['owner']['mailing_country'] = $fields['mailing_country'];
+    $order['owner']['occupationCode'] = $fields['occupationCode'];
+    $order['owner']['mobile'] = $fields['mobile'];
+    $order['owner']['smoker'] = $fields['smoker'];
+    $order['owner']['monthly_income'] = $fields['monthly_income'];
+    $order['owner']['solicitation'] = $fields['solicitation'];
+    $order['owner']['opt_out_reason'] = $fields['opt_out_reason'];
     if($order['same_as_owner']=='Y'){
       $order['insured'] = $order['owner'];
     }else{
-      $order['insured']['surname'] = $form_state->getValue('customer_insured_surname');
-      $order['insured']['givenName'] = $form_state->getValue('customer_insured_givenName');
-      $order['insured']['chineseName'] = $form_state->getValue('customer_insured_chineseName');
-      $order['insured']['identityType'] = $form_state->getValue('customer_insured_identityType');
-      $order['insured']['identityNumber'] = $form_state->getValue('customer_insured_identityNumber');
-      $order['insured']['issueCountry'] = $form_state->getValue('customer_insured_issueCountry');
-      $order['insured']['gender'] = $form_state->getValue('customer_insured_gender');
-      $order['insured']['isPermanentHkid'] = $form_state->getValue('customer_insured_isPermanentHkid');
-      $order['insured']['birthDate'] = $form_state->getValue('customer_insured_birthDate');
-      $order['insured']['marital'] = $form_state->getValue('customer_insured_marital');
-      $order['insured']['nationality'] = $form_state->getValue('customer_insured_nationality');
-      $order['insured']['taxResidency1'] = $form_state->getValue('customer_insured_taxResidency1');
-      $order['insured']['taxResidencyTin1'] = $form_state->getValue('customer_insured_taxResidencyTin1');
-      $order['insured']['taxResidency2'] = $form_state->getValue('customer_insured_taxResidency2');
-      $order['insured']['taxResidencyTin2'] = $form_state->getValue('customer_insured_taxResidencyTin2');
-      $order['insured']['taxResidency3'] = $form_state->getValue('customer_insured_taxResidency3');
-      $order['insured']['taxResidencyTin3'] = $form_state->getValue('customer_insured_taxResidencyTin3');
-      $order['insured']['email'] = $form_state->getValue('customer_insured_email');
-      $order['insured']['residence_address1'] = $form_state->getValue('customer_insured_residence_address1');
-      $order['insured']['residence_address2'] = $form_state->getValue('customer_insured_residence_address2');
-      $order['insured']['residence_address3'] = $form_state->getValue('customer_insured_residence_address3');
-      $order['insured']['residence_city'] = $form_state->getValue('customer_insured_residence_city');
-      $order['insured']['residence_country'] = $form_state->getValue('customer_insured_residence_country');
-      $order['insured']['mailing_same_as_residence'] = $form_state->getValue('customer_insured_mailing_same_as_residence');
-      $order['insured']['mailing_address1'] = $form_state->getValue('customer_insured_mailing_address1');
-      $order['insured']['mailing_address2'] = $form_state->getValue('customer_insured_mailing_address2');
-      $order['insured']['mailing_address3'] = $form_state->getValue('customer_insured_mailing_address3');
-      $order['insured']['mailing_city'] = $form_state->getValue('customer_insured_mailing_city');
-      $order['insured']['mailing_country'] = $form_state->getValue('customer_insured_mailing_country');
-      $order['insured']['occupationCode'] = $form_state->getValue('customer_insured_occupationCode');
-      $order['insured']['mobile'] = $form_state->getValue('customer_insured_mobile');
-      $order['insured']['smoker'] = $form_state->getValue('customer_insured_smoker');
-      $order['insured']['monthly_income'] = $form_state->getValue('customer_insured_monthly_income');
-      $order['insured']['solicitation'] = $form_state->getValue('customer_insured_solicitation');
-      $order['insured']['opt_out_reason'] = $form_state->getValue('customer_insured_opt_out_reason');
+      $order['insured']['surname'] = $fields['customer_insured_surname'];
+      $order['insured']['givenName'] = $fields['customer_insured_givenName'];
+      $order['insured']['chineseName'] = $fields['customer_insured_chineseName'];
+      $order['insured']['identityType'] = $fields['customer_insured_identityType'];
+      $order['insured']['identityNumber'] = $fields['customer_insured_identityNumber'];
+      $order['insured']['issueCountry'] = $fields['customer_insured_issueCountry'];
+      $order['insured']['gender'] = $fields['customer_insured_gender'];
+      $order['insured']['isPermanentHkid'] = $fields['customer_insured_isPermanentHkid'];
+      $order['insured']['birthDate'] = $fields['customer_insured_birthDate'];
+      $order['insured']['marital'] = $fields['customer_insured_marital'];
+      $order['insured']['nationality'] = $fields['customer_insured_nationality'];
+      $order['insured']['taxResidency1'] = $fields['customer_insured_taxResidency1'];
+      $order['insured']['taxResidencyTin1'] = $fields['customer_insured_taxResidencyTin1'];
+      $order['insured']['taxResidency2'] = $fields['customer_insured_taxResidency2'];
+      $order['insured']['taxResidencyTin2'] = $fields['customer_insured_taxResidencyTin2'];
+      $order['insured']['taxResidency3'] = $fields['customer_insured_taxResidency3'];
+      $order['insured']['taxResidencyTin3'] = $fields['customer_insured_taxResidencyTin3'];
+      $order['insured']['email'] = $fields['customer_insured_email'];
+      $order['insured']['residence_address1'] = $fields['customer_insured_residence_address1'];
+      $order['insured']['residence_address2'] = $fields['customer_insured_residence_address2'];
+      $order['insured']['residence_address3'] = $fields['customer_insured_residence_address3'];
+      $order['insured']['residence_city'] = $fields['customer_insured_residence_city'];
+      $order['insured']['residence_country'] = $fields['customer_insured_residence_country'];
+      $order['insured']['mailing_same_as_residence'] = $fields['customer_insured_mailing_same_as_residence'];
+      $order['insured']['mailing_address1'] = $fields['customer_insured_mailing_address1'];
+      $order['insured']['mailing_address2'] = $fields['customer_insured_mailing_address2'];
+      $order['insured']['mailing_address3'] = $fields['customer_insured_mailing_address3'];
+      $order['insured']['mailing_city'] = $fields['customer_insured_mailing_city'];
+      $order['insured']['mailing_country'] = $fields['customer_insured_mailing_country'];
+      $order['insured']['occupationCode'] = $fields['customer_insured_occupationCode'];
+      $order['insured']['mobile'] = $fields['customer_insured_mobile'];
+      $order['insured']['smoker'] = $fields['customer_insured_smoker'];
+      $order['insured']['monthly_income'] = $fields['customer_insured_monthly_income'];
+      $order['insured']['solicitation'] = $fields['customer_insured_solicitation'];
+      $order['insured']['opt_out_reason'] = $fields['customer_insured_opt_out_reason'];
     }
-    $order['payor']['surname'] = $form_state->getValue('customer_payor_surname');
-    $order['payor']['givenName'] = $form_state->getValue('customer_payor_givenName');
-    $order['payor']['chineseName'] = $form_state->getValue('customer_payor_chineseName');
-    $order['payor']['identityType'] = $form_state->getValue('customer_payor_identityType');
-    $order['payor']['identityNumber'] = $form_state->getValue('customer_payor_identityNumber');
-    $order['payor']['gender'] = $form_state->getValue('customer_payor_gender');
-    $order['payor']['birthDate'] = $form_state->getValue('customer_payor_birthDate');
-    $order['beneficiary_relationship'] = $form_state->getValue('beneficiary_relationship');
-    $order['currency'] = $form_state->getValue('currency');
-    $order['paymentMode'] = $form_state->getValue('paymentMode');
-    $order['pep'] = $form_state->getValue('pep');
-    $order['another_person'] = $form_state->getValue('another_person');
-    $order['ecopy'] = $form_state->getValue('ecopy');
-    $order['plan_code'] = $form_state->getValue('plan_code');
-    $order['product_name_english'] = $form_state->getValue('product_name_english');
-    $order['product_name_chinese'] = $form_state->getValue('product_name_chinese');
-    $order['face_amount'] = $form_state->getValue('face_amount');
-    $order['plan_level'] = $form_state->getValue('plan_level');
-    $order['promotion_code'] = $form_state->getValue('promotion_code');
-    $order['replacement_declaration'] = $form_state->getValue('replacement_declaration');
-    $order['fna'] = $form_state->getValue('fna');
-    $order['health_details_q_1'] = $form_state->getValue('health_details_q_1');
-    $order['health_details_q_2'] = $form_state->getValue('health_details_q_2');
-    $order['health_details_q_3'] = $form_state->getValue('health_details_q_3');
-    $order['health_details_q_4'] = $form_state->getValue('health_details_q_4');
-    $order['health_details_q_5'] = $form_state->getValue('health_details_q_5');
-    $order['agentCode'] = $form_state->getValue('agentCode');
-    $order['agentName'] = $form_state->getValue('agentName');
-    $order['billingType'] = $form_state->getValue('billingType');
-    $order['authorizationCode'] = $form_state->getValue('authorizationCode');
-    $order['cardHolderName'] = $form_state->getValue('cardHolderName');
-    $order['cardholder_id_number'] = $form_state->getValue('cardholder_id_number');
-    $order['card_expiry_date'] = $form_state->getValue('card_expiry_date');
-    $order['initial_premium'] = $form_state->getValue('initial_premium');
-    $order['modal_premium_payment'] = $form_state->getValue('modal_premium_payment');
-    $order['levy'] = $form_state->getValue('levy');
-    $order['remarks'] = $form_state->getValue('remarks');
-    $order['dda_setup'] = $form_state->getValue('dda_setup');
+    $order['payor']['surname'] = $fields['customer_payor_surname'];
+    $order['payor']['givenName'] = $fields['customer_payor_givenName'];
+    $order['payor']['chineseName'] = $fields['customer_payor_chineseName'];
+    $order['payor']['identityType'] = $fields['customer_payor_identityType'];
+    $order['payor']['identityNumber'] = $fields['customer_payor_identityNumber'];
+    $order['payor']['gender'] = $fields['customer_payor_gender'];
+    $order['payor']['birthDate'] = $fields['customer_payor_birthDate'];
+    $order['beneficiary_relationship'] = $fields['beneficiary_relationship'];
+    $order['currency'] = $fields['currency'];
+    $order['paymentMode'] = $fields['paymentMode'];
+    $order['pep'] = $fields['pep'];
+    $order['another_person'] = $fields['another_person'];
+    $order['ecopy'] = $fields['ecopy'];
+    $order['plan_code'] = $fields['plan_code'];
+    $order['product_name_english'] = $fields['product_name_english'];
+    $order['product_name_chinese'] = $fields['product_name_chinese'];
+    $order['face_amount'] = $fields['face_amount'];
+    $order['plan_level'] = $fields['plan_level'];
+    $order['promotion_code'] = $fields['promotion_code'];
+    $order['replacement_declaration'] = $fields['replacement_declaration'];
+    $order['fna'] = $fields['fna'];
+    $order['health_details_q_1'] = $fields['health_details_q_1'];
+    $order['health_details_q_2'] = $fields['health_details_q_2'];
+    $order['health_details_q_3'] = $fields['health_details_q_3'];
+    $order['health_details_q_4'] = $fields['health_details_q_4'];
+    $order['health_details_q_5'] = $fields['health_details_q_5'];
+    $order['agentCode'] = $fields['agentCode'];
+    $order['agentName'] = $fields['agentName'];
+    $order['billingType'] = $fields['billingType'];
+    $order['authorizationCode'] = $fields['authorizationCode'];
+    $order['cardHolderName'] = $fields['cardHolderName'];
+    $order['cardholder_id_number'] = $fields['cardholder_id_number'];
+    $order['card_expiry_date'] = $fields['card_expiry_date'];
+    $order['initial_premium'] = $fields['initial_premium'];
+    $order['modal_premium_payment'] = $fields['modal_premium_payment'];
+    $order['levy'] = $fields['levy'];
+    $order['remarks'] = $fields['remarks'];
+    $order['dda_setup'] = $fields['dda_setup'];
     $order['customer_id'] = $this->import_customer_id;
     $order['status'] = 1;
+    if (is_numeric($this->order_id)) {
+      $order['id'] = $this->order_id;
+    }
+    return $order;
+  }
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $order = array();
+    $fields = $form_state->getValues();
+    $order = self::prepare_order($fields);
     if (is_numeric($this->order_id)) {
       $order['id'] = $this->order_id;
     }
     OrderController::update_order($order);
     \Drupal::messenger()->addMessage('Order has been updated');
     $form_state->setRedirectUrl(Url::fromRoute('chubb_life.list_order_form'));
+  }
+  public function submit_and_new(array &$form, FormStateInterface $form_state){
+    $order = array();
+    $fields = $form_state->getValues();
+    $order = self::prepare_order($fields);
+    $db_order_id = OrderController::update_order($order);
+    $url = Url::fromRoute('chubb_life.edit_order_form', [
+      'order_id' => 'add',
+      'copy_from' => $db_order_id,
+    ]);
+    \Drupal::messenger()->addMessage('Order has been updated');
+    $form_state->setRedirectUrl($url);
+    
   }
 
 }

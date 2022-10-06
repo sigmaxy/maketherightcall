@@ -91,6 +91,7 @@ class OrderController extends ControllerBase {
     $client_payor['order_id'] = $db_order_id;
     $client_payor['client_type'] = 3;
     self::update_order_client($client_payor);
+    return $db_order_id;
   }
   public static function check_order_client_existed($client){
     $connection = Database::getConnection();
