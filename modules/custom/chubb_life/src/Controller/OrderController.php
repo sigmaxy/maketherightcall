@@ -280,7 +280,7 @@ class OrderController extends ControllerBase {
           'nationality'=>$order['owner']['nationality'],
           'occupation'=>'',
           'occupationCode'=>$order['owner']['occupationCode'],
-          'relationship'=>$order['owner']['relationship'],
+          'relationship'=>$order['owner']['relationship']!='INS'?$order['owner']['relationship']:'',
           'residence'=>array(
             'address1'=>$order['owner']['residence_address1'],
             'address2'=>$order['owner']['residence_address2'],
@@ -351,7 +351,7 @@ class OrderController extends ControllerBase {
           'mobileNumberCountryCode'=>'',
           'nationality'=>$order['insured']['nationality'],
           'occupationCode'=>$order['insured']['occupationCode'],
-          'relationship'=>$order['insured']['relationship'],
+          'relationship'=>$order['owner']['relationship']=='INS'?$order['owner']['relationship']:'',
           'residence'=>array(
             'address1'=>$order['insured']['residence_address1'],
             'address2'=>$order['insured']['residence_address2'],

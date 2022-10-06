@@ -345,10 +345,11 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Tax Residency 2'),
       '#options' => $country_opt,
-      '#default_value' => isset($record['owner']['taxResidency2'])?$record['owner']['taxResidency2']:'HK',
+      '#default_value' => isset($record['owner']['taxResidency2'])?$record['owner']['taxResidency2']:'',
       '#attributes' => [
         'class' => ['country_select'],
       ],
+      '#empty_option' => '--Select--',
       '#weight' => '16',
       // '#required'=> true,
     ];
@@ -367,10 +368,11 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Tax Residency 3'),
       '#options' => $country_opt,
-      '#default_value' => isset($record['owner']['taxResidency3'])?$record['owner']['taxResidency3']:'HK',
+      '#default_value' => isset($record['owner']['taxResidency3'])?$record['owner']['taxResidency3']:'',
       '#attributes' => [
         'class' => ['country_select'],
       ],
+      '#empty_option' => '--Select--',
       '#weight' => '18',
       // '#required'=> true,
     ];
@@ -706,10 +708,11 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Tax Residency 2'),
       '#options' => $country_opt,
-      '#default_value' => isset($record['insured']['taxResidency2'])?$record['insured']['taxResidency2']:'HK',
+      '#default_value' => isset($record['insured']['taxResidency2'])?$record['insured']['taxResidency2']:'',
       '#attributes' => [
         'class' => ['country_select'],
       ],
+      '#empty_option' => '--Select--',
       '#weight' => '16',
     ];
     $form['customer_insured']['customer_insured_taxResidencyTin2'] = [
@@ -726,10 +729,11 @@ class EditOrderForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Tax Residency 3'),
       '#options' => $country_opt,
-      '#default_value' => isset($record['insured']['taxResidency3'])?$record['insured']['taxResidency3']:'HK',
+      '#default_value' => isset($record['insured']['taxResidency3'])?$record['insured']['taxResidency3']:'',
       '#attributes' => [
         'class' => ['country_select'],
       ],
+      '#empty_option' => '--Select--',
       '#weight' => '18',
     ];
     $form['customer_insured']['customer_insured_taxResidencyTin3'] = [

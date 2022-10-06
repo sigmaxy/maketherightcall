@@ -69,10 +69,13 @@ class AttributeController extends ControllerBase {
   }
   public static function get_marital_status_options() {
     $results = array();
-    $results[1] = t('Single');
-    $results[2] = t('Married');
-    $results[3] = t('Divorced');
-    $results[4] = t('Widowed');
+    $results['S'] = t('Single');
+    $results['M'] = t('Married');
+    $results['W'] = t('Widowed');
+    $results['D'] = t('Divorced');
+    $results['C'] = t('Company');
+    $results['U'] = t('Unknown');
+    $results['P'] = t('Separated');
     return $results;
   }
   public static function get_occupations_group_options() {
