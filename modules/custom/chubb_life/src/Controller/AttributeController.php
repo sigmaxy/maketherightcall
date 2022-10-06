@@ -18,6 +18,14 @@ class AttributeController extends ControllerBase {
    * @return string
    *   Return Hello string.
    */
+  public static function get_order_status_options() {
+    $results = array();
+    $results[1] = t('Pending');
+    $results[2] = t('Hold');
+    $results[3] = t('Success');
+    $results[4] = t('Fail');
+    return $results;
+  }
   public static function get_call_status_options() {
     $results = array();
     $results[1] = t('Pending');

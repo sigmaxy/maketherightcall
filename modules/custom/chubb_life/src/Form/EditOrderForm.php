@@ -80,7 +80,7 @@ class EditOrderForm extends FormBase {
       $customer_email = '';
       $customer_marital = '';
     }
-    
+    $order_status = AttributeController::get_order_status_options();
     $country_opt = AttributeController::get_country_options();
     $relation_opt = AttributeController::get_relation_options();
     $id_type_opt = AttributeController::get_id_type_options();
@@ -1353,6 +1353,16 @@ class EditOrderForm extends FormBase {
       '#weight' => '11',
       '#required'=> true,
     ];
+    $form['billing_info']['status'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Order Status'),
+      '#options' => $order_status,
+      '#default_value' => isset($record['status'])?$record['status']:'1',
+      '#attributes' => [
+        'class' => ['noselect2'],
+      ],
+      '#weight' => '12',
+    ];
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Submit'),
@@ -1365,7 +1375,7 @@ class EditOrderForm extends FormBase {
     ];
     $form['submit_and_new'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Submit and New'),
+      '#value' => $this->t('Submit and Dependent'),
       '#attributes' => [   
         'class' => ['next_button'],
       ],
@@ -1563,7 +1573,7 @@ class EditOrderForm extends FormBase {
     $order['remarks'] = $fields['remarks'];
     $order['dda_setup'] = $fields['dda_setup'];
     $order['customer_id'] = $this->import_customer_id;
-    $order['status'] = 1;
+    $order['status'] = $fields['status'];
     if (is_numeric($this->order_id)) {
       $order['id'] = $this->order_id;
     }
