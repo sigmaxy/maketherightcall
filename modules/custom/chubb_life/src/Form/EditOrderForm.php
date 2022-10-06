@@ -1382,14 +1382,14 @@ class EditOrderForm extends FormBase {
       !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('taxResidencyTin1'))) {
       $form_state->setErrorByName('taxResidencyTin1','Invalide Tax Residency 1');
     }
-    if (!empty($form_state->getValue('taxResidencyTin2')) &&
-      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('taxResidencyTin2'))) {
-      $form_state->setErrorByName('taxResidencyTin2','Invalide Tax Residency 2');
-    }
-    if (!empty($form_state->getValue('taxResidencyTin3')) &&
-      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('taxResidencyTin3'))) {
-      $form_state->setErrorByName('taxResidencyTin3','Invalide Tax Residency 3');
-    }
+    // if (!empty($form_state->getValue('taxResidencyTin2')) &&
+    //   !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('taxResidencyTin2'))) {
+    //   $form_state->setErrorByName('taxResidencyTin2','Invalide Tax Residency 2');
+    // }
+    // if (!empty($form_state->getValue('taxResidencyTin3')) &&
+    //   !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('taxResidencyTin3'))) {
+    //   $form_state->setErrorByName('taxResidencyTin3','Invalide Tax Residency 3');
+    // }
 
     if (!empty($form_state->getValue('customer_insured_identityNumber')) &&
       !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_insured_identityNumber'))) {
@@ -1399,14 +1399,14 @@ class EditOrderForm extends FormBase {
       !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_insured_taxResidencyTin1'))) {
       $form_state->setErrorByName('customer_insured_taxResidencyTin1','Invalide Insured Tax Residency 1');
     }
-    if (!empty($form_state->getValue('customer_insured_taxResidencyTin2')) &&
-      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_insured_taxResidencyTin2'))) {
-      $form_state->setErrorByName('customer_insured_taxResidencyTin2','Invalide Insured Tax Residency 2');
-    }
-    if (!empty($form_state->getValue('customer_insured_taxResidencyTin3')) &&
-      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_insured_taxResidencyTin3'))) {
-      $form_state->setErrorByName('customer_insured_taxResidencyTin3','Invalide Insured Tax Residency 3');
-    }
+    // if (!empty($form_state->getValue('customer_insured_taxResidencyTin2')) &&
+    //   !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_insured_taxResidencyTin2'))) {
+    //   $form_state->setErrorByName('customer_insured_taxResidencyTin2','Invalide Insured Tax Residency 2');
+    // }
+    // if (!empty($form_state->getValue('customer_insured_taxResidencyTin3')) &&
+    //   !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_insured_taxResidencyTin3'))) {
+    //   $form_state->setErrorByName('customer_insured_taxResidencyTin3','Invalide Insured Tax Residency 3');
+    // }
 
 
     if (!empty($form_state->getValue('customer_payor_identityNumber')) &&
