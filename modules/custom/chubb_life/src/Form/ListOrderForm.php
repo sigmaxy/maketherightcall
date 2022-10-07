@@ -11,6 +11,7 @@ use Symfony\Component\Filesystem;
 use Drupal\file\Entity\File;
 use phpseclib3\Net\SFTP;
 use Drupal\Core\Site\Settings;
+use Drupal\chubb_life\Controller\AttributeController;
 
 /**
  * Class ListOrderForm.
@@ -33,12 +34,14 @@ class ListOrderForm extends FormBase {
     $header_table['first_name'] = t('First Name');
     $header_table['mobile'] = t('Mobile');
     $header_table['plan_code'] = t('Plan Code');
+    $header_table['status'] = t('Status');
     $header_table['updated_at'] = t('Updated At');
     $header_table['updated_by'] = t('Updated By');
     $header_table['opt'] = t('Operation');
     $rows=array();
     $roles = \Drupal::currentUser()->getRoles();
     $uid = \Drupal::currentUser()->id();
+    $order_status = AttributeController::get_order_status_options();
     if(in_array('manager', $roles)||in_array('administrator', $roles)) {
       $order_list = OrderController::list_order(null);
     }else{
@@ -52,6 +55,7 @@ class ListOrderForm extends FormBase {
       $row_data['first_name'] = $client_owner['givenName'];
       $row_data['mobile'] = $client_owner['mobile'];
       $row_data['plan_code'] = $data->plan_code;
+      $row_data['status'] = $order_status[$data->status];
       $row_data['updated_at'] = date('Y-m-d H:i:s',$data->updated_at);
       $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
       $row_data['updated_by'] = $updated_user->field_agentname->value;
@@ -72,7 +76,7 @@ class ListOrderForm extends FormBase {
       '#empty' => t('No Customer found'),
       '#attributes' => [   
         'class' => ['table_list_data'],
-        'col_sort_index' => 6,
+        'col_sort_index' => 7,
         'col_sort_type' => 'desc',
       ],
     ];
