@@ -168,6 +168,15 @@ class AttributeController extends ControllerBase {
     );
     return $results;
   }
+  public static function get_card_type_options() {
+    $results = array(
+      'FPS' => 'FPS',
+      'VISA' => 'VISA',
+      'MASTERCARD' => 'MASTERCARD',
+      'CUP' => 'CUP',
+    );
+    return $results;
+  }
   public static function get_dda_setup_options() {
     $results = array(
       '3' => '3rd',

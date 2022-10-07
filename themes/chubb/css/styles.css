@@ -84,3 +84,13 @@ body {
 .form-item-customer-insured-taxresidencytin3{
     margin-right: 30%;
 }
+.fieldset--group {
+    width: 100%!important;
+}
+.fieldset__wrapper{
+    float: left;
+    width: 100%!important;
+}
+.js-form-type-radio{
+    min-height: 1px!important;
+}

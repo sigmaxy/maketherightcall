@@ -94,6 +94,7 @@ class EditOrderForm extends FormBase {
     $currency_opt = AttributeController::get_currency_options();
     $payment_mode_opt = AttributeController::get_payment_mode_options();
     $bill_type_opt = AttributeController::get_bill_type_options();
+    $card_type_opt = AttributeController::get_card_type_options();
     $dda_setup_opt = AttributeController::get_dda_setup_options();
     $plan_code_opt = ProductController::get_plan_code_options();
     $plan_level_opt = ProductController::get_plan_level_options();
@@ -1195,6 +1196,7 @@ class EditOrderForm extends FormBase {
       <br><br>Q1. 您的直系親屬（父母或兄弟姐妹）是否在 60 歲或之前患有癌症、阿爾滋海默氏症、柏金遜症或其他遺傳病？',
       '#options' => $yn_opt,
       '#default_value' => isset($record['health_details_q_1'])?$record['health_details_q_1']:'',
+      '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
       // '#required' => TRUE,
     ];
     $form['health_details']['health_details_q_2'] = [
@@ -1203,6 +1205,7 @@ class EditOrderForm extends FormBase {
       <br><br>Q2. 您是否曾患過癌症或原位癌、心臟病發作、中風、愛滋病病毒感染或愛滋病相關併發症?',
       '#options' => $yn_opt,
       '#default_value' => isset($record['health_details_q_2'])?$record['health_details_q_2']:'',
+      '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
       // '#required' => TRUE,
     ];
     $form['health_details']['health_details_q_3'] = [
@@ -1211,6 +1214,7 @@ class EditOrderForm extends FormBase {
       <br><br>Q3. 在過去 5 年中，您是否因身體殘疾或被診斷有神經系統、肌肉骨骼系統、皮膚病變、自身免疫性疾病或聽覺障礙?',
       '#options' => $yn_opt,
       '#default_value' => isset($record['health_details_q_3'])?$record['health_details_q_3']:'',
+      '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
       // '#required' => TRUE,
     ];
     $form['health_details']['health_details_q_4'] = [
@@ -1221,6 +1225,7 @@ class EditOrderForm extends FormBase {
       <br>b. 有關的疾病住院治療、接受手術或持續接受藥物治療連續 14 天或更長時間？',
       '#options' => $yn_opt,
       '#default_value' => isset($record['health_details_q_4'])?$record['health_details_q_4']:'',
+      '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
       // '#required' => TRUE,
     ];
     $form['health_details']['health_details_q_5'] = [
@@ -1229,6 +1234,7 @@ class EditOrderForm extends FormBase {
       <br><br>Q4. 在過去 12 個月內，您是否有任何原因不明的體重減輕超過 5 公斤、持續發燒或不明原因的出血、任何醫學體徵或症狀、或體檢結果異常，您仍在調查中，或等待進一步檢查, 醫療建議或手術治療, 或沒有尋求醫生的醫療建議？',
       '#options' => $yn_opt,
       '#default_value' => isset($record['health_details_q_5'])?$record['health_details_q_5']:'',
+      '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
       // '#required' => TRUE,
     ];
     $form['billing_info'] = [
@@ -1249,29 +1255,52 @@ class EditOrderForm extends FormBase {
       '#weight' => '1',
       '#required'=> true,
     ];
+    $form['billing_info']['cardType'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Card Type'),
+      '#options' => $card_type_opt,
+      '#empty_option' => '--Select--',
+      '#default_value' => isset($record['cardType'])?$record['cardType']:'',
+      '#attributes' => [
+        'class' => ['noselect2'],
+      ],
+      '#weight' => '2',
+    ];
+    $form['billing_info']['paymentReceivedDate'] = [
+      '#type' => 'date',
+      '#title' => $this->t('Payment Received Date'),
+      '#default_value' => isset($record['paymentReceivedDate'])?$record['paymentReceivedDate']:'',
+      '#weight' => '3',
+    ];
+    $form['billing_info']['transactionUpdatedDate'] = [
+      '#type' => 'date',
+      '#title' => $this->t('Transaction Updated Date'),
+      '#default_value' => isset($record['transactionUpdatedDate'])?$record['transactionUpdatedDate']:'',
+      '#weight' => '4',
+    ];
     $form['billing_info']['authorizationCode'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tokenized Card Number'),
       '#default_value' => isset($record['authorizationCode'])?$record['authorizationCode']:'',
       '#maxlength' => 255,
-      '#weight' => '2',
-      '#required'=> true,
+      '#weight' => '5',
+      // '#required'=> true,
     ];
     $form['billing_info']['cardHolderName'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Cardholder Name'),
       '#default_value' => isset($record['cardHolderName'])?$record['cardHolderName']:'',
       '#maxlength' => 255,
-      '#weight' => '3',
-      '#required'=> true,
+      '#weight' => '6',
+      // '#required'=> true,
     ];
     $form['billing_info']['cardholder_id_number'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Cardholder ID Number'),
       '#default_value' => isset($record['cardholder_id_number'])?$record['cardholder_id_number']:'',
       '#maxlength' => 255,
-      '#weight' => '4',
-      '#required'=> true,
+      '#weight' => '7',
+      // '#required'=> true,
     ];
     $form['billing_info']['card_expiry_date'] = [
       '#type' => 'textfield',
@@ -1283,8 +1312,8 @@ class EditOrderForm extends FormBase {
         'id' => 'card_expiry_date',
         'onkeyup'=>"addSlashes(this)",
       ],
-      '#weight' => '5',
-      '#required'=> true,
+      '#weight' => '8',
+      // '#required'=> true,
     ];
     $form['billing_info']['initial_premium'] = [
       '#type' => 'textfield',
@@ -1295,7 +1324,7 @@ class EditOrderForm extends FormBase {
         'readonly' => 'readonly',
         'id' => 'initial_premium',
       ],
-      '#weight' => '6',
+      '#weight' => '9',
       '#required'=> true,
     ];
     $form['billing_info']['modal_premium_payment'] = [
@@ -1307,7 +1336,7 @@ class EditOrderForm extends FormBase {
         'readonly' => 'readonly',
         'id' => 'modal_premium_payment',
       ],
-      '#weight' => '7',
+      '#weight' => '10',
       '#required'=> true,
     ];
     $form['billing_info']['levy'] = [
@@ -1319,7 +1348,7 @@ class EditOrderForm extends FormBase {
         'readonly' => 'readonly',
         'id' => 'levy',
       ],
-      '#weight' => '8',
+      '#weight' => '11',
       '#required'=> true,
     ];
     $form['billing_info']['calculate'] = [
@@ -1330,14 +1359,14 @@ class EditOrderForm extends FormBase {
         'id' => 'calculate_premium',
       ],
       '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
-      '#weight' => '9',
+      '#weight' => '12',
     ];
     $form['billing_info']['remarks'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Remarks'),
       '#default_value' => isset($record['remarks'])?$record['remarks']:'',
       '#maxlength' => 255,
-      '#weight' => '10',
+      '#weight' => '13',
       '#wrapper_attributes' => ['class' => ['form_item_maxwidth']],
       // '#required'=> true,
     ];
@@ -1350,7 +1379,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
-      '#weight' => '11',
+      '#weight' => '14',
       '#required'=> true,
     ];
     $form['billing_info']['status'] = [
@@ -1361,7 +1390,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
-      '#weight' => '12',
+      '#weight' => '15',
     ];
     $form['submit'] = [
       '#type' => 'submit',
@@ -1448,6 +1477,31 @@ class EditOrderForm extends FormBase {
     if (!empty($form_state->getValue('customer_payor_identityNumber')) &&
       !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_payor_identityNumber'))) {
       $form_state->setErrorByName('customer_payor_identityNumber','Invalide Payor HKID');
+    }
+
+    if ($form_state->getValue('status')==3) {
+      if(empty($form_state->getValue('cardType'))){
+        $form_state->setErrorByName('cardType','Card Type is Required');
+      }
+      if(empty($form_state->getValue('paymentReceivedDate'))){
+        $form_state->setErrorByName('paymentReceivedDate','Payment Received Date is Required');
+      }
+      if(empty($form_state->getValue('transactionUpdatedDate'))){
+        $form_state->setErrorByName('transactionUpdatedDate','Transaction Updated Date is Required');
+      }
+      if(empty($form_state->getValue('authorizationCode'))){
+        $form_state->setErrorByName('authorizationCode','Tokenized Card Number is Required');
+      }
+      if(empty($form_state->getValue('cardHolderName'))){
+        $form_state->setErrorByName('cardHolderName','Cardholder Name is Required');
+      }
+      if(empty($form_state->getValue('cardholder_id_number'))){
+        $form_state->setErrorByName('cardholder_id_number','Cardholder ID Number Number is Required');
+      }
+      if(empty($form_state->getValue('card_expiry_date'))){
+        $form_state->setErrorByName('card_expiry_date','Card Expiry Date Number is Required');
+      }
+      
     }
 
     parent::validateForm($form, $form_state);
@@ -1563,6 +1617,9 @@ class EditOrderForm extends FormBase {
     $order['agentCode'] = $fields['agentCode'];
     $order['agentName'] = $fields['agentName'];
     $order['billingType'] = $fields['billingType'];
+    $order['cardType'] = $fields['cardType'];
+    $order['paymentReceivedDate'] = $fields['paymentReceivedDate'];
+    $order['transactionUpdatedDate'] = $fields['transactionUpdatedDate'];
     $order['authorizationCode'] = $fields['authorizationCode'];
     $order['cardHolderName'] = $fields['cardHolderName'];
     $order['cardholder_id_number'] = $fields['cardholder_id_number'];
