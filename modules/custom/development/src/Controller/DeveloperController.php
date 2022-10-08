@@ -55,16 +55,6 @@ class DeveloperController extends ControllerBase {
     exit;
   }
   public static function test(){
-
-    $sftp_config = Settings::get('sftp');
-
-
-    $sftp = new SFTP($sftp_config['url']);
-    if (!$sftp->login($sftp_config['username'], $sftp_config['password'])) {
-        exit('Login Failed');
-    }
-    $file_uri = \Drupal::service('file_system')->realpath('public://temp/'.'TM_APP_20220915.txt');
-    $sftp->put('TM_APP_20220915.txt', $file_uri, SFTP::SOURCE_LOCAL_FILE);
     exit;
   }
   public static function ftest($n){
