@@ -260,7 +260,6 @@ class EditOrderForm extends FormBase {
       '#default_value' => $customer_gender,
       '#attributes' => [
         'class' => ['noselect2'],
-        'id' => 'owner_gender',
       ],
       '#empty_option' => '--Select--',
       '#weight' => '9',
@@ -282,7 +281,7 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Date of Birth'),
       '#default_value' => $customer_birthDate,
       '#attributes' => [
-        'id' => 'owner_birthDate',
+        // 'id' => 'owner_birthDate',
       ],
       '#weight' => '11',
       '#required'=> true,
@@ -918,6 +917,18 @@ class EditOrderForm extends FormBase {
       '#open'  => true,
       '#weight' => '5',
     ];
+    $form['customer_payor']['payor_same_as_owner'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Payor is same as owner'),
+      '#options' => $yn_opt,
+      '#default_value' => isset($record['payor_same_as_owner'])?$record['payor_same_as_owner']:'',
+      '#attributes' => [
+        'class' => ['noselect2'],
+        'id' => 'payor_same_as_owner',
+      ],
+      '#empty_option' => '--Select--',
+      '#weight' => '1',
+    ];
     $form['customer_payor']['customer_payor_surname'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Last Name (English)'),
@@ -1513,6 +1524,7 @@ class EditOrderForm extends FormBase {
   public function prepare_order($fields){
     $order['aeonRefNumber'] = $fields['aeonRefNumber'];
     $order['same_as_owner'] = $fields['same_as_owner'];
+    $order['payor_same_as_owner'] = $fields['payor_same_as_owner'];
     $order['owner']['surname'] = $fields['surname'];
     $order['owner']['givenName'] = $fields['givenName'];
     $order['owner']['chineseName'] = $fields['chineseName'];

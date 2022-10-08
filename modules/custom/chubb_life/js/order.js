@@ -71,6 +71,16 @@ jQuery(document).ready(function($){
             $('.form-item-customer-insured-taxresidencytin3').hide()
         }
     }
+    $(document).on('change','#payor_same_as_owner',function(e) {
+        if($('#payor_same_as_owner').val()=='Y'){
+            $('#edit-customer-payor-surname').val($('#edit-surname').val());
+            $('#edit-customer-payor-givenname').val($('#edit-givenname').val());
+            $('#edit-customer-payor-identitytype').val($('#edit-identitytype').val());
+            $('#edit-customer-payor-identitynumber').val($('#edit-identitynumber').val());
+            $('#edit-customer-payor-gender').val($('#edit-gender').val());
+            $('#edit-customer-payor-birthdate').val($('#edit-birthdate').val());
+        }
+	});
     $(document).on('click','#calculate_premium',function(e) {
         calculate_premium();
 	});

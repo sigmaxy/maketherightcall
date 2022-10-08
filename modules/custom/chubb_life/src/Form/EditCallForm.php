@@ -133,12 +133,24 @@ class EditCallForm extends FormBase {
       '#weight' => '2',
     ];
     $call_status_opt = AttributeController::get_call_status_options();
+    $reject_reason_opt = AttributeController::get_reject_reason_options();
     $form['call_detail']['status'] = [
       '#type' => 'select',
       '#title' => $this->t('Call Status'),
       '#weight' => '3',
       '#options' => $call_status_opt,
       '#default_value' => isset($db_call['status'])?$db_call['status']:0,
+      '#attributes' => [   
+        'class' => ['noselect2'],
+      ],
+      '#wrapper_attributes' => ['class' => ['form_item_maxwidth']],
+    ];
+    $form['call_detail']['reject_reason'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Reject Reason'),
+      '#weight' => '4',
+      '#options' => $reject_reason_opt,
+      '#default_value' => isset($db_call['reject_reason'])?$db_call['reject_reason']:0,
       '#attributes' => [   
         'class' => ['noselect2'],
       ],

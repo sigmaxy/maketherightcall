@@ -343,7 +343,7 @@ echo '<br><br><br><br>';
     $formatesheetData = array();
     // print_r($sheetData);exit;
     foreach ($sheetData as $key => $row_data) {
-      if ($key>=2 && !empty($row_data[1])) {
+      if ($key>=2 && !empty($row_data[1]) && $row_data[9]==0) {
         $formatesheetData[$key]['plan_code']=$row_data[1];
         $formatesheetData[$key]['plan_level']=$row_data[2];
         $formatesheetData[$key]['smokers_code']=$row_data[3]=='N'?'N':'Y';

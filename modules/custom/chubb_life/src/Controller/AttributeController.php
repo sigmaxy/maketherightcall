@@ -18,6 +18,22 @@ class AttributeController extends ControllerBase {
    * @return string
    *   Return Hello string.
    */
+  public static function get_reject_reason_options() {
+    $results = array(
+      '0' => '--Select--',
+      '1' => 'Premium too high (expensive)',
+      '2' => 'Protetion period too long / short',
+      '3' => 'Coverage not enough',
+      '4' => 'Well covered',
+      '5' => 'Coverage not interest',
+      '6' => 'No need',
+      '7' => 'Leaving HK',
+      '8' => 'Unsatisfied with Partners',
+      '9' => 'Unsatisfied with Chubb',
+      '10' => 'Others',
+    );
+    return $results;
+  }
   public static function get_order_status_options() {
     $results = array();
     $results[1] = t('Pending');

@@ -33,6 +33,7 @@ class ListCustomerForm extends FormBase {
     $header_table['gender'] = t('Gender');
     $header_table['tel_mbl'] = t('Mobile');
     $header_table['status'] = t('Status');
+    $header_table['fid'] = t('Batch');
     $header_table['assignee'] = t('Assignee');
     $header_table['created_at'] = t('Created At');
     $header_table['updated_by'] = t('Updated By');
@@ -58,7 +59,7 @@ class ListCustomerForm extends FormBase {
       $row_data['name'] = $data->name;
       $row_data['gender'] = $data->gender;
       $row_data['tel_mbl'] = $data->tel_mbl;
-      $row_data['tel_hom'] = $data->tel_hom;
+      $row_data['fid'] = $data->fid;
       $row_data['created_at'] = date('Y-m-d',$data->created_at);
       $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
       $row_data['updated_by'] = $updated_user->field_agentname->value;
