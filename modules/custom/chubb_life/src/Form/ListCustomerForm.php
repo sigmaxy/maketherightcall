@@ -105,7 +105,7 @@ class ListCustomerForm extends FormBase {
       '#empty' => t('No Customer found'),
       '#attributes' => [   
         'class' => ['table_list_data','import_customer_list'],
-        'col_sort_index' => 7,
+        'col_sort_index' => 8,
         'col_sort_type' => 'desc',
       ],
     ];
