@@ -82,15 +82,6 @@ class ListCustomerForm extends FormBase {
       '#submit' => array('::upload_customer'),
       '#weight' => '1',
     ];
-    // // $form['filters']['load_data'] = [
-    // //   '#type' => 'button',
-    // //   '#value' => $this->t('Load PO Data'),
-    // //   '#attributes' => [   
-    // //     'class' => ['next_button','load_data_po'],
-    // //     'onclick' => 'return (false);',
-    // //   ],
-    // //   '#weight' => '2',
-    // // ];
     $form['import_customer_filter'] = [
       '#type'  => 'details',
       '#title' => $this->t('Import Customer'),
