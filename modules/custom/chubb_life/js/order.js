@@ -77,8 +77,8 @@ jQuery(document).ready(function($){
             $('#edit-customer-payor-givenname').val($('#edit-givenname').val());
             $('#edit-customer-payor-identitytype').val($('#edit-identitytype').val());
             $('#edit-customer-payor-identitynumber').val($('#edit-identitynumber').val());
-            $('#edit-customer-payor-gender').val($('#edit-gender').val());
-            $('#edit-customer-payor-birthdate').val($('#edit-birthdate').val());
+            $('#edit-customer-payor-gender').val($('#owner_gender').val());
+            $('#edit-customer-payor-birthdate').val($('#owner_birthdate').val());
         }
 	});
     $(document).on('click','#calculate_premium',function(e) {
@@ -127,6 +127,7 @@ jQuery(document).ready(function($){
         console.log('age is '+age);
         console.log('currency is '+currency);
         console.log('url is '+url);
+        console.log('plan is '+plan_code);
         if(plan_code&&plan_level&&smoker&&birthDate&&currency){
             $.ajax({
                 url: url,

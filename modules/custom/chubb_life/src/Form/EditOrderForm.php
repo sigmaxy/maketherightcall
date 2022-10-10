@@ -260,6 +260,7 @@ class EditOrderForm extends FormBase {
       '#default_value' => $customer_gender,
       '#attributes' => [
         'class' => ['noselect2'],
+        'id' => 'owner_gender',
       ],
       '#empty_option' => '--Select--',
       '#weight' => '9',
@@ -281,7 +282,7 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Date of Birth'),
       '#default_value' => $customer_birthDate,
       '#attributes' => [
-        // 'id' => 'owner_birthDate',
+        'id' => 'owner_birthDate',
       ],
       '#weight' => '11',
       '#required'=> true,
