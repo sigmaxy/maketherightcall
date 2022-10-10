@@ -78,7 +78,7 @@ jQuery(document).ready(function($){
             $('#edit-customer-payor-identitytype').val($('#edit-identitytype').val());
             $('#edit-customer-payor-identitynumber').val($('#edit-identitynumber').val());
             $('#edit-customer-payor-gender').val($('#owner_gender').val());
-            $('#edit-customer-payor-birthdate').val($('#owner_birthdate').val());
+            $('#edit-customer-payor-birthdate').val($('#owner_birthDate').val());
         }
 	});
     $(document).on('click','#calculate_premium',function(e) {
