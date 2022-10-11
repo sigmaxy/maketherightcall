@@ -225,7 +225,6 @@ class EditCallForm extends FormBase {
         'id'=>'plan_code',
       ],
       '#weight' => '1',
-      '#required'=> true,
     ];
     $form['rhc_detail']['age'] = [
       '#type' => 'textfield',
@@ -259,7 +258,6 @@ class EditCallForm extends FormBase {
         'id'=>'plan_level',
       ],
       '#weight' => '4',
-      '#required'=> true,
     ];
     $form['rhc_detail']['calculate'] = [
       '#type' => 'button',
