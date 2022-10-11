@@ -6,6 +6,7 @@ chubb_life:
     js:
       js/chubb_life.js: {}
       js/order.js: {}
+      js/call.js: {}
       js/script.js: {}
     dependencies:
       - core/jquery

@@ -176,7 +176,7 @@ class OrderController extends ControllerBase {
         'pep'=>$order['pep']=='Y'?true:false,
         'policyEffectiveDate'=>'',
         'prePayment'=>'',
-        'promoCode'=>'',
+        'promoCode'=>$order['promotion_code'],
         'taxResidency1'=>array(
           'taxResidency'=>$order['owner']['taxResidency1'],
           'taxResidencyReason'=>'',

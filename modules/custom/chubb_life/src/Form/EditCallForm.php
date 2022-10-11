@@ -37,6 +37,10 @@ class EditCallForm extends FormBase {
     $gender_opt = AttributeController::get_gender_options();
     $rhc_plan_code_opt = ProductController::get_rhc_plan_code_options();
     $rhc_plan_level_opt = ProductController::get_rhc_plan_level_options();
+    $product_name_opt = ProductController::get_product_name_options();
+
+    $face_amount_opt = AttributeController::get_face_amount_options();
+    $promotion_code_arr = AttributeController::get_promotion_code_arr();
 
     $db_call = CallController::get_call_by_id($call_id);
     // print_r($db_call);exit;
@@ -257,29 +261,44 @@ class EditCallForm extends FormBase {
       '#weight' => '4',
       '#required'=> true,
     ];
+    $form['rhc_detail']['calculate'] = [
+      '#type' => 'button',
+      '#value' => $this->t('Calculate'),
+      '#attributes' => [
+        'onclick' => 'return false;',
+        'id' => 'calculate_rhc_premium',
+      ],
+      '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
+      '#weight' => '5',
+    ];
     $rhc_detail = '
     <table class="product_rhc_detail">
     <tr><td colspan="5"><b>保障</b></td></tr>
-    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2">HKD</td></tr>
-    <tr><td><b>每日住院現金</b></td><td class="rhc_product_face_amount_usd"><b>50</b></td><td  class="rhc_product_face_amount_usd">400</td></tr>
+    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
+    <tr><td><b>每日住院現金</b></td><td colspan="2" class="rhc_product_face_amount_usd"></td><td colspan="2" class="rhc_product_face_amount_hkd"></td></tr>
     <tr><td colspan="5"><b>保費</b></td></tr>
-    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2">HKD</td></tr>
+    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
     <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
     <tr><td><b>保費</b></td><td class="rhc_product_premium_annual_usd"></td><td class="rhc_product_premium_monthly_usd"></td><td class="rhc_product_premium_annual_hkd"></td><td class="rhc_product_premium_monthly_hkd"></td></tr>
     <tr><td><b>平均每日保費</b></td><td class="rhc_product_premium_annual_usd_ave"></td><td class="rhc_product_premium_monthly_usd_ave"></td><td class="rhc_product_premium_annual_hkd_ave"></td><td class="rhc_product_premium_monthly_hkd_ave"></td></tr>
     <tr><td colspan="5"><b>總共款及115期滿金額</b></td></tr>
-    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2">HKD</td></tr>
+    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
     <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
-    <tr><td><b>10年總共款</b></td><td class="rhc_product_premium_annual_usd"></td><td class="rhc_product_premium_monthly_usd"></td><td class="rhc_product_premium_annual_hkd"></td><td class="rhc_product_premium_monthly_hkd"></td></tr>
-    <tr><td><b>115%回贈</b></td><td class="rhc_product_premium_annual_usd_ave"></td><td class="rhc_product_premium_monthly_usd_ave"></td><td class="rhc_product_premium_annual_hkd_ave"></td><td class="rhc_product_premium_monthly_hkd_ave"></td></tr>
-    
-
+    <tr><td><b>10年總共款</b></td><td class="rhc_product_premium_annual_usd1"></td><td class="rhc_product_premium_monthly_usd1"></td><td class="rhc_product_premium_annual_hkd1"></td><td class="rhc_product_premium_monthly_hkd1"></td></tr>
+    <tr><td><b>115%回贈</b></td><td class="rhc_product_premium_annual_usd_ave1"></td><td class="rhc_product_premium_monthly_usd_ave1"></td><td class="rhc_product_premium_annual_hkd_ave1"></td><td class="rhc_product_premium_monthly_hkd_ave1"></td></tr>
+    <tr><td colspan="5"><b>首期保費(2個月)</b></td></tr>
+    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
+    <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
+    <tr><td><b>首期保費(連徵費)</b></td><td class="rhc_product_initial_premium_annual_usd"></td><td class="rhc_product_initial_premium_monthly_usd"></td><td class="rhc_product_initial_premium_annual_hkd"></td><td class="rhc_product_initial_premium_monthly_hkd"></td></tr>
     </table>';
     
     $form['rhc_detail']['detail'] = [
       '#markup' => Markup::create($rhc_detail),
       '#weight' => '10',
     ];
+    $form['#attached']['drupalSettings']['promotion_code_arr'] = $promotion_code_arr;
+    $form['#attached']['drupalSettings']['product_name'] = $product_name_opt;
+    $form['#attached']['drupalSettings']['face_amount'] = $face_amount_opt;
     $form['#attached']['drupalSettings']['mobile'] = $import_customer['tel_mbl'];
     $form['#attached']['library'][] = 'chubb_life/chubb_life';
     return $form;
