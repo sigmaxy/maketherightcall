@@ -151,6 +151,7 @@ jQuery(document).ready(function($){
                         }else if(payment_mode==1){
                             initial_premium = (premium/12 - premium*discount/12 + levy)*2;
                             modal_premium_payment = premium*0.0872;
+                            levy = levy * 0.0872;
                         }
                         levy = (Math.round(levy * 100) / 100).toFixed(2);
                         initial_premium = (Math.round(initial_premium * 100) / 100).toFixed(2);
