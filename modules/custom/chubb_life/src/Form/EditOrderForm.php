@@ -888,30 +888,30 @@ class EditOrderForm extends FormBase {
       ],
       '#weight' => '35',
     ];
-    $form['customer_insured']['customer_insured_solicitation'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Solicitation (Opt out Indicator)'),
-      '#options' => $solicitation_opt,
-      '#empty_option' => '--Select--',
-      '#default_value' => isset($record['insured']['solicitation'])?$record['insured']['solicitation']:'',
-      '#attributes' => [
-        'class' => ['noselect2'],
-        'id' => 'customer_insured_solicitation',
-      ],
-      '#weight' => '36',
-    ];
-    $form['customer_insured']['customer_insured_opt_out_reason'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Opt out reason'),
-      '#options' => $opt_out_reason_opt,
-      '#empty_option' => '--Select--',
-      '#default_value' => isset($record['insured']['opt_out_reason'])?$record['insured']['opt_out_reason']:'',
-      '#attributes' => [
-        'class' => ['noselect2'],
-        'id' => 'customer_insured_opt_out_reason',
-      ],
-      '#weight' => '37',
-    ];
+    // $form['customer_insured']['customer_insured_solicitation'] = [
+    //   '#type' => 'select',
+    //   '#title' => $this->t('Solicitation (Opt out Indicator)'),
+    //   '#options' => $solicitation_opt,
+    //   '#empty_option' => '--Select--',
+    //   '#default_value' => isset($record['insured']['solicitation'])?$record['insured']['solicitation']:'',
+    //   '#attributes' => [
+    //     'class' => ['noselect2'],
+    //     'id' => 'customer_insured_solicitation',
+    //   ],
+    //   '#weight' => '36',
+    // ];
+    // $form['customer_insured']['customer_insured_opt_out_reason'] = [
+    //   '#type' => 'select',
+    //   '#title' => $this->t('Opt out reason'),
+    //   '#options' => $opt_out_reason_opt,
+    //   '#empty_option' => '--Select--',
+    //   '#default_value' => isset($record['insured']['opt_out_reason'])?$record['insured']['opt_out_reason']:'',
+    //   '#attributes' => [
+    //     'class' => ['noselect2'],
+    //     'id' => 'customer_insured_opt_out_reason',
+    //   ],
+    //   '#weight' => '37',
+    // ];
     $form['customer_payor'] = [
       '#type'  => 'details',
       '#title' => $this->t('Customer Details (Payor)'),
