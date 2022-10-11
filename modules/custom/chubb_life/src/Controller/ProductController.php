@@ -58,7 +58,6 @@ class ProductController extends ControllerBase {
     }
     return $results;
   }
-  
   public static function get_plan_level_options() {
     $connection = Database::getConnection();
     $query = $connection->select('mtrc_premium', 'mp');
@@ -68,6 +67,22 @@ class ProductController extends ControllerBase {
     foreach ($record as $each_data) {
       $results[$each_data->plan_code][$each_data->plan_level] = $each_data->plan_level;
     }
+    return $results;
+  }
+  public static function get_rhc_plan_code_options() {
+    $results = array(
+      'RHC5' => 'RHC5',
+      'RHC10' => 'RHC10',
+    );
+    return $results;
+  }
+  public static function get_rhc_plan_level_options() {
+    $results = array(
+      '1' => '1',
+      '2' => '2',
+      '3' => '3',
+      '4' => '4',
+    );
     return $results;
   }
   public static function get_product_name_options() {
