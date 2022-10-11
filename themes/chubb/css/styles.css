@@ -97,3 +97,11 @@ body {
 .datatable_filter_header{
     width: 100%!important;
 }
+.product_rhc_detail{
+    /* border: 1px solid; */
+    border-collapse: collapse!important;
+    width: 100%!important;
+}
+.product_rhc_detail td{
+    border: 1px solid #f0f0f0!important;
+}

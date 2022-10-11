@@ -265,28 +265,20 @@ class EditCallForm extends FormBase {
     <tr><td colspan="5"><b>保費</b></td></tr>
     <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2">HKD</td></tr>
     <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
-    <tr><td><b>付款方式</b></td><td class="rhc_product_premium_annual_usd"></td><td class="rhc_product_premium_monthly_usd"></td><td class="rhc_product_premium_annual_hkd"></td><td class="rhc_product_premium_monthly_hkd"></td></tr>
-    <tr><td><b>保費</b></td></tr>
-    <tr><td><b>貨幣</b></td><td><b>USD</b></td><td>HKD</td></tr>
-    <tr><td><b>Tel</b></td><td>'.$import_customer['tel_hom'].'</td><td><b>HKID</b></td><td>'.$import_customer['hkid'].'</td></tr>
-    <tr><td><b>ACC NO</b></td><td>'.$import_customer['acc_no'].'</td><td><b>Card Brand</b></td><td>'.$import_customer['card_brand'].'</td></tr>
-    <tr><td><b>Card Type</b></td><td>'.$import_customer['card_type'].'</td><td><b>Date of Birth</b></td><td>'.$import_customer['dob'].'</td></tr>
-    <tr><td><b>Married Status</b></td><td>'.$import_customer['married_status'].'</td><td><b>Address</b></td><td>'.$import_customer['address'].'</td></tr>
-    <tr><td><b>Living Person</b></td><td>'.$import_customer['living_person'].'</td><td><b>Email</b></td><td>'.$import_customer['email'].'</td></tr>
-    <tr><td><b>Member Since</b></td><td>'.$import_customer['member_since'].'</td><td><b>Occupation</b></td><td>'.$import_customer['occupation'].'</td></tr>
-    <tr><td><b>Position</b></td><td>'.$import_customer['position'].'</td><td></td><td></td></tr>
+    <tr><td><b>保費</b></td><td class="rhc_product_premium_annual_usd"></td><td class="rhc_product_premium_monthly_usd"></td><td class="rhc_product_premium_annual_hkd"></td><td class="rhc_product_premium_monthly_hkd"></td></tr>
+    <tr><td><b>平均每日保費</b></td><td class="rhc_product_premium_annual_usd_ave"></td><td class="rhc_product_premium_monthly_usd_ave"></td><td class="rhc_product_premium_annual_hkd_ave"></td><td class="rhc_product_premium_monthly_hkd_ave"></td></tr>
+    <tr><td colspan="5"><b>總共款及115期滿金額</b></td></tr>
+    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2">HKD</td></tr>
+    <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
+    <tr><td><b>10年總共款</b></td><td class="rhc_product_premium_annual_usd"></td><td class="rhc_product_premium_monthly_usd"></td><td class="rhc_product_premium_annual_hkd"></td><td class="rhc_product_premium_monthly_hkd"></td></tr>
+    <tr><td><b>115%回贈</b></td><td class="rhc_product_premium_annual_usd_ave"></td><td class="rhc_product_premium_monthly_usd_ave"></td><td class="rhc_product_premium_annual_hkd_ave"></td><td class="rhc_product_premium_monthly_hkd_ave"></td></tr>
+    
+
     </table>';
-    $form['customer_detail'] = [
-      '#type'  => 'details',
-      '#title' => $this->t('Customer Detail'),
-      '#open'  => true,
-      '#weight' => '1',
-    ];
     
-    
-    $form['customer_detail']['detail'] = [
-      '#markup' => Markup::create($customer_detail),
-      '#weight' => '1',
+    $form['rhc_detail']['detail'] = [
+      '#markup' => Markup::create($rhc_detail),
+      '#weight' => '10',
     ];
     $form['#attached']['drupalSettings']['mobile'] = $import_customer['tel_mbl'];
     $form['#attached']['library'][] = 'chubb_life/chubb_life';

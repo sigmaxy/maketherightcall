@@ -224,7 +224,7 @@ jQuery(document).ready(function($){
 	});
     owner_solicitation_display_toggle();
     function owner_solicitation_display_toggle(){
-        if ($('#customer_owner_solicitation').val()=='Y') {
+        if ($('#customer_owner_solicitation').val()=='N') {
             $('.form-item-opt-out-reason').show();
         }else{
             $('.form-item-opt-out-reason').hide();
@@ -235,7 +235,7 @@ jQuery(document).ready(function($){
 	});
     insured_solicitation_display_toggle();
     function insured_solicitation_display_toggle(){
-        if ($('#customer_insured_solicitation').val()=='Y') {
+        if ($('#customer_insured_solicitation').val()=='N') {
             $('.form-item-customer-insured-opt-out-reason').show();
         }else{
             $('.form-item-customer-insured-opt-out-reason').hide();
