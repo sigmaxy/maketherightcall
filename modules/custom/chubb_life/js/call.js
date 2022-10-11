@@ -40,7 +40,7 @@ jQuery(document).ready(function($){
                         }else if(currency=='CNY'&& premium>=83330){
                             levy = 83.33;
                         }else{
-                            levy = 0.001 * premium;
+                            levy = 0.001 * premium * (1 - discount);
                         }
                         if(payment_mode==12){
                             initial_premium = premium - premium*discount + levy;
