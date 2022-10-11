@@ -372,7 +372,7 @@ class OrderController extends ControllerBase {
           'birthDate'=>$order['payor']['birthDate'],
           'birthPlace'=>'',
           'chineseName'=>'',
-          'citizenship'=>'HK',
+          'citizenship'=>'',
           'countryRegionCode'=>null,
           'customerSequence'=>3,
           'customerType'=>'P1',
