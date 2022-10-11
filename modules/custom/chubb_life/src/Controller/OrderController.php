@@ -173,7 +173,7 @@ class OrderController extends ControllerBase {
         'paidPolicyDuration'=>'',
         'parentPolicyNumber'=>'',
         'paymentMode'=>$order['paymentMode'],
-        'pep'=>$order['pep']=='Y'?true:false,
+        'pep'=>false,
         'policyEffectiveDate'=>'',
         'prePayment'=>'',
         'promoCode'=>$order['promotion_code'],

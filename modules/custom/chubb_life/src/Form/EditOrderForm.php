@@ -1028,30 +1028,30 @@ class EditOrderForm extends FormBase {
       '#weight' => '2',
       '#required'=> true,
     ];
-    $form['policy']['pep'] = [
-      '#type' => 'select',
-      '#title' => $this->t('PEP'),
-      '#options' => $yn_opt,
-      '#empty_option' => '--Select--',
-      '#default_value' => isset($record['pep'])?$record['pep']:'N',
-      '#attributes' => [
-        'class' => ['noselect2'],
-      ],
-      '#weight' => '3',
-      '#required'=> true,
-    ];
-    $form['policy']['another_person'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Acting on behalf of another person'),
-      '#options' => $yn_opt,
-      '#empty_option' => '--Select--',
-      '#default_value' => isset($record['another_person'])?$record['another_person']:'N',
-      '#attributes' => [
-        'class' => ['noselect2'],
-      ],
-      '#weight' => '4',
-      '#required'=> true,
-    ];
+    // $form['policy']['pep'] = [
+    //   '#type' => 'select',
+    //   '#title' => $this->t('PEP'),
+    //   '#options' => $yn_opt,
+    //   '#empty_option' => '--Select--',
+    //   '#default_value' => isset($record['pep'])?$record['pep']:'N',
+    //   '#attributes' => [
+    //     'class' => ['noselect2'],
+    //   ],
+    //   '#weight' => '3',
+    //   '#required'=> true,
+    // ];
+    // $form['policy']['another_person'] = [
+    //   '#type' => 'select',
+    //   '#title' => $this->t('Acting on behalf of another person'),
+    //   '#options' => $yn_opt,
+    //   '#empty_option' => '--Select--',
+    //   '#default_value' => isset($record['another_person'])?$record['another_person']:'N',
+    //   '#attributes' => [
+    //     'class' => ['noselect2'],
+    //   ],
+    //   '#weight' => '4',
+    //   '#required'=> true,
+    // ];
     $form['policy']['ecopy'] = [
       '#type' => 'select',
       '#title' => $this->t('eCopy'),
