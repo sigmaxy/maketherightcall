@@ -677,88 +677,88 @@ class EditOrderForm extends FormBase {
       ],
       '#weight' => '12',
     ];
-    $form['customer_insured']['customer_insured_taxResidency1'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Tax Residency 1'),
-      '#options' => $country_opt,
-      '#default_value' => isset($record['insured']['taxResidency1'])?$record['insured']['taxResidency1']:'HK',
-      '#attributes' => [
-        'class' => ['country_select'],
-      ],
-      '#weight' => '13',
-    ];
-    $form['customer_insured']['customer_insured_taxResidencyTin1'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Tax Residency TIN 1'),
-      '#default_value' => isset($record['insured']['taxResidencyTin1'])?$record['insured']['taxResidencyTin1']:'',
-      '#attributes' => [
-        'placeholder' => 'Z1234567',
-      ],
-      '#maxlength' => 9,
-      '#weight' => '14',
-    ];
-    $insured_taxResidency_showmore_title = 'Show More';
-    $insured_taxResidency_showmore_class = ['insured_taxResidency_showmore'];
-    if(!empty($record['insured']['taxResidencyTin2'])||!empty($record['insured']['taxResidencyTin3'])
-    ){
-      $insured_taxResidency_showmore_title = 'Show Less';
-    }else{
-      $insured_taxResidency_showmore_class[] = 'show_more';
-    }
+    // $form['customer_insured']['customer_insured_taxResidency1'] = [
+    //   '#type' => 'select',
+    //   '#title' => $this->t('Tax Residency 1'),
+    //   '#options' => $country_opt,
+    //   '#default_value' => isset($record['insured']['taxResidency1'])?$record['insured']['taxResidency1']:'HK',
+    //   '#attributes' => [
+    //     'class' => ['country_select'],
+    //   ],
+    //   '#weight' => '13',
+    // ];
+    // $form['customer_insured']['customer_insured_taxResidencyTin1'] = [
+    //   '#type' => 'textfield',
+    //   '#title' => $this->t('Tax Residency TIN 1'),
+    //   '#default_value' => isset($record['insured']['taxResidencyTin1'])?$record['insured']['taxResidencyTin1']:'',
+    //   '#attributes' => [
+    //     'placeholder' => 'Z1234567',
+    //   ],
+    //   '#maxlength' => 9,
+    //   '#weight' => '14',
+    // ];
+    // $insured_taxResidency_showmore_title = 'Show More';
+    // $insured_taxResidency_showmore_class = ['insured_taxResidency_showmore'];
+    // if(!empty($record['insured']['taxResidencyTin2'])||!empty($record['insured']['taxResidencyTin3'])
+    // ){
+    //   $insured_taxResidency_showmore_title = 'Show Less';
+    // }else{
+    //   $insured_taxResidency_showmore_class[] = 'show_more';
+    // }
 
-    $form['customer_insured']['insured_taxResidency_showmore'] = [
-      '#type' => 'button',
-      '#value' => $insured_taxResidency_showmore_title,
-      '#attributes' => [
-        'onclick' => 'return false;',
-        'id' => 'insured_taxResidency_showmore',
-        'class' => $insured_taxResidency_showmore_class,
-      ],
-      '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
-      '#weight' => '15',
-    ];
-    $form['customer_insured']['customer_insured_taxResidency2'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Tax Residency 2'),
-      '#options' => $country_opt,
-      '#default_value' => isset($record['insured']['taxResidency2'])?$record['insured']['taxResidency2']:'',
-      '#attributes' => [
-        'class' => ['country_select'],
-      ],
-      '#empty_option' => '--Select--',
-      '#weight' => '16',
-    ];
-    $form['customer_insured']['customer_insured_taxResidencyTin2'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Tax Residency TIN 2'),
-      '#default_value' => isset($record['insured']['taxResidencyTin2'])?$record['insured']['taxResidencyTin2']:'',
-      '#attributes' => [
-        'placeholder' => 'Z1234567',
-      ],
-      '#maxlength' => 9,
-      '#weight' => '17',
-    ];
-    $form['customer_insured']['customer_insured_taxResidency3'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Tax Residency 3'),
-      '#options' => $country_opt,
-      '#default_value' => isset($record['insured']['taxResidency3'])?$record['insured']['taxResidency3']:'',
-      '#attributes' => [
-        'class' => ['country_select'],
-      ],
-      '#empty_option' => '--Select--',
-      '#weight' => '18',
-    ];
-    $form['customer_insured']['customer_insured_taxResidencyTin3'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Tax Residency TIN 3'),
-      '#default_value' => isset($record['insured']['taxResidencyTin3'])?$record['insured']['taxResidencyTin3']:'',
-      '#attributes' => [
-        'placeholder' => 'Z1234567',
-      ],
-      '#maxlength' => 9,
-      '#weight' => '19',
-    ];
+    // $form['customer_insured']['insured_taxResidency_showmore'] = [
+    //   '#type' => 'button',
+    //   '#value' => $insured_taxResidency_showmore_title,
+    //   '#attributes' => [
+    //     'onclick' => 'return false;',
+    //     'id' => 'insured_taxResidency_showmore',
+    //     'class' => $insured_taxResidency_showmore_class,
+    //   ],
+    //   '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
+    //   '#weight' => '15',
+    // ];
+    // $form['customer_insured']['customer_insured_taxResidency2'] = [
+    //   '#type' => 'select',
+    //   '#title' => $this->t('Tax Residency 2'),
+    //   '#options' => $country_opt,
+    //   '#default_value' => isset($record['insured']['taxResidency2'])?$record['insured']['taxResidency2']:'',
+    //   '#attributes' => [
+    //     'class' => ['country_select'],
+    //   ],
+    //   '#empty_option' => '--Select--',
+    //   '#weight' => '16',
+    // ];
+    // $form['customer_insured']['customer_insured_taxResidencyTin2'] = [
+    //   '#type' => 'textfield',
+    //   '#title' => $this->t('Tax Residency TIN 2'),
+    //   '#default_value' => isset($record['insured']['taxResidencyTin2'])?$record['insured']['taxResidencyTin2']:'',
+    //   '#attributes' => [
+    //     'placeholder' => 'Z1234567',
+    //   ],
+    //   '#maxlength' => 9,
+    //   '#weight' => '17',
+    // ];
+    // $form['customer_insured']['customer_insured_taxResidency3'] = [
+    //   '#type' => 'select',
+    //   '#title' => $this->t('Tax Residency 3'),
+    //   '#options' => $country_opt,
+    //   '#default_value' => isset($record['insured']['taxResidency3'])?$record['insured']['taxResidency3']:'',
+    //   '#attributes' => [
+    //     'class' => ['country_select'],
+    //   ],
+    //   '#empty_option' => '--Select--',
+    //   '#weight' => '18',
+    // ];
+    // $form['customer_insured']['customer_insured_taxResidencyTin3'] = [
+    //   '#type' => 'textfield',
+    //   '#title' => $this->t('Tax Residency TIN 3'),
+    //   '#default_value' => isset($record['insured']['taxResidencyTin3'])?$record['insured']['taxResidencyTin3']:'',
+    //   '#attributes' => [
+    //     'placeholder' => 'Z1234567',
+    //   ],
+    //   '#maxlength' => 9,
+    //   '#weight' => '19',
+    // ];
     $form['customer_insured']['customer_insured_email'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Email Address'),
