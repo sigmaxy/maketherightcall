@@ -60,7 +60,9 @@ class CallController extends ControllerBase {
     $connection = Database::getConnection();
     $query = $connection->select('mtrc_call', 'mc');
     $query->fields('mc');
-    $query->condition('assignee_id', $assignee_id);
+    if(isset($assignee_id)){
+      $query->condition('assignee_id', $assignee_id);
+    }
     $record = $query->execute()->fetchAll();
     return $record;
   }

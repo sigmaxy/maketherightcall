@@ -94,3 +94,6 @@ body {
 .js-form-type-radio{
     min-height: 1px!important;
 }
+.datatable_filter_header{
+    width: 100%!important;
+}

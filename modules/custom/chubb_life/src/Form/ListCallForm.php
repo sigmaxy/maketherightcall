@@ -34,12 +34,20 @@ class ListCallForm extends FormBase {
     $header_table['tel_mbl'] = t('Mobile');
     $header_table['status'] = t('Status');
     $header_table['count'] = t('Attempts');
+    $header_table['assignee'] = t('Assignee');
     $header_table['updated_at'] = t('Lastest Modify');
     $header_table['updated_by'] = t('Updated By');
     $header_table['opt'] = t('Opt');
     $rows=array();
     $current_uid = \Drupal::currentUser()->id();
-    $call_list = CallController::list_call_by_assignee($current_uid);
+
+
+    $roles = \Drupal::currentUser()->getRoles();
+    if(in_array('manager', $roles)||in_array('administrator', $roles)) {
+      $call_list = CallController::list_call_by_assignee(null);
+    }else{
+      $call_list = CallController::list_call_by_assignee($current_uid);
+    }
     $call_status_opt = AttributeController::get_call_status_options();
     foreach($call_list as $key=>$data){
       $edit = Url::fromUserInput('/chubb_life/form/edit_call/'.$data->id);
@@ -57,6 +65,18 @@ class ListCallForm extends FormBase {
         // 'data' => $data->count,
         'data' => Link::fromTextAndUrl($data->count, $view_log),
       ];
+
+      $user = \Drupal\user\Entity\User::load($data->assignee_id);
+      $agent_code = $user->field_agentcode->value;
+      $row_data['assignee'] = $user->getEmail();
+      if(!empty($agent_code)){
+        $row_data['assignee'] = $agent_code;
+      }
+
+
+
+
+
       $row_data['updated_at'] = date('Y-m-d H:i:s',$data->updated_at);
       $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
       $row_data['updated_by'] = $updated_user->field_agentname->value;

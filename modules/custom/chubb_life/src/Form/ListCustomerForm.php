@@ -95,7 +95,7 @@ class ListCustomerForm extends FormBase {
       '#options' => $rows,
       '#empty' => t('No Customer found'),
       '#attributes' => [   
-        'class' => ['table_list_data','import_customer_list'],
+        'class' => ['import_customer_list'],
         'col_sort_index' => 8,
         'col_sort_type' => 'desc',
       ],
@@ -114,6 +114,7 @@ class ListCustomerForm extends FormBase {
       '#attributes' => [
         'class' => ['assignee_select'],
       ],
+      '#multiple' => TRUE,
       '#wrapper_attributes' => ['class' => ['form_item_maxwidth']],
       '#weight' => '1',
     ];
@@ -151,13 +152,44 @@ class ListCustomerForm extends FormBase {
   }
   public function assign_customer(array &$form, FormStateInterface $form_state) {
     // Display result.
-    $customer_selected = $form_state->getValue('import_customer_list_table');
     $assignee_uid = $form_state->getValue('assignee');
+    
+    
+    $customer_selected = $form_state->getValue('import_customer_list_table');
+    
+    
+    $customer_checked = array();
     foreach ($customer_selected as $imported_customer_id => $checked) {
       if ($checked) {
+        $customer_checked[] = $imported_customer_id;
+      }
+    }
+    $customer_count = count($customer_checked);
+
+    $assignee_checked = array();
+    foreach ($assignee_uid as $each_data) {
+        $assignee_checked[] = $each_data;
+    }
+    $assignee_count = count($assignee_uid);
+
+    $assignee_index = 0;
+    $assignee_update_list = array();
+    while (count($customer_checked) > 0) {
+      $random_key = array_rand($customer_checked, 1);
+      $assignee_update_list[$assignee_checked[$assignee_index]][] = $customer_checked[$random_key];
+      unset($customer_checked[$random_key]);
+      if($assignee_index < ($assignee_count - 1)){
+        $assignee_index++;
+      }else{
+        $assignee_index=0;
+      }
+    }
+    foreach ($assignee_update_list as $each_assignee_uid=>$assigned_customer_list) {
+      foreach ($assigned_customer_list as $imported_customer_id) {
+        // echo 'assignee id:'.$each_assignee_uid.' customer id:'.$imported_customer_id."\n";
         $call = array();
         $call['import_customer_id'] = $imported_customer_id;
-        $call['assignee_id'] = $assignee_uid;
+        $call['assignee_id'] = $each_assignee_uid;
         $call['status'] = 1;
         CallController::update_call($call);
       }

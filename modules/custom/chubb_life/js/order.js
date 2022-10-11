@@ -149,7 +149,7 @@ jQuery(document).ready(function($){
                             initial_premium = premium - premium*discount + levy;
                             modal_premium_payment = premium;
                         }else if(payment_mode==1){
-                            initial_premium = (premium/12 - premium*discount/12 + levy)*2;
+                            initial_premium = (premium*0.0872 - premium*discount*0.0872 + levy)*2;
                             modal_premium_payment = premium*0.0872;
                             levy = levy * 0.0872;
                         }

@@ -75,7 +75,7 @@ class ListOrderForm extends FormBase {
       '#options' => $rows,
       '#empty' => t('No Customer found'),
       '#attributes' => [   
-        'class' => ['table_list_data'],
+        'class' => ['order_list'],
         'col_sort_index' => 7,
         'col_sort_type' => 'desc',
       ],
