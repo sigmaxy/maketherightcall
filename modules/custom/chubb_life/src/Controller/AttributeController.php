@@ -54,11 +54,15 @@ class AttributeController extends ControllerBase {
   }
   public static function get_id_type_options() {
     $results = array(
-      'I' => 'HKID',
-      'B' => 'Birth Certificate',
+      'A' => 'Birth Certificate',
+      'B' => 'Business Registration',
+      'C' => 'Certificate of Incorporation',
+      'H' => 'HKSAR Re-entry Permits',
+      'I' => 'ID Card',
       'P' => 'Passport',
-      'O' => 'Other ID card',
-      'C' => 'PRC Residen Identity Card',
+      'X' => 'Others',
+      'S' => 'Single Entry Permit',
+      'R' => 'PRC ID CARD',
     );
     return $results;
   }
