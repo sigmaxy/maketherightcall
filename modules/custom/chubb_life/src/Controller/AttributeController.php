@@ -170,7 +170,7 @@ class AttributeController extends ControllerBase {
     $results = array();
     $results['HKD'] = t('HKD');
     $results['USD'] = t('USD');
-    $results['CNY'] = t('CNY');
+    // $results['CNY'] = t('CNY');
     return $results;
   }
   public static function get_payment_mode_options() {
