@@ -37,9 +37,10 @@ class AttributeController extends ControllerBase {
   public static function get_order_status_options() {
     $results = array();
     $results[1] = t('Pending');
-    $results[2] = t('Hold');
+    $results[2] = t('Void');
     $results[3] = t('Success');
-    $results[4] = t('Fail');
+    $results[4] = t('Cancel');
+    // $results[4] = t('Json Generated');
     return $results;
   }
   public static function get_call_status_options() {

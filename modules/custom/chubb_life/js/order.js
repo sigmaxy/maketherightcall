@@ -120,14 +120,14 @@ jQuery(document).ready(function($){
         var payment_mode = $('#paymentMode').val();
         var initial_premium,modal_premium_payment;
         var url = window.location.origin+drupalSettings.path.baseUrl+'chubb_life/data/ajax_get_premium/'+plan_code+'/'+plan_level+'/'+smoker+'/'+gender+'/'+age+'/'+currency;
-        // console.log('plan code is '+plan_code);
-        // console.log('plan_level is '+plan_level);
-        // console.log('smoker is '+smoker);
-        // console.log('gender is '+gender);
-        // console.log('age is '+age);
-        // console.log('currency is '+currency);
-        // console.log('url is '+url);
-        // console.log('plan is '+plan_code);
+        console.log('plan code is '+plan_code);
+        console.log('plan_level is '+plan_level);
+        console.log('smoker is '+smoker);
+        console.log('gender is '+gender);
+        console.log('age is '+age);
+        console.log('currency is '+currency);
+        console.log('url is '+url);
+        console.log('plan is '+plan_code);
         if(plan_code&&plan_level&&smoker&&birthDate&&currency){
             $.ajax({
                 url: url,
@@ -375,7 +375,7 @@ function order_sample_data(){
     jQuery('select[name="ecopy"]').val('Y');
     jQuery('select[name="plan_code"]').val('RHC10');
     jQuery('select[name="plan_level"]').val('3');
-    jQuery('input[name="promotion_code"]').val('');
+    jQuery('input[name="promotion_code"]').val('CC17');
     jQuery('select[name="replacement_declaration"]').val('Y');
     jQuery('select[name="fna"]').val('Y');
     jQuery('input[name="health_details_q_1"]').attr('checked','checked');
