@@ -1135,7 +1135,6 @@ class EditOrderForm extends FormBase {
       '#options' => $currency_opt,
       '#empty_option' => '--Select--',
       '#default_value' => isset($record['currency'])?$record['currency']:'HKD',
-      '#default_value' => 'HKD',
       '#attributes' => [
         'class' => ['noselect2'],
         'id' => 'currency',
