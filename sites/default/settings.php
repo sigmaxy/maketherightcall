@@ -794,11 +794,11 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 # if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
-$settings['trusted_host_patterns'] = [ 
-  '^localhost$',
-  '^.+\.sigmaxu\.com$',
-  '^.+\.f4fonline\.com$'
-];
+// $settings['trusted_host_patterns'] = [ 
+//   '^localhost$',
+//   '^.+\.sigmaxu\.com$',
+//   '^.+\.f4fonline\.com$'
+// ];
 $settings['block_interest_cohort'] = FALSE;
 $settings['config_sync_directory'] = $site_path.'/files/sync';
 $databases['default']['default']['database'] = 'mtrc';
