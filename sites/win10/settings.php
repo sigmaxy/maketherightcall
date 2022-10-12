@@ -795,11 +795,12 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
 
-// $settings['trusted_host_patterns'] = [ 
-//   '^localhost$',
-//   '^.+\.sigmaxu\.com$',
-//   '^.+\.f4fonline\.com$'
-// ];
+$settings['trusted_host_patterns'] = [ 
+  '^localhost$',
+  '^.+\.sigmaxu\.com$',
+  '^.+\.f4fonline\.com$',
+  '^192\.168.\100.\94$',
+];
 
 $settings['config_sync_directory'] = $site_path.'/files/sync';
 $databases['default']['default']['database'] = 'mtrc';

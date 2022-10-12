@@ -11,11 +11,12 @@ $settings['entity_update_batch_size'] = 50;
 
 $settings['entity_update_backup'] = TRUE;
 $settings['migrate_node_migrate_type_classic'] = FALSE;
-// $settings['trusted_host_patterns'] = [ 
-//   '^localhost$',
-//   '^.+\.sigmaxu\.com$',
-//   '^.+\.f4fonline\.com$'
-// ];
+$settings['trusted_host_patterns'] = [ 
+  '^localhost$',
+  '^.+\.sigmaxu\.com$',
+  '^.+\.f4fonline\.com$',
+  '^192\.168.\100.\94$',
+];
 $settings['block_interest_cohort'] = FALSE;
 $settings['pickup_call_url'] = 'https://maketherightcall.com/';
 $settings['config_sync_directory'] = $site_path.'/files/sync';
