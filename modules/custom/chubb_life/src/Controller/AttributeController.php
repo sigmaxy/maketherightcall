@@ -176,7 +176,7 @@ class AttributeController extends ControllerBase {
   public static function get_payment_mode_options() {
     $results = array(
       '12' => 'Annual',
-      '1' => 'Monthly',
+      '01' => 'Monthly',
       // '3' => 'Quarterly',
       // '6' => 'Semi-Annual',
     );
