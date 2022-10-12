@@ -799,6 +799,7 @@ $settings['trusted_host_patterns'] = [
   '^.+\.sigmaxu\.com$',
   '^.+\.f4fonline\.com$',
   '^192\.168.\100.\94$',
+  '.*'
 ];
 $settings['block_interest_cohort'] = FALSE;
 $settings['config_sync_directory'] = $site_path.'/files/sync';
