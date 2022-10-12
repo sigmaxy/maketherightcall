@@ -325,10 +325,10 @@ class EditOrderForm extends FormBase {
     $form['customer_owner']['taxResidencyTin1'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tax Residency TIN 1'),
-      '#maxlength' => 9,
+      '#maxlength' => 20,
       '#default_value' => isset($record['owner']['taxResidencyTin1'])?$record['owner']['taxResidencyTin1']:'',
       '#attributes' => [
-        'placeholder' => 'Z1234567',
+        // 'placeholder' => 'Z1234567',
       ],
       '#weight' => '14',
       '#required'=> true,
@@ -369,10 +369,10 @@ class EditOrderForm extends FormBase {
     $form['customer_owner']['taxResidencyTin2'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tax Residency TIN 2'),
-      '#maxlength' => 9,
+      '#maxlength' => 20,
       '#default_value' => isset($record['owner']['taxResidencyTin2'])?$record['owner']['taxResidencyTin2']:'',
       '#attributes' => [
-        'placeholder' => 'Z1234567',
+        // 'placeholder' => 'Z1234567',
       ],
       '#weight' => '17',
       // '#required'=> true,
@@ -392,10 +392,10 @@ class EditOrderForm extends FormBase {
     $form['customer_owner']['taxResidencyTin3'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tax Residency TIN 3'),
-      '#maxlength' => 9,
+      '#maxlength' => 20,
       '#default_value' => isset($record['owner']['taxResidencyTin3'])?$record['owner']['taxResidencyTin3']:'',
       '#attributes' => [
-        'placeholder' => 'Z1234567',
+        // 'placeholder' => 'Z1234567',
       ],
       '#weight' => '19',
       // '#required'=> true,
