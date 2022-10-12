@@ -280,6 +280,19 @@ jQuery(document).ready(function($){
             $('.form-item-customer-insured-mailing-country').hide();
         }
     }
+    $("#edit-remarks").on("keydown change", function(e){
+        if (e.keyCode == 8)
+            return;
+        var x = $(this).val();
+        if (x.match(/[\u3400-\u9FBF]/) && x.length >= 85) {
+            e.preventDefault();
+            $(this).val(x.substring(0,85));
+        } else if (x.length >= 170){
+            e.preventDefault();
+            $(this).val(x.substring(0,170));
+        }
+    });
+
 });
 function addSlashes (element) {
     let ele = document.getElementById(element.id);
