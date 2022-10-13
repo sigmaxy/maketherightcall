@@ -61,11 +61,11 @@ class ProductController extends ControllerBase {
   public static function get_plan_level_options() {
     $connection = Database::getConnection();
     $query = $connection->select('mtrc_premium', 'mp');
-    $query->fields('mp',['plan_code','plan_level']);
+    $query->fields('mp',['plan_level']);
     $record = $query->distinct()->execute()->fetchAll();
     $results = [];
     foreach ($record as $each_data) {
-      $results[$each_data->plan_code][$each_data->plan_level] = $each_data->plan_level;
+      $results[$each_data->plan_level] = $each_data->plan_level;
     }
     return $results;
   }

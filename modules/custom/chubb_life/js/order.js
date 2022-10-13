@@ -135,6 +135,7 @@ jQuery(document).ready(function($){
                     // console.log(response); 
                     if(response[0].status){
                         var premium = response[0].result;
+                        console.log('premium is '+premium);
                         var levy;
                         if(currency=='HKD'&& premium>=100000){
                             levy = 100;
@@ -148,7 +149,7 @@ jQuery(document).ready(function($){
                         if(payment_mode==12){
                             initial_premium = premium - premium*discount + levy;
                             modal_premium_payment = premium;
-                        }else if(payment_mode==1){
+                        }else if(payment_mode=='01'){
                             initial_premium = (premium*0.0872 - premium*discount*0.0872 + levy)*2;
                             modal_premium_payment = premium*0.0872;
                             levy = levy * 0.0872;
@@ -174,6 +175,12 @@ jQuery(document).ready(function($){
             alert('Please input plan code/plan level/smoker/brithdate/currency');
         }
     }
+    $(document).on('change','.clear_calculate',function(e) {
+        $('#levy').val('');
+        $('#initial_premium').val('');
+        $('#modal_premium_payment').val('');
+	});
+
     $(document).on('change','#plan_code',function(e) {
         calculate_face_amount();
         fill_product_name();

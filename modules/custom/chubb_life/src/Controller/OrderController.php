@@ -245,7 +245,7 @@ class OrderController extends ControllerBase {
         [
           'age'=>$insured_age,
           'birthDate'=>$order['insured']['birthDate'],
-          'birthPlace'=>'',
+          'birthPlace'=>$order['insured']['birthPlace'],
           'chineseName'=>$order['insured']['chineseName'],
           'citizenship'=>'HK',
           'countryRegionCode'=>null,
@@ -292,7 +292,7 @@ class OrderController extends ControllerBase {
         [
           'age'=>$owner_age,
           'birthDate'=>$order['owner']['birthDate'],
-          'birthPlace'=>'',
+          'birthPlace'=>$order['owner']['birthPlace'],
           'chineseName'=>$order['owner']['chineseName'],
           'citizenship'=>'HK',
           'countryRegionCode'=>null,
