@@ -803,6 +803,7 @@ $settings['trusted_host_patterns'] = [
 ];
 $settings['block_interest_cohort'] = FALSE;
 $settings['config_sync_directory'] = $site_path.'/files/sync';
+$settings['file_temporary_path'] = $site_path.'/files/temp';
 $databases['default']['default']['database'] = 'mtrc';
 $databases['default']['default']['prefix'] = '';
 $databases['default']['default']['namespace'] = 'Drupal\\Core\\Database\\Driver\\mysql';
