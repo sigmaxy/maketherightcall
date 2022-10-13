@@ -155,6 +155,7 @@ jQuery(document).ready(function($){
                             levy = levy * 0.0872;
                         }
                         levy = (Math.round(levy * 100) / 100).toFixed(2);
+                        console.log('levy is '+levy);
                         initial_premium = (Math.round(initial_premium * 100) / 100).toFixed(2);
                         modal_premium_payment = (Math.round(modal_premium_payment * 100) / 100).toFixed(2);
                         $('#levy').val(levy);
