@@ -150,9 +150,10 @@ jQuery(document).ready(function($){
                             initial_premium = premium - premium*discount + levy;
                             modal_premium_payment = premium;
                         }else if(payment_mode=='01'){
-                            initial_premium = (premium*0.0872 - premium*discount*0.0872 + levy)*2;
-                            modal_premium_payment = premium*0.0872;
                             levy = levy * 0.0872;
+                            initial_premium = (premium*0.0872 - premium*discount*0.0872 + levy)*2;
+                            modal_premium_paymentpa = premium*0.0872;
+                            
                         }
                         levy = (Math.round(levy * 100) / 100).toFixed(2);
                         console.log('levy is '+levy);
