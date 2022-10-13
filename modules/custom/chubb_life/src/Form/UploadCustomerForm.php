@@ -107,6 +107,7 @@ class UploadCustomerForm extends FormBase {
       $customer['member_since'] = $each_data['member since'];
       unset($customer['member since']);
       CustomerController::update_import_customer($customer);
+      CustomerController::update_import_customer_happy_client($customer);
     }
     $link = '/chubb_life/form/list_customer';
     \Drupal::messenger()->addMessage(t('File has been uploaded. You can check <a href="@link">Customer List</a> or continue uploading', array('@link' => $link)));
