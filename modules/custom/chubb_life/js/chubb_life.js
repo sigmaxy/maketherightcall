@@ -1,6 +1,11 @@
 jQuery(document).ready(function($){
-    $('table.premium_list').DataTable({
+    var datatable_premium_list = $('table.premium_list');
+    var datatable_obj = datatable_premium_list.DataTable({
         // "searching": false,
+        // "order": datatable_premium_list.attr('col_sort_index') ? [ datatable_premium_list.attr('col_sort_index'), datatable_premium_list.attr('col_sort_type')] : [],
+		// "pageLength": datatable_premium_list.attr('default_page_length') ? datatable_premium_list.attr('default_page_length') : 10,
+		// "orderCellsTop": true,
+		// "processing": true,
         dom: 'lrt',
         processing: true,
         ajax: {
@@ -32,12 +37,22 @@ jQuery(document).ready(function($){
                 });
         },
     });
+
+
+
+
+
     $('table.order_list thead tr')
         // .not(":eq(0)")
         .clone(true)
         .addClass('filters')
         .appendTo('table.order_list thead');
-    var table = $('table.order_list').DataTable({
+    var datatable_order_list = $('table.order_list');
+    var datatable_obj = datatable_order_list.DataTable({
+        "order": datatable_order_list.attr('col_sort_index') ? [ datatable_order_list.attr('col_sort_index'), datatable_order_list.attr('col_sort_type')] : [],
+		"pageLength": datatable_order_list.attr('default_page_length') ? datatable_order_list.attr('default_page_length') : 10,
+		"orderCellsTop": true,
+		"processing": true,
         orderCellsTop: true,
         fixedHeader: true,
         initComplete: function () {
@@ -100,7 +115,12 @@ jQuery(document).ready(function($){
         .clone(true)
         .addClass('filters')
         .appendTo('table.import_customer_list thead');
-    var table = $('table.import_customer_list').DataTable({
+    var datatable_customer_list = $('table.import_customer_list');
+    var datatable_obj = datatable_customer_list.DataTable({
+        "order": datatable_customer_list.attr('col_sort_index') ? [ datatable_customer_list.attr('col_sort_index'), datatable_customer_list.attr('col_sort_type')] : [],
+		"pageLength": datatable_customer_list.attr('default_page_length') ? datatable_customer_list.attr('default_page_length') : 10,
+		"orderCellsTop": true,
+		"processing": true,
         orderCellsTop: true,
         fixedHeader: true,
         initComplete: function () {
