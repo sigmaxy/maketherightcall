@@ -111,4 +111,45 @@ class CustomerController extends ControllerBase {
       ->condition('import_customer_id', $imported_customer_id)
       ->execute();
   }
+
+  public static function sample_pdo_function(){
+    //professional way
+    $connection = Database::getConnection();
+    $db_fields_ic = $customer;
+    $db_record = self::check_import_customer_existed($customer['cust_ref']);
+    if($db_record){
+      $db_fields_ic['updated_at'] = time();
+      $db_fields_ic['updated_by'] = \Drupal::currentUser()->id();
+      $connection->update('mtrc_customer_import')
+        ->fields($db_fields_ic)
+        ->condition('id', $db_record)
+        ->execute();
+    }
+
+
+    //beginer
+    $servername = "localhost";
+    $username = "username";
+    $password = "password";
+    $dbname = "mtrc";
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    $sql = "SELECT id, firstname, lastname FROM mtrc_happy_client";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+      }
+    } else {
+      echo "0 results";
+    }
+    $conn->close();
+
+
+  }
 }

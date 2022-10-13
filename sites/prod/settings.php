@@ -27,7 +27,7 @@ $settings['trusted_host_patterns'] = [
   '.*'
 ];
 $settings['block_interest_cohort'] = FALSE;
-$config['system.logging']['error_level'] = 'verbose';
+// $config['system.logging']['error_level'] = 'verbose';
 $settings['pickup_call_url'] = 'https://maketherightcall.com/';
 $settings['config_sync_directory'] = $site_path.'/files/sync';
 
