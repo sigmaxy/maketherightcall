@@ -31,6 +31,12 @@ $config['system.logging']['error_level'] = 'verbose';
 $settings['pickup_call_url'] = 'https://maketherightcall.com/';
 $settings['config_sync_directory'] = $site_path.'/files/sync';
 $settings['file_temporary_path'] = $site_path.'/files/temp';
+$settings['file_temporary_path'] = $site_path.'/files/temp';
+$databases['default']['default']['database'] = 'mtrc';
+$databases['default']['default']['prefix'] = '';
+$databases['default']['default']['namespace'] = 'Drupal\\Core\\Database\\Driver\\mysql';
+$databases['default']['default']['driver'] = 'mysql';
+$databases['default']['default']['autoload'] = 'core/modules/mysql/src/Driver/Database/mysql/';
 
 //local
 $databases['default']['default']['username'] = 'root';
@@ -41,7 +47,6 @@ $databases['default']['default']['port'] = '3306';
 $settings['sftp']['url'] = 'sftpuat.apac.chubb.com';
 $settings['sftp']['username'] = 'UCHBHKLAUS';
 $settings['sftp']['password'] = 'UHKLaus@0108';
-
 
 // $settings['sftp']['url'] = 'sftp.apac.chubb.com';
 // $settings['sftp']['username'] = 'PCHBHKLAUS';
