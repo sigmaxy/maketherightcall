@@ -30,8 +30,7 @@ $settings['block_interest_cohort'] = FALSE;
 $config['system.logging']['error_level'] = 'verbose';
 $settings['pickup_call_url'] = 'https://maketherightcall.com/';
 $settings['config_sync_directory'] = $site_path.'/files/sync';
-$settings['file_temporary_path'] = $site_path.'/files/temp';
-$settings['file_temporary_path'] = $site_path.'/files/temp';
+
 $databases['default']['default']['database'] = 'mtrc';
 $databases['default']['default']['prefix'] = '';
 $databases['default']['default']['namespace'] = 'Drupal\\Core\\Database\\Driver\\mysql';
