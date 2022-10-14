@@ -154,7 +154,7 @@ jQuery(document).ready(function($){
                         }else{
                             levy = (0.001 * after_discount_modal_premium).toFixed(2);
                         }
-                        initial_premium = (after_discount_modal_premium + levy) * initial_factor;
+                        initial_premium = ((after_discount_modal_premium + levy) * initial_factor).toFixed(2);
                         modal_premium_payment = modal_premium
                         console.log('premium is '+premium);
                         console.log('levy is '+levy);
