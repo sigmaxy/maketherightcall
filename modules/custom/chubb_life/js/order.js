@@ -118,7 +118,7 @@ jQuery(document).ready(function($){
         var age = getAge(birthDate);
         var currency = $('#currency').val();
         var payment_mode = $('#paymentMode').val();
-        var initial_premium,modal_premium_payment,modal_premium,discount_modal_premium,after_discount_modal_premium,levy;
+        let initial_premium,modal_premium_payment,modal_premium,discount_modal_premium,after_discount_modal_premium,levy;
         var url = window.location.origin+drupalSettings.path.baseUrl+'chubb_life/data/ajax_get_premium/'+plan_code+'/'+plan_level+'/'+smoker+'/'+gender+'/'+age+'/'+currency;
         console.log('plan code is '+plan_code);
         console.log('plan_level is '+plan_level);
@@ -134,10 +134,9 @@ jQuery(document).ready(function($){
                 success: function (response) {
                     // console.log(response); 
                     if(response[0].status){
-                        var premium = response[0].result;
-                        console.log('premium is '+premium);
-                        var mode_factor = 1;
-                        var initial_factor = 1;
+                        let premium = response[0].result;
+                        let mode_factor = 1;
+                        let initial_factor = 1;
                         if(payment_mode=='01'){
                             mode_factor = 0.0872
                             initial_factor = 2;
@@ -157,8 +156,8 @@ jQuery(document).ready(function($){
                         }
                         initial_premium = (after_discount_modal_premium + levy) * initial_factor;
                         modal_premium_payment = modal_premium
-
                         console.log('premium is '+premium);
+                        console.log('levy is '+levy);
                         console.log('mode_factor is '+mode_factor);
                         console.log('initial_factor is '+initial_factor);
                         console.log('modal_premium is '+modal_premium);
