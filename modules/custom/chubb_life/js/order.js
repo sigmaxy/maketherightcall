@@ -118,7 +118,7 @@ jQuery(document).ready(function($){
         var age = getAge(birthDate);
         var currency = $('#currency').val();
         var payment_mode = $('#paymentMode').val();
-        var initial_premium,modal_premium_payment;
+        var initial_premium,modal_premium_payment,modal_premium,discount_modal_premium,after_discount_modal_premium,levy;
         var url = window.location.origin+drupalSettings.path.baseUrl+'chubb_life/data/ajax_get_premium/'+plan_code+'/'+plan_level+'/'+smoker+'/'+gender+'/'+age+'/'+currency;
         console.log('plan code is '+plan_code);
         console.log('plan_level is '+plan_level);
@@ -127,7 +127,7 @@ jQuery(document).ready(function($){
         console.log('age is '+age);
         console.log('currency is '+currency);
         console.log('url is '+url);
-        console.log('plan is '+plan_code);
+        console.log('payment_mode is '+payment_mode);
         if(plan_code&&plan_level&&smoker&&birthDate&&currency){
             $.ajax({
                 url: url,
@@ -136,7 +136,16 @@ jQuery(document).ready(function($){
                     if(response[0].status){
                         var premium = response[0].result;
                         console.log('premium is '+premium);
-                        var levy;
+                        var mode_factor = 1;
+                        var initial_factor = 1;
+                        if(payment_mode=='01'){
+                            mode_factor = 0.0872
+                            initial_factor = 2;
+                        }
+                        
+                        modal_premium = (premium * mode_factor).toFixed(2);
+                        discount_modal_premium = (discount * modal_premium).toFixed(2);
+                        after_discount_modal_premium = modal_premium - discount_modal_premium;
                         if(currency=='HKD'&& premium>=100000){
                             levy = 100;
                         }else if(currency=='USD'&& premium>=12820){
@@ -144,23 +153,46 @@ jQuery(document).ready(function($){
                         }else if(currency=='CNY'&& premium>=83330){
                             levy = 83.33;
                         }else{
-                            levy = 0.001 * premium * (1-discount);
+                            levy = 0.001 * after_discount_modal_premium;
                         }
-                        if(payment_mode==12){
-                            initial_premium = premium - premium*discount + levy;
-                            modal_premium_payment = premium;
-                        }else if(payment_mode=='01'){
-                            levy = levy * 0.0872;
-                            initial_premium = (premium*0.0872 - premium*discount*0.0872 + levy)*2;
-                            
-                            modal_premium_payment = premium*0.0872;
-                            
-                        }
-                        console.log('levy is '+levy);
+                        initial_premium = (after_discount_modal_premium + levy) * initial_factor;
+                        modal_premium_payment = modal_premium
+
+                        console.log('premium is '+premium);
+                        console.log('mode_factor is '+mode_factor);
+                        console.log('initial_factor is '+initial_factor);
+                        console.log('modal_premium is '+modal_premium);
+                        console.log('discount_modal_premium is '+discount_modal_premium);
+                        console.log('after_discount_modal_premium is '+after_discount_modal_premium);
                         console.log('initial_premium is '+initial_premium);
-                        levy = (Math.round(levy * 100) / 100).toFixed(2);
-                        initial_premium = (Math.round(initial_premium * 100) / 100).toFixed(2);
-                        modal_premium_payment = (Math.round(modal_premium_payment * 100) / 100).toFixed(2);
+                        console.log('modal_premium_payment is '+modal_premium_payment);
+
+
+
+                        // if(currency=='HKD'&& premium>=100000){
+                        //     levy = 100;
+                        // }else if(currency=='USD'&& premium>=12820){
+                        //     levy = 12.82;
+                        // }else if(currency=='CNY'&& premium>=83330){
+                        //     levy = 83.33;
+                        // }else{
+                        //     levy = 0.001 * premium * (1-discount);
+                        // }
+                        // if(payment_mode==12){
+                        //     initial_premium = premium - premium*discount + levy;
+                        //     modal_premium_payment = premium;
+                        // }else if(payment_mode=='01'){
+                        //     levy = levy * 0.0872;
+                        //     initial_premium = (premium*0.0872 - premium*discount*0.0872 + levy)*2;
+                            
+                        //     modal_premium_payment = premium*0.0872;
+                            
+                        // }
+                        // console.log('levy is '+levy);
+                        // console.log('initial_premium is '+initial_premium);
+                        // levy = (Math.round(levy * 100) / 100).toFixed(2);
+                        // initial_premium = (Math.round(initial_premium * 100) / 100).toFixed(2);
+                        // modal_premium_payment = (Math.round(modal_premium_payment * 100) / 100).toFixed(2);
                         $('#levy').val(levy);
                         $('#initial_premium').val(initial_premium);
                         $('#modal_premium_payment').val(modal_premium_payment);
