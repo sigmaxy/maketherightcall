@@ -278,12 +278,12 @@ class EditCallForm extends FormBase {
     <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
     <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
     <tr><td><b>保費</b></td><td class="rhc_product_premium_annual_usd"></td><td class="rhc_product_premium_monthly_usd"></td><td class="rhc_product_premium_annual_hkd"></td><td class="rhc_product_premium_monthly_hkd"></td></tr>
-    <tr><td><b>平均每日保費</b></td><td class="rhc_product_premium_annual_usd_ave"></td><td class="rhc_product_premium_monthly_usd_ave"></td><td class="rhc_product_premium_annual_hkd_ave"></td><td class="rhc_product_premium_monthly_hkd_ave"></td></tr>
+    <tr><td><b>平均每日保費</b></td><td class="rhc_product_premium_annual_usd_ave">N/A</td><td class="rhc_product_premium_monthly_usd_ave"></td><td class="rhc_product_premium_annual_hkd_ave">N/A</td><td class="rhc_product_premium_monthly_hkd_ave"></td></tr>
     <tr><td colspan="5"><b>總共款及115期滿金額</b></td></tr>
     <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
     <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
-    <tr><td><b>10年總共款</b></td><td class="rhc_product_premium_annual_usd1"></td><td class="rhc_product_premium_monthly_usd1"></td><td class="rhc_product_premium_annual_hkd1"></td><td class="rhc_product_premium_monthly_hkd1"></td></tr>
-    <tr><td><b>115%回贈</b></td><td class="rhc_product_premium_annual_usd_ave1"></td><td class="rhc_product_premium_monthly_usd_ave1"></td><td class="rhc_product_premium_annual_hkd_ave1"></td><td class="rhc_product_premium_monthly_hkd_ave1"></td></tr>
+    <tr><td><b>10年總共款</b></td><td class="rhc_product_premium_annual_usd_10y"></td><td class="rhc_product_premium_monthly_usd_10y"></td><td class="rhc_product_premium_annual_hkd_10y"></td><td class="rhc_product_premium_monthly_hkd_10y"></td></tr>
+    <tr><td><b>115%回贈</b></td><td class="rhc_product_premium_annual_usd_115"></td><td class="rhc_product_premium_monthly_usd_115"></td><td class="rhc_product_premium_annual_hkd_115"></td><td class="rhc_product_premium_monthly_hkd_115"></td></tr>
     <tr><td colspan="5"><b>首期保費(2個月)</b></td></tr>
     <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
     <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
