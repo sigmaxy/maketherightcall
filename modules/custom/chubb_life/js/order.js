@@ -141,10 +141,14 @@ jQuery(document).ready(function($){
                             mode_factor = 0.0872
                             initial_factor = 2;
                         }
-                        
+                        console.log('premium is '+premium);
                         modal_premium = (premium * mode_factor).toFixed(2);
+                        console.log('modal_premium is '+modal_premium);
                         discount_modal_premium = (discount * modal_premium).toFixed(2);
+                        console.log('discount_modal_premium is '+discount_modal_premium);
                         after_discount_modal_premium = (modal_premium - discount_modal_premium).toFixed(2);
+                        console.log('after_discount_modal_premium is '+after_discount_modal_premium);
+                        // console.log('after_discount_modal_premium is '+after_discount_modal_premium*0.001);
                         if(currency=='HKD'&& premium>=100000){
                             levy = 100;
                         }else if(currency=='USD'&& premium>=12820){
@@ -152,19 +156,22 @@ jQuery(document).ready(function($){
                         }else if(currency=='CNY'&& premium>=83330){
                             levy = 83.33;
                         }else{
-                            levy = (0.001 * after_discount_modal_premium).toFixed(2);
+                            levy = (after_discount_modal_premium*0.001).toFixed(2);
                         }
-                        initial_premium = ((after_discount_modal_premium + levy) * initial_factor).toFixed(2);
-                        modal_premium_payment = modal_premium
-                        console.log('premium is '+premium);
-                        console.log('levy is '+levy);
-                        console.log('mode_factor is '+mode_factor);
+                        // console.log(parseFloat(after_discount_modal_premium)+parseFloat(levy));
                         console.log('initial_factor is '+initial_factor);
-                        console.log('modal_premium is '+modal_premium);
-                        console.log('discount_modal_premium is '+discount_modal_premium);
-                        console.log('after_discount_modal_premium is '+after_discount_modal_premium);
+                        initial_premium = (parseFloat(after_discount_modal_premium + levy) * initial_factor).toFixed(2);
                         console.log('initial_premium is '+initial_premium);
+                        modal_premium_payment = modal_premium
                         console.log('modal_premium_payment is '+modal_premium_payment);
+                        
+                        
+                        
+                        // console.log('modal_premium is '+modal_premium);
+                        // console.log('discount_modal_premium is '+discount_modal_premium);
+                        // console.log('after_discount_modal_premium is '+after_discount_modal_premium);
+                        // console.log('initial_premium is '+initial_premium);
+                        // console.log('modal_premium_payment is '+modal_premium_payment);
 
 
 
