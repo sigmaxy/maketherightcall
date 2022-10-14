@@ -128,15 +128,15 @@ jQuery(document).ready(function($){
         console.log('currency is '+currency);
         console.log('url is '+url);
         console.log('payment_mode is '+payment_mode);
-        if(plan_code){
+        if(!plan_code){
             alert('Please input plan code');
-        }else if(plan_level){
+        }else if(!plan_level){
             alert('Please input plan level');
-        }else if(smoker){
+        }else if(!smoker){
             alert('Please smoker');
-        }else if(birthDate){
+        }else if(!birthDate){
             alert('Please input brithdate');
-        }else if(currency){
+        }else if(!currency){
             alert('Please input currency');
         }else{
             $.ajax({
