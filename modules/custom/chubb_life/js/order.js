@@ -145,7 +145,7 @@ jQuery(document).ready(function($){
                         
                         modal_premium = (premium * mode_factor).toFixed(2);
                         discount_modal_premium = (discount * modal_premium).toFixed(2);
-                        after_discount_modal_premium = modal_premium - discount_modal_premium;
+                        after_discount_modal_premium = (modal_premium - discount_modal_premium).toFixed(2);
                         if(currency=='HKD'&& premium>=100000){
                             levy = 100;
                         }else if(currency=='USD'&& premium>=12820){
@@ -153,7 +153,7 @@ jQuery(document).ready(function($){
                         }else if(currency=='CNY'&& premium>=83330){
                             levy = 83.33;
                         }else{
-                            levy = 0.001 * after_discount_modal_premium;
+                            levy = (0.001 * after_discount_modal_premium).toFixed(2);
                         }
                         initial_premium = (after_discount_modal_premium + levy) * initial_factor;
                         modal_premium_payment = modal_premium
