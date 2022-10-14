@@ -171,7 +171,9 @@ jQuery(document).ready(function($){
                         console.log('levy is '+levy);
                         // console.log(parseFloat(after_discount_modal_premium)+parseFloat(levy));
                         console.log('initial_factor is '+initial_factor);
-                        initial_premium = (parseFloat(after_discount_modal_premium + parseFloat(levy)) * initial_factor).toFixed(2);
+                        // let test = ((parseFloat(after_discount_modal_premium) + parseFloat(levy)) * initial_factor).toFixed(2);
+                        // console.log(test);
+                        initial_premium = ((parseFloat(after_discount_modal_premium) + parseFloat(levy)) * initial_factor).toFixed(2);
                         console.log('initial_premium is '+initial_premium);
                         modal_premium_payment = modal_premium
                         console.log('modal_premium_payment is '+modal_premium_payment);
