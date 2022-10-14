@@ -168,6 +168,7 @@ jQuery(document).ready(function($){
                         }else{
                             levy = (after_discount_modal_premium*0.001).toFixed(2);
                         }
+                        console.log('levy is '+levy);
                         // console.log(parseFloat(after_discount_modal_premium)+parseFloat(levy));
                         console.log('initial_factor is '+initial_factor);
                         initial_premium = (parseFloat(after_discount_modal_premium + levy) * initial_factor).toFixed(2);
