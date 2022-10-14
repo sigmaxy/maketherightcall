@@ -128,7 +128,17 @@ jQuery(document).ready(function($){
         console.log('currency is '+currency);
         console.log('url is '+url);
         console.log('payment_mode is '+payment_mode);
-        if(plan_code&&plan_level&&smoker&&birthDate&&currency){
+        if(plan_code){
+            alert('Please input plan code');
+        }else if(plan_level){
+            alert('Please input plan level');
+        }else if(smoker){
+            alert('Please smoker');
+        }else if(birthDate){
+            alert('Please input brithdate');
+        }else if(currency){
+            alert('Please input currency');
+        }else{
             $.ajax({
                 url: url,
                 success: function (response) {
@@ -213,8 +223,6 @@ jQuery(document).ready(function($){
                     console.log(error); 
                 }
             });
-        }else{
-            alert('Please input plan code/plan level/smoker/brithdate/currency');
         }
     }
     $(document).on('change','.clear_calculate',function(e) {
