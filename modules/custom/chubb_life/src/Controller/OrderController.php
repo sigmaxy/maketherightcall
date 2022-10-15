@@ -137,6 +137,19 @@ class OrderController extends ControllerBase {
     }else{
       $coverageClass = $order['plan_level'];
     }
+    if ($order['plan_code']=='MCE') {
+      $q1 = $order['health_details_q_1']=='Y'?true:false;
+      $q2 = $order['health_details_q_2']=='Y'?true:false;
+      $q3 = $order['health_details_q_3']=='Y'?true:false;
+      $q4 = $order['health_details_q_4']=='Y'?true:false;
+      $q5 = $order['health_details_q_5']=='Y'?true:false;
+    }else{
+      $q1 = null;
+      $q2 = null;
+      $q3 = null;
+      $q4 = null;
+      $q5 = null;
+    }
     $results = array(
       'applicationDto'=>[
         'referenceNumber'=>sprintf('TM%06d',$order['id']),
@@ -459,35 +472,35 @@ class OrderController extends ControllerBase {
           'questionnaireNumber'=>30,
           'questionnaireSectionId'=>14,
           'questionnaireText'=>null,
-          'questionnaireYesOrNo'=>$order['plan_code']=='MCE'&&$order['health_details_q_1']=='Y'?true:false,
+          'questionnaireYesOrNo'=>$q1,
         ],
         [
           'customerType'=>'I',
           'questionnaireNumber'=>31,
           'questionnaireSectionId'=>14,
           'questionnaireText'=>null,
-          'questionnaireYesOrNo'=>$order['plan_code']=='MCE'&&$order['health_details_q_2']=='Y'?true:false,
+          'questionnaireYesOrNo'=>$q2,
         ],
         [
           'customerType'=>'I',
           'questionnaireNumber'=>32,
           'questionnaireSectionId'=>14,
           'questionnaireText'=>null,
-          'questionnaireYesOrNo'=>$order['plan_code']=='MCE'&&$order['health_details_q_3']=='Y'?true:false,
+          'questionnaireYesOrNo'=>$q3,
         ],
         [
           'customerType'=>'I',
           'questionnaireNumber'=>33,
           'questionnaireSectionId'=>14,
           'questionnaireText'=>null,
-          'questionnaireYesOrNo'=>$order['plan_code']=='MCE'&&$order['health_details_q_4']=='Y'?true:false,
+          'questionnaireYesOrNo'=>$q4,
         ],
         [
           'customerType'=>'I',
           'questionnaireNumber'=>34,
           'questionnaireSectionId'=>14,
           'questionnaireText'=>null,
-          'questionnaireYesOrNo'=>$order['plan_code']=='MCE'&&$order['health_details_q_5']=='Y'?true:false,
+          'questionnaireYesOrNo'=>$q5,
         ],
         [
           'customerType'=>'I',
