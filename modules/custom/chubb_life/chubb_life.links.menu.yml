@@ -5,6 +5,13 @@ chubb_life.customer:
   route_name: chubb_life.list_customer_form
   weight: 2
 
+chubb_life.add_agent:
+  title: 'Agent List'
+  menu_name: main
+  expanded: TRUE
+  route_name: chubb_life.add_agent
+  weight: 1
+
 
 # chubb_life.customer_list:
 #   title: 'List Customer'

@@ -96,3 +96,8 @@ chubb_life.list_call_log_form:
     _title: 'List Call Log'
   requirements:
     _permission: 'access chubb_life_assignee configuration'
+
+chubb_life.add_agent:
+  path: '/admin/people'
+  requirements:
+    _permission: 'access chubb_life_manager configuration'
