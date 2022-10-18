@@ -1,0 +1,893 @@
+{
+    "batchDate": "2022-09-15",
+    "applications": [
+        {
+            "applicationDto": {
+                "referenceNumber": "TM000003",
+                "aeonRefNumber": "aeonRefNumber",
+                "agentCode": "Agent Code 123 Admin",
+                "accountHolder1": {
+                    "holderName": "cardHolderName",
+                    "identityNumber": "cardholder_id_number",
+                    "identityType": ""
+                },
+                "accountNumber": "tokenized_card_number",
+                "agentName": "Agent Name 123 Admin",
+                "agentCode2": "",
+                "annuityStartAge": "",
+                "applicationSignDate": "",
+                "autoPolicyDate": "",
+                "billingType": "CUP",
+                "contribution": "",
+                "currency": "HKD",
+                "deathBenefitOption": "",
+                "dividendOption": "",
+                "ecopy": true,
+                "effectiveDate": "",
+                "extraContribution": "",
+                "isOcrDataChanged": "",
+                "isSignedByVos": "",
+                "mailingAddressIndicator": "",
+                "mgoDecision": "",
+                "mgoOfferAcpt": "",
+                "mgoStatus": "",
+                "noSignatureIndicator": "",
+                "nonForfeitureOption": "",
+                "paidPolicy": "",
+                "paidPolicyDuration": "",
+                "parentPolicyNumber": "",
+                "paymentMode": "12",
+                "pep": false,
+                "policyEffectiveDate": "",
+                "prePayment": "",
+                "promoCode": "",
+                "taxResidency1": {
+                    "taxResidency": "CP",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "OWTX01"
+                },
+                "taxResidency2": {
+                    "taxResidency": "CP",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "111"
+                },
+                "taxResidency3": {
+                    "taxResidency": "CP",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "2222"
+                },
+                "totalLimit": "",
+                "worldwideEmergencyAssistanceServices": ""
+            },
+            "awdFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "beneficiaryDtos": [
+                {
+                    "beneficiaryClass": "1",
+                    "beneficiarySequence": "",
+                    "chineseName": "",
+                    "customerType": "",
+                    "givenName": "",
+                    "identityNumber": "",
+                    "relationship": "EST",
+                    "shared": 100,
+                    "surname": ""
+                }
+            ],
+            "benefitDtos": [
+                {
+                    "annualDeductibleOption": "",
+                    "attachTo": "",
+                    "coverageClass": "3",
+                    "coverageCode": "RHC10",
+                    "coverageNumber": "",
+                    "criticalIllnessCode1": "",
+                    "currency": "HKD",
+                    "customerSequence": "",
+                    "customerType": "",
+                    "faceAmount": "1200",
+                    "plannedPremium": "",
+                    "protectionFaceAmount": "",
+                    "savingFaceAmount": "",
+                    "plannedPremiumTM": "16345.00",
+                    "levyTM": "16.35",
+                    "productNameEn": "WellCare Refundable Hospital Plan",
+                    "productNameTc": "\u8cbc\u5fc3\u4fdd\u8cbb\u56de\u8d08\u4f4f\u9662\u4fdd\u969c"
+                }
+            ],
+            "customerDtos": [
+                {
+                    "age": 31,
+                    "birthDate": "1990-12-31",
+                    "birthPlace": "",
+                    "chineseName": "\u4e2d\u6587\u540d",
+                    "citizenship": "HK",
+                    "countryRegionCode": "HK",
+                    "customerSequence": "",
+                    "customerType": "O",
+                    "email": "email@email.com",
+                    "employer": "",
+                    "gender": "F",
+                    "givenName": "givenName",
+                    "identityNumber": "A123456(7)",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "mailing_address1",
+                        "address2": "mailing_address2",
+                        "address3": "mailing_address3",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "mailing_city",
+                        "country": "HK",
+                        "postalCode": ""
+                    },
+                    "marital": "3",
+                    "mobileNumber": "87654321",
+                    "mobileNumberCountryCode": "",
+                    "nationality": "HK",
+                    "occupation": "",
+                    "occupationCode": "A020101",
+                    "relationship": "INS",
+                    "residence": {
+                        "address1": "residence_address1",
+                        "address2": "residence_address2",
+                        "address3": "residence_address3",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "Hong Kong",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": true,
+                    "surname": "surname",
+                    "uwClass": "",
+                    "workplace": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    }
+                },
+                {
+                    "age": 31,
+                    "birthDate": "1990-12-31",
+                    "birthPlace": "",
+                    "chineseName": "\u4e2d\u6587\u540d",
+                    "citizenship": "HK",
+                    "countryRegionCode": "HK",
+                    "customerSequence": "",
+                    "customerType": "I",
+                    "email": "email@email.com",
+                    "gender": "F",
+                    "givenName": "givenName",
+                    "identityNumber": "A123456(7)",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "mailing_address1",
+                        "address2": "mailing_address2",
+                        "address3": "mailing_address3",
+                        "city": "mailing_city",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "3",
+                    "mobileNumber": "87654321",
+                    "mobileNumberCountryCode": "",
+                    "nationality": "HK",
+                    "occupationCode": "A020101",
+                    "relationship": "INS",
+                    "residence": {
+                        "address1": "residence_address1",
+                        "address2": "residence_address2",
+                        "address3": "residence_address3",
+                        "city": "Hong Kong",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": true,
+                    "optOutReason": null,
+                    "surname": "surname"
+                }
+            ],
+            "imageCaptureFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "paymentTransactionDto": {
+                "amount": "",
+                "amountInPolicyCurrency": "",
+                "authorizationCode": "tokenized_card_number",
+                "bankName": "",
+                "basicPlanCode": "",
+                "cardHolderName": "",
+                "cardType": "",
+                "currency": "HKD",
+                "insuredFirstName": "givenName",
+                "insuredLastName": "surname",
+                "ownerFirstName": "givenName",
+                "ownerLastName": "surname",
+                "paymentReceivedDate": "",
+                "payorFirstName": "customer_payor_givenName",
+                "payorLastName": "customer_payor_surname",
+                "payorRole": "",
+                "policyCurrency": "",
+                "referenceNumber": "",
+                "transactionStatus": "",
+                "transactionUpdatedDate": ""
+            },
+            "policyNumber": "",
+            "uploadId": "",
+            "questionnaireDtos": [
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 1,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 2,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 3,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 4,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 5,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": false
+                }
+            ]
+        },
+        {
+            "applicationDto": {
+                "referenceNumber": "TM000002",
+                "aeonRefNumber": "aeonRefNumber",
+                "agentCode": "Agent Code 123 Admin",
+                "accountHolder1": {
+                    "holderName": "cardHolderName",
+                    "identityNumber": "cardholder_id_number",
+                    "identityType": ""
+                },
+                "accountNumber": "tokenized_card_number",
+                "agentName": null,
+                "agentCode2": "",
+                "annuityStartAge": "",
+                "applicationSignDate": "",
+                "autoPolicyDate": "",
+                "billingType": "CUP",
+                "contribution": "",
+                "currency": "HKD",
+                "deathBenefitOption": "",
+                "dividendOption": "",
+                "ecopy": true,
+                "effectiveDate": "",
+                "extraContribution": "",
+                "isOcrDataChanged": "",
+                "isSignedByVos": "",
+                "mailingAddressIndicator": "",
+                "mgoDecision": "",
+                "mgoOfferAcpt": "",
+                "mgoStatus": "",
+                "noSignatureIndicator": "",
+                "nonForfeitureOption": "",
+                "paidPolicy": "",
+                "paidPolicyDuration": "",
+                "parentPolicyNumber": "",
+                "paymentMode": "12",
+                "pep": false,
+                "policyEffectiveDate": "",
+                "prePayment": "",
+                "promoCode": "",
+                "taxResidency1": {
+                    "taxResidency": "CP",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "OWTX01"
+                },
+                "taxResidency2": {
+                    "taxResidency": "CP",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "OWTX02"
+                },
+                "taxResidency3": {
+                    "taxResidency": "CP",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "OWTX03"
+                },
+                "totalLimit": "",
+                "worldwideEmergencyAssistanceServices": ""
+            },
+            "awdFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "beneficiaryDtos": [
+                {
+                    "beneficiaryClass": "1",
+                    "beneficiarySequence": "",
+                    "chineseName": "",
+                    "customerType": "",
+                    "givenName": "",
+                    "identityNumber": "",
+                    "relationship": "EST",
+                    "shared": 100,
+                    "surname": ""
+                }
+            ],
+            "benefitDtos": [
+                {
+                    "annualDeductibleOption": "",
+                    "attachTo": "",
+                    "coverageClass": "3",
+                    "coverageCode": "RHC10",
+                    "coverageNumber": "",
+                    "criticalIllnessCode1": "",
+                    "currency": "HKD",
+                    "customerSequence": "",
+                    "customerType": "",
+                    "faceAmount": "1200",
+                    "plannedPremium": "",
+                    "protectionFaceAmount": "",
+                    "savingFaceAmount": "",
+                    "plannedPremiumTM": "16345.00",
+                    "levyTM": "16.35",
+                    "productNameEn": null,
+                    "productNameTc": null
+                }
+            ],
+            "customerDtos": [
+                {
+                    "age": 31,
+                    "birthDate": "1990-12-31",
+                    "birthPlace": "",
+                    "chineseName": "\u4e2d\u6587\u540d",
+                    "citizenship": "HK",
+                    "countryRegionCode": "HK",
+                    "customerSequence": "",
+                    "customerType": "O",
+                    "email": "email@email.com",
+                    "employer": "",
+                    "gender": "F",
+                    "givenName": "givenName",
+                    "identityNumber": "A123456(7)",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "mailing_address1",
+                        "address2": "mailing_address2",
+                        "address3": "mailing_address3",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "mailing_city",
+                        "country": "HK",
+                        "postalCode": ""
+                    },
+                    "marital": "3",
+                    "mobileNumber": "87654321",
+                    "mobileNumberCountryCode": "",
+                    "nationality": "HK",
+                    "occupation": "",
+                    "occupationCode": "A020101",
+                    "relationship": "FAT",
+                    "residence": {
+                        "address1": "residence_address1",
+                        "address2": "residence_address2",
+                        "address3": "residence_address3",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "Hong Kong",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": true,
+                    "surname": "surname",
+                    "uwClass": "",
+                    "workplace": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    }
+                },
+                {
+                    "age": 31,
+                    "birthDate": "1990-12-31",
+                    "birthPlace": "",
+                    "chineseName": "\u4e2d\u6587\u540d",
+                    "citizenship": "HK",
+                    "countryRegionCode": "HK",
+                    "customerSequence": "",
+                    "customerType": "I",
+                    "email": "email@email.com",
+                    "gender": "F",
+                    "givenName": "givenName",
+                    "identityNumber": "A123456(7)",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "mailing_address1",
+                        "address2": "mailing_address2",
+                        "address3": "mailing_address3",
+                        "city": "mailing_city",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "3",
+                    "mobileNumber": "87654321",
+                    "mobileNumberCountryCode": "",
+                    "nationality": "HK",
+                    "occupationCode": "A020101",
+                    "relationship": "FAT",
+                    "residence": {
+                        "address1": "residence_address1",
+                        "address2": "residence_address2",
+                        "address3": "residence_address3",
+                        "city": "Hong Kong",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": true,
+                    "optOutReason": null,
+                    "surname": "surname"
+                }
+            ],
+            "imageCaptureFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "paymentTransactionDto": {
+                "amount": "",
+                "amountInPolicyCurrency": "",
+                "authorizationCode": "tokenized_card_number",
+                "bankName": "",
+                "basicPlanCode": "",
+                "cardHolderName": "",
+                "cardType": "",
+                "currency": "HKD",
+                "insuredFirstName": "givenName",
+                "insuredLastName": "surname",
+                "ownerFirstName": "givenName",
+                "ownerLastName": "surname",
+                "paymentReceivedDate": "",
+                "payorFirstName": "customer_payor_givenName",
+                "payorLastName": "customer_payor_surname",
+                "payorRole": "",
+                "policyCurrency": "",
+                "referenceNumber": "",
+                "transactionStatus": "",
+                "transactionUpdatedDate": ""
+            },
+            "policyNumber": "",
+            "uploadId": "",
+            "questionnaireDtos": [
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 1,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 2,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 3,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 4,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 5,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": false
+                }
+            ]
+        },
+        {
+            "applicationDto": {
+                "referenceNumber": "TM000001",
+                "aeonRefNumber": "aeonRefNumber",
+                "agentCode": "Agent Code 123 Admin",
+                "accountHolder1": {
+                    "holderName": "cardHolderName",
+                    "identityNumber": "cardholder_id_number",
+                    "identityType": ""
+                },
+                "accountNumber": "tokenized_card_number",
+                "agentName": null,
+                "agentCode2": "",
+                "annuityStartAge": "",
+                "applicationSignDate": "",
+                "autoPolicyDate": "",
+                "billingType": "CUP",
+                "contribution": "",
+                "currency": "HKD",
+                "deathBenefitOption": "",
+                "dividendOption": "",
+                "ecopy": true,
+                "effectiveDate": "",
+                "extraContribution": "",
+                "isOcrDataChanged": "",
+                "isSignedByVos": "",
+                "mailingAddressIndicator": "",
+                "mgoDecision": "",
+                "mgoOfferAcpt": "",
+                "mgoStatus": "",
+                "noSignatureIndicator": "",
+                "nonForfeitureOption": "",
+                "paidPolicy": "",
+                "paidPolicyDuration": "",
+                "parentPolicyNumber": "",
+                "paymentMode": "12",
+                "pep": true,
+                "policyEffectiveDate": "",
+                "prePayment": "",
+                "promoCode": "",
+                "taxResidency1": {
+                    "taxResidency": "CP",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "OWTX01"
+                },
+                "taxResidency2": {
+                    "taxResidency": "CP",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "OWTX02"
+                },
+                "taxResidency3": {
+                    "taxResidency": "CP",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "OWTX03"
+                },
+                "totalLimit": "",
+                "worldwideEmergencyAssistanceServices": ""
+            },
+            "awdFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "beneficiaryDtos": [
+                {
+                    "beneficiaryClass": "1",
+                    "beneficiarySequence": "",
+                    "chineseName": "",
+                    "customerType": "",
+                    "givenName": "",
+                    "identityNumber": "",
+                    "relationship": "EST",
+                    "shared": 100,
+                    "surname": ""
+                }
+            ],
+            "benefitDtos": [
+                {
+                    "annualDeductibleOption": "",
+                    "attachTo": "",
+                    "coverageClass": "3",
+                    "coverageCode": "RHC10",
+                    "coverageNumber": "",
+                    "criticalIllnessCode1": "",
+                    "currency": "HKD",
+                    "customerSequence": "",
+                    "customerType": "",
+                    "faceAmount": "1200",
+                    "plannedPremium": "",
+                    "protectionFaceAmount": "",
+                    "savingFaceAmount": "",
+                    "plannedPremiumTM": "14766.00",
+                    "levyTM": "14.77",
+                    "productNameEn": null,
+                    "productNameTc": null
+                }
+            ],
+            "customerDtos": [
+                {
+                    "age": 31,
+                    "birthDate": "1990-12-31",
+                    "birthPlace": "",
+                    "chineseName": "\u4e2d\u6587\u540d",
+                    "citizenship": "HK",
+                    "countryRegionCode": "HK",
+                    "customerSequence": "",
+                    "customerType": "O",
+                    "email": "email@email.com",
+                    "employer": "",
+                    "gender": "F",
+                    "givenName": "givenName",
+                    "identityNumber": "A123456(7)",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "mailing_address1",
+                        "address2": "mailing_address2",
+                        "address3": "mailing_address3",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "mailing_city",
+                        "country": "HK",
+                        "postalCode": ""
+                    },
+                    "marital": "1",
+                    "mobileNumber": "87654321",
+                    "mobileNumberCountryCode": "",
+                    "nationality": "HK",
+                    "occupation": "",
+                    "occupationCode": "A020101",
+                    "relationship": "FAT",
+                    "residence": {
+                        "address1": "residence_address1",
+                        "address2": "residence_address2",
+                        "address3": "residence_address3",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "Hong Kong",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": true,
+                    "surname": "surname",
+                    "uwClass": "",
+                    "workplace": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    }
+                },
+                {
+                    "age": 30,
+                    "birthDate": "1991-10-11",
+                    "birthPlace": "",
+                    "chineseName": "customer_insured_chineseName",
+                    "citizenship": "HK",
+                    "countryRegionCode": "HK",
+                    "customerSequence": "",
+                    "customerType": "I",
+                    "email": "email@email.com",
+                    "gender": "M",
+                    "givenName": "customer_insured_givenName",
+                    "identityNumber": "S232323(4)",
+                    "identityType": "P",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "customer_insured_mailing_address1",
+                        "address2": "customer_insured_mailing_address2",
+                        "address3": "customer_insured_mailing_address3",
+                        "city": "customer_insured_mailing_city",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "2",
+                    "mobileNumber": "98765432",
+                    "mobileNumberCountryCode": "",
+                    "nationality": "HK",
+                    "occupationCode": "T100101",
+                    "relationship": null,
+                    "residence": {
+                        "address1": "customer_insured_residence_address1",
+                        "address2": "customer_insured_residence_address2",
+                        "address3": "customer_insured_residence_address3",
+                        "city": "customer_insured_residence_city",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": true,
+                    "optOutReason": null,
+                    "surname": "customer_insured_surname"
+                }
+            ],
+            "imageCaptureFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "paymentTransactionDto": {
+                "amount": "",
+                "amountInPolicyCurrency": "",
+                "authorizationCode": "tokenized_card_number",
+                "bankName": "",
+                "basicPlanCode": "",
+                "cardHolderName": "",
+                "cardType": "",
+                "currency": "HKD",
+                "insuredFirstName": "customer_insured_givenName",
+                "insuredLastName": "customer_insured_surname",
+                "ownerFirstName": "givenName",
+                "ownerLastName": "surname",
+                "paymentReceivedDate": "",
+                "payorFirstName": "customer_payor_givenName",
+                "payorLastName": "customer_payor_surname",
+                "payorRole": "",
+                "policyCurrency": "",
+                "referenceNumber": "",
+                "transactionStatus": "",
+                "transactionUpdatedDate": ""
+            },
+            "policyNumber": "",
+            "uploadId": "",
+            "questionnaireDtos": [
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 1,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": true
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 2,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": true
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 3,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": true
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 4,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": true
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 5,
+                    "questionnaireSectionId": "",
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": true
+                }
+            ]
+        }
+    ]
+}
