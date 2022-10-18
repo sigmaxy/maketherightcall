@@ -55,6 +55,7 @@ class DeveloperController extends ControllerBase {
     exit;
   }
   public static function test(){
+    echo \Drupal::service('file_system')->realpath('public://');
     exit;
   }
   public static function ftest($n){

@@ -184,7 +184,7 @@ jQuery(document).ready(function($){
         // $( "#dialog_dial" ).dialog( "open" );
         let call_dialog = xdialog.create({
             title: 'Call Customer', 
-            body: '<label for="mobile" style="margin-right:5px;">Mobile</label><input type="text" name="dial_mobile_no" id="dial_mobile_no" value="'+drupalSettings.mobile+'">',
+            body: '<label for="mobile" style="margin-right:5px;">Mobile</label><input type="text" name="dial_mobile_no" id="dial_mobile_no" value="'+drupalSettings.mobile+'"><input type="hidden" name="dial_url" id="dial_url" value="'+drupalSettings.dial_url+'"></input>',
             buttons: {
                 ok: {
                     text: 'Press me and Call',
@@ -199,5 +199,7 @@ jQuery(document).ready(function($){
 	}
     $(document).on('click','.call_button',function(e) {
         console.log('mobile is '+$('#dial_mobile_no').val());
+        let dia_url = $('#dial_url').val()+$('#dial_mobile_no').val();
+        console.log('url is '+dia_url);
 	});
 })(jQuery);
