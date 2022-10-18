@@ -55,7 +55,7 @@
  * @see \Drupal\Core\DrupalKernel::getSitePath()
  * @see https://www.drupal.org/documentation/install/multi-site
  */
+$sites['192.168.100.94'] = 'prod';
 $sites['local.mtrc.sigmaxu.com'] = 'local';
 $sites['stagmtrc.sigmaxu.com'] = 'stag';
 $sites['localhost.maketherightcall'] = 'win10';
-$sites['192.168.100.94'] = 'prod';
