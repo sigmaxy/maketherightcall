@@ -201,5 +201,6 @@ jQuery(document).ready(function($){
         console.log('mobile is '+$('#dial_mobile_no').val());
         let dia_url = $('#dial_url').val()+$('#dial_mobile_no').val();
         console.log('url is '+dia_url);
+        var win = window.open(dia_url, '_blank');
 	});
 })(jQuery);
