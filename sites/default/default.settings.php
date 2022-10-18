@@ -249,7 +249,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = 'aDkLtX_JKMwIQcuKfc6snafLJ9QpzOm1c7LzltzW-qizUlAixsdJ1yrq-VuYrG0Eao0VxMgSWA';
+$settings['hash_salt'] = '';
 
 /**
  * Deployment identifier.
@@ -794,33 +794,3 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 # if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
-$settings['trusted_host_patterns'] = [ 
-  '^localhost$',
-  '^.+\.sigmaxu\.com$',
-  '^.+\.f4fonline\.com$',
-  '^192\.168.\100.\94$',
-  '.*'
-];
-$settings['block_interest_cohort'] = FALSE;
-$settings['config_sync_directory'] = $site_path.'/files/sync';
-$settings['file_temporary_path'] = $site_path.'/files/temp';
-$databases['default']['default']['database'] = 'mtrc';
-$databases['default']['default']['prefix'] = '';
-$databases['default']['default']['namespace'] = 'Drupal\\Core\\Database\\Driver\\mysql';
-$databases['default']['default']['driver'] = 'mysql';
-$databases['default']['default']['autoload'] = 'core/modules/mysql/src/Driver/Database/mysql/';
-
-//local
-$databases['default']['default']['username'] = 'root';
-$databases['default']['default']['password'] = 'P@$$w0rd';
-$databases['default']['default']['host'] = 'localhost';
-$databases['default']['default']['port'] = '3306';
-// $settings['email_username'] = 'noreply@first4figures.com';
-// $settings['email_password'] = 'P@$$w0rd';
-$settings['sftp']['url'] = 'sftpuat.apac.chubb.com';
-$settings['sftp']['username'] = 'UCHBHKLAUS';
-$settings['sftp']['password'] = 'UHKLaus@0108';
-
-// $settings['sftp']['url'] = 'sftp.apac.chubb.com';
-// $settings['sftp']['username'] = 'PCHBHKLAUS';
-// $settings['sftp']['password'] = 'HKLaus@2806';
