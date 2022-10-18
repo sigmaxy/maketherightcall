@@ -28,7 +28,7 @@ $settings['trusted_host_patterns'] = [
 ];
 $settings['block_interest_cohort'] = FALSE;
 // $config['system.logging']['error_level'] = 'verbose';
-$settings['pickup_call_url'] = 'https://maketherightcall.com/';
+$settings['pickup_call_url'] = 'http://192.168.11.175/UCCS/ws/api/outcall?username=mtrc&password=mtrc';
 $settings['config_sync_directory'] = $site_path.'/files/sync';
 
 $databases['default']['default']['database'] = 'mtrc';
@@ -43,10 +43,7 @@ $databases['default']['default']['password'] = 'P@$$w0rd';
 $databases['default']['default']['host'] = 'localhost';
 $databases['default']['default']['port'] = '3306';
 
-$settings['sftp']['url'] = 'sftpuat.apac.chubb.com';
-$settings['sftp']['username'] = 'UCHBHKLAUS';
-$settings['sftp']['password'] = 'UHKLaus@0108';
 
-// $settings['sftp']['url'] = 'sftp.apac.chubb.com';
-// $settings['sftp']['username'] = 'PCHBHKLAUS';
-// $settings['sftp']['password'] = 'HKLaus@2806';
+$settings['sftp']['url'] = 'sftp.apac.chubb.com';
+$settings['sftp']['username'] = 'PCHBHKLAUS';
+$settings['sftp']['password'] = 'HKLaus@2806';
