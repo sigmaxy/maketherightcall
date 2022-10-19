@@ -303,7 +303,7 @@ class EditCallForm extends FormBase {
     $service_type = $user->field_service_type->value;
 
     $pickup_call_url = \Drupal\Core\Site\Settings::get('pickup_call_url');
-    $form['#attached']['drupalSettings']['dial_url'] = $pickup_call_url.'&agentId='.$agent_code.'&serviceType='.$service_type.'&jobRef='.$import_customer['cust_ref'].'&number=';
+    $form['#attached']['drupalSettings']['dial_url'] = $pickup_call_url.'&UCC ID='.$agent_code.'&serviceType='.$service_type.'&jobRef='.$import_customer['cust_ref'].'&number=';
     $form['#attached']['library'][] = 'chubb_life/chubb_life';
     return $form;
   }
