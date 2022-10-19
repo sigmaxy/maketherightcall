@@ -28,7 +28,7 @@ $settings['trusted_host_patterns'] = [
 ];
 $settings['block_interest_cohort'] = FALSE;
 // $config['system.logging']['error_level'] = 'verbose';
-$settings['pickup_call_url'] = 'http://192.168.11.175/UCCS/ws/api/outcall?username=mtrc&password=mtrc';
+$settings['pickup_call_url'] = 'http://192.168.11.175:8080/UCCS/ws/api/outcall?username=mtrc&password=mtrc';
 $settings['config_sync_directory'] = $site_path.'/files/sync';
 
 $databases['default']['default']['database'] = 'mtrc';
