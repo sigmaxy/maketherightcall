@@ -299,11 +299,11 @@ class EditCallForm extends FormBase {
     $form['#attached']['drupalSettings']['face_amount'] = $face_amount_opt;
     $form['#attached']['drupalSettings']['mobile'] = $import_customer['tel_mbl'];
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id()); // pass your uid
-    $agent_code = $user->field_agentcode->value;
+    $ucc_id = $user->field_ucc_id->value;
     $service_type = $user->field_service_type->value;
 
     $pickup_call_url = \Drupal\Core\Site\Settings::get('pickup_call_url');
-    $form['#attached']['drupalSettings']['dial_url'] = $pickup_call_url.'&UCC ID='.$agent_code.'&serviceType='.$service_type.'&jobRef='.$import_customer['cust_ref'].'&number=';
+    $form['#attached']['drupalSettings']['dial_url'] = $pickup_call_url.'&UCC ID='.$ucc_id.'&serviceType='.$service_type.'&jobRef='.$import_customer['cust_ref'].'&number=';
     $form['#attached']['library'][] = 'chubb_life/chubb_life';
     return $form;
   }
