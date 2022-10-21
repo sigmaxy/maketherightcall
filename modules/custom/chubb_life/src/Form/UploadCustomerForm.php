@@ -32,13 +32,13 @@ class UploadCustomerForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $validators = array(
-      'file_validate_extensions' => array('xlsx','csv','xlsx'),
+      'file_validate_extensions' => array('csv xlsx'),
     );
     $form['customer_file'] = array(
       '#type' => 'managed_file',
       '#title' => t('Purchase Order Excel File'),
       '#size' => 20,
-      '#description' => t('XLSX XLS CSV format only'),
+      '#description' => t('XLSX CSV format only'),
       '#upload_validators' => $validators,
       '#upload_location' => 'public://temp/',
     );

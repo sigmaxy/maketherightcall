@@ -132,12 +132,13 @@ echo '<br><br><br><br>';
   }
   public static function clear_data(){
     $connection = Database::getConnection();
+    $query = $connection->truncate('mtrc_customer_import')->execute();
+    echo 'mtrc_customer_import data clear<br>';
     $query = $connection->truncate('mtrc_call')->execute();
     echo 'mtrc_call data clear<br>';
     $query = $connection->truncate('mtrc_call_log')->execute();
     echo 'mtrc_call_log data clear<br>';
-    $query = $connection->truncate('mtrc_customer_import')->execute();
-    echo 'mtrc_customer_import data clear<br>';
+    
     $query = $connection->truncate('mtrc_order')->execute();
     echo 'mtrc_order data clear<br>';
     $query = $connection->truncate('mtrc_order_client')->execute();
