@@ -50,6 +50,9 @@ class AttributeController extends ControllerBase {
     $results[3] = t('DNQ');
     $results[4] = t('Reject');
     $results[5] = t('RTT');
+    $results[6] = t('Busy');
+    $results[7] = t('No Answer');
+    $results[8] = t('Invalid Number');
     return $results;
   }
   public static function get_id_type_options() {
