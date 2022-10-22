@@ -13,6 +13,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use phpseclib3\Net\SFTP;
 use Drupal\Core\Site\Settings;
+use Spatie\Async\Pool;
 
 /**
  * Class DeveloperController.
@@ -55,8 +56,7 @@ class DeveloperController extends ControllerBase {
     exit;
   }
   public static function test(){
-    echo \Drupal::service('file_system')->realpath('public://');
-    exit;
+    echo 'test';
   }
   public static function ftest($n){
     if($n==0){

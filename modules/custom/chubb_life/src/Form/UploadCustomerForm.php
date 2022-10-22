@@ -14,7 +14,8 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use Drupal\Core\Database\Database;
 use Drupal\chubb_life\Controller\AttributeController;
 use Drupal\chubb_life\Controller\CustomerController;
-
+use Spatie\Async\Pool;
+use Drupal\Core\Site\Settings;
 /**
  * Class UploadCustomerForm.
  */
@@ -73,7 +74,22 @@ class UploadCustomerForm extends FormBase {
       $form_state->setErrorByName('customer_file', $this->t('Fail to upload the file'));
     }
   }
-
+  public function process_customer_data($formatesheetData,$fid,$customer){
+    $pool = Pool::create();
+    foreach ($formatesheetData as $each_data) {
+      $pool->add(function () use($each_data,$fid){
+        $customer = $each_data;
+        $customer['fid'] = $fid;
+        $customer['member_since'] = $each_data['member since'];
+        unset($customer['member since']);
+        CustomerController::update_import_customer($customer);
+        CustomerController::update_import_customer_happy_client($customer);
+      })->then(function ($output) {
+      })->catch(function (Throwable $exception) {
+      });
+      $pool->wait();
+    }
+  }
   /**
    * {@inheritdoc}
    */
@@ -100,18 +116,18 @@ class UploadCustomerForm extends FormBase {
         }
       }
     }
-    $connection = Database::getConnection();
     foreach ($formatesheetData as $po_number => $each_data) {
       $customer = $each_data;
       $customer['fid'] = $fid;
       $customer['member_since'] = $each_data['member since'];
       unset($customer['member since']);
       CustomerController::update_import_customer($customer);
-      CustomerController::update_import_customer_happy_client($customer);
+      if(\Drupal\Core\Site\Settings::get('happy_client')){
+        CustomerController::update_import_customer_happy_client($customer);
+      }
     }
-    $link = '/chubb_life/form/list_customer';
-    \Drupal::messenger()->addMessage(t('File has been uploaded. You can check <a href="@link">Customer List</a> or continue uploading', array('@link' => $link)));
-
+    // self::process_customer_data($formatesheetData,$fid,$customer);
+    \Drupal::messenger()->addMessage(t('File has been uploaded.'));
   }
 
 }

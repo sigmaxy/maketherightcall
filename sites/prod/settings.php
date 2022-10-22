@@ -30,6 +30,7 @@ $settings['block_interest_cohort'] = FALSE;
 // $config['system.logging']['error_level'] = 'verbose';
 $settings['pickup_call_url'] = 'http://192.168.11.175:8080/UCCS/ws/api/outcall?username=mtrc&password=mtrc';
 $settings['config_sync_directory'] = $site_path.'/files/sync';
+$settings['happy_client'] = true;
 
 $databases['default']['default']['database'] = 'mtrc';
 $databases['default']['default']['prefix'] = '';
