@@ -26,6 +26,13 @@ jQuery(document).ready(function($){
             });
         }
     }
+    $(document).on('blur','.order_birthdate',function(e) {
+        var ToDate = new Date();
+        if (new Date($(this).val()).getTime() >= ToDate.getTime()) {
+            alert("The Date must be Smaller or Equal to today date");
+            $(this).val('');
+       }
+	});
     function taxResidency_showmore_button(elements){
         if(elements.hasClass('show_more')){
             elements.removeClass('show_more');

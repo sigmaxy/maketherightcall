@@ -295,7 +295,7 @@ class EditOrderForm extends FormBase {
       '#default_value' => $customer_birthDate,
       '#attributes' => [
         'id' => 'owner_birthDate',
-        'class' => ['clear_calculate'],
+        'class' => ['clear_calculate','order_birthdate'],
       ],
       '#weight' => '12',
       '#required'=> true,
@@ -676,7 +676,7 @@ class EditOrderForm extends FormBase {
       '#default_value' => isset($record['insured']['birthDate'])?$record['insured']['birthDate']:'',
       '#attributes' => [
         'id' => 'insured_birthDate',
-        'class' => ['clear_calculate'],
+        'class' => ['clear_calculate','order_birthdate'],
       ],
       '#weight' => '12',
     ];
@@ -1011,6 +1011,10 @@ class EditOrderForm extends FormBase {
       '#type' => 'date',
       '#title' => $this->t('Date of Birth'),
       '#default_value' => isset($record['payor']['birthDate'])?$record['payor']['birthDate']:'',
+      '#attributes' => [
+        'id' => 'payor_birthDate',
+        'class' => ['order_birthdate'],
+      ],
       '#weight' => '11',
       '#required'=> true,
     ];
