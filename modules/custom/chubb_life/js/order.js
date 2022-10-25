@@ -91,14 +91,29 @@ jQuery(document).ready(function($){
     $(document).on('click','#calculate_premium',function(e) {
         calculate_premium();
 	});
-    function getAge(dateString) {
-        var today = new Date();
-        var birthDate = new Date(dateString);
-        var age = today.getFullYear() - birthDate.getFullYear();
-        var m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
+    function getAge(dateString){
+        let age;
+        let today = new Date();
+        let birthDate = new Date(dateString);
+        let yyyyDiff = today.getFullYear() - birthDate.getFullYear();
+        let mmDiff = today.getMonth() - birthDate.getMonth();
+        let ddDiff = today.getDate() - birthDate.getFullYear();
+
+        if (ddDiff < 0) {
+            ddDiff = ddDiff + 30;
+            mmDiff = mmDiff - 1;
         }
+        if (mmDiff < 0) {
+            mmDiff = mmDiff + 12;
+            yyyyDiff = yyyyDiff - 1;
+        }
+        if (mmDiff > 6 || (mmDiff === 6 && ddDiff > 0)) {
+            yyyyDiff += 1;
+        }
+        if (age < 0) {
+            yyyyDiff = 0;
+        }
+        age = yyyyDiff;
         return age;
     }
     function calculate_premium(){
