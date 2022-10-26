@@ -17,6 +17,11 @@ class OrderController extends ControllerBase {
    * @return string
    *   Return Hello string.
    */
+  public static function calculate_age($birthday){
+    $today = date("Y-m-d");
+    $age = date_diff(date_create($birthday), date_create($today))->y;
+    return $age;
+  }
   public static function check_order_existed($order_id){
     $connection = Database::getConnection();
     $query = $connection->select('mtrc_order', 'mo');
@@ -119,11 +124,11 @@ class OrderController extends ControllerBase {
         ->execute();
     }
   }
+  
   public static function order_format_json($order){
-    $today = date("Y-m-d");
-    $owner_age = date_diff(date_create($order['owner']['birthDate']), date_create($today))->y;
-    $insured_age = date_diff(date_create($order['insured']['birthDate']), date_create($today))->y;
-    $payor_age = date_diff(date_create($order['payor']['birthDate']), date_create($today))->y;
+    $owner_age = self::calculate_age($order['owner']['birthDate']);
+    $insured_age = self::calculate_age($order['insured']['birthDate']);
+    $payor_age = self::calculate_age($order['payor']['birthDate']);
     $health_detail_question = false;
     if($order['health_details_q_1']=='Y'
       && $order['health_details_q_2']=='Y'
