@@ -98,6 +98,7 @@ jQuery(document).ready(function($){
         let yyyyDiff = today.getFullYear() - birthDate.getFullYear();
         let mmDiff = today.getMonth() - birthDate.getMonth();
         let ddDiff = today.getDate() - birthDate.getDate();
+
         if (ddDiff < 0) {
             ddDiff = ddDiff + 30;
             mmDiff = mmDiff - 1;
@@ -106,7 +107,7 @@ jQuery(document).ready(function($){
             mmDiff = mmDiff + 12;
             yyyyDiff = yyyyDiff - 1;
         }
-        if (mmDiff > 6 || (mmDiff === 6 && ddDiff > 0)) {
+        if (mmDiff > 7 || (mmDiff === 7 && ddDiff > 0)) {
             yyyyDiff += 1;
         }
         if (age < 0) {
