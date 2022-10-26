@@ -53,6 +53,8 @@ class AttributeController extends ControllerBase {
     $results[6] = t('Busy');
     $results[7] = t('No Answer');
     $results[8] = t('Invalid Number');
+    $results[9] = t('Success');
+    $results[10] = t('Opt Out');
     return $results;
   }
   public static function get_id_type_options() {
