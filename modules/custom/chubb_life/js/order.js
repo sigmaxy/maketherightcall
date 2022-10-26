@@ -107,7 +107,7 @@ jQuery(document).ready(function($){
             mmDiff = mmDiff + 12;
             yyyyDiff = yyyyDiff - 1;
         }
-        if (mmDiff > 7 || (mmDiff === 7 && ddDiff > 0)) {
+        if (mmDiff > 5 || (mmDiff === 5 && ddDiff > 0)) {
             yyyyDiff += 1;
         }
         if (age < 0) {
