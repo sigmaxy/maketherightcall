@@ -110,9 +110,7 @@ jQuery(document).ready(function($){
         if (mmDiff > 6) {
             yyyyDiff += 1;
         }	 
-        if (mmDiff === 6 && ddDiff > 0) {
-            yyyyDiff += 1;
-        }
+        
         if (age < 0) {
             yyyyDiff = 0;
         }
