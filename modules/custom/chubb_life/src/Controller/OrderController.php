@@ -19,9 +19,26 @@ class OrderController extends ControllerBase {
    */
   public static function calculate_age($birthday){
     $today = date("Y-m-d");
-    $age = date_diff(date_create($birthday), date_create($today))->y;
-    return $age;
-  }
+    $date_diff = date_diff(date_create($birthday), date_create($today));
+    $yyyyDiff = $date_diff->y;
+    $mmDiff = $date_diff->m;
+    $ddDiff = $date_diff->d;
+    if ($ddDiff < 0) {
+      $ddDiff = $ddDiff + 30;
+      $mmDiff = $mmDiff - 1;
+    }
+    if ($mmDiff < 0) {
+      $mmDiff = $mmDiff + 12;
+      $yyyyDiff = $yyyyDiff - 1;
+    }
+    if ($mmDiff > 6 || ($mmDiff === 6 && $ddDiff > 0)) {
+      $yyyyDiff += 1;
+    }
+    if ($yyyyDiff < 0) {
+      $yyyyDiff = 0;
+    }
+    return $yyyyDiff;
+  }	
   public static function check_order_existed($order_id){
     $connection = Database::getConnection();
     $query = $connection->select('mtrc_order', 'mo');
