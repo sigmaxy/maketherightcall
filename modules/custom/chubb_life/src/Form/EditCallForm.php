@@ -283,6 +283,7 @@ class EditCallForm extends FormBase {
     <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
     <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
     <tr><td><b>10年總共款</b></td><td class="rhc_product_premium_annual_usd_10y"></td><td class="rhc_product_premium_monthly_usd_10y"></td><td class="rhc_product_premium_annual_hkd_10y"></td><td class="rhc_product_premium_monthly_hkd_10y"></td></tr>
+    <tr><td><b>110%回贈</b></td><td class="rhc_product_premium_annual_usd_110"></td><td class="rhc_product_premium_monthly_usd_110"></td><td class="rhc_product_premium_annual_hkd_110"></td><td class="rhc_product_premium_monthly_hkd_110"></td></tr>
     <tr><td><b>115%回贈</b></td><td class="rhc_product_premium_annual_usd_115"></td><td class="rhc_product_premium_monthly_usd_115"></td><td class="rhc_product_premium_annual_hkd_115"></td><td class="rhc_product_premium_monthly_hkd_115"></td></tr>
     <tr><td colspan="5"><b>首期保費(2個月)</b></td></tr>
     <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>

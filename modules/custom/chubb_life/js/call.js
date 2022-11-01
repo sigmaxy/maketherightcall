@@ -70,12 +70,14 @@ jQuery(document).ready(function($){
                             if(payment_mode==12){
                                 $('.rhc_product_premium_annual_usd').html(modal_premium_payment);
                                 $('.rhc_product_premium_annual_usd_10y').html((parseFloat(modal_premium_payment)*10).toFixed(2));
+                                $('.rhc_product_premium_annual_usd_110').html((parseFloat(modal_premium_payment)*10*1.1).toFixed(2));
                                 $('.rhc_product_premium_annual_usd_115').html((parseFloat(modal_premium_payment)*10*1.15).toFixed(2));
                                 $('.rhc_product_initial_premium_annual_usd').html(initial_premium);
                             }else if(payment_mode==1){
                                 $('.rhc_product_premium_monthly_usd').html(modal_premium_payment);
                                 $('.rhc_product_premium_monthly_usd_ave').html((parseFloat(modal_premium_payment)/30).toFixed(2));
                                 $('.rhc_product_premium_monthly_usd_10y').html((parseFloat(modal_premium_payment)*120).toFixed(2));
+                                $('.rhc_product_premium_monthly_usd_110').html((parseFloat(modal_premium_payment)*120*1.1).toFixed(2));
                                 $('.rhc_product_premium_monthly_usd_115').html((parseFloat(modal_premium_payment)*120*1.15).toFixed(2));
                                 $('.rhc_product_initial_premium_monthly_usd').html(initial_premium);
                             }
@@ -83,12 +85,14 @@ jQuery(document).ready(function($){
                             if(payment_mode==12){
                                 $('.rhc_product_premium_annual_hkd').html(modal_premium_payment);
                                 $('.rhc_product_premium_annual_hkd_10y').html((parseFloat(modal_premium_payment)*10).toFixed(2));
+                                $('.rhc_product_premium_annual_hkd_110').html((parseFloat(modal_premium_payment)*10*1.1).toFixed(2));
                                 $('.rhc_product_premium_annual_hkd_115').html((parseFloat(modal_premium_payment)*10*1.15).toFixed(2));
                                 $('.rhc_product_initial_premium_annual_hkd').html(initial_premium);
                             }else if(payment_mode==1){
                                 $('.rhc_product_premium_monthly_hkd').html(modal_premium_payment);
                                 $('.rhc_product_premium_monthly_hkd_ave').html((parseFloat(modal_premium_payment)/30).toFixed(2));
                                 $('.rhc_product_premium_monthly_hkd_10y').html((parseFloat(modal_premium_payment)*120).toFixed(2));
+                                $('.rhc_product_premium_monthly_hkd_110').html((parseFloat(modal_premium_payment)*120*1.1).toFixed(2));
                                 $('.rhc_product_premium_monthly_hkd_115').html((parseFloat(modal_premium_payment)*120*1.15).toFixed(2));
                                 $('.rhc_product_initial_premium_monthly_hkd').html(initial_premium);
                             }
