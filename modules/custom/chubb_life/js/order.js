@@ -97,7 +97,7 @@ jQuery(document).ready(function($){
         let birthDate = new Date(dateString);
         let yyyyDiff = today.getFullYear() - birthDate.getFullYear();
         let mmDiff = today.getMonth() + 1 - birthDate.getMonth() + 1;
-        let ddDiff = today.getDate() - birthDate.getFullYear();
+        let ddDiff = today.getDate() - birthDate.getDate();
 
         if (ddDiff < 0) {
             ddDiff = ddDiff + 30;
