@@ -113,6 +113,7 @@ jQuery(document).ready(function($){
         if (age < 0) {
             yyyyDiff = 0;
         }
+	console.log('In getAge calculation, the age is '+yyyyDiff+' years '+mmDiff+' month '+ddDiff+' days');
         age = yyyyDiff;
         return age;
     }
