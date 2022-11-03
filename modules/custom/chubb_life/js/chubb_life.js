@@ -37,11 +37,6 @@ jQuery(document).ready(function($){
                 });
         },
     });
-
-
-
-
-
     $('table.order_list thead tr')
         // .not(":eq(0)")
         .clone(true)
@@ -111,18 +106,39 @@ jQuery(document).ready(function($){
         },
     });
     $('table.import_customer_list thead tr')
-        // .not(":eq(0)")
-        .clone(true)
-        .addClass('filters')
-        .appendTo('table.import_customer_list thead');
+    // .not(":eq(0)")
+    .clone(true)
+    .addClass('filters')
+    .appendTo('table.import_customer_list thead');
     var datatable_customer_list = $('table.import_customer_list');
-    var datatable_obj = datatable_customer_list.DataTable({
+    datatable_customer_list.DataTable({
         "order": datatable_customer_list.attr('col_sort_index') ? [ datatable_customer_list.attr('col_sort_index'), datatable_customer_list.attr('col_sort_type')] : [],
 		"pageLength": datatable_customer_list.attr('default_page_length') ? datatable_customer_list.attr('default_page_length') : 10,
 		"orderCellsTop": true,
 		"processing": true,
-        orderCellsTop: true,
-        fixedHeader: true,
+        ajax: window.location.origin+drupalSettings.path.baseUrl+'chubb_life/data/list_customer/',
+        columns: [
+            {
+                data:   "id",
+                render: function ( data, type, row ) {
+                    if ( type === 'display' ) {
+                        // return '<input class="import_customer_list form-checkbox form-boolean form-boolean--type-checkbox" data-drupal-selector="edit-import-customer-list-table-1145" type="checkbox" id="edit-import-customer-list-table-1145" name="import_customer_list_table[1145]" value="1145"></input>'
+                        return '<input type="checkbox" class="editor-active" name="import_customer_list_table['+data+']" value="'+data+'">';
+                    }
+                    return data;
+                },
+                className: "dt-body-center"
+            },
+            { data: "cust_ref" },
+            { data: "name" },
+            { data: "gender" },
+            { data: "tel_mbl" },
+            { data: "status" },
+            { data: "fid" },
+            { data: "assignee" },
+            { data: "created_at" },
+            { data: "updated_by" },
+        ],
         initComplete: function () {
             var api = this.api();
  

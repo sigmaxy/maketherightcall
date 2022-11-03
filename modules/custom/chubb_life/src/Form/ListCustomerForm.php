@@ -28,6 +28,7 @@ class ListCustomerForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $header_table['id'] = '';
     $header_table['cust_ref'] = t('Ref No.');
     $header_table['name'] = t('Name');
     $header_table['gender'] = t('Gender');
@@ -91,8 +92,7 @@ class ListCustomerForm extends FormBase {
     $form['import_customer_filter']['import_customer_list_table'] = [
       '#type' => 'tableselect',
       '#header' => $header_table,
-      // '#rows' => $rows,
-      '#options' => $rows,
+      // '#options' => $rows,
       '#empty' => t('No Customer found'),
       '#attributes' => [   
         'class' => ['import_customer_list'],
@@ -156,7 +156,6 @@ class ListCustomerForm extends FormBase {
     
     
     $customer_selected = $form_state->getValue('import_customer_list_table');
-    
     
     $customer_checked = array();
     foreach ($customer_selected as $imported_customer_id => $checked) {

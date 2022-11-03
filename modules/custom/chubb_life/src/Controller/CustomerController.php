@@ -5,6 +5,12 @@ namespace Drupal\chubb_life\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
 use Drupal\chubb_life\Controller\AttributeController;
+use Drupal\chubb_life\Controller\CallController;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Drupal\Component\Utility\Tags;
 
 /**
  * Class CustomerController.
@@ -151,5 +157,78 @@ class CustomerController extends ControllerBase {
     $conn->close();
 
 
+  }
+  public static function ajax_datatable_list_customer1(){
+    $results = [];
+    $results['draw'] = 1;
+    $customer_list = self::list_import_customer();
+    $results['recordsTotal'] = count($customer_list);
+    $results['recordsFiltered'] = count($customer_list);
+    foreach($customer_list as $key => $data){
+      $results['data'][] = [
+        $data->id,
+        $data->cust_ref,
+        $data->name,
+        $data->gender,
+        $data->tel_mbl,
+        '',
+        $data->fid,
+        '',
+        $data->created_at,
+        $data->updated_by,
+      ];
+    }
+    return new JsonResponse($results);
+  }
+
+  public static function ajax_datatable_list_customer() {
+    $results = [];
+    $results['draw'] = 1;
+    $customer_list = self::list_import_customer();
+    $results['recordsTotal'] = count($customer_list);
+    $results['recordsFiltered'] = count($customer_list);
+    $call_status_opt = AttributeController::get_call_status_options();
+
+
+
+    foreach($customer_list as $key=>$data){
+      // $edit   = Url::fromUserInput('/chubb_life/form/editcall/'.$data->id);
+      $db_call = CallController::get_call_by_import_customer_id($data->id);
+      if (isset($db_call['id'])) {
+        $row_data['status'] = $call_status_opt[$db_call['status']];
+        $user = \Drupal\user\Entity\User::load($db_call['assignee_id']);
+        $agent_code = $user->field_agentcode->value;
+        $row_data['assignee'] = $user->getEmail();
+        if(!empty($agent_code)){
+          $row_data['assignee'] = $agent_code;
+        }
+      }else{
+        $row_data['status'] = 'Not Assigned';
+        $row_data['assignee'] = '';
+      }
+      $row_data['cust_ref'] = $data->cust_ref;
+      $row_data['name'] = $data->name;
+      $row_data['gender'] = $data->gender;
+      $row_data['tel_mbl'] = $data->tel_mbl;
+      $row_data['fid'] = $data->fid;
+      $row_data['created_at'] = date('Y-m-d',$data->created_at);
+      $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
+      $row_data['updated_by'] = $updated_user->field_agentname->value;
+      
+
+      $results['data'][] = [
+        'id'=>$data->id,
+        'cust_ref'=>$data->cust_ref,
+        'name'=>$data->name,
+        'gender'=>$data->gender,
+        'tel_mbl'=>$data->tel_mbl,
+        'status'=>$row_data['status'],
+        'fid'=>$data->fid,
+        'assignee'=>$row_data['assignee'],
+        'created_at'=>date('Y-m-d',$data->created_at),
+        'updated_by'=>$updated_user->field_agentname->value,
+      ];
+    }
+    return new JsonResponse($results);
   }
 }

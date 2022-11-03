@@ -12,6 +12,13 @@ chubb_life.list_customer_form:
     _title: 'Imported Customer List'
   requirements:
    _permission: 'access chubb_life_manager configuration'
+chubb_life.list_customer_data:
+  path: '/chubb_life/data/list_customer'
+  defaults:
+    _controller: '\Drupal\chubb_life\Controller\CustomerController::ajax_datatable_list_customer'
+    _title: 'Imported Customer List Data'
+  requirements:
+   _permission: 'access chubb_life_manager configuration'
 chubb_life.upload_customer_form:
   path: '/chubb_life/form/upload_customer'
   defaults:
