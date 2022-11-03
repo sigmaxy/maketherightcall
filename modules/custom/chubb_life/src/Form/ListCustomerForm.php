@@ -39,35 +39,35 @@ class ListCustomerForm extends FormBase {
     $header_table['created_at'] = t('Created At');
     $header_table['updated_by'] = t('Updated By');
     $rows=array();
-    $import_customer_list = CustomerController::list_import_customer();
-    $call_status_opt = AttributeController::get_call_status_options();
-    foreach($import_customer_list as $key=>$data){
-      // $edit   = Url::fromUserInput('/chubb_life/form/editcall/'.$data->id);
-      $db_call = CallController::get_call_by_import_customer_id($data->id);
-      if (isset($db_call['id'])) {
-        $row_data['status'] = $call_status_opt[$db_call['status']];
-        $user = \Drupal\user\Entity\User::load($db_call['assignee_id']);
-        $agent_code = $user->field_agentcode->value;
-        $row_data['assignee'] = $user->getEmail();
-        if(!empty($agent_code)){
-          $row_data['assignee'] = $agent_code;
-        }
-      }else{
-        $row_data['status'] = 'Not Assigned';
-        $row_data['assignee'] = '';
-      }
-      $row_data['cust_ref'] = $data->cust_ref;
-      $row_data['name'] = $data->name;
-      $row_data['gender'] = $data->gender;
-      $row_data['tel_mbl'] = $data->tel_mbl;
-      $row_data['fid'] = $data->fid;
-      $row_data['created_at'] = date('Y-m-d',$data->created_at);
-      $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
-      $row_data['updated_by'] = $updated_user->field_agentname->value;
+    // $import_customer_list = CustomerController::list_import_customer();
+    // $call_status_opt = AttributeController::get_call_status_options();
+    // foreach($import_customer_list as $key=>$data){
+    //   // $edit   = Url::fromUserInput('/chubb_life/form/editcall/'.$data->id);
+    //   $db_call = CallController::get_call_by_import_customer_id($data->id);
+    //   if (isset($db_call['id'])) {
+    //     $row_data['status'] = $call_status_opt[$db_call['status']];
+    //     $user = \Drupal\user\Entity\User::load($db_call['assignee_id']);
+    //     $agent_code = $user->field_agentcode->value;
+    //     $row_data['assignee'] = $user->getEmail();
+    //     if(!empty($agent_code)){
+    //       $row_data['assignee'] = $agent_code;
+    //     }
+    //   }else{
+    //     $row_data['status'] = 'Not Assigned';
+    //     $row_data['assignee'] = '';
+    //   }
+    //   $row_data['cust_ref'] = $data->cust_ref;
+    //   $row_data['name'] = $data->name;
+    //   $row_data['gender'] = $data->gender;
+    //   $row_data['tel_mbl'] = $data->tel_mbl;
+    //   $row_data['fid'] = $data->fid;
+    //   $row_data['created_at'] = date('Y-m-d',$data->created_at);
+    //   $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
+    //   $row_data['updated_by'] = $updated_user->field_agentname->value;
       
-      // $row_data['opt'] = Link::fromTextAndUrl('Edit', $edit);
-      $rows[$data->id] = $row_data;
-    }
+    //   // $row_data['opt'] = Link::fromTextAndUrl('Edit', $edit);
+    //   $rows[$data->id] = $row_data;
+    // }
     $form['upload_filters'] = [
       '#type'  => 'details',
       '#title' => $this->t('Function'),
