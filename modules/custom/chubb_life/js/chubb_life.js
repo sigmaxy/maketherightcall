@@ -111,6 +111,14 @@ jQuery(document).ready(function($){
     .addClass('filters')
     .appendTo('table.import_customer_list thead');
     var datatable_customer_list = $('table.import_customer_list');
+    $(document).on('click','#customer_list_checkall',function(e) {
+        console.log('customer_list_checkall is '+$('#customer_list_checkall').is(':checked'));
+        if ($('#customer_list_checkall').is(':checked')) {
+            $(".customer_list_row_checkbox").prop( "checked", true );
+        }else{
+            $(".customer_list_row_checkbox").prop( "checked", false );
+        }
+	});
     datatable_customer_list.DataTable({
         "order": datatable_customer_list.attr('col_sort_index') ? [ datatable_customer_list.attr('col_sort_index'), datatable_customer_list.attr('col_sort_type')] : [],
 		"pageLength": datatable_customer_list.attr('default_page_length') ? datatable_customer_list.attr('default_page_length') : 10,
@@ -123,7 +131,7 @@ jQuery(document).ready(function($){
                 render: function ( data, type, row ) {
                     if ( type === 'display' ) {
                         // return '<input class="import_customer_list form-checkbox form-boolean form-boolean--type-checkbox" data-drupal-selector="edit-import-customer-list-table-1145" type="checkbox" id="edit-import-customer-list-table-1145" name="import_customer_list_table[1145]" value="1145"></input>'
-                        return '<input type="checkbox" class="editor-active" name="import_customer_list_table['+data+']" value="'+data+'">';
+                        return '<input type="checkbox" class="customer_list_row_checkbox" name="import_customer_list_table['+data+']" value="'+data+'">';
                     }
                     return data;
                 },
@@ -152,9 +160,15 @@ jQuery(document).ready(function($){
                     var cell = $('.filters th').eq(
                         $(api.column(colIdx).header()).index()
                     );
-                    if(colIdx==0 || colIdx==9 ){
+                    if(colIdx==0){
+                        $(cell).html('<input type="checkbox" id="customer_list_checkall" name="select_all" value="">');
+                        return false;
+                    }
+                    if(colIdx==9 ){
                         $(cell).html('');
                         return false;
+                    }else{
+
                     }
                     var title = $(cell).text();
                     $(cell).html('<input type="text" class="datatable_filter_header" placeholder="' + title + '" />');
