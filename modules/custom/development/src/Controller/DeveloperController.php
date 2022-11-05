@@ -78,6 +78,14 @@ class DeveloperController extends ControllerBase {
     }
     rmdir($dirPath);
 }
+public static function running_check(){
+  $file = "https://stagmtrc.sigmaxu.com/maintenance.txt";
+  $data_json = file_get_contents($file);
+  $flag = json_decode($data_json);
+  if($flag->flag){
+    sleep(600);
+  }
+}
   public static function maintenance_check(){
     $file = "https://stagmtrc.sigmaxu.com/maintenance.txt";
     $data_json = file_get_contents($file);
