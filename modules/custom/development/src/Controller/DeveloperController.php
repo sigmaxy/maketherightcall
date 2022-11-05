@@ -56,6 +56,12 @@ class DeveloperController extends ControllerBase {
     exit;
   }
   public static function test(){
+    $json_text = [
+      'flag'=>1,
+    ];
+    echo json_encode($json_text);exit;
+    $file = "http://www.example.com/files/file.txt";
+    $data = file_get_contents($file);
     $slogan = \Drupal::service('config.factory')->getEditable('system.site')->get('slogan');
     echo $slogan;
   if(is_numeric($slogan)){
