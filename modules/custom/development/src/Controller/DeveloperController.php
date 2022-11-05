@@ -34,8 +34,8 @@ class DeveloperController extends ControllerBase {
       case 'phpinfo':
         self::php_info();exit;
       break;
-      case 'maintenance_check':
-        self::maintenance_check();exit;
+      case 'running_check':
+        self::running_check();exit;
       break;
       case 'import_attribute_relation':
         self::import_attribute_relation();exit;
