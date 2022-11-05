@@ -22,7 +22,14 @@ function development_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
-
+function development_cron(){
+  $slogan = \Drupal::service('config.factory')->getEditable('system.site')->get('slogan');
+  if(is_numeric($slogan)){
+    \Drupal::service('config.factory')->getEditable('system.site')->set('slogan',$slogan)->save();
+  }else{
+    \Drupal::service('config.factory')->getEditable('system.site')->set('slogan',0)->save();
+  }
+}
 /**
  * Implements hook_theme().
  */

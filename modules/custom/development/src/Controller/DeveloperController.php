@@ -56,6 +56,16 @@ class DeveloperController extends ControllerBase {
     exit;
   }
   public static function test(){
+    $slogan = \Drupal::service('config.factory')->getEditable('system.site')->get('slogan');
+    echo $slogan;
+  if(is_numeric($slogan)){
+    $slogan = $slogan + 1;
+    \Drupal::service('config.factory')->getEditable('system.site')->set('slogan',$slogan)->save();
+  }else{
+    \Drupal::service('config.factory')->getEditable('system.site')->set('slogan',0)->save();
+  }
+  echo '<br>';
+  echo $slogan;
     echo 'test';
   }
   public static function ftest($n){
