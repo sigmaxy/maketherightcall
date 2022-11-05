@@ -9,6 +9,7 @@ use Drupal\chubb_life\Controller\AttributeController;
 use Drupal\chubb_life\Controller\CustomerController;
 use Drupal\chubb_life\Controller\AssigneeController;
 use Drupal\chubb_life\Controller\CallController;
+use Drupal\development\Controller\DeveloperController;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 
@@ -39,6 +40,7 @@ class ListCustomerForm extends FormBase {
     $header_table['created_at'] = t('Created At');
     $header_table['updated_by'] = t('Updated By');
     $rows=array();
+    DeveloperController::running_check();
     // $import_customer_list = CustomerController::list_import_customer();
     // $call_status_opt = AttributeController::get_call_status_options();
     // foreach($import_customer_list as $key=>$data){
