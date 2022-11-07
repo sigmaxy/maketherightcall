@@ -201,40 +201,6 @@ jQuery(document).ready(function($){
                         modal_premium_payment = modal_premium
                         console.log('modal_premium_payment is '+modal_premium_payment);
                         
-                        
-                        
-                        // console.log('modal_premium is '+modal_premium);
-                        // console.log('discount_modal_premium is '+discount_modal_premium);
-                        // console.log('after_discount_modal_premium is '+after_discount_modal_premium);
-                        // console.log('initial_premium is '+initial_premium);
-                        // console.log('modal_premium_payment is '+modal_premium_payment);
-
-
-
-                        // if(currency=='HKD'&& premium>=100000){
-                        //     levy = 100;
-                        // }else if(currency=='USD'&& premium>=12820){
-                        //     levy = 12.82;
-                        // }else if(currency=='CNY'&& premium>=83330){
-                        //     levy = 83.33;
-                        // }else{
-                        //     levy = 0.001 * premium * (1-discount);
-                        // }
-                        // if(payment_mode==12){
-                        //     initial_premium = premium - premium*discount + levy;
-                        //     modal_premium_payment = premium;
-                        // }else if(payment_mode=='01'){
-                        //     levy = levy * 0.0872;
-                        //     initial_premium = (premium*0.0872 - premium*discount*0.0872 + levy)*2;
-                            
-                        //     modal_premium_payment = premium*0.0872;
-                            
-                        // }
-                        // console.log('levy is '+levy);
-                        // console.log('initial_premium is '+initial_premium);
-                        // levy = (Math.round(levy * 100) / 100).toFixed(2);
-                        // initial_premium = (Math.round(initial_premium * 100) / 100).toFixed(2);
-                        // modal_premium_payment = (Math.round(modal_premium_payment * 100) / 100).toFixed(2);
                         $('#levy').val(levy);
                         $('#initial_premium').val(initial_premium);
                         $('#modal_premium_payment').val(modal_premium_payment);
