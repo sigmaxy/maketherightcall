@@ -147,7 +147,7 @@ class EditCallForm extends FormBase {
     $form['call_detail']['status'] = [
       '#type' => 'select',
       '#title' => $this->t('Call Status'),
-      '#weight' => '3',
+      '#weight' => '1',
       '#options' => $call_status_opt,
       '#default_value' => isset($db_call['status'])?$db_call['status']:0,
       '#attributes' => [   
@@ -158,7 +158,7 @@ class EditCallForm extends FormBase {
     $form['call_detail']['reject_reason'] = [
       '#type' => 'select',
       '#title' => $this->t('Reject Reason'),
-      '#weight' => '4',
+      '#weight' => '2',
       '#options' => $reject_reason_opt,
       '#default_value' => isset($db_call['reject_reason'])?$db_call['reject_reason']:0,
       '#attributes' => [   
@@ -195,17 +195,6 @@ class EditCallForm extends FormBase {
       ],
       '#submit' => array('::sales_call'),
       '#weight' => '7',
-    ];
-    $form['call_detail']['status'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Call Status'),
-      '#weight' => '3',
-      '#options' => $call_status_opt,
-      '#default_value' => isset($db_call['status'])?$db_call['status']:0,
-      '#attributes' => [   
-        'class' => ['noselect2'],
-      ],
-      '#wrapper_attributes' => ['class' => ['form_item_maxwidth']],
     ];
     $form['rhc_detail'] = [
       '#type'  => 'details',
@@ -328,6 +317,7 @@ class EditCallForm extends FormBase {
     // print_r($call);
     // $call['id'] = $this->call_id;
     $call['status'] = $form_state->getValue('status');
+    $call['reject_reason'] = $form_state->getValue('reject_reason');
     $call['remark'] = $form_state->getValue('remark');
     CallController::update_call($call);
     \Drupal::messenger()->addMessage('Call has been updated');
