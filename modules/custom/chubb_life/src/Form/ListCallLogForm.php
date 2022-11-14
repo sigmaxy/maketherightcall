@@ -31,6 +31,7 @@ class ListCallLogForm extends FormBase {
     $db_call = CallController::get_call_by_id($call_id);
     $this->import_customer_id = $db_call['import_customer_id'];
     $import_customer = CustomerController::get_import_customer_by_id($db_call['import_customer_id']);
+    $header_table['fid'] = t('Batch');
     $header_table['cust_ref'] = t('Ref No.');
     $header_table['name'] = t('Name');
     $header_table['tel_mbl'] = t('Mobile');
@@ -41,7 +42,7 @@ class ListCallLogForm extends FormBase {
     foreach($call_log_list as $key=>$data){
       $user = \Drupal\user\Entity\User::load($data->assignee_id); // pass your uid
       $agent_code = $user->field_agentcode->value;
-      
+      $row_data['fid'] = $import_customer['fid'];
       $row_data['cust_ref'] = $import_customer['cust_ref'];
       $row_data['name'] = $import_customer['name'];
       $row_data['tel_mbl'] = $import_customer['tel_mbl'];
