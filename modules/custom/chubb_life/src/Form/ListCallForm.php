@@ -28,6 +28,7 @@ class ListCallForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $header_table['fid'] = t('Batch');
     $header_table['cust_ref'] = t('Ref No.');
     $header_table['name'] = t('Name');
     $header_table['gender'] = t('Gender');
@@ -54,6 +55,7 @@ class ListCallForm extends FormBase {
       $view_log = Url::fromUserInput('/chubb_life/form/list_call_log/'.$data->id);
       $import_customer_id = $data->import_customer_id;
       $import_customer = CustomerController::get_import_customer_by_id($import_customer_id);
+      $row_data['fid'] = $import_customer['fid'];
       $row_data['cust_ref'] = $import_customer['cust_ref'];
       $row_data['name'] = $import_customer['name'];
       $row_data['gender'] = $import_customer['gender'];
