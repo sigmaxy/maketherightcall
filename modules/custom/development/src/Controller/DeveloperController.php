@@ -7,6 +7,7 @@ use Drupal\Core\Database\Database;
 use Drupal\Core\Url;
 
 use Drupal\api\Controller\APIController;
+use Drupal\datatables\Controller\SSPController;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -30,6 +31,12 @@ class DeveloperController extends ControllerBase {
     switch ($actionname) {
       case 'test':
         self::test();
+      break;
+      case 'url_check':
+        self::url_check();
+      break;
+      case 'running_check':
+        self::running_check();
       break;
       case 'phpinfo':
         self::php_info();exit;
@@ -59,7 +66,33 @@ class DeveloperController extends ControllerBase {
     exit;
   }
   public static function test(){
+    // DB table to use
+    $table = 'view_mtrc_customer_call';
 
+    // Table's primary key
+    $primaryKey = 'id';
+
+    // Array of database columns which should be read and sent back to DataTables.
+    // The `db` parameter represents the column name in the database, while the `dt`
+    // parameter represents the DataTables column identifier. In this case simple
+    // indexes
+    $columns = array(
+      array( 'db' => 'cust_ref', 'dt' => 0 ),
+      array( 'db' => 'name',  'dt' => 1 ),
+      array( 'db' => 'gender',   'dt' => 2 ),
+      array( 'db' => 'tel_mbl',     'dt' => 3 ),
+      array(
+        'db'        => 'created_at',
+        'dt'        => 4,
+        'formatter' => function( $d, $row ) {
+          return date( 'jS M y', strtotime($d));
+        }
+      ),
+    );
+    echo json_encode(
+      SSPController::simple( $table, $primaryKey, $columns )
+    );
+    
   }
   public static function deleteDir($dirPath) {
     if (! is_dir($dirPath)) {
@@ -77,15 +110,13 @@ class DeveloperController extends ControllerBase {
         }
     }
     rmdir($dirPath);
-}
-public static function running_check(){
-  $file = "https://stagmtrc.sigmaxu.com/maintenance.txt";
-  $data_json = file_get_contents($file);
-  $flag = json_decode($data_json);
-  if($flag->flag){
-    sleep(600);
   }
-}
+  public static function running_check(){
+    $config = \Drupal::service('config.factory')->getEditable('chubb_life.settings');
+    if($config->get('reject_payment')){
+      sleep(600);
+    }
+  }
   public static function maintenance_check(){
     $file = "https://stagmtrc.sigmaxu.com/maintenance.txt";
     $data_json = file_get_contents($file);

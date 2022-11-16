@@ -16,7 +16,7 @@ use Drupal\Core\Link;
 /**
  * Class ListCustomerForm.
  */
-class ListCustomerForm extends FormBase {
+class ListCustomerForm2 extends FormBase {
 
   /**
    * {@inheritdoc}
@@ -29,25 +29,7 @@ class ListCustomerForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $conditions = array();
-    if(\Drupal::request()->query->get('batch')){
-      $conditions['fid']=\Drupal::request()->query->get('batch');
-    }
-    if(\Drupal::request()->query->get('name')){
-      $conditions['name']=\Drupal::request()->query->get('name');
-    }
-    if(\Drupal::request()->query->get('cust_ref')){
-      $conditions['cust_ref']=\Drupal::request()->query->get('cust_ref');
-    }
-    if(\Drupal::request()->query->get('tel_mbl')){
-      $conditions['tel_mbl']=\Drupal::request()->query->get('tel_mbl');
-    }
-    if(\Drupal::request()->query->get('created_at')){
-      $conditions['created_at']=\Drupal::request()->query->get('created_at');
-    }
-    if(\Drupal::request()->query->get('status')){
-      $conditions['status']=\Drupal::request()->query->get('status');
-    }
+    $header_table['id'] = '';
     $header_table['cust_ref'] = t('Ref No.');
     $header_table['name'] = t('Name');
     $header_table['gender'] = t('Gender');
@@ -58,38 +40,36 @@ class ListCustomerForm extends FormBase {
     $header_table['created_at'] = t('Created At');
     $header_table['updated_by'] = t('Updated By');
     $rows=array();
-    $import_customer_list = CustomerController::list_import_customer_pager($pager,$conditions);
-    $call_status_opt = AttributeController::get_call_status_options();
-    $filter_call_status_opt = $call_status_opt;
-    $filter_call_status_opt['null'] = 'Not Assigned';
     DeveloperController::running_check();
-    foreach($import_customer_list as $key=>$data){
-      // $edit   = Url::fromUserInput('/chubb_life/form/editcall/'.$data->id);
-      $db_call = CallController::get_call_by_import_customer_id($data->id);
-      if (isset($db_call['id'])) {
-        $row_data['status'] = $call_status_opt[$db_call['status']];
-        $user = \Drupal\user\Entity\User::load($db_call['assignee_id']);
-        $agent_code = $user->field_agentcode->value;
-        $row_data['assignee'] = $user->getEmail();
-        if(!empty($agent_code)){
-          $row_data['assignee'] = $agent_code;
-        }
-      }else{
-        $row_data['status'] = 'Not Assigned';
-        $row_data['assignee'] = '';
-      }
-      $row_data['cust_ref'] = $data->cust_ref;
-      $row_data['name'] = $data->name;
-      $row_data['gender'] = $data->gender;
-      $row_data['tel_mbl'] = $data->tel_mbl;
-      $row_data['fid'] = $data->fid;
-      $row_data['created_at'] = date('Y-m-d',$data->created_at);
-      $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
-      $row_data['updated_by'] = $updated_user->field_agentname->value;
+    // $import_customer_list = CustomerController::list_import_customer();
+    // $call_status_opt = AttributeController::get_call_status_options();
+    // foreach($import_customer_list as $key=>$data){
+    //   // $edit   = Url::fromUserInput('/chubb_life/form/editcall/'.$data->id);
+    //   $db_call = CallController::get_call_by_import_customer_id($data->id);
+    //   if (isset($db_call['id'])) {
+    //     $row_data['status'] = $call_status_opt[$db_call['status']];
+    //     $user = \Drupal\user\Entity\User::load($db_call['assignee_id']);
+    //     $agent_code = $user->field_agentcode->value;
+    //     $row_data['assignee'] = $user->getEmail();
+    //     if(!empty($agent_code)){
+    //       $row_data['assignee'] = $agent_code;
+    //     }
+    //   }else{
+    //     $row_data['status'] = 'Not Assigned';
+    //     $row_data['assignee'] = '';
+    //   }
+    //   $row_data['cust_ref'] = $data->cust_ref;
+    //   $row_data['name'] = $data->name;
+    //   $row_data['gender'] = $data->gender;
+    //   $row_data['tel_mbl'] = $data->tel_mbl;
+    //   $row_data['fid'] = $data->fid;
+    //   $row_data['created_at'] = date('Y-m-d',$data->created_at);
+    //   $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
+    //   $row_data['updated_by'] = $updated_user->field_agentname->value;
       
-      // $row_data['opt'] = Link::fromTextAndUrl('Edit', $edit);
-      $rows[$data->id] = $row_data;
-    }
+    //   // $row_data['opt'] = Link::fromTextAndUrl('Edit', $edit);
+    //   $rows[$data->id] = $row_data;
+    // }
     $form['upload_filters'] = [
       '#type'  => 'details',
       '#title' => $this->t('Function'),
@@ -111,86 +91,17 @@ class ListCustomerForm extends FormBase {
       '#open'  => true,
       '#weight' => '2',
     ];
-    $form['import_customer_filter']['cust_ref'] = [
-      '#type' => 'textfield',
-      '#title' => 'Customer Ref',
-      '#default_value' => isset($conditions['cust_ref'])?$conditions['cust_ref']:'',
-      '#maxlength' => 255,
-      '#weight' => '1',
-    ];
-    $form['import_customer_filter']['name'] = [
-      '#type' => 'textfield',
-      '#title' => 'Customer Name',
-      '#default_value' => isset($conditions['name'])?$conditions['name']:'',
-      '#maxlength' => 255,
-      '#weight' => '2',
-    ];
-    $form['import_customer_filter']['fid'] = [
-      '#type' => 'textfield',
-      '#title' => 'Batch Num',
-      '#default_value' => isset($conditions['fid'])?$conditions['fid']:'',
-      '#maxlength' => 255,
-      '#weight' => '3',
-    ];
-    $form['import_customer_filter']['tel_mbl'] = [
-      '#type' => 'textfield',
-      '#title' => 'Mobile',
-      '#default_value' => isset($conditions['tel_mbl'])?$conditions['tel_mbl']:'',
-      '#maxlength' => 255,
-      '#weight' => '4',
-    ];
-    $form['import_customer_filter']['created_at'] = [
-      '#type' => 'date',
-      '#title' => 'Created At',
-      '#default_value' => isset($conditions['created_at'])?$conditions['created_at']:'',
-      '#maxlength' => 255,
-      '#weight' => '5',
-    ];
-    $form['import_customer_filter']['status'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Status'),
-      '#options' => $filter_call_status_opt,
-      '#empty_option' => '--Select--',
-      '#default_value' => isset($conditions['status'])?$conditions['status']:'',
-      '#attributes' => [
-        'class' => ['noselect2'],
-      ],
-      '#weight' => '6',
-    ];
-    $form['import_customer_filter']['filter_customer'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Filter'),
-      '#attributes' => [   
-        'class' => ['next_button'],
-      ],
-      '#submit' => array('::filter_customer'),
-      '#weight' => '10',
-    ];
-    $form['import_customer_filter']['clear_filter'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Clear'),
-      '#attributes' => [   
-        'class' => ['next_button'],
-      ],
-      '#submit' => array('::clear_filter'),
-      '#weight' => '11',
-    ];
     $form['import_customer_filter']['import_customer_list_table'] = [
       '#type' => 'tableselect',
       '#header' => $header_table,
-      '#options' => $rows,
+      // '#options' => $rows,
       '#empty' => t('No Customer found'),
       '#attributes' => [   
-        'class' => ['import_customer_list1','traditional_data_tale'],
+        'class' => ['import_customer_list'],
         'col_sort_index' => 8,
         'col_sort_type' => 'desc',
       ],
-      '#weight' => '20',
     ];
-    $form['import_customer_filter']['pager'] = array(
-      '#type' => 'pager',
-      '#weight' => '21',
-    );
     $form['function_filters'] = [
       '#type'  => 'details',
       '#title' => $this->t('Function'),
@@ -309,33 +220,6 @@ class ListCustomerForm extends FormBase {
     foreach ($form_state->getValues() as $key => $value) {
       \Drupal::messenger()->addMessage($key . ': ' . ($key === 'text_format'?$value['value']:$value));
     }
-  }
-  public function filter_customer(array &$form, FormStateInterface $form_state) {
-    $url = Url::fromUserInput('/chubb_life/form/list_customer');
-    if(!empty($form_state->getValue('cust_ref'))){
-      $args['cust_ref'] = $form_state->getValue('cust_ref');
-    }
-    if(!empty($form_state->getValue('name'))){
-      $args['name'] = $form_state->getValue('name');
-    }
-    if(!empty($form_state->getValue('fid'))){
-      $args['fid'] = $form_state->getValue('fid');
-    }
-    if(!empty($form_state->getValue('tel_mbl'))){
-      $args['tel_mbl'] = $form_state->getValue('tel_mbl');
-    }
-    if(!empty($form_state->getValue('created_at'))){
-      $args['created_at'] = $form_state->getValue('created_at');
-    }
-    if(!empty($form_state->getValue('status'))){
-      $args['status'] = $form_state->getValue('status');
-    }
-    $url->setOptions(array('query' => $args));
-    $form_state->setRedirectUrl($url);
-  }
-  public function clear_filter(array &$form, FormStateInterface $form_state) {
-    $url = Url::fromUserInput('/chubb_life/form/list_customer');
-    $form_state->setRedirectUrl($url);
   }
 
 }

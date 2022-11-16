@@ -49,6 +49,29 @@ class CustomerController extends ControllerBase {
     $record = $query->execute()->fetchAll();
     return $record;
   }
+  public static function list_import_customer_pager($pager,$conditions){
+    $connection = Database::getConnection();
+    $query = $connection->select('view_mtrc_customer_call', 'vmcc');
+    if(isset($conditions['created_at'])){
+      $startdate = strtotime($conditions['created_at']);
+      $enddate = strtotime("+1 day", $startdate);
+      $query->condition('created_at', [$startdate,$enddate], 'BETWEEN');
+      unset($conditions['created_at']);
+    }
+    if($conditions['status']=='null'){
+      $query->condition('status', NULL, 'IS NULL');
+      unset($conditions['status']);
+    }
+    if(!empty($conditions)){
+      foreach ($conditions as $key => $value) {
+        $query->condition($key, '%' . $value . '%', 'LIKE');
+      }
+    }
+    $query->fields('vmcc');
+    $pager = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10);
+    $record = $pager->execute()->fetchAll();
+    return $record;
+  }
   public static function update_import_customer($customer){
     $connection = Database::getConnection();
     $db_fields_ic = $customer;

@@ -1,0 +1,8 @@
+
+datatables.s_s_p_controller:
+  path: '/datatables/ssp'
+  defaults:
+    _controller: '\Drupal\datatables\Controller\SSPController::test'
+    _title: 'test'
+  requirements:
+    _permission: 'access content'

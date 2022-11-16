@@ -12,6 +12,13 @@ chubb_life.list_customer_form:
     _title: 'Imported Customer List'
   requirements:
    _permission: 'access chubb_life_manager configuration'
+chubb_life.list_customer_form2:
+  path: '/chubb_life/form/list_customer2'
+  defaults:
+    _form: '\Drupal\chubb_life\Form\ListCustomerForm2'
+    _title: 'Imported Customer List2'
+  requirements:
+   _permission: 'access chubb_life_manager configuration'
 chubb_life.list_customer_data:
   path: '/chubb_life/data/list_customer'
   defaults:
@@ -53,6 +60,13 @@ chubb_life.list_call_form:
   path: '/chubb_life/form/list_call'
   defaults:
     _form: '\Drupal\chubb_life\Form\ListCallForm'
+    _title: 'Call List'
+  requirements:
+    _permission: 'access chubb_life_assignee configuration'
+chubb_life.list_call_form2:
+  path: '/chubb_life/form/list_call2'
+  defaults:
+    _form: '\Drupal\chubb_life\Form\ListCallForm2'
     _title: 'Call List'
   requirements:
     _permission: 'access chubb_life_assignee configuration'

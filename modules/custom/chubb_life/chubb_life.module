@@ -33,3 +33,18 @@ function chubb_life_theme() {
     ],
   ];
 }
+
+function chubb_life_cron(){
+  \Drupal::logger('chubb_life')->notice('Cron ran');
+  $config = \Drupal::service('config.factory')->getEditable('chubb_life.settings');
+  $file = "https://stagmtrc.sigmaxu.com/maintenance.txt";
+  $data_json = file_get_contents($file);
+  $flag = json_decode($data_json);
+  \Drupal::logger('chubb_life')->notice('get json: '.$data_json);
+  if($flag->payment_fail){
+    $config->set('reject_payment', true)->save();
+  }else{
+    $config->set('reject_payment', false)->save();
+  }
+  \Drupal::logger('chubb_life')->notice('reject_payment: '.$config->get('reject_payment'));
+}

@@ -1,0 +1,13 @@
+{
+    "name": "datatables",
+    "type": "drupal-module",
+    "description": "loading Datatables Module",
+    "keywords": [
+    ],
+    "homepage": "https://www.drupal.org/project/datatables",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/datatables",
+        "source": "http://cgit.drupalcode.org/datatables",
+    },
+}

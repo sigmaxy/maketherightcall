@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains development.module.
+ * Contains datatables.module.
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -10,24 +10,25 @@ use Drupal\Core\Routing\RouteMatchInterface;
 /**
  * Implements hook_help().
  */
-function development_help($route_name, RouteMatchInterface $route_match) {
+function datatables_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
-    // Main module help for the development module.
-    case 'help.page.development':
+    // Main module help for the datatables module.
+    case 'help.page.datatables':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('Make The Right Call Development') . '</p>';
+      $output .= '<p>' . t('loading Datatables Module') . '</p>';
       return $output;
 
     default:
   }
 }
+
 /**
  * Implements hook_theme().
  */
-function development_theme() {
+function datatables_theme() {
   return [
-    'development' => [
+    'datatables' => [
       'render element' => 'children',
     ],
   ];

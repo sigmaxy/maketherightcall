@@ -5,12 +5,12 @@ chubb_life.customer:
   route_name: chubb_life.list_customer_form
   weight: 2
 
-# chubb_life.customer_list:
-#   title: 'List Customer'
-#   description: 'List'
-#   parent: chubb_life.customer
-#   route_name: chubb_life.list_customer_form
-#   weight: 2
+chubb_life.customer_list2:
+  title: 'List Customer2'
+  description: 'List'
+  parent: chubb_life.customer
+  route_name: chubb_life.list_customer_form2
+  weight: 2
 
 chubb_life.call:
   title: 'Call'
@@ -19,12 +19,12 @@ chubb_life.call:
   route_name: chubb_life.list_call_form
   weight: 3
 
-# chubb_life.call_list:
-#   title: 'List Call'
-#   description: 'List'
-#   parent: chubb_life.call
-#   route_name: chubb_life.list_call_form
-#   weight: 1
+chubb_life.call_list:
+  title: 'List Call2'
+  description: 'List'
+  parent: chubb_life.call
+  route_name: chubb_life.list_call_form2
+  weight: 1
 
 chubb_life.order:
   title: 'Smart'
