@@ -43,48 +43,48 @@ class ListCallForm2 extends FormBase {
     $current_uid = \Drupal::currentUser()->id();
 
 
-    $roles = \Drupal::currentUser()->getRoles();
-    if(in_array('manager', $roles)||in_array('administrator', $roles)) {
-      $call_list = CallController::list_call_by_assignee(null);
-    }else{
-      $call_list = CallController::list_call_by_assignee($current_uid);
-    }
-    $call_status_opt = AttributeController::get_call_status_options();
-    foreach($call_list as $key=>$data){
-      $edit = Url::fromUserInput('/chubb_life/form/edit_call/'.$data->id);
-      $view_log = Url::fromUserInput('/chubb_life/form/list_call_log/'.$data->id);
-      $import_customer_id = $data->import_customer_id;
-      $import_customer = CustomerController::get_import_customer_by_id($import_customer_id);
-      $row_data['fid'] = $import_customer['fid'];
-      $row_data['cust_ref'] = $import_customer['cust_ref'];
-      $row_data['name'] = $import_customer['name'];
-      $row_data['gender'] = $import_customer['gender'];
-      $row_data['tel_mbl'] = $import_customer['tel_mbl'];
-      $row_data['status'] = $call_status_opt[$data->status];
-      $row_data['count'] = [
-        'class'=>['call_count'],
-        'data-call_id'=>$data->id,
-        // 'data' => $data->count,
-        'data' => Link::fromTextAndUrl($data->count, $view_log),
-      ];
+    // $roles = \Drupal::currentUser()->getRoles();
+    // if(in_array('manager', $roles)||in_array('administrator', $roles)) {
+    //   $call_list = CallController::list_call_by_assignee(null);
+    // }else{
+    //   $call_list = CallController::list_call_by_assignee($current_uid);
+    // }
+    // $call_status_opt = AttributeController::get_call_status_options();
+    // foreach($call_list as $key=>$data){
+    //   $edit = Url::fromUserInput('/chubb_life/form/edit_call/'.$data->id);
+    //   $view_log = Url::fromUserInput('/chubb_life/form/list_call_log/'.$data->id);
+    //   $import_customer_id = $data->import_customer_id;
+    //   $import_customer = CustomerController::get_import_customer_by_id($import_customer_id);
+    //   $row_data['fid'] = $import_customer['fid'];
+    //   $row_data['cust_ref'] = $import_customer['cust_ref'];
+    //   $row_data['name'] = $import_customer['name'];
+    //   $row_data['gender'] = $import_customer['gender'];
+    //   $row_data['tel_mbl'] = $import_customer['tel_mbl'];
+    //   $row_data['status'] = $call_status_opt[$data->status];
+    //   $row_data['count'] = [
+    //     'class'=>['call_count'],
+    //     'data-call_id'=>$data->id,
+    //     // 'data' => $data->count,
+    //     'data' => Link::fromTextAndUrl($data->count, $view_log),
+    //   ];
 
-      $user = \Drupal\user\Entity\User::load($data->assignee_id);
-      $agent_code = $user->field_agentcode->value;
-      $row_data['assignee'] = $user->getEmail();
-      if(!empty($agent_code)){
-        $row_data['assignee'] = $agent_code;
-      }
-
-
+    //   $user = \Drupal\user\Entity\User::load($data->assignee_id);
+    //   $agent_code = $user->field_agentcode->value;
+    //   $row_data['assignee'] = $user->getEmail();
+    //   if(!empty($agent_code)){
+    //     $row_data['assignee'] = $agent_code;
+    //   }
 
 
 
-      $row_data['updated_at'] = date('Y-m-d H:i:s',$data->updated_at);
-      $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
-      $row_data['updated_by'] = $updated_user->field_agentname->value;
-      $row_data['opt'] = Link::fromTextAndUrl('View', $edit);
-      $rows[$data->id] = $row_data;
-    }
+
+
+    //   $row_data['updated_at'] = date('Y-m-d H:i:s',$data->updated_at);
+    //   $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
+    //   $row_data['updated_by'] = $updated_user->field_agentname->value;
+    //   $row_data['opt'] = Link::fromTextAndUrl('View', $edit);
+    //   $rows[$data->id] = $row_data;
+    // }
     $form['call_filter'] = [
       '#type'  => 'details',
       '#title' => $this->t('Assigned Call'),
@@ -97,7 +97,7 @@ class ListCallForm2 extends FormBase {
       '#rows' => $rows,
       '#empty' => t('No Customer found'),
       '#attributes' => [   
-        'class' => ['customer_list','table_list_data'],
+        'class' => ['call_list'],
         'col_sort_index' => 1,
         // 'col_sort_type' => 'asc',
       ],
