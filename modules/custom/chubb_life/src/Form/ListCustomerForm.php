@@ -30,8 +30,8 @@ class ListCustomerForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $conditions = array();
-    if(\Drupal::request()->query->get('batch')){
-      $conditions['fid']=\Drupal::request()->query->get('batch');
+    if(\Drupal::request()->query->get('fid')){
+      $conditions['fid']=\Drupal::request()->query->get('fid');
     }
     if(\Drupal::request()->query->get('name')){
       $conditions['name']=\Drupal::request()->query->get('name');
