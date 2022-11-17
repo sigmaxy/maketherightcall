@@ -69,8 +69,9 @@ class CallController extends ControllerBase {
   public static function list_call_by_assignee_view($pager,$conditions){
     $connection = Database::getConnection();
     $query = $connection->select('view_mtrc_call_customer', 'vmcc');
+    $query->fields('vmcc');
     if(isset($conditions['assignee_id'])){
-      $query->condition('assignee_id', $assignee_id);
+      $query->condition('assignee_id', $conditions['assignee_id']);
       unset($conditions['assignee_id']);
     }
     if(isset($conditions['updated_at'])){
@@ -84,7 +85,6 @@ class CallController extends ControllerBase {
         $query->condition($key, '%' . $value . '%', 'LIKE');
       }
     }
-    $query->fields('vmcc');
     $pager = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10);
     $record = $pager->execute()->fetchAll();
     return $record;
