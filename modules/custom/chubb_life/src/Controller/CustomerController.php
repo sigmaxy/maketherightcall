@@ -50,34 +50,32 @@ class CustomerController extends ControllerBase {
     return $record;
   }
   public static function list_import_customer_pager($conditions){
-    \Drupal::logger('chubb_life')->notice('list customer 1.1: '.date('H:i:s'));
     $connection = Database::getConnection();
     $query = $connection->select('view_mtrc_customer_call', 'vmcc');
-    \Drupal::logger('chubb_life')->notice('list customer 1.2: '.date('H:i:s'));
     if(isset($conditions['created_at'])){
       $startdate = strtotime($conditions['created_at']);
       $enddate = strtotime("+1 day", $startdate);
       $query->condition('created_at', [$startdate,$enddate], 'BETWEEN');
       unset($conditions['created_at']);
     }
-    \Drupal::logger('chubb_life')->notice('list customer 1.3: '.date('H:i:s'));
     if(isset($conditions['status'])&&$conditions['status']=='null'){
       $query->condition('status', NULL, 'IS NULL');
       unset($conditions['status']);
     }
-    \Drupal::logger('chubb_life')->notice('list customer 1.4: '.date('H:i:s'));
     if(!empty($conditions)){
       foreach ($conditions as $key => $value) {
         $query->condition($key, '%' . $value . '%', 'LIKE');
       }
     }
-    \Drupal::logger('chubb_life')->notice('list customer 1.5: '.date('H:i:s'));
     $query->fields('vmcc');
-    \Drupal::logger('chubb_life')->notice('list customer 1.6: '.date('H:i:s'));
-    $pager = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10);
-    \Drupal::logger('chubb_life')->notice('list customer 1.7: '.date('H:i:s'));
-    $record = $pager->execute()->fetchAll();
-    \Drupal::logger('chubb_life')->notice('list customer 1.8: '.date('H:i:s'));
+    \Drupal::logger('chubb_life')->notice('list customer 1: '.date('H:i:s'));
+    $page_display = 10;
+    $query = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10);
+    // $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->range(0,10);
+    // $query = $query->range(0,10);
+    \Drupal::logger('chubb_life')->notice('list customer 2: '.date('H:i:s'));
+    $record = $query->execute()->fetchAll();
+    \Drupal::logger('chubb_life')->notice('list customer 3: '.date('H:i:s'));
     return $record;
   }
   public static function update_import_customer($customer){
