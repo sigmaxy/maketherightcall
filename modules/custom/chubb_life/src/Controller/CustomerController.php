@@ -49,7 +49,7 @@ class CustomerController extends ControllerBase {
     $record = $query->execute()->fetchAll();
     return $record;
   }
-  public static function list_import_customer_pager($pager,$conditions){
+  public static function list_import_customer_pager($conditions){
     $connection = Database::getConnection();
     $query = $connection->select('view_mtrc_customer_call', 'vmcc');
     if(isset($conditions['created_at'])){
@@ -58,7 +58,7 @@ class CustomerController extends ControllerBase {
       $query->condition('created_at', [$startdate,$enddate], 'BETWEEN');
       unset($conditions['created_at']);
     }
-    if($conditions['status']=='null'){
+    if(isset($conditions['status'])&&$conditions['status']=='null'){
       $query->condition('status', NULL, 'IS NULL');
       unset($conditions['status']);
     }
