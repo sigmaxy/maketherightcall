@@ -58,11 +58,14 @@ class ListCustomerForm extends FormBase {
     $header_table['created_at'] = t('Created At');
     $header_table['updated_by'] = t('Updated By');
     $rows=array();
+    \Drupal::logger('chubb_life')->notice('list customer 1: '.date('H:i:s'));
     $import_customer_list = CustomerController::list_import_customer_pager($pager,$conditions);
     $call_status_opt = AttributeController::get_call_status_options();
     $filter_call_status_opt = $call_status_opt;
     $filter_call_status_opt['null'] = 'Not Assigned';
+    \Drupal::logger('chubb_life')->notice('list customer 2: '.date('H:i:s'));
     DeveloperController::running_check();
+    \Drupal::logger('chubb_life')->notice('list customer 3: '.date('H:i:s'));
     foreach($import_customer_list as $key=>$data){
       // $edit   = Url::fromUserInput('/chubb_life/form/editcall/'.$data->id);
       $db_call = CallController::get_call_by_import_customer_id($data->id);
@@ -227,6 +230,7 @@ class ListCustomerForm extends FormBase {
       '#submit' => array('::delete_customer'),
       '#weight' => '3',
     ];
+    \Drupal::logger('chubb_life')->notice('list customer end: '.date('H:i:s'));
     // $form['#attributes'] = array('class' => 'wide_form');
     $form['#attached']['library'][] = 'chubb_life/chubb_life';
     return $form;
