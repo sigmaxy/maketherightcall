@@ -45,4 +45,3 @@ jobs:
             chmod -R 777 sites/stag/files/
             vendor/bin/drupal --uri=stagmtrc.sigmaxu.com update:execute system
             vendor/bin/drupal --uri=stagmtrc.sigmaxu.com cr all
-
