@@ -92,7 +92,7 @@ class ListCustomerForm2 extends FormBase {
       '#weight' => '2',
     ];
     $form['import_customer_filter']['import_customer_list_table'] = [
-      '#type' => 'tableselect',
+      '#type' => 'table',
       '#header' => $header_table,
       // '#options' => $rows,
       '#empty' => t('No Customer found'),

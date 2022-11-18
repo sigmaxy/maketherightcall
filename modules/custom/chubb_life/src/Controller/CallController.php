@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\AlertCommand;
 use Drupal\chubb_life\Ajax\AjaxCommand;
+use Drupal\datatables\Controller\SSPController;
 
 /**
  * Class CallController.
@@ -182,6 +183,45 @@ class CallController extends ControllerBase {
     $query->condition('call_id', $call_id);
     $record = $query->execute()->fetchAll();
     return $record;
+  }
+  public static function ajax_datatable_list_call2(){
+    $results = [];
+    $table = 'view_mtrc_call_customer_ajax';
+    $primaryKey = 'id';
+    $columns = array(
+      array( 'db' => 'fid', 'dt' => 0 ),
+      array( 'db' => 'cust_ref', 'dt' => 1 ),
+      array( 'db' => 'name',  'dt' => 2 ),
+      array( 'db' => 'gender',   'dt' => 3 ),
+      array( 'db' => 'tel_mbl',     'dt' => 4 ),
+      array( 'db' => 'status',     'dt' => 5 ),
+      array(
+        'db'        => 'count',
+        'dt'        => 6,
+        'formatter' => function( $d, $row ) {
+          return '<a href="/chubb_life/form/list_call_log/'.$row['id'].'">'.$d.'</a>';
+        }
+      ),
+      array( 'db' => 'assignee',     'dt' => 7 ),
+      array( 'db' => 'updated_at',     'dt' => 8 ),
+      array( 'db' => 'updated_by_name',     'dt' => 9 ),
+      array(
+        'db'        => 'id',
+        'dt'        => 10,
+        'formatter' => function( $d, $row ) {
+          return '<a href="/chubb_life/form/edit_call/'.$d.'">View</a>';
+        }
+      ),
+    );
+    $roles = \Drupal::currentUser()->getRoles();
+    $current_uid = \Drupal::currentUser()->id();
+    if(in_array('manager', $roles)||in_array('administrator', $roles)) {
+      $results = SSPController::simple($table, $primaryKey, $columns);
+    }else{
+      $where = "assignee_id=".$current_uid;
+      $results = SSPController::complex($table, $primaryKey, $columns, null, $where);
+    }
+    return new JsonResponse($results);
   }
 
 }

@@ -52,13 +52,11 @@ jQuery(document).ready(function($){
         fixedHeader: true,
         initComplete: function () {
             var api = this.api();
- 
             // For each column
             api
                 .columns()
                 .eq(0)
                 .each(function (colIdx) {
-                    
                     // Set the header cell to contain the input element
                     var cell = $('.filters th').eq(
                         $(api.column(colIdx).header()).index()
@@ -77,40 +75,21 @@ jQuery(document).ready(function($){
                     )
                         .off('keyup change')
                         .on('change', function (e) {
-                            // Get the search value
-                            $(this).attr('title', $(this).val());
-                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
- 
-                            var cursorPosition = this.selectionStart;
-                            // Search the column for that value
-                            api
-                                .column(colIdx)
-                                .search(
-                                    this.value != ''
-                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                        : '',
-                                    this.value != '',
-                                    this.value == ''
-                                )
-                                .draw();
+                            if (api.column(colIdx).search() !== this.value) {
+                                api.column(colIdx).search(this.value).draw();
+                            }
                         })
                         .on('keyup', function (e) {
                             e.stopPropagation();
- 
                             $(this).trigger('change');
-                            $(this)
-                                .focus()[0]
-                                .setSelectionRange(cursorPosition, cursorPosition);
                         });
                 });
         },
     });
-    $('table.import_customer_list thead tr')
-    // .not(":eq(0)")
+    $('.import_customer_list thead tr')
     .clone(true)
     .addClass('filters')
     .appendTo('table.import_customer_list thead');
-    var datatable_customer_list = $('table.import_customer_list');
     $(document).on('click','#customer_list_checkall',function(e) {
         console.log('customer_list_checkall is '+$('#customer_list_checkall').is(':checked'));
         if ($('#customer_list_checkall').is(':checked')) {
@@ -119,43 +98,18 @@ jQuery(document).ready(function($){
             $(".customer_list_row_checkbox").prop( "checked", false );
         }
 	});
-    datatable_customer_list.DataTable({
-        "order": datatable_customer_list.attr('col_sort_index') ? [ datatable_customer_list.attr('col_sort_index'), datatable_customer_list.attr('col_sort_type')] : [],
-		"pageLength": datatable_customer_list.attr('default_page_length') ? datatable_customer_list.attr('default_page_length') : 10,
-		"orderCellsTop": true,
-		"processing": true,
-        ajax: window.location.origin+drupalSettings.path.baseUrl+'chubb_life/data/list_customer/',
-        columns: [
-            {
-                data:   "id",
-                render: function ( data, type, row ) {
-                    if ( type === 'display' ) {
-                        // return '<input class="import_customer_list form-checkbox form-boolean form-boolean--type-checkbox" data-drupal-selector="edit-import-customer-list-table-1145" type="checkbox" id="edit-import-customer-list-table-1145" name="import_customer_list_table[1145]" value="1145"></input>'
-                        return '<input type="checkbox" class="customer_list_row_checkbox" name="import_customer_list_table['+data+']" value="'+data+'">';
-                    }
-                    return data;
-                },
-                className: "dt-body-center"
-            },
-            { data: "cust_ref" },
-            { data: "name" },
-            { data: "gender" },
-            { data: "tel_mbl" },
-            { data: "status" },
-            { data: "fid" },
-            { data: "assignee" },
-            { data: "created_at" },
-            { data: "updated_by" },
-        ],
+    var datatable_customer_list = $('.import_customer_list').DataTable({
+        orderCellsTop: true,
+        fixedHeader: true,
+		processing: true,
+        serverSide: true,
+        ajax: window.location.origin+drupalSettings.path.baseUrl+'chubb_life/data/list_customer2/',
         initComplete: function () {
             var api = this.api();
- 
-            // For each column
             api
                 .columns()
                 .eq(0)
                 .each(function (colIdx) {
-                    
                     // Set the header cell to contain the input element
                     var cell = $('.filters th').eq(
                         $(api.column(colIdx).header()).index()
@@ -172,7 +126,6 @@ jQuery(document).ready(function($){
                     }
                     var title = $(cell).text();
                     $(cell).html('<input type="text" class="datatable_filter_header" placeholder="' + title + '" />');
- 
                     // On every keypress in this input
                     $(
                         'input',
@@ -180,30 +133,63 @@ jQuery(document).ready(function($){
                     )
                         .off('keyup change')
                         .on('change', function (e) {
-                            // Get the search value
-                            $(this).attr('title', $(this).val());
-                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
- 
-                            var cursorPosition = this.selectionStart;
-                            // Search the column for that value
-                            api
-                                .column(colIdx)
-                                .search(
-                                    this.value != ''
-                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                        : '',
-                                    this.value != '',
-                                    this.value == ''
-                                )
-                                .draw();
+                            if (api.column(colIdx).search() !== this.value) {
+                                api.column(colIdx).search(this.value).draw();
+                            }
                         })
                         .on('keyup', function (e) {
                             e.stopPropagation();
- 
                             $(this).trigger('change');
-                            $(this)
-                                .focus()[0]
-                                .setSelectionRange(cursorPosition, cursorPosition);
+                        });
+                });
+        },
+    });
+    $('.call_list thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('.call_list thead');
+    var datatable_call_list = $('.call_list').DataTable({
+        orderCellsTop: true,
+        fixedHeader: true,
+		processing: true,
+        serverSide: true,
+        ajax: window.location.origin+drupalSettings.path.baseUrl+'chubb_life/data/list_call2/',
+        initComplete: function () {
+            var api = this.api();
+            api
+                .columns()
+                .eq(0)
+                .each(function (colIdx) {
+                    // Set the header cell to contain the input element
+                    var cell = $('.filters th').eq(
+                        $(api.column(colIdx).header()).index()
+                    );
+                    // if(colIdx==0){
+                    //     $(cell).html('<input type="checkbox" id="customer_list_checkall" name="select_all" value="">');
+                    //     return false;
+                    // }
+                    if(colIdx==10 ){
+                        $(cell).html('');
+                        return false;
+                    }else{
+
+                    }
+                    var title = $(cell).text();
+                    $(cell).html('<input type="text" class="datatable_filter_header" placeholder="' + title + '" />');
+                    // On every keypress in this input
+                    $(
+                        'input',
+                        $('.filters th').eq($(api.column(colIdx).header()).index())
+                    )
+                        .off('keyup change')
+                        .on('change', function (e) {
+                            if (api.column(colIdx).search() !== this.value) {
+                                api.column(colIdx).search(this.value).draw();
+                            }
+                        })
+                        .on('keyup', function (e) {
+                            e.stopPropagation();
+                            $(this).trigger('change');
                         });
                 });
         },

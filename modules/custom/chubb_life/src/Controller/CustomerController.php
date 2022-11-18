@@ -11,6 +11,7 @@ use Drupal\Core\Link;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\Component\Utility\Tags;
+use Drupal\datatables\Controller\SSPController;
 
 /**
  * Class CustomerController.
@@ -185,26 +186,30 @@ class CustomerController extends ControllerBase {
 
 
   }
-  public static function ajax_datatable_list_customer1(){
+  public static function ajax_datatable_list_customer2(){
     $results = [];
-    $results['draw'] = 1;
-    $customer_list = self::list_import_customer();
-    $results['recordsTotal'] = count($customer_list);
-    $results['recordsFiltered'] = count($customer_list);
-    foreach($customer_list as $key => $data){
-      $results['data'][] = [
-        $data->id,
-        $data->cust_ref,
-        $data->name,
-        $data->gender,
-        $data->tel_mbl,
-        '',
-        $data->fid,
-        '',
-        $data->created_at,
-        $data->updated_by,
-      ];
-    }
+    $call_status_opt = AttributeController::get_call_status_options();
+    $table = 'view_mtrc_customer_call_ajax';
+    $primaryKey = 'id';
+    $columns = array(
+      array(
+        'db'        => 'id',
+        'dt'        => 0,
+        'formatter' => function( $d, $row ) {
+          return '<input type="checkbox" class="customer_list_row_checkbox" name="import_customer_list_table['.$d.']"/>';
+        }
+      ),
+      array( 'db' => 'cust_ref', 'dt' => 1 ),
+      array( 'db' => 'name',  'dt' => 2 ),
+      array( 'db' => 'gender',   'dt' => 3 ),
+      array( 'db' => 'tel_mbl',     'dt' => 4 ),
+      array( 'db' => 'status',     'dt' => 5 ),
+      array( 'db' => 'fid',     'dt' => 6 ),
+      array( 'db' => 'assignee',     'dt' => 7 ),
+      array( 'db' => 'created_at',     'dt' => 8 ),
+      array( 'db' => 'updated_by_name',     'dt' => 9 ),
+    );
+    $results = SSPController::simple($table, $primaryKey, $columns);
     return new JsonResponse($results);
   }
 

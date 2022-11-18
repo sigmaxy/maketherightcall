@@ -235,8 +235,7 @@ class SSPController extends ControllerBase {
 	 *  @param  array $columns Column information array
 	 *  @return array          Server-side processing response array
 	 */
-	static function simple ($table, $primaryKey, $columns)
-	{
+	static function simple ($table, $primaryKey, $columns){
     $request = $_GET;
     $connection_info = Database::getConnectionInfo();
     $conn = array(
@@ -314,8 +313,16 @@ class SSPController extends ControllerBase {
 	 *  @param  string $whereAll WHERE condition to apply to all queries
 	 *  @return array          Server-side processing response array
 	 */
-	static function complex ( $request, $conn, $table, $primaryKey, $columns, $whereResult=null, $whereAll=null )
+	static function complex ($table, $primaryKey, $columns, $whereResult=null, $whereAll=null )
 	{
+		$request = $_GET;
+		$connection_info = Database::getConnectionInfo();
+		$conn = array(
+		  'user' => $connection_info['default']['username'],
+		  'pass' => $connection_info['default']['password'],
+		  'db'   => $connection_info['default']['database'],
+		  'host' => $connection_info['default']['host'],
+		);
 		$bindings = array();
 		$db = self::db( $conn );
 		$localWhereResult = array();
