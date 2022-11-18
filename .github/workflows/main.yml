@@ -12,8 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     environment: STAG
     steps:
-      - uses: actions/checkout@v2
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - name: rsync file to folder
+        uses: actions/checkout@v3
+        with:
+              repository: sigmaxy/maketherightcall
+              ref: staging
+              # path: my_private_repository
+              # token: ${{ secrets.MY_REPOSITORY_SECRET_ACTIONS }} 
+              fetch-depth: 0
+      - name: deploy step
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_ALI_STAGE_PRIVATE_KEY }}
@@ -39,39 +47,4 @@ jobs:
             chmod -R 777 sites/stag/files/
             vendor/bin/drupal --uri=stagmtrc.sigmaxu.com update:execute system
             vendor/bin/drupal --uri=stagmtrc.sigmaxu.com cr all
-  # vendor/bin/drupal --uri=locahost/maketherightcall cr all
-  # deploy_production:
-  #   runs-on: ubuntu-latest
-  #   environment: PRODUCTION
-  #   needs: deploy_staging
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: rsync file to folder
-  #       uses: easingthemes/ssh-deploy@main
-  #       env:
-  #         SSH_PRIVATE_KEY: ${{ secrets.AWS_SSH_PROD_PRIVATE_KEY }}
-  #         ARGS: "-avzr --delete"
-  #         SOURCE: ""
-  #         REMOTE_HOST: ${{ secrets.AWS_SSH_PROD_HOST }}
-  #         REMOTE_USER: ec2-user
-  #         TARGET: /var/www/f4f_erp
-  #         # EXCLUDE: "/dist/, /node_modules/"
-  #     - name: drupalconsole update cr
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.AWS_SSH_PROD_HOST }}
-  #         username: ec2-user
-  #         key: ${{ secrets.AWS_SSH_PROD_PRIVATE_KEY }}
-  #         port: 22
-  #         script: |
-  #           whoami
-  #           cat << EOF >> /var/www/f4f_erp/sites/prod/settings.php
-  #           ${{ secrets.AWS_PROD_SETTINGS }}
-  #           EOF
-  #           cd /var/www/f4f_erp
-  #           chmod -R 777 sites/prod/files/
-  #           chmod -R 777 sites/prod/files/f4f/
-  #           vendor/bin/drupal --uri=erp.first4figures.com update:execute system
-  #           vendor/bin/drupal --uri=erp.first4figures.com cr all
-
 

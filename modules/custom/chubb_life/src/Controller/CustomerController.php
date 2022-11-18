@@ -50,7 +50,7 @@ class CustomerController extends ControllerBase {
     $record = $query->execute()->fetchAll();
     return $record;
   }
-  public static function list_import_customer_pager($pager,$conditions){
+  public static function list_import_customer_pager($conditions){
     $connection = Database::getConnection();
     $query = $connection->select('view_mtrc_customer_call', 'vmcc');
     if(isset($conditions['created_at'])){
@@ -59,7 +59,7 @@ class CustomerController extends ControllerBase {
       $query->condition('created_at', [$startdate,$enddate], 'BETWEEN');
       unset($conditions['created_at']);
     }
-    if($conditions['status']=='null'){
+    if(isset($conditions['status'])&&$conditions['status']=='null'){
       $query->condition('status', NULL, 'IS NULL');
       unset($conditions['status']);
     }
@@ -69,8 +69,14 @@ class CustomerController extends ControllerBase {
       }
     }
     $query->fields('vmcc');
-    $pager = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10);
-    $record = $pager->execute()->fetchAll();
+    \Drupal::logger('chubb_life')->notice('list customer 1: '.date('H:i:s'));
+    $page_display = 10;
+    $query = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10);
+    // $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->range(0,10);
+    // $query = $query->range(0,10);
+    \Drupal::logger('chubb_life')->notice('list customer 2: '.date('H:i:s'));
+    $record = $query->execute()->fetchAll();
+    \Drupal::logger('chubb_life')->notice('list customer 3: '.date('H:i:s'));
     return $record;
   }
   public static function update_import_customer($customer){

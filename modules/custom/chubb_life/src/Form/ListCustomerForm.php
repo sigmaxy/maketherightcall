@@ -30,8 +30,8 @@ class ListCustomerForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $conditions = array();
-    if(\Drupal::request()->query->get('batch')){
-      $conditions['fid']=\Drupal::request()->query->get('batch');
+    if(\Drupal::request()->query->get('fid')){
+      $conditions['fid']=\Drupal::request()->query->get('fid');
     }
     if(\Drupal::request()->query->get('name')){
       $conditions['name']=\Drupal::request()->query->get('name');
@@ -58,7 +58,7 @@ class ListCustomerForm extends FormBase {
     $header_table['created_at'] = t('Created At');
     $header_table['updated_by'] = t('Updated By');
     $rows=array();
-    $import_customer_list = CustomerController::list_import_customer_pager($pager,$conditions);
+    $import_customer_list = CustomerController::list_import_customer_pager($conditions);
     $call_status_opt = AttributeController::get_call_status_options();
     $filter_call_status_opt = $call_status_opt;
     $filter_call_status_opt['null'] = 'Not Assigned';
