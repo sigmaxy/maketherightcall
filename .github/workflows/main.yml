@@ -18,8 +18,6 @@ jobs:
         with:
               repository: sigmaxy/maketherightcall
               ref: staging
-              # path: my_private_repository
-              # token: ${{ secrets.MY_REPOSITORY_SECRET_ACTIONS }} 
               fetch-depth: 0
       - name: deploy step
         uses: easingthemes/ssh-deploy@main
