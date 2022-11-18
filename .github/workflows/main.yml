@@ -12,8 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     environment: STAG
     steps:
-      - uses: actions/checkout@v2
       - name: rsync file to folder
+      - uses: actions/checkout@v3
+        with:
+              repository: sigmaxy/maketherightcall
+              ref: production
+              # path: my_private_repository
+              # token: ${{ secrets.MY_REPOSITORY_SECRET_ACTIONS }} 
+              fetch-depth: 0
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_ALI_STAGE_PRIVATE_KEY }}
