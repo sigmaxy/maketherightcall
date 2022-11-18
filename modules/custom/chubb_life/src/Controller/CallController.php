@@ -56,6 +56,32 @@ class CallController extends ControllerBase {
     $record = $query->execute()->fetchAll();
     return $record;
   }
+  public static function list_call_pager($conditions){
+    $connection = Database::getConnection();
+    $query = $connection->select('mtrc_call', 'mc');
+    $query->fields('mc');
+    $query->leftJoin('mtrc_customer_import', 'mci', 'mci.id = mc.import_customer_id');
+
+    if(isset($conditions['assignee_id'])){
+      $query->condition('assignee_id', $conditions['assignee_id']);
+      unset($conditions['assignee_id']);
+    }
+    if(isset($conditions['updated_at'])){
+      $startdate = strtotime($conditions['updated_at']);
+      $enddate = strtotime("+1 day", $startdate);
+      $query->condition('updated_at', [$startdate,$enddate], 'BETWEEN');
+      unset($conditions['updated_at']);
+    }
+    if(!empty($conditions)){
+      foreach ($conditions as $key => $value) {
+        $query->condition($key, '%' . $value . '%', 'LIKE');
+      }
+    }
+    $query->orderBy('id', 'DESC');
+    $query = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10);
+    $record = $query->execute()->fetchAll();
+    return $record;
+  }
   public static function list_call_by_assignee($assignee_id){
     $connection = Database::getConnection();
     $query = $connection->select('mtrc_call', 'mc');

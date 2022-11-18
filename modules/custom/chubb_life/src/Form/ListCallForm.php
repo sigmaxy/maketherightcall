@@ -68,7 +68,7 @@ class ListCallForm extends FormBase {
     }else{
       $conditions['assignee_id'] = $current_uid;
     }
-    $call_list = CallController::list_call_by_assignee_view($pager,$conditions);
+    $call_list = CallController::list_call_pager($conditions);
     // $call_list = CallController::list_call_by_assignee_view($pager,$conditions);
 
     // $connection = Database::getConnection();
