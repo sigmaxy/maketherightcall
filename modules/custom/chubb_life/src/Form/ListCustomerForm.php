@@ -59,6 +59,7 @@ class ListCustomerForm extends FormBase {
     $header_table['updated_by'] = t('Updated By');
     $rows=array();
     $import_customer_list = CustomerController::list_import_customer_pager($conditions);
+
     $call_status_opt = AttributeController::get_call_status_options();
     $filter_call_status_opt = $call_status_opt;
     $filter_call_status_opt['null'] = 'Not Assigned';

@@ -68,7 +68,20 @@ class ListCallForm extends FormBase {
     }else{
       $conditions['assignee_id'] = $current_uid;
     }
-    $call_list = CallController::list_call_by_assignee_view($pager,$conditions);
+    $call_list = CallController::list_call_pager($conditions);
+    // $call_list = CallController::list_call_by_assignee_view($pager,$conditions);
+
+    // $connection = Database::getConnection();
+    // $query = $connection->select('mtrc_call', 'mc');
+    // $query->fields('mc');
+    // if(isset($assignee_id)){
+    //   $query->condition('assignee_id', $assignee_id);
+    // }
+    // $pager = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10);
+    // $call_list = $pager->execute()->fetchAll();
+    // return $record;
+
+
     $call_status_opt = AttributeController::get_call_status_options();
     $filter_call_status_opt = $call_status_opt;
     $filter_call_status_opt['null'] = 'Not Assigned';

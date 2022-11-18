@@ -17,9 +17,7 @@ jobs:
         uses: actions/checkout@v3
         with:
               repository: sigmaxy/maketherightcall
-              ref: staging
-              # path: my_private_repository
-              # token: ${{ secrets.MY_REPOSITORY_SECRET_ACTIONS }} 
+              ref: main
               fetch-depth: 0
       - name: deploy step
         uses: easingthemes/ssh-deploy@main
@@ -39,12 +37,24 @@ jobs:
           key: ${{ secrets.SSH_ALI_STAGE_PRIVATE_KEY }}
           port: 22
           script: |
-            whoami
-            cat << EOF >> /var/www/mtrc/sites/stag/settings.php
-            ${{ secrets.STAG_MTRC_SETTINGS }}
-            EOF
             cd /var/www/mtrc
             chmod -R 777 sites/stag/files/
             vendor/bin/drupal --uri=stagmtrc.sigmaxu.com update:execute system
             vendor/bin/drupal --uri=stagmtrc.sigmaxu.com cr all
+      # - name: drupalconsole update cr
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.SSH_ALI_STAGE_HOST }}
+      #     username: root
+      #     key: ${{ secrets.SSH_ALI_STAGE_PRIVATE_KEY }}
+      #     port: 22
+      #     script: |
+      #       whoami
+      #       cat << EOF >> /var/www/mtrc/sites/stag/settings.php
+      #       ${{ secrets.STAG_MTRC_SETTINGS }}
+      #       EOF
+      #       cd /var/www/mtrc
+      #       chmod -R 777 sites/stag/files/
+      #       vendor/bin/drupal --uri=stagmtrc.sigmaxu.com update:execute system
+      #       vendor/bin/drupal --uri=stagmtrc.sigmaxu.com cr all
 

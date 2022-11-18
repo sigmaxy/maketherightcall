@@ -24,7 +24,8 @@ SELECT
     mtrc_customer_import.position as position,
     mtrc_customer_import.fid as fid
 FROM mtrc_call
-    LEFT JOIN mtrc_customer_import ON mtrc_call.import_customer_id = mtrc_customer_import.id;
+    LEFT JOIN mtrc_customer_import ON mtrc_call.import_customer_id = mtrc_customer_import.id
+    ORDER BY id;
 
 DROP VIEW IF EXISTS `view_mtrc_customer_call`;
 CREATE VIEW
@@ -33,7 +34,8 @@ SELECT
     mtrc_customer_import.*,
 	mtrc_call.status
 FROM mtrc_customer_import
-    LEFT JOIN mtrc_call ON mtrc_call.import_customer_id = mtrc_customer_import.id;
+    LEFT JOIN mtrc_call ON mtrc_call.import_customer_id = mtrc_customer_import.id
+    ORDER BY id;
 
 
 DROP VIEW IF EXISTS `view_mtrc_customer_call_ajax`;
@@ -82,7 +84,8 @@ SELECT
 FROM mtrc_customer_import
     LEFT JOIN mtrc_call ON mtrc_call.import_customer_id = mtrc_customer_import.id
     LEFT JOIN user__field_agentcode on mtrc_call.assignee_id = user__field_agentcode.entity_id
-    LEFT JOIN user__field_agentname on mtrc_customer_import.updated_by = user__field_agentname.entity_id;
+    LEFT JOIN user__field_agentname on mtrc_customer_import.updated_by = user__field_agentname.entity_id
+    ORDER BY id;
 
 DROP VIEW IF EXISTS `view_mtrc_call_customer_ajax`;
 CREATE VIEW
@@ -144,4 +147,5 @@ SELECT
 FROM mtrc_call
     LEFT JOIN mtrc_customer_import ON mtrc_call.import_customer_id = mtrc_customer_import.id
     LEFT JOIN user__field_agentcode on mtrc_call.assignee_id = user__field_agentcode.entity_id
-    LEFT JOIN user__field_agentname on mtrc_call.updated_by = user__field_agentname.entity_id;
+    LEFT JOIN user__field_agentname on mtrc_call.updated_by = user__field_agentname.entity_id
+    ORDER BY id;
