@@ -51,8 +51,6 @@ class CustomerController extends ControllerBase {
   }
   public static function list_import_customer_pager($conditions){
     $connection = Database::getConnection();
-    // $query = $connection->select('view_mtrc_customer_call', 'vmcc');
-    // $query->fields('vmcc');
     $query = $connection->select('mtrc_customer_import', 'mci');
     $query->fields('mci');
     $query->leftJoin('mtrc_call', 'mc', 'mci.id = mc.import_customer_id');
@@ -72,7 +70,9 @@ class CustomerController extends ControllerBase {
         $query->condition($key, '%' . $value . '%', 'LIKE');
       }
     }
+    $query->orderBy('id', 'DESC');
     $query = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10);
+    // $query->range(9000, 10);
     $record = $query->execute()->fetchAll();
     return $record;
   }
