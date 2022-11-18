@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: STAG
     steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - name: rsync file to folder
         uses: actions/checkout@v3
         with:
@@ -20,6 +21,7 @@ jobs:
               # path: my_private_repository
               # token: ${{ secrets.MY_REPOSITORY_SECRET_ACTIONS }} 
               fetch-depth: 0
+      - name: deploy step
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_ALI_STAGE_PRIVATE_KEY }}
