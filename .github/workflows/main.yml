@@ -13,7 +13,7 @@ jobs:
     environment: STAG
     steps:
       - name: rsync file to folder
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
         with:
               repository: sigmaxy/maketherightcall
               ref: production
