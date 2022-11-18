@@ -1,9 +1,9 @@
-name: Deploy Workflow
+name: Deploy Staging Only
 on:
   push:
-    branches: [ main ]
+    branches: [ staging ]
   pull_request:
-    branches: [ main ]
+    branches: [ staging ]
     types: [ closed ]
   workflow_dispatch:
 jobs:
@@ -18,8 +18,6 @@ jobs:
         with:
               repository: sigmaxy/maketherightcall
               ref: staging
-              # path: my_private_repository
-              # token: ${{ secrets.MY_REPOSITORY_SECRET_ACTIONS }} 
               fetch-depth: 0
       - name: deploy step
         uses: easingthemes/ssh-deploy@main
