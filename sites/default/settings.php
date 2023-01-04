@@ -797,7 +797,6 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 $settings['trusted_host_patterns'] = [ 
   '^localhost$',
   '^.+\.sigmaxu\.com$',
-  '^.+\.f4fonline\.com$',
   '^192\.168.\100.\94$',
   '.*'
 ];
