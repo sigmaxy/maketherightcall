@@ -35,6 +35,20 @@ class CustomerController extends ControllerBase {
     }
     return false;
   }
+  public static function count_import_customer_by_batch($batch_id){
+    $connection = Database::getConnection();
+    $query = $connection->select('mtrc_customer_import', 'mci');
+    $query->fields('mci');
+    $query->condition('fid', $batch_id);
+    $record = $query->execute()->fetchAll();
+    return count($record);
+  }
+  public static function delete_customer_by_batch($batch_id){
+    $connection = Database::getConnection();
+    $connection->delete('mtrc_customer_import')
+      ->condition('fid', $batch_id)
+      ->execute();
+  }
   public static function get_import_customer_by_id($id){
     $connection = Database::getConnection();
     $query = $connection->select('mtrc_customer_import', 'mci')

@@ -12,7 +12,18 @@ development.admin:
       target: _blank
       class:
         - toolbar-icon-system-admin-config
-        # - anotherclass
+development.check_batch:
+  title: 'Batch'
+  description: 'test action'
+  parent: system.admin
+  route_name: chubb_life.batch_form
+  weight: 101
+  options:
+    # query:
+    #   uid: 1
+    attributes:
+      class:
+        - toolbar-icon-system-admin-config
 # development.clear_data:
 #   title: 'Clear Data for Demo '
 #   description: 'test action'

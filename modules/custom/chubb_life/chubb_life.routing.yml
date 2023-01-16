@@ -132,3 +132,12 @@ chubb_life.list_call_data2:
     _title: 'Call List Data'
   requirements:
    _permission: 'access chubb_life_assignee configuration'
+   
+chubb_life.batch_form:
+  path: '/chubb_life/form/batch'
+  defaults:
+    _form: '\Drupal\chubb_life\Form\BatchForm'
+    _title: 'Batch Form'
+  requirements:
+   _permission: 'access chubb_life_assignee configuration'
+

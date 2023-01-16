@@ -35,6 +35,12 @@ class DeveloperController extends ControllerBase {
       case 'url_check':
         self::url_check();
       break;
+      case 'check_batch':
+        self::check_batch();
+      break;
+      case 'delete_batch':
+        self::delete_batch();
+      break;
       case 'running_check':
         self::running_check();
       break;
@@ -93,6 +99,12 @@ class DeveloperController extends ControllerBase {
       SSPController::simple( $table, $primaryKey, $columns )
     );
     
+  }
+  public static function check_batch(){
+    echo 'check batch';
+  }
+  public static function delete_batch(){
+    echo 'check batch';
   }
   public static function deleteDir($dirPath) {
     if (! is_dir($dirPath)) {
