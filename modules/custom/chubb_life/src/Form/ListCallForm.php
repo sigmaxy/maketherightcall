@@ -148,10 +148,10 @@ class ListCallForm extends FormBase {
       '#maxlength' => 255,
       '#weight' => '4',
     ];
-    $form['call_filter']['updated_at'] = [
+    $form['call_filter']['created_at'] = [
       '#type' => 'date',
       '#title' => 'Created At',
-      '#default_value' => isset($conditions['updated_at'])?$conditions['updated_at']:'',
+      '#default_value' => isset($conditions['created_at'])?$conditions['created_at']:'',
       '#maxlength' => 255,
       '#weight' => '5',
     ];
@@ -238,8 +238,8 @@ class ListCallForm extends FormBase {
     if(!empty($form_state->getValue('tel_mbl'))){
       $args['tel_mbl'] = $form_state->getValue('tel_mbl');
     }
-    if(!empty($form_state->getValue('updated_at'))){
-      $args['updated_at'] = $form_state->getValue('updated_at');
+    if(!empty($form_state->getValue('created_at'))){
+      $args['created_at'] = $form_state->getValue('created_at');
     }
     if(!empty($form_state->getValue('status'))){
       $args['status'] = $form_state->getValue('status');
