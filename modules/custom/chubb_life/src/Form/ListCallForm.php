@@ -41,8 +41,8 @@ class ListCallForm extends FormBase {
     if(\Drupal::request()->query->get('tel_mbl')){
       $conditions['tel_mbl']=\Drupal::request()->query->get('tel_mbl');
     }
-    if(\Drupal::request()->query->get('updated_at')){
-      $conditions['updated_at']=\Drupal::request()->query->get('updated_at');
+    if(\Drupal::request()->query->get('created_at')){
+      $conditions['created_at']=\Drupal::request()->query->get('created_at');
     }
     if(\Drupal::request()->query->get('status')){
       $conditions['status']=\Drupal::request()->query->get('status');
