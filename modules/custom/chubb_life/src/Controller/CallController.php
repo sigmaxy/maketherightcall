@@ -70,7 +70,7 @@ class CallController extends ControllerBase {
     if(isset($conditions['updated_at'])){
       $startdate = strtotime($conditions['updated_at']);
       $enddate = strtotime("+1 day", $startdate);
-      $query->condition('updated_at', [$startdate,$enddate], 'BETWEEN');
+      $query->condition('mc.updated_at', [$startdate,$enddate], 'BETWEEN');
       unset($conditions['updated_at']);
     }
     if(!empty($conditions)){
