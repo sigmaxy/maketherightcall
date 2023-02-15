@@ -72,33 +72,8 @@ class DeveloperController extends ControllerBase {
     exit;
   }
   public static function test(){
-    // DB table to use
-    $table = 'view_mtrc_customer_call';
-
-    // Table's primary key
-    $primaryKey = 'id';
-
-    // Array of database columns which should be read and sent back to DataTables.
-    // The `db` parameter represents the column name in the database, while the `dt`
-    // parameter represents the DataTables column identifier. In this case simple
-    // indexes
-    $columns = array(
-      array( 'db' => 'cust_ref', 'dt' => 0 ),
-      array( 'db' => 'name',  'dt' => 1 ),
-      array( 'db' => 'gender',   'dt' => 2 ),
-      array( 'db' => 'tel_mbl',     'dt' => 3 ),
-      array(
-        'db'        => 'created_at',
-        'dt'        => 4,
-        'formatter' => function( $d, $row ) {
-          return date( 'jS M y', strtotime($d));
-        }
-      ),
-    );
-    echo json_encode(
-      SSPController::simple( $table, $primaryKey, $columns )
-    );
-    
+   
+    echo date('d/m/Y', time());
   }
   public static function check_batch(){
     echo 'check batch';

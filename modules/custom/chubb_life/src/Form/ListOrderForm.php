@@ -37,6 +37,7 @@ class ListOrderForm extends FormBase {
     $header_table['status'] = t('Status');
     $header_table['updated_at'] = t('Updated At');
     $header_table['updated_by'] = t('Updated By');
+    $header_table['json_generated'] = t('Json AT');
     $header_table['opt'] = t('Operation');
     $rows=array();
     $roles = \Drupal::currentUser()->getRoles();
@@ -59,7 +60,25 @@ class ListOrderForm extends FormBase {
       $row_data['updated_at'] = date('Y-m-d H:i:s',$data->updated_at);
       $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
       $row_data['updated_by'] = $updated_user->field_agentname->value;
+      // $row_data['json_generated'] = date('Y-m-d H:i:s',$data->json_generated);
+      if($data->json_generated){
+        $row_data['json_generated'] = [
+          'class'=>['json_already_generated'],
+          'id'=>'json_generated_'.$data->id,
+          'data' => date('Y-m-d H:i:s',$data->json_generated),
+        ];
+      }else{
+        $row_data['json_generated'] = [
+          'class'=>[''],
+          'id'=>'json_generated_'.$data->id,
+          'data' => '',
+        ];
+      }
       $row_data['opt'] = Link::fromTextAndUrl('Edit', $edit);
+      // $rows[$data->id] = [
+      //   'data'=>$row_data,
+      //   // '#attributes' => array('class' => array('page-row')),
+      // ];
       $rows[$data->id] = $row_data;
     }
     $form['order_filter'] = [
@@ -132,6 +151,7 @@ class ListOrderForm extends FormBase {
       if ($checked) {
         $call = array();
         $db_order = OrderController::get_order_by_id($order_id);
+        OrderController::update_order_json_generated($order_id);
         $one_json_record = OrderController::order_format_json($db_order);
         $json_arr['applications'][] = $one_json_record;
       }

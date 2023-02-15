@@ -1,4 +1,9 @@
 jQuery(document).ready(function($){
+    $(document).on('change','input[name^="order_list_table"]',function(e) {
+        if(this.checked && $('#json_generated_'+$(this).val()).hasClass('json_already_generated')){
+            alert('This order already generated JSON');
+        }
+	});
     $(document).on('change','#same_as_owner',function(e) {
         toggle_customer_insured_same_as_owner();
         relationship_lock_value();
@@ -364,7 +369,7 @@ function order_sample_data(){
     jQuery('select[name="gender"]').val('F');
     jQuery('select[name="isPermanentHkid"]').val('Y');
     jQuery('input[name="birthDate"]').val('1990-12-31');
-    jQuery('select[name="marital"]').val('3');
+    jQuery('select[name="marital"]').val('S');
     jQuery('select[name="nationality"]').val('HK');
     jQuery('select[name="taxResidency1"]').val('CP');
     jQuery('input[name="taxResidencyTin1"]').val('A1234568');
@@ -386,7 +391,7 @@ function order_sample_data(){
     jQuery('select[name="occupationCode"]').val('A020101');
     jQuery('input[name="mobile"]').val('87654321');
     jQuery('select[name="smoker"]').val('Y');
-    jQuery('select[name="monthly_income"]').val('10,000');
+    jQuery('select[name="monthly_income"]').val('10000');
     jQuery('select[name="solicitation"]').val('Y');
     jQuery('select[name="opt_out_reason"]').val('OFTA');
     jQuery('input[name="customer_insured_surname"]').val('customer_insured_surname');

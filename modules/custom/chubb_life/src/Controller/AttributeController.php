@@ -22,7 +22,7 @@ class AttributeController extends ControllerBase {
     $results = array(
       '0' => '--Select--',
       '1' => 'Premium too high (expensive)',
-      '2' => 'Protetion period too long / short',
+      '2' => 'Protection period too long / short',
       '3' => 'Coverage not enough',
       '4' => 'Well covered',
       '5' => 'Coverage not interest',
@@ -205,7 +205,7 @@ class AttributeController extends ControllerBase {
   }
   public static function get_dda_setup_options() {
     $results = array(
-      '3' => '3rd',
+      '03' => '3rd',
       '18' => '18th',
     );
     return $results;

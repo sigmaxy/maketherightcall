@@ -46,6 +46,7 @@ class EditOrderForm extends FormBase {
       $customer_residence_address1 = $record['owner']['residence_address1'];
       $customer_email = $record['owner']['email'];
       $customer_marital = $record['owner']['marital'];
+      $customer_aeonRefNumber = $record['aeonRefNumber'];
     }else if(is_numeric($this->import_customer_id)){
       $customer = CustomerController::get_import_customer_by_id($this->import_customer_id);
       $customer_surname = explode(' ',$customer['name'])[0];
@@ -57,6 +58,7 @@ class EditOrderForm extends FormBase {
       $customer_residence_address1 = $customer['address'];
       $customer_email = $customer['email'];
       $customer_marital = $customer['married_status'];
+      $customer_aeonRefNumber = $customer['cust_ref'];
     }else if(is_numeric($this->copy_from)){
       $record= OrderController::get_order_by_id($this->copy_from);
       unset($record['insured']);
@@ -69,6 +71,7 @@ class EditOrderForm extends FormBase {
       $customer_residence_address1 = $record['owner']['residence_address1'];
       $customer_email = $record['owner']['email'];
       $customer_marital = $record['owner']['marital'];
+      $customer_aeonRefNumber = '';
     }else{
       $customer_surname = '';
       $customer_givenName = '';
@@ -79,6 +82,7 @@ class EditOrderForm extends FormBase {
       $customer_residence_address1 = '';
       $customer_email = '';
       $customer_marital = '';
+      $customer_aeonRefNumber = '';
     }
     $order_status = AttributeController::get_order_status_options();
     $country_opt = AttributeController::get_country_options();
@@ -156,7 +160,7 @@ class EditOrderForm extends FormBase {
       '#prefix' => '<div class="form_item_maxwidth">Reference Number: '.$reference_number.'</div>',
       '#maxlength' => 45,
       '#weight' => '2',
-      '#default_value' => isset($record['aeonRefNumber'])?$record['aeonRefNumber']:'',
+      '#default_value' => $customer_aeonRefNumber,
       '#required'=> true,
     ];
     $form['customer_owner'] = [
@@ -1092,6 +1096,18 @@ class EditOrderForm extends FormBase {
       '#weight' => '5',
       '#required'=> true,
     ];
+    $form['policy']['epolicy'] = [
+      '#type' => 'select',
+      '#title' => $this->t('e-Policy'),
+      '#options' => $yn_opt,
+      '#empty_option' => '--Select--',
+      '#default_value' => isset($record['epolicy'])?$record['epolicy']:'Y',
+      '#attributes' => [
+        'class' => ['noselect2'],
+      ],
+      '#weight' => '6',
+      '#required'=> true,
+    ];
     $form['information'] = [
       '#type'  => 'details',
       '#title' => $this->t('Coverage Information'),
@@ -1319,7 +1335,7 @@ class EditOrderForm extends FormBase {
     ];
     $form['billing_info']['authorizationCode'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Tokenized Card Number'),
+      '#title' => $this->t('Authorization Code'),
       '#default_value' => isset($record['authorizationCode'])?$record['authorizationCode']:'',
       '#maxlength' => 255,
       '#weight' => '5',
@@ -1537,6 +1553,10 @@ class EditOrderForm extends FormBase {
       if(empty($form_state->getValue('cardholder_id_number'))){
         $form_state->setErrorByName('cardholder_id_number','Cardholder ID Number Number is Required');
       }
+      if (!empty($form_state->getValue('cardholder_id_number')) &&
+        !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('cardholder_id_number'))) {
+        $form_state->setErrorByName('cardholder_id_number','Invalide Cardholder ID Number');
+      }
       if(empty($form_state->getValue('card_expiry_date'))){
         $form_state->setErrorByName('card_expiry_date','Card Expiry Date Number is Required');
       }
@@ -1643,6 +1663,7 @@ class EditOrderForm extends FormBase {
     $order['pep'] = $fields['pep'];
     $order['another_person'] = $fields['another_person'];
     $order['ecopy'] = $fields['ecopy'];
+    $order['epolicy'] = $fields['epolicy'];
     $order['plan_code'] = $fields['plan_code'];
     $order['product_name_english'] = $fields['product_name_english'];
     $order['product_name_chinese'] = $fields['product_name_chinese'];

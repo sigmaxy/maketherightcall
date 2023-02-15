@@ -115,6 +115,14 @@ class OrderController extends ControllerBase {
     self::update_order_client($client_payor);
     return $db_order_id;
   }
+  public static function update_order_json_generated($order_id){
+    $connection = Database::getConnection();
+    $order['json_generated'] = time();
+    $connection->update('mtrc_order')
+        ->fields($order)
+        ->condition('id', $order_id)
+        ->execute();
+  }
   public static function check_order_client_existed($client){
     $connection = Database::getConnection();
     $query = $connection->select('mtrc_order_client', 'moc');
@@ -147,6 +155,8 @@ class OrderController extends ControllerBase {
     $insured_age = self::calculate_age($order['insured']['birthDate']);
     $payor_age = self::calculate_age($order['payor']['birthDate']);
     $health_detail_question = false;
+    // echo $order['dda_setup'].date('/m/Y', strtotime('+2 months'));exit;
+    // $effectiveDate = $order['dda_setup'].date('/m/Y', strtotime('+2 months'));
     if($order['health_details_q_1']=='Y'
       && $order['health_details_q_2']=='Y'
       && $order['health_details_q_3']=='Y'
@@ -172,6 +182,11 @@ class OrderController extends ControllerBase {
       $q4 = null;
       $q5 = null;
     }
+    if($order['currency'] == 'USD'){
+      $transaction = $order['initial_premium']*7.8;
+    }else{
+      $transaction = $order['initial_premium'];
+    }
     $results = array(
       'applicationDto'=>[
         'referenceNumber'=>sprintf('TM%06d',$order['id']),
@@ -186,7 +201,7 @@ class OrderController extends ControllerBase {
         'agentName'=>$order['agentName'],
         'agentCode2'=>'',
         'annuityStartAge'=>'',
-        'applicationSignDate'=>'',
+        'applicationSignDate'=>date('d/m/Y', time()),
         'autoPolicyDate'=>'',
         'billingType'=>$order['billingType'],
         'contribution'=>'',
@@ -194,7 +209,8 @@ class OrderController extends ControllerBase {
         'deathBenefitOption'=>'',
         'dividendOption'=>'',
         'ecopy'=>$order['ecopy']=='Y'?true:false,
-        'effectiveDate'=>'',
+        'epolicyIndicator'=>$order['epolicy']=='Y'?true:false,
+        'effectiveDate'=>$order['dda_setup'].date('/m/Y', strtotime('+2 months')),
         'extraContribution'=>'',
         'isOcrDataChanged'=>'',
         'isSignedByVos'=>'',
@@ -460,7 +476,7 @@ class OrderController extends ControllerBase {
       'paymentTransactionDto'=>array(
         'amount'=>$order['initial_premium'],
         'amountInPolicyCurrency'=>$order['initial_premium'],
-        'authorizationCode'=>'',
+        'authorizationCode'=>$order['authorizationCode'],
         'bankName'=>'',
         'basicPlanCode'=>$order['plan_code'],
         'cardHolderName'=>$order['cardHolderName'],
@@ -476,6 +492,8 @@ class OrderController extends ControllerBase {
         'payorRole'=>'O',
         'policyCurrency'=>$order['currency'],
         'referenceNumber'=>sprintf('TM%06d',$order['id']),
+        'transactionCurrency'=>'HKD',
+        'transaction'=>$transaction,
         'transactionStatus'=>'',
         'transactionUpdatedDate'=>$order['transactionUpdatedDate'],
       ),

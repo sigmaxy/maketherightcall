@@ -50,8 +50,8 @@ class ListCallForm extends FormBase {
     $header_table['fid'] = t('Batch');
     $header_table['cust_ref'] = t('Ref No.');
     $header_table['name'] = t('Name');
-    $header_table['gender'] = t('Gender');
-    $header_table['tel_mbl'] = t('Mobile');
+    $header_table['age'] = t('Age');
+    // $header_table['tel_mbl'] = t('Mobile');
     $header_table['status'] = t('Status');
     $header_table['count'] = t('Attempts');
     $header_table['assignee'] = t('Assignee');
@@ -93,8 +93,8 @@ class ListCallForm extends FormBase {
       $row_data['fid'] = $import_customer['fid'];
       $row_data['cust_ref'] = $import_customer['cust_ref'];
       $row_data['name'] = $import_customer['name'];
-      $row_data['gender'] = $import_customer['gender'];
-      $row_data['tel_mbl'] = $import_customer['tel_mbl'];
+      $row_data['age'] = date_diff(date_create($import_customer['dob']), date_create('now'))->y;
+      // $row_data['tel_mbl'] = $import_customer['tel_mbl'];
       $row_data['status'] = $call_status_opt[$data->status];
       $row_data['count'] = [
         'class'=>['call_count'],

@@ -115,7 +115,7 @@ class EditCallForm extends FormBase {
       '#type'  => 'details',
       '#title' => $this->t('Product Detail'),
       '#open'  => true,
-      '#weight' => '3',
+      '#weight' => '4',
     ];
     $form['product_detail']['premium_list_table'] = [
       '#type' => 'table',
@@ -140,7 +140,7 @@ class EditCallForm extends FormBase {
       '#type'  => 'details',
       '#title' => $this->t('Call Functions'),
       '#open'  => true,
-      '#weight' => '2',
+      '#weight' => '3',
     ];
     $call_status_opt = AttributeController::get_call_status_options();
     $reject_reason_opt = AttributeController::get_reject_reason_options();
@@ -200,7 +200,7 @@ class EditCallForm extends FormBase {
       '#type'  => 'details',
       '#title' => $this->t('ROPHC Detail'),
       '#open'  => true,
-      '#weight' => '4',
+      '#weight' => '2',
     ];
     
     $form['rhc_detail']['plan_code'] = [
