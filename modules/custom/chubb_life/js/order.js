@@ -38,6 +38,15 @@ jQuery(document).ready(function($){
             $(this).val('');
        }
 	});
+    $(document).on('blur','#edit-identitynumber',function(e) {
+        $("#edit-taxresidencytin1").val($(this).val());
+        $("#edit-customer-payor-identitynumber").val($(this).val());
+        $("#edit-cardholder-id-number").val($(this).val());
+	});
+    $(document).on('blur','#owner_birthDate',function(e) {
+        $("#payor_birthDate").val($(this).val());
+	});
+    
     function taxResidency_showmore_button(elements){
         if(elements.hasClass('show_more')){
             elements.removeClass('show_more');

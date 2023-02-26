@@ -201,7 +201,7 @@ class OrderController extends ControllerBase {
         'agentName'=>$order['agentName'],
         'agentCode2'=>'',
         'annuityStartAge'=>'',
-        'applicationSignDate'=>date('d/m/Y', time()),
+        'applicationSignDate'=>date('d/m/Y', $order['created_at']),
         'autoPolicyDate'=>'',
         'billingType'=>$order['billingType'],
         'contribution'=>'',
@@ -450,7 +450,7 @@ class OrderController extends ControllerBase {
           'mobileNumberCountryCode'=>'',
           'nationality'=>'',
           'occupationCode'=>'',
-          'relationship'=>'',
+          'relationship'=>$order['owner']['relationship']=='INS'?$order['owner']['relationship']:'',
           'residence'=>array(
             'address1'=>'',
             'address2'=>'',
@@ -475,7 +475,7 @@ class OrderController extends ControllerBase {
       ],
       'paymentTransactionDto'=>array(
         'amount'=>$order['initial_premium'],
-        'amountInPolicyCurrency'=>$order['initial_premium'],
+        'amountInPolicyCurrency'=>$order['currency'],
         'authorizationCode'=>$order['authorizationCode'],
         'bankName'=>'',
         'basicPlanCode'=>$order['plan_code'],

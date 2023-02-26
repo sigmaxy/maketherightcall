@@ -111,7 +111,11 @@ class ListCallForm extends FormBase {
       $row_data['updated_at'] = date('Y-m-d H:i:s',$data->updated_at);
       $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
       $row_data['updated_by'] = $updated_user->field_agentname->value;
-      $row_data['opt'] = Link::fromTextAndUrl('View', $edit);
+      // $row_data['opt'] = Link::fromTextAndUrl('View', $edit);
+      $row_data['opt'] = [
+        'data'=> Link::fromTextAndUrl('View', $edit),
+        'title'=> $data->remark,
+      ];
       $rows[$data->id] = $row_data;
     }
     $form['call_filter'] = [

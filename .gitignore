@@ -6,7 +6,7 @@ sites/win10/files/*
 
 !sites/*/files/mtrc
 !sites/*/files/sync
-!sites/*/files/temp
+# !sites/*/files/temp
 !sites/*/files/.htaccess
 
 sites/local/*.*
