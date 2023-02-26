@@ -46,6 +46,12 @@ jQuery(document).ready(function($){
     $(document).on('blur','#owner_birthDate',function(e) {
         $("#payor_birthDate").val($(this).val());
 	});
+    $(document).on('blur','#edit-surname',function(e) {
+        $("#edit-cardholdername").val($('#edit-surname').val() + ' ' + $('#edit-givenname').val());
+	});
+    $(document).on('blur','#edit-givenname',function(e) {
+        $("#edit-cardholdername").val($('#edit-surname').val() + ' ' + $('#edit-givenname').val());
+	});
     
     function taxResidency_showmore_button(elements){
         if(elements.hasClass('show_more')){
