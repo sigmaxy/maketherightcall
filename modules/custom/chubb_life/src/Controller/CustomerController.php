@@ -70,11 +70,32 @@ class CustomerController extends ControllerBase {
     $query->fields('mci');
     $query->leftJoin('mtrc_call', 'mc', 'mci.id = mc.import_customer_id');
 
-    if(isset($conditions['created_at'])){
-      $startdate = strtotime($conditions['created_at']);
-      $enddate = strtotime("+1 day", $startdate);
+    if(isset($conditions['assignee_id'])){
+      $query->condition('assignee_id', $conditions['assignee_id']);
+      unset($conditions['assignee_id']);
+    }
+    
+    if(isset($conditions['record_per_page'])){
+      $record_per_page = $conditions['record_per_page'];
+      unset($conditions['record_per_page']);
+    }else{
+      $record_per_page = 10;
+    }
+
+    if(isset($conditions['created_at_start']) || isset($conditions['created_at_end'])){
+      if(isset($conditions['created_at_start'])){
+        $startdate = strtotime($conditions['created_at_start']);
+      }else{
+        $startdate = strtotime('2022-01-01');
+      }
+      if(isset($conditions['created_at_end'])){
+        $enddate = strtotime($conditions['created_at_end'].' 23:59:59');
+      }else{
+        $enddate = time();
+      }
       $query->condition('created_at', [$startdate,$enddate], 'BETWEEN');
-      unset($conditions['created_at']);
+      unset($conditions['created_at_start']);
+      unset($conditions['created_at_end']);
     }
     if(isset($conditions['status'])&&$conditions['status']=='null'){
       $query->condition('status', NULL, 'IS NULL');
@@ -86,7 +107,7 @@ class CustomerController extends ControllerBase {
       }
     }
     $query->orderBy('id', 'DESC');
-    $query = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10);
+    $query = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit($record_per_page);
     // $query->range(9000, 10);
     $record = $query->execute()->fetchAll();
     return $record;

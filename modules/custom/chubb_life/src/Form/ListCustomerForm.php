@@ -42,11 +42,20 @@ class ListCustomerForm extends FormBase {
     if(\Drupal::request()->query->get('tel_mbl')){
       $conditions['tel_mbl']=\Drupal::request()->query->get('tel_mbl');
     }
-    if(\Drupal::request()->query->get('created_at')){
-      $conditions['created_at']=\Drupal::request()->query->get('created_at');
+    if(\Drupal::request()->query->get('created_at_start')){
+      $conditions['created_at_start']=\Drupal::request()->query->get('created_at_start');
+    }
+    if(\Drupal::request()->query->get('created_at_end')){
+      $conditions['created_at_end']=\Drupal::request()->query->get('created_at_end');
+    }
+    if(\Drupal::request()->query->get('assignee_id')){
+      $conditions['assignee_id']=\Drupal::request()->query->get('assignee_id');
     }
     if(\Drupal::request()->query->get('status')){
       $conditions['status']=\Drupal::request()->query->get('status');
+    }
+    if(\Drupal::request()->query->get('record_per_page')){
+      $conditions['record_per_page']=\Drupal::request()->query->get('record_per_page');
     }
     $header_table['cust_ref'] = t('Ref No.');
     $header_table['name'] = t('Name');
@@ -61,6 +70,8 @@ class ListCustomerForm extends FormBase {
     $import_customer_list = CustomerController::list_import_customer_pager($conditions);
 
     $call_status_opt = AttributeController::get_call_status_options();
+    $record_per_page_opt = AttributeController::get_record_per_page_options();
+    $assignee_opts = AssigneeController::list_assignee();
     $filter_call_status_opt = $call_status_opt;
     $filter_call_status_opt['null'] = 'Not Assigned';
     DeveloperController::running_check();
@@ -140,12 +151,29 @@ class ListCustomerForm extends FormBase {
       '#maxlength' => 255,
       '#weight' => '4',
     ];
-    $form['import_customer_filter']['created_at'] = [
+    $form['import_customer_filter']['created_at_start'] = [
       '#type' => 'date',
       '#title' => 'Created At',
-      '#default_value' => isset($conditions['created_at'])?$conditions['created_at']:'',
+      '#default_value' => isset($conditions['created_at_start'])?$conditions['created_at_start']:'',
       '#maxlength' => 255,
       '#weight' => '5',
+    ];
+    $form['import_customer_filter']['created_at_end'] = [
+      '#type' => 'date',
+      '#title' => 'Created At End',
+      '#default_value' => isset($conditions['created_at_end'])?$conditions['created_at_end']:'',
+      '#maxlength' => 255,
+      '#weight' => '6',
+    ];
+    $form['import_customer_filter']['assignee_id'] = [
+      '#title' => $this->t('Assignee'),
+      '#type' => 'select',
+      '#options' => $assignee_opts,
+      '#default_value' => isset($conditions['assignee_id'])?$conditions['assignee_id']:'',
+      '#attributes' => [
+        'class' => ['assignee_select_filter'],
+      ],
+      '#weight' => '7',
     ];
     $form['import_customer_filter']['status'] = [
       '#type' => 'select',
@@ -156,7 +184,18 @@ class ListCustomerForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
-      '#weight' => '6',
+      '#weight' => '8',
+    ];
+    $form['import_customer_filter']['record_per_page'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Record Per Page'),
+      '#options' => $record_per_page_opt,
+      // '#empty_option' => '--Select--',
+      '#default_value' => isset($conditions['record_per_page'])?$conditions['record_per_page']:'10',
+      '#attributes' => [
+        'class' => ['noselect2'],
+      ],
+      '#weight' => '9',
     ];
     $form['import_customer_filter']['filter_customer'] = [
       '#type' => 'submit',
@@ -198,7 +237,7 @@ class ListCustomerForm extends FormBase {
       '#open'  => true,
       '#weight' => '3',
     ];
-    $assignee_opts = AssigneeController::list_assignee();
+    
     $form['function_filters']['assignee'] = [
       '#title' => $this->t('Assignee'),
       '#type' => 'select',
@@ -325,11 +364,20 @@ class ListCustomerForm extends FormBase {
     if(!empty($form_state->getValue('tel_mbl'))){
       $args['tel_mbl'] = $form_state->getValue('tel_mbl');
     }
-    if(!empty($form_state->getValue('created_at'))){
-      $args['created_at'] = $form_state->getValue('created_at');
+    if(!empty($form_state->getValue('created_at_start'))){
+      $args['created_at_start'] = $form_state->getValue('created_at_start');
+    }
+    if(!empty($form_state->getValue('created_at_end'))){
+      $args['created_at_end'] = $form_state->getValue('created_at_end');
+    }
+    if(!empty($form_state->getValue('assignee_id'))){
+      $args['assignee_id'] = $form_state->getValue('assignee_id');
     }
     if(!empty($form_state->getValue('status'))){
       $args['status'] = $form_state->getValue('status');
+    }
+    if(!empty($form_state->getValue('record_per_page'))){
+      $args['record_per_page'] = $form_state->getValue('record_per_page');
     }
     $url->setOptions(array('query' => $args));
     $form_state->setRedirectUrl($url);

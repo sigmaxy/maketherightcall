@@ -41,11 +41,17 @@ class ListCallForm extends FormBase {
     if(\Drupal::request()->query->get('tel_mbl')){
       $conditions['tel_mbl']=\Drupal::request()->query->get('tel_mbl');
     }
-    if(\Drupal::request()->query->get('updated_at')){
-      $conditions['updated_at']=\Drupal::request()->query->get('updated_at');
+    if(\Drupal::request()->query->get('updated_at_start')){
+      $conditions['updated_at_start']=\Drupal::request()->query->get('updated_at_start');
+    }
+    if(\Drupal::request()->query->get('updated_at_end')){
+      $conditions['updated_at_end']=\Drupal::request()->query->get('updated_at_end');
     }
     if(\Drupal::request()->query->get('status')){
       $conditions['status']=\Drupal::request()->query->get('status');
+    }
+    if(\Drupal::request()->query->get('record_per_page')){
+      $conditions['record_per_page']=\Drupal::request()->query->get('record_per_page');
     }
     $header_table['fid'] = t('Batch');
     $header_table['cust_ref'] = t('Ref No.');
@@ -83,6 +89,7 @@ class ListCallForm extends FormBase {
 
 
     $call_status_opt = AttributeController::get_call_status_options();
+    $record_per_page_opt = AttributeController::get_record_per_page_options();
     $filter_call_status_opt = $call_status_opt;
     $filter_call_status_opt['null'] = 'Not Assigned';
     foreach($call_list as $key=>$data){
@@ -93,7 +100,9 @@ class ListCallForm extends FormBase {
       $row_data['fid'] = $import_customer['fid'];
       $row_data['cust_ref'] = $import_customer['cust_ref'];
       $row_data['name'] = $import_customer['name'];
-      $row_data['age'] = date_diff(date_create($import_customer['dob']), date_create('now'))->y;
+      // $date = DrupalDateTime::createFromDateTime("Y-m-d", $import_customer['dob']);
+      $birthday = \DateTime::createFromFormat("m/d/Y", $import_customer['dob']);
+      $row_data['age'] = $birthday?date_diff(date_create($import_customer['dob']), date_create('now'))->y:'0';
       // $row_data['tel_mbl'] = $import_customer['tel_mbl'];
       $row_data['status'] = $call_status_opt[$data->status];
       $row_data['count'] = [
@@ -152,12 +161,19 @@ class ListCallForm extends FormBase {
       '#maxlength' => 255,
       '#weight' => '4',
     ];
-    $form['call_filter']['updated_at'] = [
+    $form['call_filter']['updated_at_start'] = [
       '#type' => 'date',
-      '#title' => 'Updated At',
-      '#default_value' => isset($conditions['updated_at'])?$conditions['updated_at']:'',
+      '#title' => 'Updated At Start',
+      '#default_value' => isset($conditions['updated_at_start'])?$conditions['updated_at_start']:'',
       '#maxlength' => 255,
       '#weight' => '5',
+    ];
+    $form['call_filter']['updated_at_end'] = [
+      '#type' => 'date',
+      '#title' => 'Updated At End',
+      '#default_value' => isset($conditions['updated_at_end'])?$conditions['updated_at_end']:'',
+      '#maxlength' => 255,
+      '#weight' => '6',
     ];
     $form['call_filter']['status'] = [
       '#type' => 'select',
@@ -168,7 +184,18 @@ class ListCallForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
-      '#weight' => '6',
+      '#weight' => '7',
+    ];
+    $form['call_filter']['record_per_page'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Record Per Page'),
+      '#options' => $record_per_page_opt,
+      // '#empty_option' => '--Select--',
+      '#default_value' => isset($conditions['record_per_page'])?$conditions['record_per_page']:'10',
+      '#attributes' => [
+        'class' => ['noselect2'],
+      ],
+      '#weight' => '8',
     ];
     $form['call_filter']['filter_customer'] = [
       '#type' => 'submit',
@@ -242,11 +269,17 @@ class ListCallForm extends FormBase {
     if(!empty($form_state->getValue('tel_mbl'))){
       $args['tel_mbl'] = $form_state->getValue('tel_mbl');
     }
-    if(!empty($form_state->getValue('updated_at'))){
-      $args['updated_at'] = $form_state->getValue('updated_at');
+    if(!empty($form_state->getValue('updated_at_start'))){
+      $args['updated_at_start'] = $form_state->getValue('updated_at_start');
+    }
+    if(!empty($form_state->getValue('updated_at_end'))){
+      $args['updated_at_end'] = $form_state->getValue('updated_at_end');
     }
     if(!empty($form_state->getValue('status'))){
       $args['status'] = $form_state->getValue('status');
+    }
+    if(!empty($form_state->getValue('record_per_page'))){
+      $args['record_per_page'] = $form_state->getValue('record_per_page');
     }
     $url->setOptions(array('query' => $args));
     $form_state->setRedirectUrl($url);

@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Ilex\Validation\HkidValidation\Helper;
 
 /**
  * Class AttributeController.
@@ -32,6 +33,13 @@ class AttributeController extends ControllerBase {
       '9' => 'Unsatisfied with Chubb',
       '10' => 'Others',
     );
+    return $results;
+  }
+  public static function get_record_per_page_options() {
+    $results = array();
+    $results[10] = 10;
+    $results[25] = 25;
+    $results[50] = 50;
     return $results;
   }
   public static function get_order_status_options() {
@@ -302,6 +310,12 @@ class AttributeController extends ControllerBase {
   public static function get_promotion_code_arr() {
     $results = ['CC17'];
     return $results;
+  }
+  public static function check_hkid($hkid){
+    // add () at last digit
+    $formate_hkid = substr_replace($hkid,'('.substr($hkid, -1).')',-1);
+    $a = Helper::checkByString($formate_hkid);
+    return $a->isValid();
   }
 
 }
