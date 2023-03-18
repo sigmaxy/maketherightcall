@@ -169,6 +169,7 @@ class ListCustomerForm extends FormBase {
       '#title' => $this->t('Assignee'),
       '#type' => 'select',
       '#options' => $assignee_opts,
+      '#empty_option' => '--Select--',
       '#default_value' => isset($conditions['assignee_id'])?$conditions['assignee_id']:'',
       '#attributes' => [
         'class' => ['assignee_select_filter'],

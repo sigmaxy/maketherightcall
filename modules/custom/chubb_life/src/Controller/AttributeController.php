@@ -40,6 +40,7 @@ class AttributeController extends ControllerBase {
     $results[10] = 10;
     $results[25] = 25;
     $results[50] = 50;
+    $results[100] = 100;
     return $results;
   }
   public static function get_order_status_options() {
