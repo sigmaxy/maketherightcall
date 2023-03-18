@@ -10,6 +10,7 @@ use Drupal\chubb_life\Controller\ProductController;
 use Drupal\chubb_life\Controller\CustomerController;
 use Drupal\Core\Url;
 
+
 /**
  * Class EditOrderForm.
  */
@@ -1483,6 +1484,7 @@ class EditOrderForm extends FormBase {
     // }
     // parent::validateForm($form, $form_state);
     // $card_expiry_date = $form_state->getValue('card_expiry_date');
+
     if (!empty($form_state->getValue('email')) &&
       !\Drupal::service('email.validator')->isValid($form_state->getValue('email'))) {
       $form_state->setErrorByName('email', $this->t('Email address is not a valid one.'));
@@ -1495,11 +1497,11 @@ class EditOrderForm extends FormBase {
     if (!preg_match("/^(0[1-9]|1[0-2])\/[0-9]{4}$/",$form_state->getValue('card_expiry_date'))) {
       $form_state->setErrorByName('card_expiry_date','Invalide Card Expiry Date');
     }
-    if (!preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('identityNumber'))) {
+    if (!AttributeController::check_hkid($form_state->getValue('identityNumber'))) {
       $form_state->setErrorByName('identityNumber','Invalide HKID');
     }
     if (!empty($form_state->getValue('taxResidencyTin1')) &&
-      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('taxResidencyTin1'))) {
+      !AttributeController::check_hkid($form_state->getValue('taxResidencyTin1'))) {
       $form_state->setErrorByName('taxResidencyTin1','Invalide Tax Residency 1');
     }
     // if (!empty($form_state->getValue('taxResidencyTin2')) &&
@@ -1510,13 +1512,16 @@ class EditOrderForm extends FormBase {
     //   !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('taxResidencyTin3'))) {
     //   $form_state->setErrorByName('taxResidencyTin3','Invalide Tax Residency 3');
     // }
+    
 
     if (!empty($form_state->getValue('customer_insured_identityNumber')) &&
-      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_insured_identityNumber'))) {
+      !AttributeController::check_hkid($form_state->getValue('customer_insured_identityNumber'))) {
+        // echo $form_state->getValue('customer_insured_identityNumber');exit;
       $form_state->setErrorByName('customer_insured_identityNumber','Invalide Insured HKID');
     }
+    
     if (!empty($form_state->getValue('customer_insured_taxResidencyTin1')) &&
-      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_insured_taxResidencyTin1'))) {
+    !AttributeController::check_hkid($form_state->getValue('customer_insured_taxResidencyTin1'))) {
       $form_state->setErrorByName('customer_insured_taxResidencyTin1','Invalide Insured Tax Residency 1');
     }
     // if (!empty($form_state->getValue('customer_insured_taxResidencyTin2')) &&
@@ -1528,9 +1533,9 @@ class EditOrderForm extends FormBase {
     //   $form_state->setErrorByName('customer_insured_taxResidencyTin3','Invalide Insured Tax Residency 3');
     // }
 
-
+    
     if (!empty($form_state->getValue('customer_payor_identityNumber')) &&
-      !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('customer_payor_identityNumber'))) {
+    !AttributeController::check_hkid($form_state->getValue('customer_payor_identityNumber'))) {
       $form_state->setErrorByName('customer_payor_identityNumber','Invalide Payor HKID');
     }
 
@@ -1554,7 +1559,7 @@ class EditOrderForm extends FormBase {
         $form_state->setErrorByName('cardholder_id_number','Cardholder ID Number Number is Required');
       }
       if (!empty($form_state->getValue('cardholder_id_number')) &&
-        !preg_match("/^[A-Z]{1,2}[0-9]{6}[0-9A]$/",$form_state->getValue('cardholder_id_number'))) {
+      !AttributeController::check_hkid($form_state->getValue('cardholder_id_number'))) {
         $form_state->setErrorByName('cardholder_id_number','Invalide Cardholder ID Number');
       }
       if(empty($form_state->getValue('card_expiry_date'))){

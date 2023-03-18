@@ -42,6 +42,9 @@ jQuery(document).ready(function($){
         $("#edit-taxresidencytin1").val($(this).val());
         $("#edit-customer-payor-identitynumber").val($(this).val());
         $("#edit-cardholder-id-number").val($(this).val());
+        if($('#same_as_owner').val()=='Y'){
+            $("#edit-customer-insured-identitynumber").val($(this).val());
+        }        
 	});
     $(document).on('blur','#owner_birthDate',function(e) {
         $("#payor_birthDate").val($(this).val());

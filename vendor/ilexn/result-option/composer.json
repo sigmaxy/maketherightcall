@@ -1,0 +1,45 @@
+{
+    "name": "ilexn/result-option",
+    "type": "library",
+    "description": "Rust like enum Result and Option.",
+    "license": "MIT",
+    "keywords": ["result","option","enum"],
+    "authors": [
+        {
+            "name": "iLexN",
+            "email": "ilex.job@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "require-dev": {
+        "infection/infection": "^0.25",
+        "phpbench/phpbench": "^1.2",
+        "phpunit/phpunit": "^9.5",
+        "rector/rector": "^0.12",
+        "vimeo/psalm": "^4.13"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Ilex\\ResultOption\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ilex\\ResultOption\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit --testdox",
+        "test-test": "vendor/bin/infection --threads=4",
+        "bug-check": "phpstan analyse -l max src",
+        "psalm": "psalm",
+        "rector-check": "rector process src --config rector-ci.php --dry-run",
+        "rector-fix": "rector process src --config rector-ci.php",
+        "benchmark": "phpbench run --report=aggregate --retry-threshold=5 --progress=none"
+    }
+}

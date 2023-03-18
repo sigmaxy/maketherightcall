@@ -30,6 +30,7 @@
         "drupal/rabbitmq": "^3.0",
         "drupal/real_aes": "^2.4",
         "drupal/tfa": "^1.0@alpha",
+        "ilexn/hkid-check-digit": "^5.0",
         "phpoffice/phpspreadsheet": "^1.24",
         "phpseclib/phpseclib": "~3.0",
         "spatie/async": "^1.5"

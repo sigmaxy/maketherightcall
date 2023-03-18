@@ -67,19 +67,35 @@ class CallController extends ControllerBase {
       $query->condition('assignee_id', $conditions['assignee_id']);
       unset($conditions['assignee_id']);
     }
-    if(isset($conditions['updated_at'])){
-      $startdate = strtotime($conditions['updated_at']);
-      $enddate = strtotime("+1 day", $startdate);
-      $query->condition('mc.updated_at', [$startdate,$enddate], 'BETWEEN');
-      unset($conditions['updated_at']);
+    if(isset($conditions['record_per_page'])){
+      $record_per_page = $conditions['record_per_page'];
+      unset($conditions['record_per_page']);
+    }else{
+      $record_per_page = 10;
     }
+    if(isset($conditions['updated_at_start']) || isset($conditions['updated_at_end'])){
+      if(isset($conditions['updated_at_start'])){
+        $startdate = strtotime($conditions['updated_at_start']);
+      }else{
+        $startdate = strtotime('2022-01-01');
+      }
+      if(isset($conditions['updated_at_end'])){
+        $enddate = strtotime($conditions['updated_at_end'].' 23:59:59');
+      }else{
+        $enddate = time();
+      }
+      $query->condition('mc.updated_at', [$startdate,$enddate], 'BETWEEN');
+      unset($conditions['updated_at_start']);
+      unset($conditions['updated_at_end']);
+    }
+
     if(!empty($conditions)){
       foreach ($conditions as $key => $value) {
         $query->condition($key, '%' . $value . '%', 'LIKE');
       }
     }
     $query->orderBy('id', 'DESC');
-    $query = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10);
+    $query = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit($record_per_page);
     $record = $query->execute()->fetchAll();
     return $record;
   }

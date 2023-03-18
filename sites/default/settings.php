@@ -801,6 +801,7 @@ $settings['trusted_host_patterns'] = [
   '.*'
 ];
 $settings['block_interest_cohort'] = FALSE;
+$settings['pickup_call_url'] = 'https://maketherightcall.com/';
 $settings['config_sync_directory'] = $site_path.'/files/sync';
 $settings['file_temporary_path'] = $site_path.'/files/temp';
 $databases['default']['default']['database'] = 'mtrc';

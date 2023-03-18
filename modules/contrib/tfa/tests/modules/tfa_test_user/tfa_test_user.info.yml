@@ -1,0 +1,10 @@
+name: TFA Test User
+type: module
+package: Testing
+dependencies:
+  - drupal:user
+
+# Information added by Drupal.org packaging script on 2022-12-02
+version: '8.x-1.0'
+project: 'tfa'
+datestamp: 1669940343
