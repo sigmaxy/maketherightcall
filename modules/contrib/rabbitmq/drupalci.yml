@@ -18,6 +18,10 @@ build:
           - "docker run -d  --hostname rabbitmq --name rabbitmq_rabbitmq --rm rabbitmq:3"
           - "docker network connect --alias rabbitmq drupalci_nw rabbitmq_rabbitmq"
         halt-on-fail: false
+      container_command:
+        commands:
+          - 'php ${SOURCE_DIR}/modules/contrib/rabbitmq/tests/src/DrupalCi/WaitForRabbitMqContainer.php'
+        halt-on-fail: true
       run_tests.standard:
         types: 'Simpletest,PHPUnit-Unit,PHPUnit-Kernel,PHPUnit-Functional'
         testgroups: '--all'

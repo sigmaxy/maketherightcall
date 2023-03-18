@@ -8,6 +8,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\tfa\Plugin\TfaBasePlugin;
 use Drupal\tfa\Plugin\TfaSetupInterface;
+use Drupal\user\Entity\User;
 
 /**
  * TFA Test Validation Plugin Setup Plugin.
@@ -36,6 +37,9 @@ class TfaTestValidationPluginSetupPlugin extends TfaBasePlugin implements TfaSet
    * {@inheritdoc}
    */
   public function getSetupForm(array $form, FormStateInterface $form_state) {
+    $form['user']['#markup'] = $this->t('<p>TFA Setup for @name</p>', [
+      '@name' => User::load($this->configuration['uid'])->getDisplayName(),
+    ]);
     $form['expected_field'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Expected field'),
@@ -125,7 +129,7 @@ class TfaTestValidationPluginSetupPlugin extends TfaBasePlugin implements TfaSet
         '#theme' => 'links',
         '#links' => [
           'admin' => [
-            'title' => !$params['enabled'] ? $this->t('Set up application') : $this->t('Reset application'),
+            'title' => !$params['enabled'] ? $this->t('Set up test application') : $this->t('Reset test application'),
             'url' => Url::fromRoute('tfa.validation.setup', [
               'user' => $params['account']->id(),
               'method' => $params['plugin_id'],

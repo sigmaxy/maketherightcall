@@ -6,7 +6,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\tfa\Plugin\TfaSetupInterface;
 use Drupal\tfa\Plugin\TfaValidation\TfaRecoveryCode;
-use Drupal\tfa\TfaDataTrait;
 
 /**
  * TFA Recovery Code Setup Plugin.
@@ -22,7 +21,6 @@ use Drupal\tfa\TfaDataTrait;
  * )
  */
 class TfaRecoveryCodeSetup extends TfaRecoveryCode implements TfaSetupInterface {
-  use TfaDataTrait;
 
   /**
    * {@inheritdoc}
@@ -35,10 +33,10 @@ class TfaRecoveryCodeSetup extends TfaRecoveryCode implements TfaSetupInterface 
    * {@inheritdoc}
    */
   public function getOverview(array $params) {
-    return [
+    $ret = [
       'heading' => [
         '#type' => 'html_tag',
-        '#tag' => 'h2',
+        '#tag' => 'h3',
         '#value' => $this->t('Recovery Codes'),
       ],
       'description' => [
@@ -73,6 +71,13 @@ class TfaRecoveryCodeSetup extends TfaRecoveryCode implements TfaSetupInterface 
         ],
       ],
     ];
+
+    // Don't show codes to other users.
+    if ($this->currentUser->id() !== $this->uid) {
+      unset($ret['show_codes']);
+    }
+
+    return $ret;
   }
 
   /**

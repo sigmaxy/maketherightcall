@@ -2,6 +2,7 @@
 
 namespace Drupal\tfa\Plugin\TfaLogin;
 
+use Drupal\Core\Config\Config;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\encrypt\EncryptionProfileManagerInterface;
@@ -32,6 +33,13 @@ class TfaTrustedBrowser extends TfaBasePlugin implements TfaLoginInterface, TfaV
   protected $trustBrowser;
 
   /**
+   * Is cookie allowed in subdomains.
+   *
+   * @var bool
+   */
+  protected $allowSubdomains;
+
+  /**
    * The cookie name.
    *
    * @var string
@@ -50,10 +58,17 @@ class TfaTrustedBrowser extends TfaBasePlugin implements TfaLoginInterface, TfaV
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, UserDataInterface $user_data, EncryptionProfileManagerInterface $encryption_profile_manager, EncryptServiceInterface $encrypt_service) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $user_data, $encryption_profile_manager, $encrypt_service);
-    $config = \Drupal::config('tfa.settings');
-    $this->cookieName = $config->get('cookie_name') ?: 'TFA';
+    $plugin_settings = \Drupal::config('tfa.settings')->get('login_plugin_settings');
+    $settings = $plugin_settings['tfa_trusted_browser'] ?? [];
     // Expiration defaults to 30 days.
-    $this->expiration = $config->get('trust_cookie_expiration') ?: 86400 * 30;
+    $settings = array_replace([
+      'cookie_allow_subdomains' => TRUE,
+      'cookie_expiration' => 30,
+      'cookie_name' => 'tfa-trusted-browser',
+    ], $settings);
+    $this->allowSubdomains = $settings['cookie_allow_subdomains'];
+    $this->expiration = $settings['cookie_expiration'];
+    $this->cookieName = $settings['cookie_name'];
     $this->userData = $user_data;
   }
 
@@ -74,7 +89,7 @@ class TfaTrustedBrowser extends TfaBasePlugin implements TfaLoginInterface, TfaV
   public function getForm(array $form, FormStateInterface $form_state) {
     $form['trust_browser'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Remember this browser?'),
+      '#title' => $this->t('Remember this browser for @time days?', ['@time' => $this->expiration]),
       '#description' => $this->t('Not recommended if you are on a public or shared computer.'),
     ];
     return $form;
@@ -94,6 +109,45 @@ class TfaTrustedBrowser extends TfaBasePlugin implements TfaLoginInterface, TfaV
     if (!empty($trust_browser)) {
       $this->setTrusted($this->generateBrowserId(), $this->getAgent());
     }
+  }
+
+  /**
+   * The configuration form for this validation plugin.
+   *
+   * @param \Drupal\Core\Config\Config $config
+   *   Config object for tfa settings.
+   * @param array $state
+   *   Form state array determines if this form should be shown.
+   *
+   * @return array
+   *   Form array specific for this validation plugin.
+   */
+  public function buildConfigurationForm(Config $config, array $state = []) {
+    $settings_form['cookie_allow_subdomains'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Allow cookie in subdomains'),
+      '#default_value' => $this->allowSubdomains,
+      '#description' => $this->t("If set, the cookie will be valid in the same subdomains as core's session cookie, otherwise it is only valid in the exact domain used to log in."),
+      '#states' => $state,
+    ];
+    $settings_form['cookie_expiration'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Cookie expiration'),
+      '#default_value' => $this->expiration,
+      '#description' => $this->t('Number of days to remember the trusted browser.'),
+      '#min' => 1,
+      '#max' => 365,
+      '#size' => 2,
+      '#states' => $state,
+      '#required' => TRUE,
+    ];
+    $settings_form['cookie_name'] = [
+      '#type' => 'value',
+      '#title' => $this->t('Cookie name'),
+      '#value' => $this->cookieName,
+    ];
+
+    return $settings_form;
   }
 
   /**
@@ -140,21 +194,17 @@ class TfaTrustedBrowser extends TfaBasePlugin implements TfaLoginInterface, TfaV
       'ip' => \Drupal::request()->getClientIp(),
       'name' => $name,
     ];
+    $this->setUserData('tfa', ['tfa_trusted_browser' => $records], $this->configuration['uid'], $this->userData);
 
-    $data = [
-      'tfa_trusted_browser' => $records,
-    ];
-
-    $this->setUserData('tfa', $data, $this->configuration['uid'], $this->userData);
     // Issue cookie with ID.
     $cookie_secure = ini_get('session.cookie_secure');
-    $expiration = $request_time + $this->expiration;
-    $domain = strpos($_SERVER['HTTP_HOST'], 'localhost') === FALSE ? $_SERVER['HTTP_HOST'] : FALSE;
-    setcookie($this->cookieName, $id, $expiration, '/', $domain, (empty($cookie_secure) ? FALSE : TRUE), TRUE);
-    $name = empty($name) ? $this->getAgent() : $name;
+    $expiration = $request_time + $this->expiration * 86400;
+    $domain = $this->allowSubdomains ? ini_get('session.cookie_domain') : '';
+    setcookie($this->cookieName, $id, $expiration, base_path(), $domain, !empty($cookie_secure), TRUE);
+
     // @todo use services defined in module instead this procedural way.
     \Drupal::logger('tfa')->info('Set trusted browser for user UID @uid, browser @name', [
-      '@name' => $name,
+      '@name' => empty($name) ? $this->getAgent() : $name,
       '@uid' => $this->uid,
     ]);
   }

@@ -3,6 +3,7 @@
 namespace Drupal\real_aes\Plugin\EncryptionMethod;
 
 use Drupal\encrypt\EncryptionMethodInterface;
+use Drupal\encrypt\Exception\EncryptException;
 use Drupal\encrypt\Plugin\EncryptionMethod\EncryptionMethodBase;
 use \Defuse\Crypto\Crypto;
 use \Defuse\Crypto\Exception as Ex;
@@ -46,7 +47,7 @@ class RealAESEncryptionMethod extends EncryptionMethodBase implements Encryption
       return Crypto::encrypt((string) $text, $key);
     }
     catch (Ex\CryptoException $ex) {
-      return FALSE;
+      throw new EncryptException();
     }
   }
 
@@ -61,7 +62,7 @@ class RealAESEncryptionMethod extends EncryptionMethodBase implements Encryption
       return Crypto::decrypt((string) $text, $key);
     }
     catch (Ex\CryptoException $ex) {
-      return FALSE;
+      throw new EncryptException();
     }
   }
 

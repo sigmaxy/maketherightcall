@@ -6,6 +6,7 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\tfa\TfaLoginTrait;
+use Drupal\user\Entity\User;
 use Drupal\user\UserInterface;
 
 /**
@@ -28,12 +29,33 @@ class TfaLoginController {
    *   The access result.
    */
   public function access(RouteMatchInterface $route, AccountInterface $account) {
-    $user = $route->getParameter('user');
-
     // Start with a positive access check which is cacheable for the current
     // route, which includes both route name and parameters.
     $access = AccessResult::allowed();
     $access->addCacheContexts(['route']);
+
+    // Use uids here instead of user objects to prevent enumeration attacks.
+    $uid = (int) $route->getParameter('uid');
+
+    // If stored uid is invalid, the tfa process didn't start in this session.
+    $temp_store = \Drupal::service('tempstore.private')->get('tfa');
+    $uid_check = $temp_store->get('tfa-entry-uid');
+    if (!is_numeric($uid_check) || ($uid !== (int) $uid_check)) {
+      return $access->andIf(AccessResult::forbidden('Invalid session.'));
+    }
+    else {
+      $metadata = $temp_store->getMetadata('tfa-entry-uid');
+      $updated = is_null($metadata) ? 0 : $metadata->getUpdated();
+      // Deny access, after 5 minutes since the start of the tfa process.
+      if ($updated < (time() - 300)) {
+        $temp_store->delete('tfa-entry-uid');
+        return $access->andIf(AccessResult::forbidden('Timeout expired.'));
+      }
+    }
+
+    // Attempt to retrieve a user from the uid.
+    /** @var \Drupal\user\UserInterface $user */
+    $user = User::load($uid);
     if (!$user instanceof UserInterface) {
       return $access->andIf(AccessResult::forbidden('Invalid user.'));
     }
@@ -43,7 +65,7 @@ class TfaLoginController {
     $access->addCacheableDependency($user);
     // If the login hash doesn't match, forbid access.
     if ($this->getLoginHash($user) !== $route->getParameter('hash')) {
-      return $access->andIf(AccessResult::forbidden('Invalid hash.'));
+      return $access->andIf(AccessResult::forbidden('Invalid hash value.'));
     }
 
     // If we've gotten here, we need to check that the current user is allowed
@@ -91,8 +113,24 @@ class TfaLoginController {
       return $access->andIf(AccessResult::forbidden('User is not logged in.'));
     }
 
-    $is_self = $account->id() === $target_user->id();
-    $is_admin = $account->hasPermission('administer users');
+    // ID may be numeric string depending on entity class/storage, despite docs
+    // for both AccountInterface::id() and UserInterface::id() claiming strict
+    // integer.
+    $is_self = (int) $account->id() === (int) $target_user->id();
+    if (!$is_self) {
+      $method = $route->getParameter('method');
+      if (!empty($method)) {
+        $plugin = \Drupal::service('plugin.manager.tfa.validation')->createInstance($method, ['uid' => $target_user->id()]);
+        if (method_exists($plugin, 'allowUserSetupAccess')) {
+          $ret = $plugin->allowUserSetupAccess($route, $account);
+          if ($ret === FALSE) {
+            return $access->andIf(AccessResult::forbidden("Access denied for $method plugin."));
+          }
+        }
+      }
+    }
+
+    $is_admin = $account->hasPermission('administer tfa for other users');
     $is_self_or_admin = AccessResult::allowedIf($is_self || $is_admin);
 
     return $access->andIf($is_self_or_admin);

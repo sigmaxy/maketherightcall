@@ -2,21 +2,11 @@
 
 namespace Drupal\tfa\Form;
 
-use Drupal\Core\Flood\FloodInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\RendererInterface;
-use Drupal\Core\Routing\RedirectDestinationInterface;
 use Drupal\Core\Url;
-use Drupal\tfa\Plugin\TfaSendInterface;
-use Drupal\tfa\TfaContext;
-use Drupal\tfa\TfaDataTrait;
+use Drupal\tfa\TfaLoginContextTrait;
 use Drupal\tfa\TfaLoginTrait;
-use Drupal\tfa\TfaLoginPluginManager;
-use Drupal\tfa\TfaValidationPluginManager;
 use Drupal\user\Form\UserLoginForm;
-use Drupal\user\UserAuthInterface;
-use Drupal\user\UserDataInterface;
-use Drupal\user\UserStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -25,36 +15,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @noinspection PhpInternalEntityUsedInspection
  */
 class TfaLoginForm extends UserLoginForm {
-  use TfaDataTrait;
+  use TfaLoginContextTrait;
   use TfaLoginTrait;
-
-  /**
-   * The validation plugin manager to fetch plugin information.
-   *
-   * @var \Drupal\tfa\TfaValidationPluginManager
-   */
-  protected $tfaValidationManager;
-
-  /**
-   * The login plugin manager to fetch plugin information.
-   *
-   * @var \Drupal\tfa\TfaLoginPluginManager
-   */
-  protected $tfaLoginManager;
-
-  /**
-   * The current validation plugin.
-   *
-   * @var \Drupal\tfa\Plugin\TfaValidationInterface
-   */
-  protected $tfaValidationPlugin;
-
-  /**
-   * The user data service.
-   *
-   * @var \Drupal\user\UserDataInterface
-   */
-  protected $userData;
 
   /**
    * Redirect destination service.
@@ -64,56 +26,28 @@ class TfaLoginForm extends UserLoginForm {
   protected $destination;
 
   /**
-   * Tfa login context object.
+   * The private temporary store.
    *
-   * This will be initialized in the submitForm() method.
-   *
-   * @var \Drupal\tfa\TfaContext
+   * @var \Drupal\Core\TempStore\PrivateTempStore
    */
-  protected $tfaContext;
-
-  /**
-   * Constructs a new user login form.
-   *
-   * @param \Drupal\Core\Flood\FloodInterface $flood
-   *   The flood service.
-   * @param \Drupal\user\UserStorageInterface $user_storage
-   *   The user storage.
-   * @param \Drupal\user\UserAuthInterface $user_auth
-   *   The user authentication object.
-   * @param \Drupal\Core\Render\RendererInterface $renderer
-   *   The renderer.
-   * @param \Drupal\tfa\TfaValidationPluginManager $tfa_validation_manager
-   *   Tfa validation plugin manager.
-   * @param \Drupal\tfa\TfaLoginPluginManager $tfa_plugin_manager
-   *   Tfa setup plugin manager.
-   * @param \Drupal\user\UserDataInterface $user_data
-   *   User data service.
-   * @param \Drupal\Core\Routing\RedirectDestinationInterface $destination
-   *   Redirect destination.
-   */
-  public function __construct(FloodInterface $flood, UserStorageInterface $user_storage, UserAuthInterface $user_auth, RendererInterface $renderer, TfaValidationPluginManager $tfa_validation_manager, TfaLoginPluginManager $tfa_plugin_manager, UserDataInterface $user_data, RedirectDestinationInterface $destination) {
-    parent::__construct($flood, $user_storage, $user_auth, $renderer);
-    $this->tfaValidationManager = $tfa_validation_manager;
-    $this->tfaLoginManager = $tfa_plugin_manager;
-    $this->userData = $user_data;
-    $this->destination = $destination;
-  }
+  protected $privateTempStore;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('flood'),
-      $container->get('entity_type.manager')->getStorage('user'),
-      $container->get('user.auth'),
-      $container->get('renderer'),
-      $container->get('plugin.manager.tfa.validation'),
-      $container->get('plugin.manager.tfa.login'),
-      $container->get('user.data'),
-      $container->get('redirect.destination')
-    );
+    $instance = parent::create($container);
+
+    $instance->tfaValidationManager = $container->get('plugin.manager.tfa.validation');
+    $instance->tfaLoginManager = $container->get('plugin.manager.tfa.login');
+    $instance->tfaSettings = $container->get('config.factory')->get('tfa.settings');
+
+    $instance->userData = $container->get('user.data');
+
+    $instance->destination = $container->get('redirect.destination');
+    $instance->privateTempStore = $container->get('tempstore.private')->get('tfa');
+
+    return $instance;
   }
 
   /**
@@ -141,16 +75,9 @@ class TfaLoginForm extends UserLoginForm {
     }
 
     // Similar to tfa_user_login() but not required to force user logout.
-    /** @var \Drupal\user\Entity\User $user */
+    /** @var \Drupal\user\UserInterface $user */
     $user = $this->userStorage->load($uid);
-    $this->tfaContext = new TfaContext(
-      $this->tfaValidationManager,
-      $this->tfaLoginManager,
-      $this->configFactory(),
-      $user,
-      $this->userData,
-      $this->getRequest()
-    );
+    $this->setUser($user);
 
     /* Uncomment when things go wrong and you get logged out.
     user_login_finalize($user);
@@ -159,12 +86,12 @@ class TfaLoginForm extends UserLoginForm {
      */
 
     // Stop processing if Tfa is not enabled.
-    if (!$this->tfaContext->isModuleSetup() || !$this->tfaContext->isTfaRequired()) {
+    if ($this->isTfaDisabled()) {
       parent::submitForm($form, $form_state);
     }
     else {
       // Setup TFA.
-      if ($this->tfaContext->isReady()) {
+      if ($this->isReady()) {
         $this->loginWithTfa($form_state);
       }
       else {
@@ -176,8 +103,6 @@ class TfaLoginForm extends UserLoginForm {
   /**
    * Handle login when TFA is set up for the user.
    *
-   * TFA is set up for this user, and $this->tfaContext is initialized.
-   *
    * If any of the TFA plugins allows login, then finalize the login. Otherwise,
    * set a redirect to enter a second factor.
    *
@@ -185,28 +110,32 @@ class TfaLoginForm extends UserLoginForm {
    *   The state of the login form.
    */
   public function loginWithTfa(FormStateInterface $form_state) {
-    $user = $this->tfaContext->getUser();
-    if ($this->tfaContext->pluginAllowsLogin()) {
-      $this->tfaContext->doUserLogin();
+    $user = $this->getUser();
+    if ($this->pluginAllowsLogin()) {
+      $this->doUserLogin();
       $this->messenger()->addStatus($this->t('You have logged in on a trusted browser.'));
       $form_state->setRedirect('<front>');
     }
     else {
       // Begin TFA and set process context.
-      // @todo This is used in send plugins which has not been implemented yet.
-      // $this->begin($tfaValidationPlugin);
-      $parameters = $this->destination->getAsArray();
-      $parameters['user'] = $user->id();
+      if (!empty($this->getRequest()->query->get('destination'))) {
+        $parameters = $this->destination->getAsArray();
+        $this->getRequest()->query->remove('destination');
+      }
+      else {
+        $parameters = [];
+      }
+      $parameters['uid'] = $user->id();
       $parameters['hash'] = $this->getLoginHash($user);
-      $this->getRequest()->query->remove('destination');
       $form_state->setRedirect('tfa.entry', $parameters);
+
+      // Store UID in order to later verify access to entry form.
+      $this->privateTempStore->set('tfa-entry-uid', $user->id());
     }
   }
 
   /**
    * Handle the case where TFA is not yet set up.
-   *
-   * TFA is not set up for this user, and $this->tfaContext is initialized.
    *
    * If the user has any remaining logins, then finalize the login with a
    * message to set up TFA. Otherwise, leave the user logged out.
@@ -217,9 +146,9 @@ class TfaLoginForm extends UserLoginForm {
   public function loginWithoutTfa(FormStateInterface $form_state) {
     // User may be able to skip TFA, depending on module settings and number of
     // prior attempts.
-    $remaining = $this->tfaContext->remainingSkips();
+    $remaining = $this->remainingSkips();
     if ($remaining) {
-      $user = $this->tfaContext->getUser();
+      $user = $this->getUser();
       $tfa_setup_link = Url::fromRoute('tfa.overview', [
         'user' => $user->id(),
       ])->toString();
@@ -230,14 +159,14 @@ class TfaLoginForm extends UserLoginForm {
         ['@remaining' => $remaining - 1, '@link' => $tfa_setup_link]
       );
       $this->messenger()->addError($message);
-      $this->tfaContext->hasSkipped();
-      $this->tfaContext->doUserLogin();
+      $this->hasSkipped();
+      $this->doUserLogin();
       $form_state->setRedirect('<front>');
     }
     else {
       $message = $this->config('tfa.settings')->get('help_text');
       $this->messenger()->addError($message);
-      $this->logger('tfa')->notice('@name has no more remaining attempts for bypassing the second authentication factor.', ['@name' => $this->tfaContext->getUser()->getAccountName()]);
+      $this->logger('tfa')->notice('@name has no more remaining attempts for bypassing the second authentication factor.', ['@name' => $this->getUser()->getAccountName()]);
     }
   }
 
@@ -257,19 +186,6 @@ class TfaLoginForm extends UserLoginForm {
     $route = $form_state->getValue('tfa_redirect');
     if (isset($route)) {
       $form_state->setRedirect($route);
-    }
-  }
-
-  /**
-   * Begin the TFA process.
-   *
-   * @param \Drupal\tfa\Plugin\TfaSendInterface $tfaSendPlugin
-   *   The send plugin instance.
-   */
-  protected function begin(TfaSendInterface $tfaSendPlugin) {
-    // Invoke begin method on send validation plugins.
-    if (method_exists($tfaSendPlugin, 'begin')) {
-      $tfaSendPlugin->begin();
     }
   }
 

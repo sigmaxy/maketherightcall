@@ -26,6 +26,7 @@ class RabbitmqServiceProvider extends ServiceProviderBase {
           new Reference('settings'),
           $key,
         ]);
+        $connectionFactory->setPublic(TRUE);
         $container->setDefinition($connectionFactoryServiceId, $connectionFactory);
 
         $queueFactory = new Definition(QueueFactory::class, [
@@ -34,6 +35,7 @@ class RabbitmqServiceProvider extends ServiceProviderBase {
           new Reference('logger.channel.rabbitmq'),
           new Reference('config.factory'),
         ]);
+        $queueFactory->setPublic(TRUE);
         $container->setDefinition('queue.rabbitmq.' . $key, $queueFactory);
       }
     }

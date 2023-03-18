@@ -30,16 +30,16 @@ class TfaTrustedBrowserSetup extends TfaTrustedBrowser implements TfaSetupInterf
    */
   public function getSetupForm(array $form, FormStateInterface $form_state) {
     $existing = $this->getTrustedBrowsers();
-    $time = $this->expiration / 86400;
     $form['info'] = [
       '#type' => 'markup',
       '#markup' => '<p>' . $this->t("Trusted browsers are a method for
       simplifying login by avoiding verification code entry for a set amount of
       time, @time days from marking a browser as trusted. After @time days, to
       log in you'll need to enter a verification code with your username and
-      password during which you can again mark the browser as trusted.", ['@time' => $time]) . '</p>',
+      password during which you can again mark the browser as trusted.",
+      ['@time' => $this->expiration]) . '</p>',
     ];
-    // Present option to trust this browser if its not currently trusted.
+    // Present option to trust this browser if it's not currently trusted.
     if (isset($_COOKIE[$this->cookieName]) && $this->trustedBrowser($_COOKIE[$this->cookieName]) !== FALSE) {
       $current_trusted = $_COOKIE[$this->cookieName];
     }
@@ -218,19 +218,17 @@ class TfaTrustedBrowserSetup extends TfaTrustedBrowser implements TfaSetupInterf
         '#value' => $this->t('Browsers that will not require a verification code during login.'),
       ],
     ];
-    if (!empty($trusted_browsers)) {
+    $output['list'] = [
+      '#theme' => 'item_list',
+      '#items' => $trusted_browsers,
+      '#empty' => $this->t('No trusted browsers found.'),
+    ];
 
-      $output['list'] = [
-        '#theme' => 'item_list',
-        '#items' => $trusted_browsers,
-        '#title' => $this->t('Browsers that will not require a verification code during login.'),
-      ];
-    }
     $output['link'] = [
       '#theme' => 'links',
       '#links' => [
         'admin' => [
-          'title' => 'Configure Trusted Browsers',
+          'title' => $this->t('Configure trusted browsers'),
           'url' => Url::fromRoute('tfa.validation.setup', [
             'user' => $params['account']->id(),
             'method' => $params['plugin_id'],
