@@ -3292,6 +3292,66 @@
             "install-path": "../guzzlehttp/psr7"
         },
         {
+            "name": "ilexn/hkid-check-digit",
+            "version": "3.1.2",
+            "version_normalized": "3.1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iLexN/HKID-Check-Digit.git",
+                "reference": "5c8e66b9d709b02f0341e424306eab2e15725eb0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iLexN/HKID-Check-Digit/zipball/5c8e66b9d709b02f0341e424306eab2e15725eb0",
+                "reference": "5c8e66b9d709b02f0341e424306eab2e15725eb0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "codedungeon/phpunit-result-printer": "^0.27.0",
+                "ilexn/keep-a-change-log": "^1.1",
+                "infection/infection": "^0.16.3",
+                "phpbench/phpbench": "@dev",
+                "phpstan/phpstan": "^0.12.26",
+                "phpstan/phpstan-phpunit": "^0.12.11",
+                "phpstan/phpstan-strict-rules": "^0.12.2",
+                "phpunit/phpunit": "^9.2",
+                "rector/rector": "^0.7",
+                "spatie/phpunit-watcher": "^1.22",
+                "symplify/easy-coding-standard": "^7.3",
+                "vimeo/psalm": "^3.11"
+            },
+            "time": "2020-06-09T04:22:17+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Ilex\\Validation\\HkidValidation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "iLexN",
+                    "email": "ilex.job@gmail.com"
+                }
+            ],
+            "description": "HKID digit check",
+            "keywords": [
+                "HKID"
+            ],
+            "support": {
+                "issues": "https://github.com/iLexN/HKID-Check-Digit/issues",
+                "source": "https://github.com/iLexN/HKID-Check-Digit/tree/3.x"
+            },
+            "install-path": "../ilexn/hkid-check-digit"
+        },
+        {
             "name": "laminas/laminas-diactoros",
             "version": "2.11.3",
             "version_normalized": "2.11.3.0",
