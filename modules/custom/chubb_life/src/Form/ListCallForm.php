@@ -93,7 +93,19 @@ class ListCallForm extends FormBase {
     $filter_call_status_opt = $call_status_opt;
     $filter_call_status_opt['null'] = 'Not Assigned';
     foreach($call_list as $key=>$data){
-      $edit = Url::fromUserInput('/chubb_life/form/edit_call/'.$data->id);
+      $url = Url::fromUserInput('/chubb_life/form/edit_call/'.$data->id);
+      $link_options = array(
+        'attributes' => array(
+          // 'class' => array(
+          //   'button',
+          //   'bg-green'
+          // ),
+          'onclick' => array(
+            'window.open (this.href,"targetWindow","menubar=1,resizable=1,width=1200,height=800");return false;',
+          ),
+        ),
+      );
+      $url->setOptions($link_options);
       $view_log = Url::fromUserInput('/chubb_life/form/list_call_log/'.$data->id);
       $import_customer_id = $data->import_customer_id;
       $import_customer = CustomerController::get_import_customer_by_id($import_customer_id);
@@ -120,10 +132,9 @@ class ListCallForm extends FormBase {
       $row_data['updated_at'] = date('Y-m-d H:i:s',$data->updated_at);
       $updated_user = \Drupal\user\Entity\User::load($data->updated_by);
       $row_data['updated_by'] = $updated_user->field_agentname->value;
-      // $row_data['opt'] = Link::fromTextAndUrl('View', $edit);
       $row_data['opt'] = [
-        'data'=> Link::fromTextAndUrl('View', $edit),
-        'title'=> $data->remark,
+        'data'=> Link::fromTextAndUrl('View', $url),
+        'title'=> $data->remark
       ];
       $rows[$data->id] = $row_data;
     }
