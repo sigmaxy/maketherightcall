@@ -221,7 +221,7 @@ jQuery(document).ready(function($){
         $.ajax({
             type: 'POST',
             crossDomain: true,
-            rl: dia_url, 
+            url: dia_url, 
             success: function(result){
                 console.log('success');
                 console.log(result);
