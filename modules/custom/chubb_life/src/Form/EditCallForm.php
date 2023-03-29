@@ -295,6 +295,7 @@ class EditCallForm extends FormBase {
     $pickup_call_url = \Drupal\Core\Site\Settings::get('pickup_call_url');
     $form['#attached']['drupalSettings']['dial_url'] = $pickup_call_url.'agentId='.$ucc_id.'&serviceType='.$service_type.'&jobRef='.$import_customer['cust_ref'].'&number=';
     $form['#attached']['library'][] = 'chubb_life/chubb_life';
+    $form['#attached']['library'][] = 'chubb_life/edit_call';
     return $form;
   }
   /**

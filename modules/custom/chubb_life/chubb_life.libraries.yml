@@ -16,3 +16,9 @@ chubb_life:
       # - jquery_ui_dialog/dialog
       # - jquery_ui_checkboxradio/checkboxradio
 
+edit_call:
+    js:
+      js/edit_call.js: {}
+    dependencies:
+      - core/jquery
+      - core/drupal.ajax
