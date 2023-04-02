@@ -322,7 +322,9 @@ class EditCallForm extends FormBase {
     $call['remark'] = $form_state->getValue('remark');
     CallController::update_call($call);
     \Drupal::messenger()->addMessage('Call has been updated');
-    $form_state->setRedirectUrl(Url::fromRoute('chubb_life.list_call_form'));
+    // $form_state->setRedirectUrl(Url::fromRoute('chubb_life.list_call_form'));
+    $form_state->setRedirectUrl(Url::fromRoute('chubb_life.close_window_form'));
+
   }
   public function make_call(array $form, FormStateInterface $form_state) {
     $field=$form_state->getValues();

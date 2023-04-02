@@ -22,3 +22,10 @@ edit_call:
     dependencies:
       - core/jquery
       - core/drupal.ajax
+
+close_window:
+    js:
+      js/close_window.js: {}
+    dependencies:
+      - core/jquery
+      - core/drupal.ajax

@@ -141,3 +141,10 @@ chubb_life.batch_form:
   requirements:
    _permission: 'access chubb_life_assignee configuration'
 
+chubb_life.close_window_form:
+  path: '/chubb_life/form/close_window'
+  defaults:
+    _form: '\Drupal\chubb_life\Form\CloseWindowForm'
+    _title: 'Close Window'
+  requirements:
+   _permission: 'access chubb_life_assignee configuration'
