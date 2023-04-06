@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\chubb_life\Controller\AttributeController;
 use Drupal\chubb_life\Controller\OrderController;
+use Drupal\Core\Url;
 
 /**
  * Class SaleForm.
@@ -510,6 +511,7 @@ class SaleForm extends FormBase {
     $sale_data['updated_by'] = \Drupal::currentUser()->id();
     OrderController::update_order($sale_data);
     \Drupal::messenger()->addMessage('Order has been updated');
+    $form_state->setRedirectUrl(Url::fromRoute('chubb_life.close_window_form'));
   }
 
 }

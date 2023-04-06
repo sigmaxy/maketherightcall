@@ -1713,7 +1713,8 @@ class EditOrderForm extends FormBase {
     }
     OrderController::update_order($order);
     \Drupal::messenger()->addMessage('Order has been updated');
-    $form_state->setRedirectUrl(Url::fromRoute('chubb_life.list_order_form'));
+    // $form_state->setRedirectUrl(Url::fromRoute('chubb_life.list_order_form'));
+    $form_state->setRedirectUrl(Url::fromRoute('chubb_life.close_window_form'));
   }
   public function submit_and_new(array &$form, FormStateInterface $form_state){
     $order = array();
