@@ -801,6 +801,7 @@ $settings['trusted_host_patterns'] = [
   '.*'
 ];
 $settings['block_interest_cohort'] = FALSE;
+$settings['pickup_call_url'] = 'https://192.168.11.175:8443/UCCS/ws/api/outcall?username=mtrc&password=mtrc&';
 $settings['config_sync_directory'] = $site_path.'/files/sync';
 $settings['file_temporary_path'] = $site_path.'/files/temp';
 $databases['default']['default']['database'] = 'mtrc';
