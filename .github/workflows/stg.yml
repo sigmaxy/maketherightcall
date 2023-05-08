@@ -1,9 +1,9 @@
 name: Deploy Staging Only
 on:
   push:
-    branches: [ staging ]
+    branches: [ stg ]
   pull_request:
-    branches: [ staging ]
+    branches: [ stg ]
     types: [ closed ]
   workflow_dispatch:
 jobs:
@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v3
         with:
               repository: sigmaxy/maketherightcall
-              ref: staging
+              ref: stg
               fetch-depth: 0
       - name: deploy step
         uses: easingthemes/ssh-deploy@main
