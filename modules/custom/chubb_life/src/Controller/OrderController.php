@@ -92,6 +92,9 @@ class OrderController extends ControllerBase {
     unset($order['insured']);
     $client_payor = $order['payor'];
     unset($order['payor']);
+    if(empty($order['credit_card'])){
+      unset($order['credit_card']);
+    }
     if($db_order_id){
       $connection->update('mtrc_order')
         ->fields($order)
@@ -201,7 +204,8 @@ class OrderController extends ControllerBase {
         'agentName'=>$order['agentName'],
         'agentCode2'=>'',
         'annuityStartAge'=>'',
-        'applicationSignDate'=>date('d/m/Y', $order['created_at']),
+        // 'applicationSignDate'=>date('d/m/Y', $order['created_at']),
+        'applicationSignDate'=>'',
         'autoPolicyDate'=>'',
         'billingType'=>$order['billingType'],
         'contribution'=>'',
@@ -209,8 +213,9 @@ class OrderController extends ControllerBase {
         'deathBenefitOption'=>'',
         'dividendOption'=>'',
         'ecopy'=>$order['ecopy']=='Y'?true:false,
-        'epolicyIndicator'=>$order['epolicy']=='Y'?true:false,
-        'effectiveDate'=>$order['dda_setup'].date('/m/Y', strtotime('+2 months')),
+        // 'epolicyIndicator'=>$order['epolicy']=='Y'?true:false,
+        // 'effectiveDate'=>$order['dda_setup'].date('/m/Y', strtotime('+2 months')),
+        'effectiveDate'=>'',
         'extraContribution'=>'',
         'isOcrDataChanged'=>'',
         'isSignedByVos'=>'',
@@ -450,7 +455,8 @@ class OrderController extends ControllerBase {
           'mobileNumberCountryCode'=>'',
           'nationality'=>'',
           'occupationCode'=>'',
-          'relationship'=>$order['owner']['relationship']=='INS'?$order['owner']['relationship']:'',
+          // 'relationship'=>$order['owner']['relationship']=='INS'?$order['owner']['relationship']:'',
+          'relationship'=>'',
           'residence'=>array(
             'address1'=>'',
             'address2'=>'',
@@ -475,8 +481,9 @@ class OrderController extends ControllerBase {
       ],
       'paymentTransactionDto'=>array(
         'amount'=>$order['initial_premium'],
-        'amountInPolicyCurrency'=>$order['currency'],
-        'authorizationCode'=>$order['authorizationCode'],
+        'amountInPolicyCurrency'=>$order['initial_premium'],
+        // 'authorizationCode'=>$order['authorizationCode'],
+        'authorizationCode'=>'',
         'bankName'=>'',
         'basicPlanCode'=>$order['plan_code'],
         'cardHolderName'=>$order['cardHolderName'],
@@ -492,8 +499,8 @@ class OrderController extends ControllerBase {
         'payorRole'=>'O',
         'policyCurrency'=>$order['currency'],
         'referenceNumber'=>sprintf('TM%06d',$order['id']),
-        'transactionCurrency'=>'HKD',
-        'transaction'=>$transaction,
+        // 'transactionCurrency'=>'HKD',
+        // 'transaction'=>$transaction,
         'transactionStatus'=>'',
         'transactionUpdatedDate'=>$order['transactionUpdatedDate'],
       ),
