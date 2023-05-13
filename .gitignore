@@ -1,16 +1,11 @@
 #/index.php
-sites/default/files/*
-sites/stag/files/*
-sites/prod/files/*
-sites/win10/files/*
-
+sites/*/files/*
 !sites/*/files/mtrc
 !sites/*/files/sync
-# !sites/*/files/temp
-!sites/*/files/.htaccess
+!sites/*/files/temp
 
-sites/local/*.*
-sites/local/*
+sites/*/files/temp/*
+!sites/*/files/temp/.htaccess
 
 /.DS_Store
 .DS_Store
