@@ -1336,10 +1336,19 @@ class EditOrderForm extends FormBase {
     ];
     $form['billing_info']['authorizationCode'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Authorization Code'),
+      '#title' => $this->t('Tokenized credit number'),
       '#default_value' => isset($record['authorizationCode'])?$record['authorizationCode']:'',
       '#maxlength' => 255,
       '#weight' => '5',
+      // '#required'=> true,
+    ];
+    $form['billing_info']['credit_card'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Anthorized No.'),
+      '#default_value' => isset($record['credit_card'])?$record['credit_card']:'',
+      '#maxlength' => 255,
+      '#weight' => '6',
+      '#description' => '',
       // '#required'=> true,
     ];
     $form['billing_info']['cardHolderName'] = [
@@ -1347,7 +1356,7 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Cardholder Name'),
       '#default_value' => isset($record['cardHolderName'])?$record['cardHolderName']:'',
       '#maxlength' => 255,
-      '#weight' => '6',
+      '#weight' => '8',
       // '#required'=> true,
     ];
     $form['billing_info']['cardholder_id_number'] = [
@@ -1355,7 +1364,7 @@ class EditOrderForm extends FormBase {
       '#title' => $this->t('Cardholder ID Number'),
       '#default_value' => isset($record['cardholder_id_number'])?$record['cardholder_id_number']:'',
       '#maxlength' => 255,
-      '#weight' => '7',
+      '#weight' => '9',
       // '#required'=> true,
     ];
     $form['billing_info']['card_expiry_date'] = [
@@ -1368,7 +1377,7 @@ class EditOrderForm extends FormBase {
         'id' => 'card_expiry_date',
         'onkeyup'=>"addSlashes(this)",
       ],
-      '#weight' => '8',
+      '#weight' => '7',
       // '#required'=> true,
     ];
     $form['billing_info']['initial_premium'] = [
@@ -1380,7 +1389,7 @@ class EditOrderForm extends FormBase {
         'readonly' => 'readonly',
         'id' => 'initial_premium',
       ],
-      '#weight' => '9',
+      '#weight' => '10',
       '#required'=> true,
     ];
     $form['billing_info']['modal_premium_payment'] = [
@@ -1392,7 +1401,7 @@ class EditOrderForm extends FormBase {
         'readonly' => 'readonly',
         'id' => 'modal_premium_payment',
       ],
-      '#weight' => '10',
+      '#weight' => '11',
       '#required'=> true,
     ];
     $form['billing_info']['levy'] = [
@@ -1404,8 +1413,39 @@ class EditOrderForm extends FormBase {
         'readonly' => 'readonly',
         'id' => 'levy',
       ],
-      '#weight' => '11',
+      '#weight' => '12',
       '#required'=> true,
+    ];
+    $form['billing_info']['transaction_currency'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Transaction Currency'),
+      '#options' => $currency_opt,
+      '#empty_option' => '--Select--',
+      '#default_value' => isset($record['transaction_currency'])?$record['transaction_currency']:'HKD',
+      '#attributes' => [
+        'class' => ['noselect2','clear_calculate'],
+        'id' => 'transaction_currency',
+      ],
+      '#weight' => '13',
+      '#required'=> true,
+    ];
+    $form['billing_info']['transacted_initial_premium'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Transacted Initial Premium (Includeds Levy and Discount)'),
+      '#default_value' => isset($record['transacted_initial_premium'])?$record['transacted_initial_premium']:'',
+      '#maxlength' => 255,
+      '#attributes' => [
+        'readonly' => 'readonly',
+        'id' => 'transacted_initial_premium',
+      ],
+      '#weight' => '14',
+      '#required'=> true,
+    ];
+    $form['billing_info']['application_sign_date'] = [
+      '#type' => 'date',
+      '#title' => $this->t('Application Sign Date'),
+      '#default_value' => isset($record['application_sign_date'])?$record['application_sign_date']:'',
+      '#weight' => '15',
     ];
     $form['billing_info']['calculate'] = [
       '#type' => 'button',
@@ -1415,14 +1455,14 @@ class EditOrderForm extends FormBase {
         'id' => 'calculate_premium',
       ],
       '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
-      '#weight' => '12',
+      '#weight' => '16',
     ];
     $form['billing_info']['remarks'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Remarks'),
       '#default_value' => isset($record['remarks'])?$record['remarks']:'',
       '#maxlength' => 170,
-      '#weight' => '13',
+      '#weight' => '17',
       '#wrapper_attributes' => ['class' => ['form_item_maxwidth']],
       // '#required'=> true,
     ];
@@ -1435,7 +1475,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
-      '#weight' => '14',
+      '#weight' => '18',
       '#required'=> true,
     ];
     $form['billing_info']['status'] = [
@@ -1446,7 +1486,7 @@ class EditOrderForm extends FormBase {
       '#attributes' => [
         'class' => ['noselect2'],
       ],
-      '#weight' => '15',
+      '#weight' => '19',
     ];
     $form['submit'] = [
       '#type' => 'submit',
@@ -1689,12 +1729,16 @@ class EditOrderForm extends FormBase {
     $order['paymentReceivedDate'] = $fields['paymentReceivedDate'];
     $order['transactionUpdatedDate'] = $fields['transactionUpdatedDate'];
     $order['authorizationCode'] = $fields['authorizationCode'];
+    $order['credit_card'] = $fields['credit_card'];
     $order['cardHolderName'] = $fields['cardHolderName'];
     $order['cardholder_id_number'] = $fields['cardholder_id_number'];
     $order['card_expiry_date'] = $fields['card_expiry_date'];
     $order['initial_premium'] = $fields['initial_premium'];
     $order['modal_premium_payment'] = $fields['modal_premium_payment'];
     $order['levy'] = $fields['levy'];
+    $order['transaction_currency'] = $fields['transaction_currency'];
+    $order['transacted_initial_premium'] = $fields['transacted_initial_premium'];
+    $order['application_sign_date'] = $fields['application_sign_date'];
     $order['remarks'] = $fields['remarks'];
     $order['dda_setup'] = $fields['dda_setup'];
     $order['customer_id'] = $this->import_customer_id;
