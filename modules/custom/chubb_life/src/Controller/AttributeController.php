@@ -309,7 +309,7 @@ class AttributeController extends ControllerBase {
     return $results;
   }
   public static function get_promotion_code_arr() {
-    $results = ['CC17'];
+    $results = ['CC17','CC87'];
     return $results;
   }
   public static function check_hkid($hkid){
