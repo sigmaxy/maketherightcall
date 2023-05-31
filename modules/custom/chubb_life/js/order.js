@@ -227,6 +227,11 @@ jQuery(document).ready(function($){
                         $('#levy').val(levy);
                         $('#initial_premium').val(initial_premium);
                         $('#modal_premium_payment').val(modal_premium_payment);
+                        if(currency=='USD'){
+                            $('#transacted_initial_premium').val(initial_premium * 7.8);
+                        }else{
+                            $('#transacted_initial_premium').val(initial_premium);
+                        }
                     }else{
                         alert(response[0].message);
                     }
