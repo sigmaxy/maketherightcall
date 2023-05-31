@@ -1,0 +1,761 @@
+{
+    "batchDate": "2022-10-27",
+    "applications": [
+        {
+            "applicationDto": {
+                "referenceNumber": "TM000008",
+                "aeonRefNumber": "2339738",
+                "agentCode": "500016",
+                "accountHolder1": {
+                    "holderName": "YIP POK YAN SWEENY",
+                    "identityNumber": "Z6073752",
+                    "identityType": ""
+                },
+                "accountNumber": "CzlgLOkecytW4KIF",
+                "agentName": "Chau Yuen Ting",
+                "agentCode2": "",
+                "annuityStartAge": "",
+                "applicationSignDate": "",
+                "autoPolicyDate": "",
+                "billingType": "CUP",
+                "contribution": "",
+                "currency": "USD",
+                "deathBenefitOption": "",
+                "dividendOption": "",
+                "ecopy": true,
+                "effectiveDate": "",
+                "extraContribution": "",
+                "isOcrDataChanged": "",
+                "isSignedByVos": "",
+                "mailingAddressIndicator": "R",
+                "mgoDecision": "",
+                "mgoOfferAcpt": "",
+                "mgoStatus": "",
+                "noSignatureIndicator": "",
+                "nonForfeitureOption": "",
+                "paidPolicy": "",
+                "paidPolicyDuration": "",
+                "parentPolicyNumber": "",
+                "paymentMode": "01",
+                "pep": false,
+                "policyEffectiveDate": "",
+                "prePayment": "",
+                "promoCode": "",
+                "taxResidency1": {
+                    "taxResidency": "HK",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "Z6073752"
+                },
+                "taxResidency2": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "taxResidency3": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "totalLimit": "",
+                "worldwideEmergencyAssistanceServices": ""
+            },
+            "awdFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "beneficiaryDtos": [
+                {
+                    "beneficiaryClass": 1,
+                    "beneficiarySequence": 1,
+                    "chineseName": "",
+                    "customerType": "I",
+                    "givenName": "POK YAN SWEENY",
+                    "identityNumber": "Z6073752",
+                    "relationship": "EST",
+                    "shared": 100,
+                    "surname": "YIP"
+                }
+            ],
+            "benefitDtos": [
+                {
+                    "annualDeductibleOption": "",
+                    "attachTo": "",
+                    "coverageClass": "2",
+                    "coverageCode": "RHC10",
+                    "coverageNumber": 1,
+                    "criticalIllnessCode1": "",
+                    "currency": "USD",
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "faceAmount": "100",
+                    "plannedPremium": 0,
+                    "protectionFaceAmount": 0,
+                    "savingFaceAmount": 0,
+                    "plannedPremiumTM": "118.85",
+                    "levyTM": "0.12",
+                    "productNameEn": "WellCare Refundable Hospital Plan",
+                    "productNameTc": "\u8cbc\u5fc3\u4fdd\u8cbb\u56de\u8d08\u4f4f\u9662\u4fdd\u969c"
+                }
+            ],
+            "customerDtos": [
+                {
+                    "age": 37,
+                    "birthDate": "1985-10-02",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "email": "sweenyyip@gmail.com",
+                    "gender": "F",
+                    "givenName": "POK YAN SWEENY",
+                    "identityNumber": "Z6073752",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "M",
+                    "mobileNumber": "91431401",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupationCode": "T110101",
+                    "relationship": "INS",
+                    "residence": {
+                        "address1": "RM 2506",
+                        "address2": "SUI HEI HSE SIU SAI WAN ESTATE",
+                        "address3": "CHAI WAN",
+                        "city": "HONG KONG",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": false,
+                    "optOutReason": "",
+                    "surname": "YIP"
+                },
+                {
+                    "age": 37,
+                    "birthDate": "1985-10-02",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 2,
+                    "customerType": "O",
+                    "email": "sweenyyip@gmail.com",
+                    "employer": "",
+                    "gender": "F",
+                    "givenName": "POK YAN SWEENY",
+                    "identityNumber": "Z6073752",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": ""
+                    },
+                    "marital": "M",
+                    "mobileNumber": "91431401",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupation": "",
+                    "occupationCode": "T110101",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "RM 2506",
+                        "address2": "SUI HEI HSE SIU SAI WAN ESTATE",
+                        "address3": "CHAI WAN",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "HONG KONG",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": true,
+                    "surname": "YIP",
+                    "uwClass": "",
+                    "workplace": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    }
+                },
+                {
+                    "age": 37,
+                    "birthDate": "1985-10-02",
+                    "birthPlace": "",
+                    "chineseName": "",
+                    "citizenship": "",
+                    "countryRegionCode": null,
+                    "customerSequence": 3,
+                    "customerType": "P1",
+                    "email": "",
+                    "gender": "F",
+                    "givenName": "POK YAN SWEENY",
+                    "identityNumber": "Z6073752",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "",
+                    "mobileNumber": "",
+                    "mobileNumberCountryCode": "",
+                    "nationality": "",
+                    "occupationCode": "",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": "",
+                    "optOutReason": "",
+                    "surname": "YIP"
+                }
+            ],
+            "imageCaptureFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "paymentTransactionDto": {
+                "amount": "237.94",
+                "amountInPolicyCurrency": "237.94",
+                "authorizationCode": "",
+                "bankName": "",
+                "basicPlanCode": "RHC10",
+                "cardHolderName": "YIP POK YAN SWEENY",
+                "cardType": "CUP",
+                "currency": "USD",
+                "insuredFirstName": "POK YAN SWEENY",
+                "insuredLastName": "YIP",
+                "ownerFirstName": "POK YAN SWEENY",
+                "ownerLastName": "YIP",
+                "paymentReceivedDate": "2022-10-27",
+                "payorFirstName": "POK YAN SWEENY",
+                "payorLastName": "YIP",
+                "payorRole": "O",
+                "policyCurrency": "USD",
+                "referenceNumber": "TM000008",
+                "transactionStatus": "",
+                "transactionUpdatedDate": "2022-10-27"
+            },
+            "policyNumber": "",
+            "uploadId": "",
+            "questionnaireDtos": [
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 31,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 32,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 33,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 1,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "N",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": true
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 2,
+                    "questionnaireSectionId": 20,
+                    "questionnaireText": "14999.5",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 11,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": null
+                }
+            ]
+        },
+        {
+            "applicationDto": {
+                "referenceNumber": "TM000005",
+                "aeonRefNumber": "1915409",
+                "agentCode": "500009",
+                "accountHolder1": {
+                    "holderName": "KWONG CHE WAI",
+                    "identityNumber": "Z9443771",
+                    "identityType": ""
+                },
+                "accountNumber": "524365j2EZIN1003",
+                "agentName": "Ma Mei Chu",
+                "agentCode2": "",
+                "annuityStartAge": "",
+                "applicationSignDate": "",
+                "autoPolicyDate": "",
+                "billingType": "CCDDA",
+                "contribution": "",
+                "currency": "HKD",
+                "deathBenefitOption": "",
+                "dividendOption": "",
+                "ecopy": true,
+                "effectiveDate": "",
+                "extraContribution": "",
+                "isOcrDataChanged": "",
+                "isSignedByVos": "",
+                "mailingAddressIndicator": "R",
+                "mgoDecision": "",
+                "mgoOfferAcpt": "",
+                "mgoStatus": "",
+                "noSignatureIndicator": "",
+                "nonForfeitureOption": "",
+                "paidPolicy": "",
+                "paidPolicyDuration": "",
+                "parentPolicyNumber": "",
+                "paymentMode": "01",
+                "pep": false,
+                "policyEffectiveDate": "",
+                "prePayment": "",
+                "promoCode": "",
+                "taxResidency1": {
+                    "taxResidency": "HK",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "Z9443771"
+                },
+                "taxResidency2": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "taxResidency3": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "totalLimit": "",
+                "worldwideEmergencyAssistanceServices": ""
+            },
+            "awdFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "beneficiaryDtos": [
+                {
+                    "beneficiaryClass": 1,
+                    "beneficiarySequence": 1,
+                    "chineseName": "",
+                    "customerType": "I",
+                    "givenName": "CHE WAI",
+                    "identityNumber": "Z9443771",
+                    "relationship": "EST",
+                    "shared": 100,
+                    "surname": "KWONG"
+                }
+            ],
+            "benefitDtos": [
+                {
+                    "annualDeductibleOption": "",
+                    "attachTo": "",
+                    "coverageClass": "2",
+                    "coverageCode": "RHC10",
+                    "coverageNumber": 1,
+                    "criticalIllnessCode1": "",
+                    "currency": "HKD",
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "faceAmount": "800",
+                    "plannedPremium": 0,
+                    "protectionFaceAmount": 0,
+                    "savingFaceAmount": 0,
+                    "plannedPremiumTM": "1194.47",
+                    "levyTM": "1.19",
+                    "productNameEn": "WellCare Refundable Hospital Plan",
+                    "productNameTc": "\u8cbc\u5fc3\u4fdd\u8cbb\u56de\u8d08\u4f4f\u9662\u4fdd\u969c"
+                }
+            ],
+            "customerDtos": [
+                {
+                    "age": 34,
+                    "birthDate": "1988-03-26",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "email": "kwongchewai@hotmail.com",
+                    "gender": "M",
+                    "givenName": "CHE WAI",
+                    "identityNumber": "Z9443771",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "S",
+                    "mobileNumber": "65506830",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupationCode": "W010101",
+                    "relationship": "INS",
+                    "residence": {
+                        "address1": "FLAT C  12\/F  BLK 21",
+                        "address2": "DOUBLE COVE STARVIEW",
+                        "address3": "MA ON SHAN",
+                        "city": "N.T.",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": false,
+                    "optOutReason": "",
+                    "surname": "KWONG"
+                },
+                {
+                    "age": 34,
+                    "birthDate": "1988-03-26",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 2,
+                    "customerType": "O",
+                    "email": "kwongchewai@hotmail.com",
+                    "employer": "",
+                    "gender": "M",
+                    "givenName": "CHE WAI",
+                    "identityNumber": "Z9443771",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": ""
+                    },
+                    "marital": "S",
+                    "mobileNumber": "65506830",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupation": "",
+                    "occupationCode": "W010101",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "FLAT C  12\/F  BLK 21",
+                        "address2": "DOUBLE COVE STARVIEW",
+                        "address3": "MA ON SHAN",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "N.T.",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": true,
+                    "surname": "KWONG",
+                    "uwClass": "",
+                    "workplace": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    }
+                },
+                {
+                    "age": 34,
+                    "birthDate": "1988-03-26",
+                    "birthPlace": "",
+                    "chineseName": "",
+                    "citizenship": "",
+                    "countryRegionCode": null,
+                    "customerSequence": 3,
+                    "customerType": "P1",
+                    "email": "",
+                    "gender": "M",
+                    "givenName": "CHE WAI",
+                    "identityNumber": "Z9443771",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "",
+                    "mobileNumber": "",
+                    "mobileNumberCountryCode": "",
+                    "nationality": "",
+                    "occupationCode": "",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": "",
+                    "optOutReason": "",
+                    "surname": "KWONG"
+                }
+            ],
+            "imageCaptureFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "paymentTransactionDto": {
+                "amount": "2391.32",
+                "amountInPolicyCurrency": "2391.32",
+                "authorizationCode": "",
+                "bankName": "",
+                "basicPlanCode": "RHC10",
+                "cardHolderName": "KWONG CHE WAI",
+                "cardType": "MASTERCARD",
+                "currency": "HKD",
+                "insuredFirstName": "CHE WAI",
+                "insuredLastName": "KWONG",
+                "ownerFirstName": "CHE WAI",
+                "ownerLastName": "KWONG",
+                "paymentReceivedDate": "2022-10-27",
+                "payorFirstName": "CHE WAI",
+                "payorLastName": "KWONG",
+                "payorRole": "O",
+                "policyCurrency": "HKD",
+                "referenceNumber": "TM000005",
+                "transactionStatus": "",
+                "transactionUpdatedDate": "2022-10-27"
+            },
+            "policyNumber": "",
+            "uploadId": "",
+            "questionnaireDtos": [
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 31,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 32,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 33,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 1,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "N",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": true
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 2,
+                    "questionnaireSectionId": 20,
+                    "questionnaireText": "10000",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 11,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": null
+                }
+            ]
+        }
+    ]
+}

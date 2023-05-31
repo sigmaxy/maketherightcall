@@ -1,0 +1,761 @@
+{
+    "batchDate": "2022-10-31",
+    "applications": [
+        {
+            "applicationDto": {
+                "referenceNumber": "TM000013",
+                "aeonRefNumber": "24144352",
+                "agentCode": "500014",
+                "accountHolder1": {
+                    "holderName": "HUNG CHI HUNG",
+                    "identityNumber": "Y0958857",
+                    "identityType": ""
+                },
+                "accountNumber": "njdPcjVAChOSuvox",
+                "agentName": "Lam Chor Ying",
+                "agentCode2": "",
+                "annuityStartAge": "",
+                "applicationSignDate": "",
+                "autoPolicyDate": "",
+                "billingType": "CUP",
+                "contribution": "",
+                "currency": "USD",
+                "deathBenefitOption": "",
+                "dividendOption": "",
+                "ecopy": true,
+                "effectiveDate": "",
+                "extraContribution": "",
+                "isOcrDataChanged": "",
+                "isSignedByVos": "",
+                "mailingAddressIndicator": "R",
+                "mgoDecision": "",
+                "mgoOfferAcpt": "",
+                "mgoStatus": "",
+                "noSignatureIndicator": "",
+                "nonForfeitureOption": "",
+                "paidPolicy": "",
+                "paidPolicyDuration": "",
+                "parentPolicyNumber": "",
+                "paymentMode": "01",
+                "pep": false,
+                "policyEffectiveDate": "",
+                "prePayment": "",
+                "promoCode": "",
+                "taxResidency1": {
+                    "taxResidency": "HK",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "Y0958857"
+                },
+                "taxResidency2": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "taxResidency3": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "totalLimit": "",
+                "worldwideEmergencyAssistanceServices": ""
+            },
+            "awdFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "beneficiaryDtos": [
+                {
+                    "beneficiaryClass": 1,
+                    "beneficiarySequence": 1,
+                    "chineseName": "",
+                    "customerType": "I",
+                    "givenName": "CHI HUNG",
+                    "identityNumber": "Y0958857",
+                    "relationship": "EST",
+                    "shared": 100,
+                    "surname": "HUNG"
+                }
+            ],
+            "benefitDtos": [
+                {
+                    "annualDeductibleOption": "",
+                    "attachTo": "",
+                    "coverageClass": "3",
+                    "coverageCode": "RHC10",
+                    "coverageNumber": 1,
+                    "criticalIllnessCode1": "",
+                    "currency": "USD",
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "faceAmount": "150",
+                    "plannedPremium": 0,
+                    "protectionFaceAmount": 0,
+                    "savingFaceAmount": 0,
+                    "plannedPremiumTM": "133.94",
+                    "levyTM": "0.13",
+                    "productNameEn": "WellCare Refundable Hospital Plan",
+                    "productNameTc": "\u8cbc\u5fc3\u4fdd\u8cbb\u56de\u8d08\u4f4f\u9662\u4fdd\u969c"
+                }
+            ],
+            "customerDtos": [
+                {
+                    "age": 33,
+                    "birthDate": "1990-03-04",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "email": "HUNGCHIHUNG2006@HOTMAIL.COM",
+                    "gender": "M",
+                    "givenName": "CHI HUNG",
+                    "identityNumber": "Y0958857",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "M",
+                    "mobileNumber": "95149622",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupationCode": "H081001",
+                    "relationship": "INS",
+                    "residence": {
+                        "address1": "FLAT F 23\/F",
+                        "address2": "CANARYSIDE",
+                        "address3": "YAU TONG",
+                        "city": "KOWLOON",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": false,
+                    "optOutReason": "",
+                    "surname": "HUNG"
+                },
+                {
+                    "age": 33,
+                    "birthDate": "1990-03-04",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 2,
+                    "customerType": "O",
+                    "email": "HUNGCHIHUNG2006@HOTMAIL.COM",
+                    "employer": "",
+                    "gender": "M",
+                    "givenName": "CHI HUNG",
+                    "identityNumber": "Y0958857",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": ""
+                    },
+                    "marital": "M",
+                    "mobileNumber": "95149622",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupation": "",
+                    "occupationCode": "H081001",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "FLAT F 23\/F",
+                        "address2": "CANARYSIDE",
+                        "address3": "YAU TONG",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "KOWLOON",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": true,
+                    "surname": "HUNG",
+                    "uwClass": "",
+                    "workplace": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    }
+                },
+                {
+                    "age": 33,
+                    "birthDate": "1990-03-04",
+                    "birthPlace": "",
+                    "chineseName": "",
+                    "citizenship": "",
+                    "countryRegionCode": null,
+                    "customerSequence": 3,
+                    "customerType": "P1",
+                    "email": "",
+                    "gender": "M",
+                    "givenName": "CHI HUNG",
+                    "identityNumber": "Y0958857",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "",
+                    "mobileNumber": "",
+                    "mobileNumberCountryCode": "",
+                    "nationality": "",
+                    "occupationCode": "",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": "",
+                    "optOutReason": "",
+                    "surname": "HUNG"
+                }
+            ],
+            "imageCaptureFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "paymentTransactionDto": {
+                "amount": "268.14",
+                "amountInPolicyCurrency": "268.14",
+                "authorizationCode": "",
+                "bankName": "",
+                "basicPlanCode": "RHC10",
+                "cardHolderName": "HUNG CHI HUNG",
+                "cardType": "CUP",
+                "currency": "USD",
+                "insuredFirstName": "CHI HUNG",
+                "insuredLastName": "HUNG",
+                "ownerFirstName": "CHI HUNG",
+                "ownerLastName": "HUNG",
+                "paymentReceivedDate": "2022-10-31",
+                "payorFirstName": "CHI HUNG",
+                "payorLastName": "HUNG",
+                "payorRole": "O",
+                "policyCurrency": "USD",
+                "referenceNumber": "TM000013",
+                "transactionStatus": "",
+                "transactionUpdatedDate": "2022-10-31"
+            },
+            "policyNumber": "",
+            "uploadId": "",
+            "questionnaireDtos": [
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 31,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 32,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 33,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 1,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "N",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": true
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 2,
+                    "questionnaireSectionId": 20,
+                    "questionnaireText": "75000",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 11,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": null
+                }
+            ]
+        },
+        {
+            "applicationDto": {
+                "referenceNumber": "TM000012",
+                "aeonRefNumber": "1417915",
+                "agentCode": "500010",
+                "accountHolder1": {
+                    "holderName": "WONG SZE WING LINDA",
+                    "identityNumber": "K0573027",
+                    "identityType": ""
+                },
+                "accountNumber": "BXwfau21zV9i6Te0",
+                "agentName": "Wong Suk Ha",
+                "agentCode2": "",
+                "annuityStartAge": "",
+                "applicationSignDate": "",
+                "autoPolicyDate": "",
+                "billingType": "CUP",
+                "contribution": "",
+                "currency": "HKD",
+                "deathBenefitOption": "",
+                "dividendOption": "",
+                "ecopy": true,
+                "effectiveDate": "",
+                "extraContribution": "",
+                "isOcrDataChanged": "",
+                "isSignedByVos": "",
+                "mailingAddressIndicator": "R",
+                "mgoDecision": "",
+                "mgoOfferAcpt": "",
+                "mgoStatus": "",
+                "noSignatureIndicator": "",
+                "nonForfeitureOption": "",
+                "paidPolicy": "",
+                "paidPolicyDuration": "",
+                "parentPolicyNumber": "",
+                "paymentMode": "01",
+                "pep": false,
+                "policyEffectiveDate": "",
+                "prePayment": "",
+                "promoCode": "",
+                "taxResidency1": {
+                    "taxResidency": "HK",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "K0573027"
+                },
+                "taxResidency2": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "taxResidency3": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "totalLimit": "",
+                "worldwideEmergencyAssistanceServices": ""
+            },
+            "awdFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "beneficiaryDtos": [
+                {
+                    "beneficiaryClass": 1,
+                    "beneficiarySequence": 1,
+                    "chineseName": "",
+                    "customerType": "I",
+                    "givenName": "SZE WING LINDA",
+                    "identityNumber": "K0573027",
+                    "relationship": "EST",
+                    "shared": 100,
+                    "surname": "WONG"
+                }
+            ],
+            "benefitDtos": [
+                {
+                    "annualDeductibleOption": "",
+                    "attachTo": "",
+                    "coverageClass": "3",
+                    "coverageCode": "RHC10",
+                    "coverageNumber": 1,
+                    "criticalIllnessCode1": "",
+                    "currency": "HKD",
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "faceAmount": "1200",
+                    "plannedPremium": 0,
+                    "protectionFaceAmount": 0,
+                    "savingFaceAmount": 0,
+                    "plannedPremiumTM": "2568.74",
+                    "levyTM": "2.57",
+                    "productNameEn": "WellCare Refundable Hospital Plan",
+                    "productNameTc": "\u8cbc\u5fc3\u4fdd\u8cbb\u56de\u8d08\u4f4f\u9662\u4fdd\u969c"
+                }
+            ],
+            "customerDtos": [
+                {
+                    "age": 50,
+                    "birthDate": "1972-08-25",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "email": "linda.muimui@gmail.com",
+                    "gender": "F",
+                    "givenName": "SZE WING LINDA",
+                    "identityNumber": "K0573027",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "M",
+                    "mobileNumber": "92212141",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupationCode": "I040101",
+                    "relationship": "INS",
+                    "residence": {
+                        "address1": "FLAT C 24\/F BLOCK 15",
+                        "address2": "LAGUNA CITY",
+                        "address3": "KWUN TONG",
+                        "city": "KOWLOON",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": false,
+                    "optOutReason": "",
+                    "surname": "WONG"
+                },
+                {
+                    "age": 50,
+                    "birthDate": "1972-08-25",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 2,
+                    "customerType": "O",
+                    "email": "linda.muimui@gmail.com",
+                    "employer": "",
+                    "gender": "F",
+                    "givenName": "SZE WING LINDA",
+                    "identityNumber": "K0573027",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": ""
+                    },
+                    "marital": "M",
+                    "mobileNumber": "92212141",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupation": "",
+                    "occupationCode": "I040101",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "FLAT C 24\/F BLOCK 15",
+                        "address2": "LAGUNA CITY",
+                        "address3": "KWUN TONG",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "KOWLOON",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": true,
+                    "surname": "WONG",
+                    "uwClass": "",
+                    "workplace": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    }
+                },
+                {
+                    "age": 50,
+                    "birthDate": "1972-08-25",
+                    "birthPlace": "",
+                    "chineseName": "",
+                    "citizenship": "",
+                    "countryRegionCode": null,
+                    "customerSequence": 3,
+                    "customerType": "P1",
+                    "email": "",
+                    "gender": "F",
+                    "givenName": "SZE WING LINDA",
+                    "identityNumber": "K0573027",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "",
+                    "mobileNumber": "",
+                    "mobileNumberCountryCode": "",
+                    "nationality": "",
+                    "occupationCode": "",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": "",
+                    "optOutReason": "",
+                    "surname": "WONG"
+                }
+            ],
+            "imageCaptureFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "paymentTransactionDto": {
+                "amount": "5142.62",
+                "amountInPolicyCurrency": "5142.62",
+                "authorizationCode": "",
+                "bankName": "",
+                "basicPlanCode": "RHC10",
+                "cardHolderName": "WONG SZE WING LINDA",
+                "cardType": "CUP",
+                "currency": "HKD",
+                "insuredFirstName": "SZE WING LINDA",
+                "insuredLastName": "WONG",
+                "ownerFirstName": "SZE WING LINDA",
+                "ownerLastName": "WONG",
+                "paymentReceivedDate": "2022-10-31",
+                "payorFirstName": "SZE WING LINDA",
+                "payorLastName": "WONG",
+                "payorRole": "O",
+                "policyCurrency": "HKD",
+                "referenceNumber": "TM000012",
+                "transactionStatus": "",
+                "transactionUpdatedDate": "2022-10-31"
+            },
+            "policyNumber": "",
+            "uploadId": "",
+            "questionnaireDtos": [
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 31,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 32,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 33,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 1,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "N",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": true
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 2,
+                    "questionnaireSectionId": 20,
+                    "questionnaireText": "75000",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 11,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "Post Policy",
+                    "questionnaireYesOrNo": null
+                }
+            ]
+        }
+    ]
+}

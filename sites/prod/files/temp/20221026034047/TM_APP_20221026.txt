@@ -1,0 +1,383 @@
+{
+    "batchDate": "2022-10-26",
+    "applications": [
+        {
+            "applicationDto": {
+                "referenceNumber": "TM000007",
+                "aeonRefNumber": "1305361",
+                "agentCode": "500009",
+                "accountHolder1": {
+                    "holderName": "LUK KA YING",
+                    "identityNumber": "Z25536481",
+                    "identityType": ""
+                },
+                "accountNumber": "52436547YBE10305",
+                "agentName": "Ma Mei Chu",
+                "agentCode2": "",
+                "annuityStartAge": "",
+                "applicationSignDate": "",
+                "autoPolicyDate": "",
+                "billingType": "CCDDA",
+                "contribution": "",
+                "currency": "HKD",
+                "deathBenefitOption": "",
+                "dividendOption": "",
+                "ecopy": true,
+                "effectiveDate": "",
+                "extraContribution": "",
+                "isOcrDataChanged": "",
+                "isSignedByVos": "",
+                "mailingAddressIndicator": "R",
+                "mgoDecision": "",
+                "mgoOfferAcpt": "",
+                "mgoStatus": "",
+                "noSignatureIndicator": "",
+                "nonForfeitureOption": "",
+                "paidPolicy": "",
+                "paidPolicyDuration": "",
+                "parentPolicyNumber": "",
+                "paymentMode": "01",
+                "pep": false,
+                "policyEffectiveDate": "",
+                "prePayment": "",
+                "promoCode": "",
+                "taxResidency1": {
+                    "taxResidency": "HK",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "Z5536481"
+                },
+                "taxResidency2": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "taxResidency3": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "totalLimit": "",
+                "worldwideEmergencyAssistanceServices": ""
+            },
+            "awdFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "beneficiaryDtos": [
+                {
+                    "beneficiaryClass": 1,
+                    "beneficiarySequence": 1,
+                    "chineseName": "",
+                    "customerType": "I",
+                    "givenName": "KA YING",
+                    "identityNumber": "Z5536481",
+                    "relationship": "EST",
+                    "shared": 100,
+                    "surname": "LUK"
+                }
+            ],
+            "benefitDtos": [
+                {
+                    "annualDeductibleOption": "",
+                    "attachTo": "",
+                    "coverageClass": "3",
+                    "coverageCode": "RHC10",
+                    "coverageNumber": 1,
+                    "criticalIllnessCode1": "",
+                    "currency": "HKD",
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "faceAmount": "1200",
+                    "plannedPremium": 0,
+                    "protectionFaceAmount": 0,
+                    "savingFaceAmount": 0,
+                    "plannedPremiumTM": "1763.71",
+                    "levyTM": "1.76",
+                    "productNameEn": "WellCare Refundable Hospital Plan",
+                    "productNameTc": "\u8cbc\u5fc3\u4fdd\u8cbb\u56de\u8d08\u4f4f\u9662\u4fdd\u969c"
+                }
+            ],
+            "customerDtos": [
+                {
+                    "age": 39,
+                    "birthDate": "1983-04-24",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "email": "k_y_luk@hotmail.com",
+                    "gender": "F",
+                    "givenName": "KA YING",
+                    "identityNumber": "Z5536481",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "M",
+                    "mobileNumber": "61815029",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupationCode": "I040101",
+                    "relationship": "INS",
+                    "residence": {
+                        "address1": "FLAT C 35\/F BLK 3 PHASE 2",
+                        "address2": "BELVEDERE GARDEN",
+                        "address3": "TSUEN WAN",
+                        "city": "N.T.",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": false,
+                    "optOutReason": "",
+                    "surname": "LUK"
+                },
+                {
+                    "age": 39,
+                    "birthDate": "1983-04-24",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 2,
+                    "customerType": "O",
+                    "email": "k_y_luk@hotmail.com",
+                    "employer": "",
+                    "gender": "F",
+                    "givenName": "KA YING",
+                    "identityNumber": "Z5536481",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": ""
+                    },
+                    "marital": "M",
+                    "mobileNumber": "61815029",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupation": "",
+                    "occupationCode": "I040101",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "FLAT C 35\/F BLK 3 PHASE 2",
+                        "address2": "BELVEDERE GARDEN",
+                        "address3": "TSUEN WAN",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "N.T.",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": true,
+                    "surname": "LUK",
+                    "uwClass": "",
+                    "workplace": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    }
+                },
+                {
+                    "age": 39,
+                    "birthDate": "1983-04-24",
+                    "birthPlace": "",
+                    "chineseName": "",
+                    "citizenship": "",
+                    "countryRegionCode": null,
+                    "customerSequence": 3,
+                    "customerType": "P1",
+                    "email": "",
+                    "gender": "F",
+                    "givenName": "KA YING",
+                    "identityNumber": "Z5536481",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "",
+                    "mobileNumber": "",
+                    "mobileNumberCountryCode": "",
+                    "nationality": "",
+                    "occupationCode": "",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": "",
+                    "optOutReason": "",
+                    "surname": "LUK"
+                }
+            ],
+            "imageCaptureFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "paymentTransactionDto": {
+                "amount": "3530.94",
+                "amountInPolicyCurrency": "3530.94",
+                "authorizationCode": "",
+                "bankName": "",
+                "basicPlanCode": "RHC10",
+                "cardHolderName": "LUK KA YING",
+                "cardType": "MASTERCARD",
+                "currency": "HKD",
+                "insuredFirstName": "KA YING",
+                "insuredLastName": "LUK",
+                "ownerFirstName": "KA YING",
+                "ownerLastName": "LUK",
+                "paymentReceivedDate": "2022-10-26",
+                "payorFirstName": "KA YING",
+                "payorLastName": "LUK",
+                "payorRole": "O",
+                "policyCurrency": "HKD",
+                "referenceNumber": "TM000007",
+                "transactionStatus": "",
+                "transactionUpdatedDate": "2022-10-26"
+            },
+            "policyNumber": "",
+            "uploadId": "",
+            "questionnaireDtos": [
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 31,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 32,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 33,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 1,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "N",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": true
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 2,
+                    "questionnaireSectionId": 20,
+                    "questionnaireText": "34999.5",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 11,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": null
+                }
+            ]
+        }
+    ]
+}

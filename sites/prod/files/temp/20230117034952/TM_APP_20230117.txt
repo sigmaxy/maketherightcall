@@ -1,0 +1,4 @@
+{
+    "batchDate": "2023-01-17",
+    "applications": []
+}

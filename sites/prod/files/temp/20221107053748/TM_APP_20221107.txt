@@ -1,0 +1,761 @@
+{
+    "batchDate": "2022-11-07",
+    "applications": [
+        {
+            "applicationDto": {
+                "referenceNumber": "TM000021",
+                "aeonRefNumber": "2281916",
+                "agentCode": "500016",
+                "accountHolder1": {
+                    "holderName": "CHEUNG HEI LONG",
+                    "identityNumber": "Y728732A",
+                    "identityType": ""
+                },
+                "accountNumber": "52436586VYAV0201",
+                "agentName": "Chau Yuen Ting",
+                "agentCode2": "",
+                "annuityStartAge": "",
+                "applicationSignDate": "",
+                "autoPolicyDate": "",
+                "billingType": "CCDDA",
+                "contribution": "",
+                "currency": "HKD",
+                "deathBenefitOption": "",
+                "dividendOption": "",
+                "ecopy": true,
+                "effectiveDate": "",
+                "extraContribution": "",
+                "isOcrDataChanged": "",
+                "isSignedByVos": "",
+                "mailingAddressIndicator": "R",
+                "mgoDecision": "",
+                "mgoOfferAcpt": "",
+                "mgoStatus": "",
+                "noSignatureIndicator": "",
+                "nonForfeitureOption": "",
+                "paidPolicy": "",
+                "paidPolicyDuration": "",
+                "parentPolicyNumber": "",
+                "paymentMode": "01",
+                "pep": false,
+                "policyEffectiveDate": "",
+                "prePayment": "",
+                "promoCode": "",
+                "taxResidency1": {
+                    "taxResidency": "HK",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "Y728732A"
+                },
+                "taxResidency2": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "taxResidency3": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "totalLimit": "",
+                "worldwideEmergencyAssistanceServices": ""
+            },
+            "awdFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "beneficiaryDtos": [
+                {
+                    "beneficiaryClass": 1,
+                    "beneficiarySequence": 1,
+                    "chineseName": "",
+                    "customerType": "I",
+                    "givenName": "HEI LONG",
+                    "identityNumber": "Y728732A",
+                    "relationship": "EST",
+                    "shared": 100,
+                    "surname": "CHEUNG"
+                }
+            ],
+            "benefitDtos": [
+                {
+                    "annualDeductibleOption": "",
+                    "attachTo": "",
+                    "coverageClass": "2",
+                    "coverageCode": "RHC10",
+                    "coverageNumber": 1,
+                    "criticalIllnessCode1": "",
+                    "currency": "HKD",
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "faceAmount": "800",
+                    "plannedPremium": 0,
+                    "protectionFaceAmount": 0,
+                    "savingFaceAmount": 0,
+                    "plannedPremiumTM": "888.22",
+                    "levyTM": "0.89",
+                    "productNameEn": "WellCare Refundable Hospital Plan",
+                    "productNameTc": "\u8cbc\u5fc3\u4fdd\u8cbb\u56de\u8d08\u4f4f\u9662\u4fdd\u969c"
+                }
+            ],
+            "customerDtos": [
+                {
+                    "age": 23,
+                    "birthDate": "1999-07-13",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "email": "chliphone@yahoo.com",
+                    "gender": "M",
+                    "givenName": "HEI LONG",
+                    "identityNumber": "Y728732A",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "S",
+                    "mobileNumber": "67753872",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupationCode": "B030201",
+                    "relationship": "INS",
+                    "residence": {
+                        "address1": "FLAT K 5\/F BLK 2",
+                        "address2": "LOK HIN TERRACE CHAI WAN ROAD",
+                        "address3": "CHAI WAN",
+                        "city": "HONG KONG",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": false,
+                    "optOutReason": "",
+                    "surname": "CHEUNG"
+                },
+                {
+                    "age": 23,
+                    "birthDate": "1999-07-13",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 2,
+                    "customerType": "O",
+                    "email": "chliphone@yahoo.com",
+                    "employer": "",
+                    "gender": "M",
+                    "givenName": "HEI LONG",
+                    "identityNumber": "Y728732A",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": ""
+                    },
+                    "marital": "S",
+                    "mobileNumber": "67753872",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupation": "",
+                    "occupationCode": "B030201",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "FLAT K 5\/F BLK 2",
+                        "address2": "LOK HIN TERRACE CHAI WAN ROAD",
+                        "address3": "CHAI WAN",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "HONG KONG",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": true,
+                    "surname": "CHEUNG",
+                    "uwClass": "",
+                    "workplace": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    }
+                },
+                {
+                    "age": 23,
+                    "birthDate": "1999-07-13",
+                    "birthPlace": "",
+                    "chineseName": "",
+                    "citizenship": "",
+                    "countryRegionCode": null,
+                    "customerSequence": 3,
+                    "customerType": "P1",
+                    "email": "",
+                    "gender": "M",
+                    "givenName": "HEI LONG",
+                    "identityNumber": "Y728732A",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "",
+                    "mobileNumber": "",
+                    "mobileNumberCountryCode": "",
+                    "nationality": "",
+                    "occupationCode": "",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": "",
+                    "optOutReason": "",
+                    "surname": "CHEUNG"
+                }
+            ],
+            "imageCaptureFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "paymentTransactionDto": {
+                "amount": "1778.22",
+                "amountInPolicyCurrency": "1778.22",
+                "authorizationCode": "",
+                "bankName": "",
+                "basicPlanCode": "RHC10",
+                "cardHolderName": "CHEUNG HEI LONG",
+                "cardType": "MASTERCARD",
+                "currency": "HKD",
+                "insuredFirstName": "HEI LONG",
+                "insuredLastName": "CHEUNG",
+                "ownerFirstName": "HEI LONG",
+                "ownerLastName": "CHEUNG",
+                "paymentReceivedDate": "2022-11-07",
+                "payorFirstName": "HEI LONG",
+                "payorLastName": "CHEUNG",
+                "payorRole": "O",
+                "policyCurrency": "HKD",
+                "referenceNumber": "TM000021",
+                "transactionStatus": "",
+                "transactionUpdatedDate": "2022-11-07"
+            },
+            "policyNumber": "",
+            "uploadId": "",
+            "questionnaireDtos": [
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 31,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 32,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 33,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 1,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "N",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": true
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 2,
+                    "questionnaireSectionId": 20,
+                    "questionnaireText": "14999.5",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 11,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": null
+                }
+            ]
+        },
+        {
+            "applicationDto": {
+                "referenceNumber": "TM000020",
+                "aeonRefNumber": "2422480",
+                "agentCode": "500010",
+                "accountHolder1": {
+                    "holderName": "CHUI WING YI",
+                    "identityNumber": "Y6853372",
+                    "identityType": ""
+                },
+                "accountNumber": "c5e1Tg6BFHZgjZNe",
+                "agentName": "Wong Suk Ha",
+                "agentCode2": "",
+                "annuityStartAge": "",
+                "applicationSignDate": "",
+                "autoPolicyDate": "",
+                "billingType": "CUP",
+                "contribution": "",
+                "currency": "HKD",
+                "deathBenefitOption": "",
+                "dividendOption": "",
+                "ecopy": true,
+                "effectiveDate": "",
+                "extraContribution": "",
+                "isOcrDataChanged": "",
+                "isSignedByVos": "",
+                "mailingAddressIndicator": "R",
+                "mgoDecision": "",
+                "mgoOfferAcpt": "",
+                "mgoStatus": "",
+                "noSignatureIndicator": "",
+                "nonForfeitureOption": "",
+                "paidPolicy": "",
+                "paidPolicyDuration": "",
+                "parentPolicyNumber": "",
+                "paymentMode": "12",
+                "pep": false,
+                "policyEffectiveDate": "",
+                "prePayment": "",
+                "promoCode": "",
+                "taxResidency1": {
+                    "taxResidency": "HK",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": "Y6853372"
+                },
+                "taxResidency2": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "taxResidency3": {
+                    "taxResidency": "",
+                    "taxResidencyReason": "",
+                    "taxResidencyReasonCode": "",
+                    "taxResidencyTin": ""
+                },
+                "totalLimit": "",
+                "worldwideEmergencyAssistanceServices": ""
+            },
+            "awdFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "beneficiaryDtos": [
+                {
+                    "beneficiaryClass": 1,
+                    "beneficiarySequence": 1,
+                    "chineseName": "",
+                    "customerType": "I",
+                    "givenName": "WING YI",
+                    "identityNumber": "Y6853372",
+                    "relationship": "EST",
+                    "shared": 100,
+                    "surname": "CHUI"
+                }
+            ],
+            "benefitDtos": [
+                {
+                    "annualDeductibleOption": "",
+                    "attachTo": "",
+                    "coverageClass": "2",
+                    "coverageCode": "RHC10",
+                    "coverageNumber": 1,
+                    "criticalIllnessCode1": "",
+                    "currency": "HKD",
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "faceAmount": "800",
+                    "plannedPremium": 0,
+                    "protectionFaceAmount": 0,
+                    "savingFaceAmount": 0,
+                    "plannedPremiumTM": "10666.00",
+                    "levyTM": "10.67",
+                    "productNameEn": "WellCare Refundable Hospital Plan",
+                    "productNameTc": "\u8cbc\u5fc3\u4fdd\u8cbb\u56de\u8d08\u4f4f\u9662\u4fdd\u969c"
+                }
+            ],
+            "customerDtos": [
+                {
+                    "age": 24,
+                    "birthDate": "1998-09-25",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 1,
+                    "customerType": "I",
+                    "email": "wingyi.cwy925@gmail.com",
+                    "gender": "F",
+                    "givenName": "WING YI",
+                    "identityNumber": "Y6853372",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "S",
+                    "mobileNumber": "60550956",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupationCode": "M180201",
+                    "relationship": "INS",
+                    "residence": {
+                        "address1": "ROOM 1207 ",
+                        "address2": "HONG TING HOUSE HONG YAT COURT",
+                        "address3": "LAM TIN",
+                        "city": "KOWLOON",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": false,
+                    "optOutReason": "",
+                    "surname": "CHUI"
+                },
+                {
+                    "age": 24,
+                    "birthDate": "1998-09-25",
+                    "birthPlace": "HK",
+                    "chineseName": "",
+                    "citizenship": "HK",
+                    "countryRegionCode": null,
+                    "customerSequence": 2,
+                    "customerType": "O",
+                    "email": "wingyi.cwy925@gmail.com",
+                    "employer": "",
+                    "gender": "F",
+                    "givenName": "WING YI",
+                    "identityNumber": "Y6853372",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "HK",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": ""
+                    },
+                    "marital": "S",
+                    "mobileNumber": "60550956",
+                    "mobileNumberCountryCode": "852",
+                    "nationality": "HK",
+                    "occupation": "",
+                    "occupationCode": "M180201",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "ROOM 1207 ",
+                        "address2": "HONG TING HOUSE HONG YAT COURT",
+                        "address3": "LAM TIN",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "KOWLOON",
+                        "country": "HK",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": true,
+                    "surname": "CHUI",
+                    "uwClass": "",
+                    "workplace": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "chineseAddress1": "",
+                        "chineseAddress2": "",
+                        "chineseAddress3": "",
+                        "chineseAddress4": "",
+                        "chineseAddressIndicator": "",
+                        "chineseCountry": "",
+                        "chinesePostalCode": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    }
+                },
+                {
+                    "age": 24,
+                    "birthDate": "1998-09-25",
+                    "birthPlace": "",
+                    "chineseName": "",
+                    "citizenship": "",
+                    "countryRegionCode": null,
+                    "customerSequence": 3,
+                    "customerType": "P1",
+                    "email": "",
+                    "gender": "F",
+                    "givenName": "WING YI",
+                    "identityNumber": "Y6853372",
+                    "identityType": "I",
+                    "isPermanentHkid": true,
+                    "isValidIdType": true,
+                    "issueCountry": "",
+                    "mailing": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "marital": "",
+                    "mobileNumber": "",
+                    "mobileNumberCountryCode": "",
+                    "nationality": "",
+                    "occupationCode": "",
+                    "relationship": "",
+                    "residence": {
+                        "address1": "",
+                        "address2": "",
+                        "address3": "",
+                        "city": "",
+                        "country": "",
+                        "postalCode": "",
+                        "telephone": "",
+                        "telephoneCountryCode": ""
+                    },
+                    "solicitation": "",
+                    "optOutReason": "",
+                    "surname": "CHUI"
+                }
+            ],
+            "imageCaptureFileDto": [
+                {
+                    "fileContent": "",
+                    "fileName": ""
+                }
+            ],
+            "paymentTransactionDto": {
+                "amount": "10676.67",
+                "amountInPolicyCurrency": "10676.67",
+                "authorizationCode": "",
+                "bankName": "",
+                "basicPlanCode": "RHC10",
+                "cardHolderName": "CHUI WING YI",
+                "cardType": "CUP",
+                "currency": "HKD",
+                "insuredFirstName": "WING YI",
+                "insuredLastName": "CHUI",
+                "ownerFirstName": "WING YI",
+                "ownerLastName": "CHUI",
+                "paymentReceivedDate": "2022-11-07",
+                "payorFirstName": "WING YI",
+                "payorLastName": "CHUI",
+                "payorRole": "O",
+                "policyCurrency": "HKD",
+                "referenceNumber": "TM000020",
+                "transactionStatus": "",
+                "transactionUpdatedDate": "2022-11-07"
+            },
+            "policyNumber": "",
+            "uploadId": "",
+            "questionnaireDtos": [
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 31,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 32,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 33,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 1,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "N",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 30,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": true
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 2,
+                    "questionnaireSectionId": 20,
+                    "questionnaireText": "34999.5",
+                    "questionnaireYesOrNo": null
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 11,
+                    "questionnaireSectionId": 14,
+                    "questionnaireText": null,
+                    "questionnaireYesOrNo": false
+                },
+                {
+                    "customerType": "I",
+                    "questionnaireNumber": 34,
+                    "questionnaireSectionId": 11,
+                    "questionnaireText": "",
+                    "questionnaireYesOrNo": null
+                }
+            ]
+        }
+    ]
+}
