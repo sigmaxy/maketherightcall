@@ -144,12 +144,11 @@ jQuery(document).ready(function($){
         var promotion_code = $('#promotion_code').val();
         var discount = 0;
         if (promotion_code) {
-            if(drupalSettings.promotion_code_arr.includes(promotion_code)){
-                discount = 0.15;
+            if(drupalSettings.promotion_code_arr.hasOwnProperty(promotion_code)){
+                discount = drupalSettings.promotion_code_arr[promotion_code];
             }else{
                 alert('Invalid Promotion Code');
             }
-            
         }
         var plan_code = $('#plan_code').val();
         var plan_level = $('#plan_level').val();
