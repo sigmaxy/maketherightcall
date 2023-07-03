@@ -3,7 +3,9 @@ jQuery(document).ready(function($){
         var promotion_code = $('#promotion_code').val();
         var discount = 0;
         if (promotion_code) {
-            if(drupalSettings.promotion_code_arr.includes(promotion_code)){
+            if(promotion_code=='CD01'){
+                discount = 0;
+            }else if(drupalSettings.promotion_code_arr.includes(promotion_code)){
                 discount = 0.15;
             }else{
                 alert('Invalid Promotion Code');
