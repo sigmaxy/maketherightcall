@@ -200,6 +200,7 @@ class AttributeController extends ControllerBase {
     $results = array(
       'CCDDA' => 'Credit Card',
       'CUP' => 'CUP',
+      'Autopay' => 'Autopay',
     );
     return $results;
   }
@@ -303,6 +304,34 @@ class AttributeController extends ControllerBase {
         ],
         '4' => [
           'HKD'=>1600,
+        ],
+      ],
+      'RST08' =>[
+        '1' => [
+          'HKD'=>'',
+        ],
+        '2' => [
+          'HKD'=>'',
+        ],
+        '3' => [
+          'HKD'=>'',
+        ],
+        '4' => [
+          'HKD'=>'',
+        ],
+      ],
+      'RST10' =>[
+        '1' => [
+          'HKD'=>'',
+        ],
+        '2' => [
+          'HKD'=>'',
+        ],
+        '3' => [
+          'HKD'=>'',
+        ],
+        '4' => [
+          'HKD'=>'',
         ],
       ],
     ];

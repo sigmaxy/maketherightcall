@@ -107,6 +107,14 @@ class ProductController extends ControllerBase {
         'chinese_name' => '心安危疾保障計劃',
         'english_name' => 'MatureCare Critical Illness Plan',
       ],
+      'RST08' =>[
+        'chinese_name' => '「伴您行」保費回贈手術保障',
+        'english_name' => 'Full Care Refundable Surgical Plan',
+      ],
+      'RST10' =>[
+        'chinese_name' => '「伴您行」保費回贈手術保障',
+        'english_name' => 'Full Care Refundable Surgical Plan',
+      ],
     ];
     return $results;
   }
