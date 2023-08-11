@@ -85,6 +85,22 @@ class ProductController extends ControllerBase {
     );
     return $results;
   }
+  public static function get_rst_plan_code_options() {
+    $results = array(
+      'RST08' => 'RST08',
+      'RST10' => 'RST10',
+    );
+    return $results;
+  }
+  public static function get_rst_plan_level_options() {
+    $results = array(
+      '1' => '1',
+      '2' => '2',
+      '3' => '3',
+      '4' => '4',
+    );
+    return $results;
+  }
   public static function get_product_name_options() {
     $results = [
       'RHC5' =>[
