@@ -292,7 +292,7 @@ class EditCallForm extends FormBase {
       '#open'  => true,
       '#weight' => '3',
     ];
-    $form['rst_detail']['plan_code'] = [
+    $form['rst_detail']['rst_plan_code'] = [
       '#type' => 'select',
       '#title' => $this->t('Plan Code'),
       '#options' => $rst_plan_code_opt,
@@ -304,7 +304,7 @@ class EditCallForm extends FormBase {
       ],
       '#weight' => '1',
     ];
-    $form['rst_detail']['age'] = [
+    $form['rst_detail']['rst_plan_age'] = [
       '#type' => 'textfield',
       '#title' => 'Age',
       // '#default_value' => isset($record['product_name_english'])?$record['product_name_english']:'',
@@ -314,7 +314,7 @@ class EditCallForm extends FormBase {
       ],
       '#weight' => '2',
     ];
-    $form['rst_detail']['genders'] = [
+    $form['rst_detail']['rst_plan_gender'] = [
       '#type' => 'select',
       '#title' => $this->t('genders'),
       '#options' => $gender_opt,
@@ -326,7 +326,7 @@ class EditCallForm extends FormBase {
       '#wrapper_attributes' => ['class' => ['form_item_maxwidth']],
       '#weight' => '3',
     ];
-    $form['rst_detail']['plan_level'] = [
+    $form['rst_detail']['rst_plan_level'] = [
       '#type' => 'select',
       '#title' => $this->t('Plan Level (RS)'),
       '#options' => $rst_plan_level_opt,
@@ -337,7 +337,7 @@ class EditCallForm extends FormBase {
       ],
       '#weight' => '4',
     ];
-    $form['rst_detail']['calculate'] = [
+    $form['rst_detail']['calculate_rst_premium'] = [
       '#type' => 'button',
       '#value' => $this->t('Calculate'),
       '#attributes' => [
@@ -369,7 +369,7 @@ class EditCallForm extends FormBase {
     <tr><td><b>首期保費(連徵費)</b></td><td class="rst_product_initial_premium_annual_usd"></td><td class="rst_product_initial_premium_monthly_usd"></td><td class="rst_product_initial_premium_annual_hkd"></td><td class="rst_product_initial_premium_monthly_hkd"></td></tr>
     </table>';
     
-    $form['rst_detail']['detail'] = [
+    $form['rst_detail']['rst_plan_detail'] = [
       '#markup' => Markup::create($rst_detail),
       '#weight' => '10',
     ];
