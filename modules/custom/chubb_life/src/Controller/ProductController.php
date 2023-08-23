@@ -85,6 +85,22 @@ class ProductController extends ControllerBase {
     );
     return $results;
   }
+  public static function get_rst_plan_code_options() {
+    $results = array(
+      'RST08' => 'RST08',
+      'RST10' => 'RST10',
+    );
+    return $results;
+  }
+  public static function get_rst_plan_level_options() {
+    $results = array(
+      '1' => '1',
+      '2' => '2',
+      '3' => '3',
+      '4' => '4',
+    );
+    return $results;
+  }
   public static function get_product_name_options() {
     $results = [
       'RHC5' =>[
@@ -106,6 +122,14 @@ class ProductController extends ControllerBase {
       'MCE' =>[
         'chinese_name' => '心安危疾保障計劃',
         'english_name' => 'MatureCare Critical Illness Plan',
+      ],
+      'RST08' =>[
+        'chinese_name' => '「伴您行」保費回贈手術保障',
+        'english_name' => 'Full Care Refundable Surgical Plan',
+      ],
+      'RST10' =>[
+        'chinese_name' => '「伴您行」保費回贈手術保障',
+        'english_name' => 'Full Care Refundable Surgical Plan',
       ],
     ];
     return $results;

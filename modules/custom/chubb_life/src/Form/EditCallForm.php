@@ -37,6 +37,8 @@ class EditCallForm extends FormBase {
     $gender_opt = AttributeController::get_gender_options();
     $rhc_plan_code_opt = ProductController::get_rhc_plan_code_options();
     $rhc_plan_level_opt = ProductController::get_rhc_plan_level_options();
+    $rst_plan_code_opt = ProductController::get_rst_plan_code_options();
+    $rst_plan_level_opt = ProductController::get_rst_plan_level_options();
     $product_name_opt = ProductController::get_product_name_options();
 
     $face_amount_opt = AttributeController::get_face_amount_options();
@@ -115,7 +117,7 @@ class EditCallForm extends FormBase {
       '#type'  => 'details',
       '#title' => $this->t('Product Detail'),
       '#open'  => true,
-      '#weight' => '4',
+      '#weight' => '7',
     ];
     $form['product_detail']['premium_list_table'] = [
       '#type' => 'table',
@@ -140,7 +142,7 @@ class EditCallForm extends FormBase {
       '#type'  => 'details',
       '#title' => $this->t('Call Functions'),
       '#open'  => true,
-      '#weight' => '3',
+      '#weight' => '6',
     ];
     $call_status_opt = AttributeController::get_call_status_options();
     $reject_reason_opt = AttributeController::get_reject_reason_options();
@@ -282,6 +284,93 @@ class EditCallForm extends FormBase {
     
     $form['rhc_detail']['detail'] = [
       '#markup' => Markup::create($rhc_detail),
+      '#weight' => '10',
+    ];
+    $form['rst_detail'] = [
+      '#type'  => 'details',
+      '#title' => $this->t('ROPSC Detail'),
+      '#open'  => true,
+      '#weight' => '3',
+    ];
+    $form['rst_detail']['rst_plan_code'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Plan Code'),
+      '#options' => $rst_plan_code_opt,
+      '#empty_option' => '--Select--',
+      // '#default_value' => isset($record['plan_code'])?$record['plan_code']:'',
+      '#attributes' => [
+        'class' => ['plan_code_select','noselect2'],
+        'id'=>'rst_plan_code',
+      ],
+      '#weight' => '1',
+    ];
+    $form['rst_detail']['rst_plan_age'] = [
+      '#type' => 'textfield',
+      '#title' => 'Age',
+      // '#default_value' => isset($record['product_name_english'])?$record['product_name_english']:'',
+      '#maxlength' => 255,
+      '#attributes' => [
+        'id' => 'rst_plan_age',
+      ],
+      '#weight' => '2',
+    ];
+    $form['rst_detail']['rst_plan_gender'] = [
+      '#type' => 'select',
+      '#title' => $this->t('genders'),
+      '#options' => $gender_opt,
+      // '#default_value' => isset($db_call['status'])?$db_call['status']:0,
+      '#attributes' => [   
+        'class' => ['noselect2'],
+        'id' => 'rst_plan_gender',
+      ],
+      '#wrapper_attributes' => ['class' => ['form_item_maxwidth']],
+      '#weight' => '3',
+    ];
+    $form['rst_detail']['rst_plan_level'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Plan Level (RS)'),
+      '#options' => $rst_plan_level_opt,
+      // '#default_value' => isset($record['plan_level'])?$record['plan_level']:'',
+      '#attributes' => [
+        'class' => ['plan_level_select','noselect2'],
+        'id'=>'rst_plan_level',
+      ],
+      '#weight' => '4',
+    ];
+    $form['rst_detail']['calculate_rst_premium'] = [
+      '#type' => 'button',
+      '#value' => $this->t('Calculate'),
+      '#attributes' => [
+        'onclick' => 'return false;',
+        'id' => 'calculate_rst_premium',
+      ],
+      '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
+      '#weight' => '5',
+    ];
+    $rst_detail = '
+    <table class="product_rst_detail">
+    <tr><td colspan="5"><b>保障</b></td></tr>
+    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
+    <tr><td><b>每日住院現金</b></td><td colspan="2" class="rst_product_face_amount_usd"></td><td colspan="2" class="rst_product_face_amount_hkd"></td></tr>
+    <tr><td colspan="5"><b>保費</b></td></tr>
+    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
+    <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
+    <tr><td><b>保費</b></td><td class="rst_product_premium_annual_usd"></td><td class="rst_product_premium_monthly_usd"></td><td class="rst_product_premium_annual_hkd"></td><td class="rst_product_premium_monthly_hkd"></td></tr>
+    <tr><td><b>平均每日保費</b></td><td class="rst_product_premium_annual_usd_ave">N/A</td><td class="rst_product_premium_monthly_usd_ave"></td><td class="rst_product_premium_annual_hkd_ave">N/A</td><td class="rst_product_premium_monthly_hkd_ave"></td></tr>
+    <tr><td colspan="5"><b>總共款及115期滿金額</b></td></tr>
+    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
+    <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
+    <tr><td><b><span class="rst_product_year">10</span>年總共款</b></td><td class="rst_product_premium_annual_usd_10y"></td><td class="rst_product_premium_monthly_usd_10y"></td><td class="rst_product_premium_annual_hkd_10y"></td><td class="rst_product_premium_monthly_hkd_10y"></td></tr>
+    <tr><td><b>100%回贈</b></td><td class="rst_product_premium_annual_usd_110"></td><td class="rst_product_premium_monthly_usd_110"></td><td class="rst_product_premium_annual_hkd_100"></td><td class="rst_product_premium_monthly_hkd_100"></td></tr>
+    <tr><td><b>103%回贈</b></td><td class="rst_product_premium_annual_usd_115"></td><td class="rst_product_premium_monthly_usd_115"></td><td class="rst_product_premium_annual_hkd_103"></td><td class="rst_product_premium_monthly_hkd_103"></td></tr>
+    <tr><td colspan="5"><b>首期保費(2個月)</b></td></tr>
+    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
+    <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
+    <tr><td><b>首期保費(連徵費)</b></td><td class="rst_product_initial_premium_annual_usd"></td><td class="rst_product_initial_premium_monthly_usd"></td><td class="rst_product_initial_premium_annual_hkd"></td><td class="rst_product_initial_premium_monthly_hkd"></td></tr>
+    </table>';
+    
+    $form['rst_detail']['rst_plan_detail'] = [
+      '#markup' => Markup::create($rst_detail),
       '#weight' => '10',
     ];
     $form['#attached']['drupalSettings']['promotion_code_arr'] = $promotion_code_arr;

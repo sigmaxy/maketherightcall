@@ -102,7 +102,15 @@ body {
     border-collapse: collapse!important;
     width: 100%!important;
 }
+.product_rst_detail{
+    /* border: 1px solid; */
+    border-collapse: collapse!important;
+    width: 100%!important;
+}
 .product_rhc_detail td{
+    border: 1px solid #f0f0f0!important;
+}
+.product_rst_detail td{
     border: 1px solid #f0f0f0!important;
 }
 .traditional_data_tale{
