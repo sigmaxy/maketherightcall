@@ -1,15 +1,6 @@
 jQuery(document).ready(function($){
     function calculate_rhc_premium(currency,payment_mode){
-        var promotion_code = $('#promotion_code').val();
         var discount = 0;
-        if (promotion_code) {
-            if(drupalSettings.promotion_code_arr.hasOwnProperty(promotion_code)){
-                discount = drupalSettings.promotion_code_arr[promotion_code];
-            }else{
-                alert('Invalid Promotion Code');
-            }
-        }
-        
         var plan_code = $('#plan_code').val();
         var age = $('#plan_age').val();
         var gender = $('#plan_gender').val();
@@ -152,16 +143,7 @@ jQuery(document).ready(function($){
         }
 	});
     function calculate_rst_premium(currency,payment_mode){
-        var promotion_code = $('#promotion_code').val();
         var discount = 0;
-        if (promotion_code) {
-            if(drupalSettings.promotion_code_arr.hasOwnProperty(promotion_code)){
-                discount = drupalSettings.promotion_code_arr[promotion_code];
-            }else{
-                alert('Invalid Promotion Code');
-            }
-        }
-        
         var plan_code = $('#rst_plan_code').val();
         var age = $('#rst_plan_age').val();
         var gender = $('#rst_plan_gender').val();
