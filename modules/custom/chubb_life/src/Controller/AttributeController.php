@@ -339,9 +339,22 @@ class AttributeController extends ControllerBase {
   }
   public static function get_promotion_code_arr() {
     $results = [
-      'CC17'=>0.15,
-      'CC87'=>0.15,
-      'CD01'=>0
+      'CC17' => [
+        'plan'=>['RHC5','RHC10'],
+        'discount'=>0.15
+      ],
+      'CC87' => [
+        'plan'=>['RHC5','RHC10'],
+        'discount'=>0.15
+      ],
+      'CD01' => [
+        'plan'=>['RHC5','RHC10'],
+        'discount'=>0
+      ],
+      'CD30' => [
+        'plan'=>['RST08','RST10'],
+        'discount'=>0.25
+      ],
     ];
     return $results;
   }

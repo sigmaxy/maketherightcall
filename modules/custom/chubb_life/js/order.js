@@ -142,15 +142,19 @@ jQuery(document).ready(function($){
     }
     function calculate_premium(){
         var promotion_code = $('#promotion_code').val();
+        var plan_code = $('#plan_code').val();
         var discount = 0;
         if (promotion_code) {
             if(drupalSettings.promotion_code_arr.hasOwnProperty(promotion_code)){
-                discount = drupalSettings.promotion_code_arr[promotion_code];
+                if(drupalSettings.promotion_code_arr[promotion_code]['plan'].includes(plan_code)){
+                    discount = drupalSettings.promotion_code_arr[promotion_code]['discount'];
+                }else{
+                    alert('Promotion Code not match Plan');
+                }
             }else{
                 alert('Invalid Promotion Code');
             }
         }
-        var plan_code = $('#plan_code').val();
         var plan_level = $('#plan_level').val();
         var smoker = $('#insured_smoker').val();
         var birthDate = $('#insured_birthDate').val();
