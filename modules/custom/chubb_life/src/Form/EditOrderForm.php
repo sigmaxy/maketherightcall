@@ -1578,6 +1578,14 @@ class EditOrderForm extends FormBase {
     !AttributeController::check_hkid($form_state->getValue('customer_payor_identityNumber'))) {
       $form_state->setErrorByName('customer_payor_identityNumber','Invalide Payor HKID');
     }
+    
+    $promotion_code_arr = AttributeController::get_promotion_code_arr();
+    if (!empty($form_state->getValue('promotion_code'))
+     && !in_array($form_state->getValue('plan_code'), $promotion_code_arr[$form_state->getValue('promotion_code')]['plan'])
+    ){
+      $form_state->setErrorByName('promotion_code','Promotion Code and Plan Code not match');
+      
+    }
 
     if ($form_state->getValue('status')==3) {
       if(empty($form_state->getValue('cardType'))){
