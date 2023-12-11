@@ -167,7 +167,7 @@ jQuery(document).ready(function($){
         var age = getAge(birthDate);
         var currency = $('#currency').val();
         var payment_mode = $('#paymentMode').val();
-        let initial_premium,modal_premium_payment,modal_premium,discount_modal_premium,after_discount_modal_premium,levy;
+        let initial_premium,modal_premium_payment,modal_premium,discount_modal_premium,after_discount_modal_premium,levy,transacted_initial_premium;
         var url = window.location.origin+drupalSettings.path.baseUrl+'chubb_life/data/ajax_get_premium/'+plan_code+'/'+plan_level+'/'+smoker+'/'+gender+'/'+age+'/'+currency;
         console.log('plan code is '+plan_code);
         console.log('plan_level is '+plan_level);
@@ -224,17 +224,17 @@ jQuery(document).ready(function($){
                         // console.log(test);
                         initial_premium = ((parseFloat(after_discount_modal_premium) + parseFloat(levy)) * initial_factor).toFixed(2);
                         console.log('initial_premium is '+initial_premium);
-                        modal_premium_payment = modal_premium
+                        modal_premium_payment = modal_premium;
                         console.log('modal_premium_payment is '+modal_premium_payment);
+                        transacted_initial_premium = initial_premium;
+                        if(currency=='USD'){
+                            transacted_initial_premium = parseFloat(initial_premium * 7.8).toFixed(2);
+                        }
                         
                         $('#levy').val(levy);
                         $('#initial_premium').val(initial_premium);
                         $('#modal_premium_payment').val(modal_premium_payment);
-                        if(currency=='USD'){
-                            $('#transacted_initial_premium').val(initial_premium * 7.8);
-                        }else{
-                            $('#transacted_initial_premium').val(initial_premium);
-                        }
+                        $('#transacted_initial_premium').val(transacted_initial_premium);
                     }else{
                         alert(response[0].message);
                     }
@@ -269,6 +269,15 @@ jQuery(document).ready(function($){
         var plan_code = $('#plan_code').val();
         var plan_level = $('#plan_level').val();
         var currency = $('#currency').val();
+        $('#face_amount').val('');
+        if(
+            typeof drupalSettings.face_amount[plan_code]!== 'undefined'
+            && typeof drupalSettings.face_amount[plan_code][plan_level] !== 'undefined'
+            && typeof drupalSettings.face_amount[plan_code][plan_level][currency] !== 'undefined'
+
+        ){
+            $('#face_amount').val(drupalSettings.face_amount[plan_code][plan_level][currency]);
+        }
         if (typeof drupalSettings.face_amount[plan_code][plan_level] !== 'undefined') {
             if (typeof drupalSettings.face_amount[plan_code][plan_level][currency] !== 'undefined') {
                 $('#face_amount').val(drupalSettings.face_amount[plan_code][plan_level][currency]);
