@@ -278,15 +278,6 @@ jQuery(document).ready(function($){
         ){
             $('#face_amount').val(drupalSettings.face_amount[plan_code][plan_level][currency]);
         }
-        if (typeof drupalSettings.face_amount[plan_code][plan_level] !== 'undefined') {
-            if (typeof drupalSettings.face_amount[plan_code][plan_level][currency] !== 'undefined') {
-                $('#face_amount').val(drupalSettings.face_amount[plan_code][plan_level][currency]);
-            }else{
-                $('#face_amount').val('');
-            }
-        }else{
-            $('#face_amount').val('');
-        }
     }
     function fill_product_name(){
         if (typeof drupalSettings.product_name[$('#plan_code').val()]['chinese_name'] !== 'undefined') {
