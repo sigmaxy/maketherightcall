@@ -65,6 +65,9 @@ class DeveloperController extends ControllerBase {
       case 'clear_data':
         self::clear_data();exit;
       break;
+      case 'print_premium_sql':
+        self::print_premium_sql();exit;
+      break;
       default:
         echo "no action"; exit;
       break;
@@ -402,6 +405,39 @@ echo '<br><br><br><br>';
       $insert_id = $connection->insert('mtrc_premium')
         ->fields($each_data)
         ->execute();
+    }
+  }
+  public static function print_premium_sql(){
+    $file_uri = \Drupal::service('file_system')->realpath('public://mtrc/'.'premium_dg.xlsx');
+    $inputFileType = IOFactory::identify($file_uri);
+    $reader = IOFactory::createReader($inputFileType);
+    $reader->setReadDataOnly(TRUE);
+    $spreadsheet = $reader->load($file_uri);
+    $sheetData = $spreadsheet->getSheet(0)->toArray();
+    $formatesheetData = array();
+    // print_r($sheetData);exit;
+    foreach ($sheetData as $key => $row_data) {
+      if ($key>=1 && !empty($row_data[1])) {
+        $each_data = array();
+        $each_data['plan_code'] = $row_data[1];
+        $each_data['plan_level'] = $row_data[5];
+        $each_data['smokers_code'] = $row_data[4]=='N'?'N':'Y';
+        $each_data['gender'] = $row_data[3];
+        $each_data['currency'] = $row_data[2];
+        for ($i=7; $i < 71; $i++) { 
+          if(!empty($row_data[$i]) && $row_data[$i]!='NA'){
+            $each_data['age'] = $i - 7;
+            $each_data['premium'] = $row_data[$i];
+            $formatesheetData[] = $each_data;
+          }
+          
+        }
+      }
+    }
+    // print_r($formatesheetData);exit;
+    foreach ($formatesheetData as $each_data) {
+      echo "INSERT INTO `mtrc_premium` (`plan_code`,`plan_level`,`smokers_code`,`gender`,`age`,`currency`,`premium`) VALUES ('".$each_data['plan_code']."','".$each_data['plan_level']."','".$each_data['smokers_code']."','".$each_data['gender']."','".$each_data['age']."','".$each_data['currency']."','".$each_data['premium']."0');";
+      echo '<br>';
     }
   }
 }

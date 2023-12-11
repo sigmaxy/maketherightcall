@@ -131,6 +131,22 @@ class ProductController extends ControllerBase {
         'chinese_name' => '「伴您行」保費回贈手術保障',
         'english_name' => 'Full Care Refundable Surgical Plan',
       ],
+      'DG08U' =>[
+        'chinese_name' => '「日日安心」個人意外保費回贈計劃',
+        'english_name' => 'Daily Guardian Refundable Personal Accident Plan',
+      ],
+      'DG10U' =>[
+        'chinese_name' => '「日日安心」個人意外保費回贈計劃',
+        'english_name' => 'Daily Guardian Refundable Personal Accident Plan',
+      ],
+      'DG08H' =>[
+        'chinese_name' => '「日日安心」個人意外保費回贈計劃',
+        'english_name' => 'Daily Guardian Refundable Personal Accident Plan',
+      ],
+      'DG10H' =>[
+        'chinese_name' => '「日日安心」個人意外保費回贈計劃',
+        'english_name' => 'Daily Guardian Refundable Personal Accident Plan',
+      ],
     ];
     return $results;
   }
