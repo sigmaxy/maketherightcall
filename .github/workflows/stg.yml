@@ -1,10 +1,9 @@
 name: Deploy Staging Only
 on:
-  push:
-    branches: [ stg ]
   pull_request:
     branches: [ stg ]
-    types: [ closed ]
+    types:
+      - closed
   workflow_dispatch:
 jobs:
   deploy_staging:
