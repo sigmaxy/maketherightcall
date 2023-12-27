@@ -101,6 +101,24 @@ class ProductController extends ControllerBase {
     );
     return $results;
   }
+  public static function get_rpa_plan_code_options() {
+    $results = array(
+      'DG08H' => 'DG08H',
+      'DG08U' => 'DG08U',
+      'DG10H' => 'DG10H',
+      'DG10U' => 'DG10U',
+    );
+    return $results;
+  }
+  public static function get_rpa_plan_level_options() {
+    $results = array(
+      '1' => '1',
+      '2' => '2',
+      '3' => '3',
+      '4' => '4',
+    );
+    return $results;
+  }
   public static function get_product_name_options() {
     $results = [
       'RHC5' =>[
