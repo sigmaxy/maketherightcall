@@ -39,6 +39,8 @@ class EditCallForm extends FormBase {
     $rhc_plan_level_opt = ProductController::get_rhc_plan_level_options();
     $rst_plan_code_opt = ProductController::get_rst_plan_code_options();
     $rst_plan_level_opt = ProductController::get_rst_plan_level_options();
+    $rpa_plan_code_opt = ProductController::get_rpa_plan_code_options();
+    $rpa_plan_level_opt = ProductController::get_rpa_plan_level_options();
     $product_name_opt = ProductController::get_product_name_options();
 
     $face_amount_opt = AttributeController::get_face_amount_options();
@@ -371,6 +373,93 @@ class EditCallForm extends FormBase {
     
     $form['rst_detail']['rst_plan_detail'] = [
       '#markup' => Markup::create($rst_detail),
+      '#weight' => '10',
+    ];
+    $form['rpa_detail'] = [
+      '#type'  => 'details',
+      '#title' => $this->t('ROPPA Detail'),
+      '#open'  => true,
+      '#weight' => '4',
+    ];
+    $form['rpa_detail']['plan_code'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Plan Code'),
+      '#options' => $rpa_plan_code_opt,
+      '#empty_option' => '--Select--',
+      // '#default_value' => isset($record['plan_code'])?$record['plan_code']:'',
+      '#attributes' => [
+        'class' => ['plan_code_select','noselect2'],
+        'id'=>'rpa_plan_code',
+      ],
+      '#weight' => '1',
+    ];
+    $form['rpa_detail']['age'] = [
+      '#type' => 'textfield',
+      '#title' => 'Age',
+      // '#default_value' => isset($record['product_name_english'])?$record['product_name_english']:'',
+      '#maxlength' => 255,
+      '#attributes' => [
+        'id' => 'rpa_plan_age',
+      ],
+      '#weight' => '2',
+    ];
+    $form['rpa_detail']['genders'] = [
+      '#type' => 'select',
+      '#title' => $this->t('genders'),
+      '#options' => $gender_opt,
+      // '#default_value' => isset($db_call['status'])?$db_call['status']:0,
+      '#attributes' => [   
+        'class' => ['noselect2'],
+        'id' => 'rpa_plan_gender',
+      ],
+      '#wrapper_attributes' => ['class' => ['form_item_maxwidth']],
+      '#weight' => '3',
+    ];
+    $form['rpa_detail']['plan_level'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Plan Level (RS)'),
+      '#options' => $rpa_plan_level_opt,
+      // '#default_value' => isset($record['plan_level'])?$record['plan_level']:'',
+      '#attributes' => [
+        'class' => ['plan_level_select','noselect2'],
+        'id'=>'rpa_plan_level',
+      ],
+      '#weight' => '4',
+    ];
+    $form['rpa_detail']['calculate'] = [
+      '#type' => 'button',
+      '#value' => $this->t('Calculate'),
+      '#attributes' => [
+        'onclick' => 'return false;',
+        'id' => 'calculate_rpa_premium',
+      ],
+      '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
+      '#weight' => '5',
+    ];
+    $rpa_detail = '
+    <table class="product_rpa_detail">
+    <tr><td colspan="5"><b>保障</b></td></tr>
+    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
+    <tr><td><b>每次賞額</b></td><td colspan="2" class="rpa_product_face_amount_usd"></td><td colspan="2" class="rpa_product_face_amount_hkd"></td></tr>
+    <tr><td colspan="5"><b>保費</b></td></tr>
+    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
+    <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
+    <tr><td><b>保費</b></td><td class="rpa_product_premium_annual_usd"></td><td class="rpa_product_premium_monthly_usd"></td><td class="rpa_product_premium_annual_hkd"></td><td class="rpa_product_premium_monthly_hkd"></td></tr>
+    <tr><td><b>平均每日保費</b></td><td class="rpa_product_premium_annual_usd_ave">N/A</td><td class="rpa_product_premium_monthly_usd_ave"></td><td class="rpa_product_premium_annual_hkd_ave">N/A</td><td class="rpa_product_premium_monthly_hkd_ave"></td></tr>
+    <tr><td colspan="5"><b>總共款及103%期滿金額</b></td></tr>
+    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
+    <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
+    <tr><td><b><span class="rpa_product_year">8</span>年總共款</b></td><td class="rpa_product_premium_annual_usd_10y"></td><td class="rpa_product_premium_monthly_usd_10y"></td><td class="rpa_product_premium_annual_hkd_10y"></td><td class="rpa_product_premium_monthly_hkd_10y"></td></tr>
+    <tr><td><b>100%回贈</b></td><td class="rpa_product_premium_annual_usd_100"></td><td class="rpa_product_premium_monthly_usd_100"></td><td class="rpa_product_premium_annual_hkd_100"></td><td class="rpa_product_premium_monthly_hkd_100"></td></tr>
+    <tr><td><b>103%回贈</b></td><td class="rpa_product_premium_annual_usd_103"></td><td class="rpa_product_premium_monthly_usd_103"></td><td class="rpa_product_premium_annual_hkd_103"></td><td class="rpa_product_premium_monthly_hkd_103"></td></tr>
+    <tr><td colspan="5"><b>首期保費(2個月)</b></td></tr>
+    <tr><td><b>貨幣</b></td><td colspan="2"><b>USD</b></td><td colspan="2"><b>HKD</b></td></tr>
+    <tr><td><b>付款方式</b></td><td><b>年供</b></td><td><b>月供</b></td><td><b>年供</b></td><td><b>月供</b></td></tr>
+    <tr><td><b>首期保費(連徵費)</b></td><td class="rpa_product_initial_premium_annual_usd"></td><td class="rpa_product_initial_premium_monthly_usd"></td><td class="rpa_product_initial_premium_annual_hkd"></td><td class="rpa_product_initial_premium_monthly_hkd"></td></tr>
+    </table>';
+    
+    $form['rpa_detail']['detail'] = [
+      '#markup' => Markup::create($rpa_detail),
       '#weight' => '10',
     ];
     $form['#attached']['drupalSettings']['promotion_code_arr'] = $promotion_code_arr;
