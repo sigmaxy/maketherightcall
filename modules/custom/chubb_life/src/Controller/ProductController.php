@@ -101,6 +101,24 @@ class ProductController extends ControllerBase {
     );
     return $results;
   }
+  public static function get_rpa_plan_code_options() {
+    $results = array(
+      'DG08H' => 'DG08H',
+      'DG08U' => 'DG08U',
+      'DG10H' => 'DG10H',
+      'DG10U' => 'DG10U',
+    );
+    return $results;
+  }
+  public static function get_rpa_plan_level_options() {
+    $results = array(
+      '1' => '1',
+      '2' => '2',
+      '3' => '3',
+      '4' => '4',
+    );
+    return $results;
+  }
   public static function get_product_name_options() {
     $results = [
       'RHC5' =>[
@@ -130,6 +148,22 @@ class ProductController extends ControllerBase {
       'RST10' =>[
         'chinese_name' => '「伴您行」保費回贈手術保障',
         'english_name' => 'Full Care Refundable Surgical Plan',
+      ],
+      'DG08U' =>[
+        'chinese_name' => '「日日安心」個人意外保費回贈計劃',
+        'english_name' => 'Daily Guardian Refundable Personal Accident Plan',
+      ],
+      'DG10U' =>[
+        'chinese_name' => '「日日安心」個人意外保費回贈計劃',
+        'english_name' => 'Daily Guardian Refundable Personal Accident Plan',
+      ],
+      'DG08H' =>[
+        'chinese_name' => '「日日安心」個人意外保費回贈計劃',
+        'english_name' => 'Daily Guardian Refundable Personal Accident Plan',
+      ],
+      'DG10H' =>[
+        'chinese_name' => '「日日安心」個人意外保費回贈計劃',
+        'english_name' => 'Daily Guardian Refundable Personal Accident Plan',
       ],
     ];
     return $results;
