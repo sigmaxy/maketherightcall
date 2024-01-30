@@ -32,6 +32,11 @@ class UploadCustomerForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id()); // pass your uid
+    $teams = [];
+    foreach ($user->get('field_team')->getValue() as $key => $value) {
+      $teams[$value['value']] = $value['value'];
+    }
     $validators = array(
       'file_validate_extensions' => array('csv xlsx'),
     );
@@ -42,11 +47,23 @@ class UploadCustomerForm extends FormBase {
       '#description' => t('XLSX CSV format only'),
       '#upload_validators' => $validators,
       '#upload_location' => 'public://temp/',
+      '#weight' => '1',
     );
     $url = \Drupal::service('file_url_generator')->generate('public://mtrc/sample_customer.xlsx'); 
     $url = file_create_url('public://mtrc/sample_customer.xlsx'); 
     // print_r($url);exit;
-
+    $form['team'] = [
+      '#title' => $this->t('Team'),
+      '#type' => 'select',
+      '#options' => $teams,
+      '#empty_option' => '--Select--',
+      // '#default_value' => isset($conditions['assignee_id'])?$conditions['assignee_id']:'',
+      '#attributes' => [
+        'class' => ['noselect2'],
+      ],
+      '#required'=> true,
+      '#weight' => '2',
+    ];
     $form['sample'] = [
       '#type' => 'link',
       '#title' => $this->t('customer sample xlsx'),
@@ -54,6 +71,7 @@ class UploadCustomerForm extends FormBase {
       '#url' => \Drupal::service('file_url_generator')->generate('public://mtrc/sample_customer.xlsx'),
       '#attributes' => ['target' => '_blank'],
       '#prefix' => '<div class="form_item_maxwidth">', '#suffix' => '</div>',
+      '#weight' => '3',
     ];
 
     $form['actions']['#type'] = 'actions';
@@ -61,6 +79,7 @@ class UploadCustomerForm extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t('Import'),
       '#button_type' => 'primary',
+      '#weight' => '4',
     );
     
     return $form;
@@ -94,6 +113,7 @@ class UploadCustomerForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $team = $form_state->getValue('team');
     $fid = $form_state->getValue('customer_file')[0];
     $file = File::load($fid);
     $file_uri = \Drupal::service('file_system')->realpath($file->getFileUri());
@@ -119,6 +139,7 @@ class UploadCustomerForm extends FormBase {
     foreach ($formatesheetData as $po_number => $each_data) {
       $customer = $each_data;
       $customer['fid'] = $fid;
+      $customer['team'] = $team;
       $customer['member_since'] = $each_data['member since'];
       unset($customer['member since']);
       CustomerController::update_import_customer($customer);

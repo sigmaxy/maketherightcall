@@ -24,9 +24,14 @@ class AssigneeController extends ControllerBase {
    */
   public static function list_assignee() {
     $userlist = [];
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id()); // pass your uid
+    $teams = [];
+    foreach ($user->get('field_team')->getValue() as $key => $value) {
+      $teams[] = $value['value'];
+    }
     $ids = \Drupal::entityQuery('user')
       ->condition('status', 1)
-      // ->condition('roles', 'administrator')
+      ->condition('field_team', $teams, 'IN')
       ->execute();
     $users = User::loadMultiple($ids);
     foreach($users as $user){

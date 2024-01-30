@@ -70,7 +70,12 @@ class ListCallForm extends FormBase {
 
     $roles = \Drupal::currentUser()->getRoles();
     if(in_array('manager', $roles)||in_array('administrator', $roles)) {
-      
+      $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id()); // pass your uid
+      $teams = [];
+      foreach ($user->get('field_team')->getValue() as $key => $value) {
+        $teams[] = $value['value'];
+      }
+      $conditions['teams'] = $teams;
     }else{
       $conditions['assignee_id'] = $current_uid;
     }

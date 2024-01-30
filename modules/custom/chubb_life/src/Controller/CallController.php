@@ -62,7 +62,10 @@ class CallController extends ControllerBase {
     $query = $connection->select('mtrc_call', 'mc');
     $query->fields('mc');
     $query->leftJoin('mtrc_customer_import', 'mci', 'mci.id = mc.import_customer_id');
-
+    if(isset($conditions['teams'])){
+      $query->condition('team', $conditions['teams'],'IN');
+      unset($conditions['teams']);
+    }
     if(isset($conditions['assignee_id'])){
       $query->condition('assignee_id', $conditions['assignee_id']);
       unset($conditions['assignee_id']);

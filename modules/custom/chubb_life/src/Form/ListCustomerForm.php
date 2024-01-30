@@ -30,6 +30,12 @@ class ListCustomerForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $conditions = array();
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id()); // pass your uid
+    $teams = [];
+    foreach ($user->get('field_team')->getValue() as $key => $value) {
+      $teams[] = $value['value'];
+    }
+    $conditions['teams'] = $teams;
     if(\Drupal::request()->query->get('fid')){
       $conditions['fid']=\Drupal::request()->query->get('fid');
     }
@@ -62,6 +68,7 @@ class ListCustomerForm extends FormBase {
     $header_table['gender'] = t('Gender');
     $header_table['tel_mbl'] = t('Mobile');
     $header_table['status'] = t('Status');
+    $header_table['team'] = t('Team');
     $header_table['fid'] = t('Batch');
     $header_table['assignee'] = t('Assignee');
     $header_table['created_at'] = t('Created At');
@@ -74,7 +81,7 @@ class ListCustomerForm extends FormBase {
     $assignee_opts = AssigneeController::list_assignee();
     $filter_call_status_opt = $call_status_opt;
     $filter_call_status_opt['null'] = 'Not Assigned';
-    DeveloperController::running_check();
+    // DeveloperController::running_check();
     foreach($import_customer_list as $key=>$data){
       // $edit   = Url::fromUserInput('/chubb_life/form/editcall/'.$data->id);
       $db_call = CallController::get_call_by_import_customer_id($data->id);
@@ -90,6 +97,7 @@ class ListCustomerForm extends FormBase {
         $row_data['status'] = 'Not Assigned';
         $row_data['assignee'] = '';
       }
+      $row_data['team'] = $data->team;
       $row_data['cust_ref'] = $data->cust_ref;
       $row_data['name'] = $data->name;
       $row_data['gender'] = $data->gender;
