@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Laminas\Feed\Writer;
 
 use DateTime;
@@ -33,7 +31,7 @@ class Deleted
      * Set the feed character encoding
      *
      * @param  null|string $encoding
-     * @return $this
+     * @return static
      * @throws Exception\InvalidArgumentException
      */
     public function setEncoding($encoding)

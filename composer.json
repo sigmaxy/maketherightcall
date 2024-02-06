@@ -29,8 +29,12 @@
         "drupal/jquery_ui_tooltip": "^1.1",
         "drupal/rabbitmq": "^3.0",
         "drupal/real_aes": "^2.4",
+        "drupal/restui": "^1.21",
         "drupal/tfa": "^1.0@alpha",
         "ilexn/hkid-check-digit": "^3.1",
+        "inacho/php-credit-card-validator": "^1.0",
+        "pedrosancao/php-otp": "^1.1",
+        "phpmailer/phpmailer": "^6.8",
         "phpoffice/phpspreadsheet": "^1.24",
         "phpseclib/phpseclib": "~3.0",
         "spatie/async": "^1.5"

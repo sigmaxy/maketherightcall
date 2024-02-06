@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Laminas\Feed\Reader;
 
 interface ReaderImportInterface
@@ -27,7 +25,7 @@ interface ReaderImportInterface
      * HTTP client implementations.
      *
      * @param  string $uri
-     * @return Feed\FeedInterface
+     * @return self
      * @throws Exception\RuntimeException If response is not an Http\ResponseInterface.
      */
     public static function importRemoteFeed($uri, Http\ClientInterface $client);

@@ -31,11 +31,9 @@ class Exporter
      * @param int               &$objectsCount
      * @param bool              &$valuesAreStatic
      *
-     * @return array
-     *
      * @throws NotInstantiableTypeException When a value cannot be serialized
      */
-    public static function prepare($values, $objectsPool, &$refsPool, &$objectsCount, &$valuesAreStatic)
+    public static function prepare($values, $objectsPool, &$refsPool, &$objectsCount, &$valuesAreStatic): array
     {
         $refs = $values;
         foreach ($values as $k => $value) {
@@ -73,31 +71,22 @@ class Exporter
                 goto handle_value;
             }
 
-            $class = $value::class;
-            $reflector = Registry::$reflectors[$class] ??= Registry::getClassReflector($class);
-            $properties = [];
+            $class = \get_class($value);
+            $reflector = Registry::$reflectors[$class] ?? Registry::getClassReflector($class);
 
             if ($reflector->hasMethod('__serialize')) {
                 if (!$reflector->getMethod('__serialize')->isPublic()) {
                     throw new \Error(sprintf('Call to %s method "%s::__serialize()".', $reflector->getMethod('__serialize')->isProtected() ? 'protected' : 'private', $class));
                 }
 
-                if (!\is_array($serializeProperties = $value->__serialize())) {
+                if (!\is_array($properties = $value->__serialize())) {
                     throw new \TypeError($class.'::__serialize() must return an array');
-                }
-
-                if ($reflector->hasMethod('__unserialize')) {
-                    $properties = $serializeProperties;
-                } else {
-                    foreach ($serializeProperties as $n => $v) {
-                        $c = $reflector->hasProperty($n) && ($p = $reflector->getProperty($n))->isReadOnly() ? $p->class : 'stdClass';
-                        $properties[$c][$n] = $v;
-                    }
                 }
 
                 goto prepare_value;
             }
 
+            $properties = [];
             $sleep = null;
             $proto = Registry::$prototypes[$class];
 
@@ -144,7 +133,7 @@ class Exporter
                 $i = 0;
                 $n = (string) $name;
                 if ('' === $n || "\0" !== $n[0]) {
-                    $c = $reflector->hasProperty($n) && ($p = $reflector->getProperty($n))->isReadOnly() ? $p->class : 'stdClass';
+                    $c = \PHP_VERSION_ID >= 80100 && $reflector->hasProperty($n) && ($p = $reflector->getProperty($n))->isReadOnly() ? $p->class : 'stdClass';
                 } elseif ('*' === $n[1]) {
                     $n = substr($n, 3);
                     $c = $reflector->getProperty($n)->class;
@@ -159,11 +148,11 @@ class Exporter
                     $n = substr($n, 1 + $i);
                 }
                 if (null !== $sleep) {
-                    if (!isset($sleep[$name]) && (!isset($sleep[$n]) || ($i && $c !== $class))) {
+                    if (!isset($sleep[$n]) || ($i && $c !== $class)) {
                         unset($arrayValue[$name]);
                         continue;
                     }
-                    unset($sleep[$name], $sleep[$n]);
+                    $sleep[$n] = false;
                 }
                 if (!\array_key_exists($name, $proto) || $proto[$name] !== $v || "\x00Error\x00trace" === $name || "\x00Exception\x00trace" === $name) {
                     $properties[$c][$n] = $v;
@@ -171,7 +160,9 @@ class Exporter
             }
             if ($sleep) {
                 foreach ($sleep as $n => $v) {
-                    trigger_error(sprintf('serialize(): "%s" returned as member variable from __sleep() but does not exist', $n), \E_USER_NOTICE);
+                    if (false !== $v) {
+                        trigger_error(sprintf('serialize(): "%s" returned as member variable from __sleep() but does not exist', $n), \E_USER_NOTICE);
+                    }
                 }
             }
             if (method_exists($class, '__unserialize')) {
@@ -198,7 +189,7 @@ class Exporter
         return $values;
     }
 
-    public static function export($value, $indent = '')
+    public static function export($value, string $indent = '')
     {
         switch (true) {
             case \is_int($value) || \is_float($value): return var_export($value, true);
@@ -237,7 +228,7 @@ class Exporter
                     return substr($m[1], 0, -2);
                 }
 
-                if (str_ends_with($m[1], 'n".\'')) {
+                if ('n".\'' === substr($m[1], -4)) {
                     return substr_replace($m[1], "\n".$subIndent.".'".$m[2], -2);
                 }
 
@@ -375,7 +366,7 @@ class Exporter
             self::export($value->wakeups, $subIndent),
         ];
 
-        return '\\'.$value::class."::hydrate(\n".$subIndent.implode(",\n".$subIndent, $code)."\n".$indent.')';
+        return '\\'.\get_class($value)."::hydrate(\n".$subIndent.implode(",\n".$subIndent, $code)."\n".$indent.')';
     }
 
     /**
@@ -385,7 +376,7 @@ class Exporter
     private static function getArrayObjectProperties($value, $proto): array
     {
         $reflector = $value instanceof \ArrayIterator ? 'ArrayIterator' : 'ArrayObject';
-        $reflector = Registry::$reflectors[$reflector] ??= Registry::getClassReflector($reflector);
+        $reflector = Registry::$reflectors[$reflector] ?? Registry::getClassReflector($reflector);
 
         $properties = [
             $arrayValue = (array) $value,

@@ -49,7 +49,7 @@ abstract class SettingsContainerAbstract implements SettingsContainerInterface{
 	/**
 	 * @inheritdoc
 	 */
-	public function __get(string $property):mixed{
+	public function __get(string $property){
 
 		if(!property_exists($this, $property) || $this->isPrivate($property)){
 			return null;
@@ -67,7 +67,7 @@ abstract class SettingsContainerAbstract implements SettingsContainerInterface{
 	/**
 	 * @inheritdoc
 	 */
-	public function __set(string $property, mixed $value):void{
+	public function __set(string $property, $value):void{
 
 		if(!property_exists($this, $property) || $this->isPrivate($property)){
 			return;
@@ -126,7 +126,7 @@ abstract class SettingsContainerAbstract implements SettingsContainerInterface{
 	/**
 	 * @inheritdoc
 	 */
-	public function fromIterable(iterable $properties):static{
+	public function fromIterable(iterable $properties):SettingsContainerInterface{
 
 		foreach($properties as $key => $value){
 			$this->__set($key, $value);
@@ -139,13 +139,13 @@ abstract class SettingsContainerAbstract implements SettingsContainerInterface{
 	 * @inheritdoc
 	 */
 	public function toJSON(int $jsonOptions = null):string{
-		return json_encode($this, ($jsonOptions ?? 0));
+		return json_encode($this, $jsonOptions ?? 0);
 	}
 
 	/**
 	 * @inheritdoc
 	 */
-	public function fromJSON(string $json):static{
+	public function fromJSON(string $json):SettingsContainerInterface{
 		$data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
 
 		return $this->fromIterable($data);
@@ -153,9 +153,9 @@ abstract class SettingsContainerAbstract implements SettingsContainerInterface{
 
 	/**
 	 * @inheritdoc
-	 * @noinspection PhpMixedReturnTypeCanBeReducedInspection
 	 */
-	public function jsonSerialize():mixed{
+	#[\ReturnTypeWillChange]
+	public function jsonSerialize():array{
 		return $this->toArray();
 	}
 

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Laminas\Feed\Writer;
 
 use DateTime;
@@ -138,7 +136,7 @@ class AbstractFeed
      * Set the feed creation date
      *
      * @param DateTime|DateTimeImmutable|int|null|string $date
-     * @return $this
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setDateCreated($date = null)
@@ -163,7 +161,7 @@ class AbstractFeed
      * Set the feed modification date
      *
      * @param DateTime|DateTimeImmutable|int|null|string $date
-     * @return $this
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setDateModified($date = null)
@@ -188,7 +186,7 @@ class AbstractFeed
      * Set the feed last-build date. Ignored for Atom 1.0.
      *
      * @param DateTime|DateTimeImmutable|int|null|string $date
-     * @return $this
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setLastBuildDate($date = null)

@@ -41,8 +41,6 @@ class Pool implements ArrayAccess
 
     protected $binary = PHP_BINARY;
 
-    protected $maxTaskPayloadInBytes = 100000;
-
     public function __construct()
     {
         if (static::isSupported()) {
@@ -111,13 +109,6 @@ class Pool implements ArrayAccess
         return $this;
     }
 
-    public function maxTaskPayload(int $maxSizeInBytes): self
-    {
-        $this->maxTaskPayloadInBytes = $maxSizeInBytes;
-
-        return $this;
-    }
-
     public function notify()
     {
         if (count($this->inProgress) >= $this->concurrency) {
@@ -149,8 +140,7 @@ class Pool implements ArrayAccess
             $process = ParentRuntime::createProcess(
                 $process,
                 $outputLength,
-                $this->binary,
-                $this->maxTaskPayloadInBytes
+                $this->binary
             );
         }
 
@@ -159,10 +149,6 @@ class Pool implements ArrayAccess
         return $process;
     }
 
-    /**
-     * @param callable|null $intermediateCallback Will be called every loop we wait for processes to finish. Return `false` to stop execution of the queue.
-     * @return array
-     */
     public function wait(?callable $intermediateCallback = null): array
     {
         while ($this->inProgress) {
@@ -180,8 +166,8 @@ class Pool implements ArrayAccess
                 break;
             }
 
-            if ($intermediateCallback && call_user_func_array($intermediateCallback, [$this])) {
-                break;
+            if ($intermediateCallback) {
+                call_user_func_array($intermediateCallback, [$this]);
             }
 
             usleep($this->sleepTime);
@@ -320,20 +306,6 @@ class Pool implements ArrayAccess
         pcntl_async_signals(true);
 
         pcntl_signal(SIGCHLD, function ($signo, $status) {
-            /**
-             * PHP 8.1.22 and 8.2.9 changed SIGCHLD handling:
-             * https://github.com/php/php-src/pull/11509
-             * This changes pcntl_waitpid() at the same time, so it requires special handling.
-             *
-             * It was reverted already and probably won't work in any other PHP version.
-             * https://github.com/php/php-src/pull/11863
-             */
-            if (phpversion() === '8.1.22' || phpversion() === '8.2.9') {
-                $this->handleFinishedProcess($status['pid'], $status['status']);
-
-                return;
-            }
-
             while (true) {
                 $pid = pcntl_waitpid(-1, $processState, WNOHANG | WUNTRACED);
 
@@ -341,26 +313,21 @@ class Pool implements ArrayAccess
                     break;
                 }
 
-                $this->handleFinishedProcess($pid, $status['status']);
+                $process = $this->inProgress[$pid] ?? null;
+
+                if (! $process) {
+                    continue;
+                }
+
+                if ($status['status'] === 0) {
+                    $this->markAsFinished($process);
+
+                    continue;
+                }
+
+                $this->markAsFailed($process);
             }
         });
-    }
-
-    protected function handleFinishedProcess(int $pid, int $status)
-    {
-        $process = $this->inProgress[$pid] ?? null;
-
-        if (! $process) {
-            return;
-        }
-
-        if ($status === 0) {
-            $this->markAsFinished($process);
-
-            return;
-        }
-
-        $this->markAsFailed($process);
     }
 
     public function stop()

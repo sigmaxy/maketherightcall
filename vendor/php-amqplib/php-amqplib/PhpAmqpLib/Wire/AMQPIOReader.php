@@ -77,46 +77,35 @@ class AMQPIOReader extends AMQPReader
      *
      * AMQPTimeoutException can be raised if the timeout is set
      *
-     * @throws AMQPTimeoutException when timeout is set and no data received
-     * @throws AMQPNoDataException when no data is ready to read from IO
+     * @throws \PhpAmqpLib\Exception\AMQPTimeoutException when timeout is set and no data received
+     * @throws \PhpAmqpLib\Exception\AMQPNoDataException when no data is ready to read from IO
      */
-    protected function wait(): void
+    protected function wait()
     {
         $timeout = $this->timeout;
         if (null === $timeout) {
             // timeout=null just poll state and return instantly
-            $result = $this->io->select(0);
-            if ($result === 0) {
-                throw new AMQPNoDataException('No data is ready to read');
-            }
-            return;
-        }
-
-        if (!($timeout > 0)) {
+            $sec = 0;
+            $usec = 0;
+        } elseif ($timeout > 0) {
+            list($sec, $usec) = MiscHelper::splitSecondsMicroseconds($this->getTimeout());
+        } else {
             // wait indefinitely for data if timeout=0
-            $result = $this->io->select(null);
-            if ($result === 0) {
-                throw new AMQPNoDataException('No data is ready to read');
-            }
-            return;
+            $sec = null;
+            $usec = 0;
         }
 
-        $leftTime = $timeout;
-        $started = microtime(true);
-        do {
-            [$sec, $usec] = MiscHelper::splitSecondsMicroseconds($leftTime);
-            $result = $this->io->select($sec, $usec);
-            if ($result > 0) {
-                return;
+        $result = $this->io->select($sec, $usec);
+
+        if ($result === 0) {
+            if ($timeout > 0) {
+                throw new AMQPTimeoutException(sprintf(
+                                                   'The connection timed out after %s sec while awaiting incoming data',
+                                                   $timeout
+                                               ));
+            } else {
+                throw new AMQPNoDataException('No data is ready to read');
             }
-            // select might be interrupted by signal, calculate left time and repeat
-            $leftTime = $timeout - (microtime(true) - $started);
-        } while ($leftTime > 0);
-
-        throw new AMQPTimeoutException(sprintf(
-                                           'The connection timed out after %s sec while awaiting incoming data',
-                                           $timeout
-                                       ));
-
+        }
     }
 }

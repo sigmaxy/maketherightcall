@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Laminas\Feed\Reader\Http;
 
 use Psr\Http\Message\ResponseInterface as Psr7ResponseInterface;
@@ -11,7 +9,8 @@ use Psr\Http\Message\ResponseInterface as Psr7ResponseInterface;
  */
 class Psr7ResponseDecorator implements HeaderAwareResponseInterface
 {
-    private Psr7ResponseInterface $decoratedResponse;
+    /** @var Psr7ResponseInterface */
+    private $decoratedResponse;
 
     public function __construct(Psr7ResponseInterface $response)
     {
