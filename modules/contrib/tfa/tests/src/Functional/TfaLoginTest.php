@@ -2,12 +2,15 @@
 
 namespace Drupal\Tests\tfa\Functional;
 
+use Drupal\tfa\TfaUserDataTrait;
+
 /**
  * Tests for the tfa login process.
  *
  * @group Tfa
  */
 class TfaLoginTest extends TfaTestBase {
+  use TfaUserDataTrait;
 
   /**
    * User doing the TFA Validation.
@@ -133,6 +136,43 @@ class TfaLoginTest extends TfaTestBase {
     ];
     $this->submitForm($edit, 'Confirm');
     $assert_session->pageTextContains('TFA Setup for ' . $another_user->getDisplayName());
+  }
+
+  /**
+   * Tests login when the user has the Default plugin disabled.
+   */
+  public function testDefaultPluginDisabled() {
+    $test_user = $this->createUser();
+    $settings = $this->config('tfa.settings');
+    $settings->set('enabled', TRUE);
+    $enabled_plugins = [
+      'tfa_test_plugins_validation' => 'tfa_test_plugins_validation',
+      'tfa_test_plugins_validation_false' => 'tfa_test_plugins_validation_false',
+    ];
+    $settings->set('allowed_validation_plugins', $enabled_plugins);
+    $settings->set('default_validation_plugin', 'tfa_test_plugins_validation_false');
+    $settings->save();
+
+    /** @var \Drupal\user\UserDataInterface $user_data_service */
+    $user_data_service = $this->container->get('user.data');
+    // This will be the users 'configured and ready' plugin, it is however
+    // not the 'default' plugin.
+    $this->tfaSaveTfaData($test_user->id(), $user_data_service, ['plugins' => 'tfa_test_plugins_validation']);
+    // This will be an unknown/invalid/uninstalled plugin to ensure
+    // that no exceptions occur on unknown plugins.
+    $this->tfaSaveTfaData($test_user->id(), $user_data_service, ['plugins' => 'tfa_plugin_does_not_exist']);
+
+    $this->drupalLogout();
+    $edit = [
+      'name' => $test_user->getAccountName(),
+      'pass' => $test_user->passRaw,
+    ];
+    $this->drupalGet('user/login');
+    $this->submitForm($edit, 'Log in');
+    $assert_session = $this->assertSession();
+    $assert_session->statusCodeEquals(200);
+    $this->assertNotEmpty($this->getSessionCookies());
+    $this->matchesRegularExpression('/.*\/user\/' . $test_user->id() . '.*/', $this->getSession()->getCurrentUrl());
   }
 
 }

@@ -12,6 +12,9 @@ use Drupal\tfa\TfaValidationPluginManager;
 use Drupal\user\UserDataInterface;
 use Drupal\user\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * TFA entry form.
@@ -82,6 +85,20 @@ class EntryForm extends FormBase {
   protected $userData;
 
   /**
+   * The current request.
+   *
+   * @var \Symfony\Component\HttpFoundation\Request
+   */
+  protected $request;
+
+  /**
+   * The lock service.
+   *
+   * @var \Drupal\Core\Lock\LockBackendInterface
+   */
+  protected $lock;
+
+  /**
    * EntryForm constructor.
    *
    * @param \Drupal\tfa\TfaValidationPluginManager $tfa_validation_manager
@@ -94,14 +111,25 @@ class EntryForm extends FormBase {
    *   The date service.
    * @param \Drupal\user\UserDataInterface $user_data
    *   User data service.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   Current request.
+   * @param \Drupal\Core\Lock\LockBackendInterface|null $lock
+   *   The lock service.
    */
-  public function __construct(TfaValidationPluginManager $tfa_validation_manager, TfaLoginPluginManager $tfa_login_manager, FloodInterface $flood, DateFormatterInterface $date_formatter, UserDataInterface $user_data) {
+  public function __construct(TfaValidationPluginManager $tfa_validation_manager, TfaLoginPluginManager $tfa_login_manager, FloodInterface $flood, DateFormatterInterface $date_formatter, UserDataInterface $user_data, Request $request, $lock = NULL) {
     $this->tfaValidationManager = $tfa_validation_manager;
     $this->tfaLoginManager = $tfa_login_manager;
     $this->tfaSettings = $this->config('tfa.settings');
     $this->flood = $flood;
     $this->dateFormatter = $date_formatter;
     $this->userData = $user_data;
+    $this->request = $request;
+    if (!$lock) {
+      @trigger_error('Constructing ' . __CLASS__ . ' without the lock service parameter is deprecated in TFA 8.x-1.3 and will be required before TFA 2.0.0.', E_USER_DEPRECATED);
+      // @phpcs:ignore DrupalPractice.Objects.GlobalDrupal.GlobalDrupal
+      $lock = \Drupal::service('lock');
+    }
+    $this->lock = $lock;
   }
 
   /**
@@ -113,12 +141,21 @@ class EntryForm extends FormBase {
    * @return static
    */
   public static function create(ContainerInterface $container) {
+    try {
+      $flood_service = $container->get('user.flood_control');
+    }
+    catch (ServiceNotFoundException $e) {
+      $flood_service = $container->get('flood');
+    }
+
     return new static(
       $container->get('plugin.manager.tfa.validation'),
       $container->get('plugin.manager.tfa.login'),
-      $container->get('flood'),
+      $flood_service,
       $container->get('date.formatter'),
-      $container->get('user.data')
+      $container->get('user.data'),
+      $container->get('request_stack')->getCurrentRequest(),
+      $container->get('lock')
     );
   }
 
@@ -148,6 +185,31 @@ class EntryForm extends FormBase {
 
     // Get current validation plugin form.
     $this->tfaValidationPlugin = $this->tfaValidationManager->createInstance($validation_plugin, ['uid' => $uid]);
+
+    // If the current plugin isn't ready we need to find another plugin.
+    if (!$this->tfaValidationPlugin->ready()) {
+      // Find a new plugin.
+      $enabled_plugins = $this->config('tfa.settings')->get('allowed_validation_plugins');
+      foreach ($enabled_plugins as $plugin_name) {
+        if (!empty($user_enabled_validation_plugins[$plugin_name]) && $plugin_name != $validation_plugin) {
+          /** @var \Drupal\tfa\Plugin\TfaValidationInterface $plugin */
+          $plugin = $this->tfaValidationManager->createInstance($plugin_name, ['uid' => $uid]);
+          if ($plugin->ready()) {
+            $validation_plugin = $plugin_name;
+            $this->tfaValidationPlugin = $plugin;
+            break;
+          }
+        }
+      }
+      if (!$this->tfaValidationPlugin->ready()) {
+        // This should never happen. The EntryForm should never be rendered if
+        // no plugins are ready.
+        $message = $this->t('An unexpected error occurred attempting to display the TFA Entry form.');
+        $this->messenger()->addError($message);
+        return new RedirectResponse(Url::fromRoute('user.login')->toString());
+      }
+    }
+
     $form = $this->tfaValidationPlugin->getForm($form, $form_state);
 
     $this->tfaLoginPlugins = $this->tfaLoginManager->getPlugins(['uid' => $uid]);
@@ -166,7 +228,12 @@ class EntryForm extends FormBase {
 
     // Build a list of links for using other enabled validation methods.
     $other_validation_plugin_links = [];
+    $allowed_validation_plugins = $this->tfaSettings->get('allowed_validation_plugins');
     foreach ($user_enabled_validation_plugins as $user_enabled_validation_plugin) {
+      // Only show allowed plugins.
+      if (!array_key_exists($user_enabled_validation_plugin, $allowed_validation_plugins)) {
+        continue;
+      }
       // Do not show the current plugin.
       if ($validation_plugin == $user_enabled_validation_plugin) {
         continue;
@@ -176,13 +243,21 @@ class EntryForm extends FormBase {
         continue;
       }
 
+      $url = Url::fromRoute('tfa.entry', [
+        'uid' => $uid,
+        'hash' => $hash,
+        'plugin' => $user_enabled_validation_plugin,
+      ]);
+
+      if ($pass_reset_token = $this->request->query->get('pass-reset-token')) {
+        $url->setOption('query', [
+          'pass-reset-token' => $pass_reset_token,
+        ]);
+      }
+
       $other_validation_plugin_links[$user_enabled_validation_plugin] = [
         'title' => $validation_plugin_definitions[$user_enabled_validation_plugin]['label'],
-        'url' => Url::fromRoute('tfa.entry', [
-          'uid' => $uid,
-          'hash' => $hash,
-          'plugin' => $user_enabled_validation_plugin,
-        ]),
+        'url' => $url,
       ];
     }
     // Show other enabled and configured validation plugins.
@@ -242,7 +317,12 @@ class EntryForm extends FormBase {
       return;
     }
 
+    $validation_lock_id = 'tfa_validate_' . $this->currentUser()->id();
+    while (!$this->lock->acquire($validation_lock_id)) {
+      $this->lock->wait($validation_lock_id);
+    }
     $validated = $this->tfaValidationPlugin->validateForm($form, $form_state);
+    $this->lock->release($validation_lock_id);
     if (!$validated) {
       // @todo Either define getErrorMessages in the TfaValidationInterface, or don't use it.
       // For now, let's just check that it exists before assuming.
@@ -278,7 +358,24 @@ class EntryForm extends FormBase {
     // @todo This could be improved with EventDispatcher.
     $this->finalize();
     $this->flood->clear('tfa.failed_validation', $this->floodIdentifier);
-    $form_state->setRedirect('<front>');
+    // Password reset token from the request parameter.
+    $token = $this->getRequest()->get('pass-reset-token');
+    // Check if user is using one time login.
+    if ($token) {
+      $this->messenger()->addStatus($this->t('You have just used your one-time login link. It is no longer necessary to use this link to log in. Please change your password.'));
+      // Clear any flood events for this user.
+      $this->flood->clear('user.password_request_user', $user->id());
+      // User uses a one-time login link,
+      // so the user should be redirected to user edit form,
+      // after validating the TFA.
+      $form_state->setRedirect('entity.user.edit_form', ['user' => $user->id()], [
+        'query' => ['pass-reset-token' => $token],
+        'absolute' => TRUE,
+      ]);
+    }
+    else {
+      $form_state->setRedirect('<front>');
+    }
   }
 
   /**

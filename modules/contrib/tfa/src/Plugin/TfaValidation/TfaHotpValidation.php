@@ -81,9 +81,35 @@ class TfaHotpValidation extends TfaBasePlugin implements TfaValidationInterface,
   protected $time;
 
   /**
-   * {@inheritdoc}
+   * The lock service.
+   *
+   * @var \Drupal\Core\Lock\LockBackendInterface
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, UserDataInterface $user_data, EncryptionProfileManagerInterface $encryption_profile_manager, EncryptServiceInterface $encrypt_service, ConfigFactoryInterface $config_factory, TimeInterface $time) {
+  protected $lock;
+
+  /**
+   * Constructs a new Tfa plugin object.
+   *
+   * @param array $configuration
+   *   The plugin configuration.
+   * @param string $plugin_id
+   *   The plugin id.
+   * @param mixed $plugin_definition
+   *   The plugin definition.
+   * @param \Drupal\user\UserDataInterface $user_data
+   *   User data object to store user specific information.
+   * @param \Drupal\encrypt\EncryptionProfileManagerInterface $encryption_profile_manager
+   *   Encryption profile manager.
+   * @param \Drupal\encrypt\EncryptServiceInterface $encrypt_service
+   *   Encryption service.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration factory.
+   * @param \Drupal\Component\Datetime\TimeInterface $time
+   *   The time service.
+   * @param \Drupal\Core\Lock\LockBackendInterface|null $lock
+   *   The lock service.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, UserDataInterface $user_data, EncryptionProfileManagerInterface $encryption_profile_manager, EncryptServiceInterface $encrypt_service, ConfigFactoryInterface $config_factory, TimeInterface $time, $lock = NULL) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $user_data, $encryption_profile_manager, $encrypt_service);
     $this->auth = new \StdClass();
     $this->auth->otp = new Otp();
@@ -103,6 +129,13 @@ class TfaHotpValidation extends TfaBasePlugin implements TfaValidationInterface,
     $this->issuer = $settings['issuer'];
     $this->alreadyAccepted = FALSE;
     $this->time = $time;
+
+    if (!$lock) {
+      @trigger_error('Constructing ' . __CLASS__ . ' without the lock service parameter is deprecated in TFA 8.x-1.3 and will be required before TFA 2.0.0.');
+      $lock = \Drupal::service('lock');
+    }
+    $this->lock = $lock;
+
   }
 
   /**
@@ -117,7 +150,8 @@ class TfaHotpValidation extends TfaBasePlugin implements TfaValidationInterface,
       $container->get('encrypt.encryption_profile.manager'),
       $container->get('encryption'),
       $container->get('config.factory'),
-      $container->get('datetime.time')
+      $container->get('datetime.time'),
+      $container->get('lock')
     );
   }
 
@@ -215,7 +249,12 @@ class TfaHotpValidation extends TfaBasePlugin implements TfaValidationInterface,
    */
   public function validateForm(array $form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
+    $hotp_validation_lock_id = 'tfa_validation_hotp_' . $this->uid;
+    while (!$this->lock->acquire($hotp_validation_lock_id)) {
+      $this->lock->wait($hotp_validation_lock_id);
+    }
     if (!$this->validate($values['code'])) {
+      $this->lock->release($hotp_validation_lock_id);
       $this->errorMessages['code'] = $this->t('Invalid application code. Please try again.');
       if ($this->alreadyAccepted) {
         $form_state->clearErrors();
@@ -226,6 +265,7 @@ class TfaHotpValidation extends TfaBasePlugin implements TfaValidationInterface,
     else {
       // Store accepted code to prevent replay attacks.
       $this->storeAcceptedCode($values['code']);
+      $this->lock->release($hotp_validation_lock_id);
       return TRUE;
     }
   }
@@ -240,10 +280,16 @@ class TfaHotpValidation extends TfaBasePlugin implements TfaValidationInterface,
    *   True if validation was successful otherwise false.
    */
   public function validateRequest($code) {
+    $hotp_validation_lock_id = 'tfa_validation_hotp_' . $this->uid;
+    while (!$this->lock->acquire($hotp_validation_lock_id)) {
+      $this->lock->wait($hotp_validation_lock_id);
+    }
     if ($this->validate($code)) {
       $this->storeAcceptedCode($code);
+      $this->lock->release($hotp_validation_lock_id);
       return TRUE;
     }
+    $this->lock->release($hotp_validation_lock_id);
     return FALSE;
   }
 

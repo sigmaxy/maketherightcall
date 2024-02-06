@@ -52,6 +52,20 @@ class GenericValidation extends ServiceDefinitionBase implements ContainerFactor
   protected $userData;
 
   /**
+   * The Lock service.
+   *
+   * @var \Drupal\Core\Lock\LockBackendInterface
+   */
+  protected $lock;
+
+  /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * TFA Web Services constructor.
    *
    * @param array $configuration
@@ -64,11 +78,24 @@ class GenericValidation extends ServiceDefinitionBase implements ContainerFactor
    *   User data service.
    * @param \Drupal\tfa\TfaValidationPluginManager $tfa_validation_manager
    *   Validation plugin manager.
+   * @param \Drupal\Core\Lock\LockBackendInterface|null $lock
+   *   The lock service.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface|null $config_factory
+   *   Config factory.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, UserDataInterface $user_data, TfaValidationPluginManager $tfa_validation_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, UserDataInterface $user_data, TfaValidationPluginManager $tfa_validation_manager, $lock = NULL, $config_factory = NULL) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->userData = $user_data;
     $this->tfaValidationManager = $tfa_validation_manager;
+    if (!$lock) {
+      @trigger_error('Constructing ' . __CLASS__ . ' without the lock service parameter is deprecated in TFA 8.x-1.3 and will be required before TFA 2.0.0.', E_USER_DEPRECATED);
+      $lock = \Drupal::service('lock');
+    }
+    $this->lock = $lock;
+    if (!$config_factory) {
+      $config_factory = \Drupal::service('config.factory');
+    }
+    $this->configFactory = $config_factory;
   }
 
   /**
@@ -80,7 +107,9 @@ class GenericValidation extends ServiceDefinitionBase implements ContainerFactor
       $plugin_id,
       $plugin_definition,
       $container->get('user.data'),
-      $container->get('plugin.manager.tfa.validation')
+      $container->get('plugin.manager.tfa.validation'),
+      $container->get('lock'),
+      $container->get('config.factory')
     );
   }
 
@@ -103,9 +132,19 @@ class GenericValidation extends ServiceDefinitionBase implements ContainerFactor
     $plugin_id = $request->get('plugin_id');
 
     if ($uid && $code && $plugin_id) {
+      $allowed_validation_plugins = $this->configFactory->get('tfa.settings')->get('allowed_validation_plugins');
+      if (!array_key_exists($plugin_id, $allowed_validation_plugins)) {
+        throw new AccessDeniedHttpException('Invalid plugin_id.');
+      }
+
       $this->validationPlugin = $this->tfaValidationManager->createInstance($plugin_id, ['uid' => $uid]);
+      $validation_lock_id = 'tfa_validate_' . $uid;
+      while (!$this->lock->acquire($validation_lock_id)) {
+        $this->lock->wait($validation_lock_id);
+      }
       // @todo validateRequest is not part of TfaValidationInterface.
       $valid = $this->validationPlugin->validateRequest($code);
+      $this->lock->release($validation_lock_id);
       if ($this->validationPlugin->isAlreadyAccepted()) {
         throw new AccessDeniedHttpException('Invalid code, it was recently used for a login. Please try a new code.');
       }

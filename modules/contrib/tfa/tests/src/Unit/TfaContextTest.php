@@ -218,6 +218,7 @@ class TfaContextTest extends UnitTestCase {
     // Not ready.
     $settings = $this->prophesize(ImmutableConfig::class);
     $settings->get('default_validation_plugin')->willReturn(FALSE);
+    $settings->get('allowed_validation_plugins')->willReturn([]);
     $config_factory = $this->prophesize(ConfigFactoryInterface::class);
     $config_factory->get('tfa.settings')->willReturn($settings->reveal());
     $this->configFactory = $config_factory->reveal();
@@ -226,6 +227,7 @@ class TfaContextTest extends UnitTestCase {
 
     // Is ready.
     $settings->get('default_validation_plugin')->willReturn('foo');
+    $settings->get('allowed_validation_plugins')->willReturn(['foo' => 'foo']);
     $config_factory = $this->prophesize(ConfigFactoryInterface::class);
     $config_factory->get('tfa.settings')->willReturn($settings->reveal());
     $this->configFactory = $config_factory->reveal();
