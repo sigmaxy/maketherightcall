@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\tfa\Unit\Plugin\TfaValidation;
 
+use Drupal\Core\Lock\LockBackendInterface;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ImmutableConfig;
@@ -114,6 +115,9 @@ class TfaRecoveryCodeTest extends UnitTestCase {
     $container->set('string_translation', $this->getStringTranslationStub());
     \Drupal::setContainer($container);
 
+    $lock_mock = $this->createMock(LockBackendInterface::class);
+    $lock_mock->method('acquire')->willReturn(TRUE);
+
     return new TfaRecoveryCode(
       $this->configuration,
       'tfa_recovery_code',
@@ -122,7 +126,8 @@ class TfaRecoveryCodeTest extends UnitTestCase {
       $this->encryptionProfileManager->reveal(),
       $this->encryptionService->reveal(),
       $container->get('config.factory'),
-      $this->currentUser->reveal()
+      $this->currentUser->reveal(),
+      $lock_mock
     );
   }
 

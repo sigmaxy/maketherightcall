@@ -3,7 +3,10 @@
 namespace Drupal\tfa;
 
 use Drupal\Component\Plugin\Exception\PluginException;
+use Drupal\Core\Site\Settings;
 use Drupal\user\UserInterface;
+use Psr\Log\LoggerInterface;
+use Drupal\Core\Url;
 
 /**
  * Provide context for the current login attempt.
@@ -49,6 +52,13 @@ trait TfaLoginContextTrait {
   protected $user;
 
   /**
+   * The private temporary store.
+   *
+   * @var \Drupal\Core\TempStore\PrivateTempStore
+   */
+  protected $privateTempStore;
+
+  /**
    * Set the user object.
    *
    * @param \Drupal\user\UserInterface $user
@@ -66,6 +76,16 @@ trait TfaLoginContextTrait {
    */
   public function getUser() {
     return $this->user;
+  }
+
+  /**
+   * Can the user skip tfa on password reset?
+   *
+   * @return bool
+   *   TRUE if the user can skip tfa.
+   */
+  public function canResetPassSkip() {
+    return $this->tfaSettings->get('reset_pass_skip_enabled') && ((int) $this->getUser()->id() === 1);
   }
 
   /**
@@ -110,7 +130,26 @@ trait TfaLoginContextTrait {
         }
       }
       catch (PluginException $e) {
-        return FALSE;
+        // No error as we want to try other plugins.
+      }
+    }
+
+    // Check alternate plugins.
+    $enabled_plugins = $this->tfaSettings->get('allowed_validation_plugins');
+    foreach ($enabled_plugins as $plugin_name) {
+      if ($plugin_name == $default_validation_plugin) {
+        // We checked the default plugin already.
+        continue;
+      }
+      try {
+        /** @var \Drupal\tfa\Plugin\TfaValidationInterface $validation_plugin */
+        $validation_plugin = $this->tfaValidationManager->createInstance($plugin_name, ['uid' => $this->user->id()]);
+        if ($validation_plugin->ready()) {
+          return TRUE;
+        }
+      }
+      catch (PluginException $e) {
+        // No error as we want to try other plugins.
       }
     }
 
@@ -179,6 +218,78 @@ trait TfaLoginContextTrait {
   public function doUserLogin() {
     // @todo Set a hash mark to indicate TFA authorization has passed.
     user_login_finalize($this->user);
+  }
+
+  /**
+   * Store UID in the temporary store.
+   *
+   * @param string|int $uid
+   *   User id to store.
+   */
+  public function tempStoreUid($uid) {
+    $this->privateTempStore->set('tfa-entry-uid', $uid);
+  }
+
+  /**
+   * Check if the user can login without TFA.
+   *
+   * @return bool
+   *   Return true if the user can login without TFA,
+   *   otherwise return false.
+   */
+  public function canLoginWithoutTfa(LoggerInterface $logger) {
+    $user = $this->getUser();
+
+    // Users that have configured a TFA method should not be allowed to skip.
+    $user_settings = $this->userData->get('tfa', $user->id(), 'tfa_user_settings');
+    $user_enabled_validation_plugins = $user_settings['data']['plugins'] ?? [];
+    $enabled_validation_plugins = $this->tfaSettings->get('allowed_validation_plugins');
+    $enabled_validation_plugins = is_array($enabled_validation_plugins) ? $enabled_validation_plugins : [];
+    foreach ($this->tfaValidationManager->getDefinitions() as $plugin_id => $definition) {
+      if (
+        Settings::get('tfa.only_restrict_with_enabled_plugins', FALSE) === TRUE
+        && !array_key_exists($plugin_id, $enabled_validation_plugins)
+      ) {
+        // Skip checking admin disabled plugins.
+        continue;
+      }
+      if (array_key_exists($plugin_id, $user_enabled_validation_plugins)) {
+        /** @var \Drupal\tfa\Plugin\TfaValidationInterface $plugin */
+        $plugin = $this->tfaValidationManager->createInstance($plugin_id, ['uid' => $user->id()]);
+        if ($plugin->ready()) {
+          $message = $this->config('tfa.settings')->get('help_text');
+          $this->messenger()->addError($message);
+          $logger->notice('@name has attempted login without using a configured second factor authentication plugin.', ['@name' => $user->getAccountName()]);
+          return FALSE;
+        }
+      }
+    }
+    // User may be able to skip TFA, depending on module settings and number of
+    // prior attempts.
+    $remaining = $this->remainingSkips();
+    if ($remaining) {
+      $tfa_setup_link = Url::fromRoute('tfa.overview', [
+        'user' => $user->id(),
+      ])->toString();
+      $message = $this->formatPlural(
+          $remaining - 1,
+          'You are required to <a href="@link">setup two-factor authentication</a>. You have @remaining attempt left. After this you will be unable to login.',
+          'You are required to <a href="@link">setup two-factor authentication</a>. You have @remaining attempts left. After this you will be unable to login.',
+          ['@remaining' => $remaining - 1, '@link' => $tfa_setup_link]
+          );
+      $this->messenger()->addError($message);
+      $this->hasSkipped();
+      // User can login without TFA.
+      return TRUE;
+    }
+    else {
+      $message = $this->config('tfa.settings')->get('help_text');
+      $this->messenger()->addError($message);
+      $logger->notice('@name has no more remaining attempts for bypassing the second authentication factor.', ['@name' => $user->getAccountName()]);
+    }
+
+    // User can't login without TFA.
+    return FALSE;
   }
 
 }

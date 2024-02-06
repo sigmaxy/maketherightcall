@@ -49,6 +49,13 @@ class TfaRecoveryCode extends TfaBasePlugin implements TfaValidationInterface, C
   protected $currentUser;
 
   /**
+   * The lock service.
+   *
+   * @var \Drupal\Core\Lock\LockBackendInterface
+   */
+  protected $lock;
+
+  /**
    * Constructs a new Tfa plugin object.
    *
    * @param array $configuration
@@ -67,8 +74,10 @@ class TfaRecoveryCode extends TfaBasePlugin implements TfaValidationInterface, C
    *   The configuration factory.
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    *   The current user.
+   * @param \Drupal\Core\Lock\LockBackendInterface|null $lock
+   *   The lock service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, UserDataInterface $user_data, EncryptionProfileManagerInterface $encryption_profile_manager, EncryptServiceInterface $encrypt_service, ConfigFactoryInterface $config_factory, AccountProxyInterface $current_user) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, UserDataInterface $user_data, EncryptionProfileManagerInterface $encryption_profile_manager, EncryptServiceInterface $encrypt_service, ConfigFactoryInterface $config_factory, AccountProxyInterface $current_user, $lock = NULL) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $user_data, $encryption_profile_manager, $encrypt_service);
 
     $codes_amount = $config_factory->get('tfa.settings')->get('validation_plugin_settings.tfa_recovery_code.recovery_codes_amount');
@@ -76,6 +85,13 @@ class TfaRecoveryCode extends TfaBasePlugin implements TfaValidationInterface, C
       $this->codeLimit = $codes_amount;
     }
     $this->currentUser = $current_user;
+
+    if (!$lock) {
+      @trigger_error('Constructing ' . __CLASS__ . ' without the lock service parameter is deprecated in TFA 8.x-1.3 and will be required before TFA 2.0.0.', E_USER_DEPRECATED);
+      $lock = \Drupal::service('lock');
+    }
+    $this->lock = $lock;
+
   }
 
   /**
@@ -90,7 +106,8 @@ class TfaRecoveryCode extends TfaBasePlugin implements TfaValidationInterface, C
       $container->get('encrypt.encryption_profile.manager'),
       $container->get('encryption'),
       $container->get('config.factory'),
-      $container->get('current_user')
+      $container->get('current_user'),
+      $container->get('lock')
     );
   }
 
@@ -261,9 +278,14 @@ class TfaRecoveryCode extends TfaBasePlugin implements TfaValidationInterface, C
    */
   protected function validate($code) {
     $this->isValid = FALSE;
+    $recovery_validation_lock_id = 'tfa_validation_recovery_codes_' . $this->uid;
+    while (!$this->lock->acquire($recovery_validation_lock_id)) {
+      $this->lock->wait($recovery_validation_lock_id);
+    }
     // Get codes and compare.
     $codes = $this->getCodes();
     if (empty($codes)) {
+      $this->lock->release($recovery_validation_lock_id);
       $this->errorMessages['recovery_code'] = $this->t('You have no unused codes available.');
       return FALSE;
     }
@@ -275,9 +297,11 @@ class TfaRecoveryCode extends TfaBasePlugin implements TfaValidationInterface, C
         $this->isValid = TRUE;
         unset($codes[$id]);
         $this->storeCodes($codes);
+        $this->lock->release($recovery_validation_lock_id);
         return $this->isValid;
       }
     }
+    $this->lock->release($recovery_validation_lock_id);
     $this->errorMessages['recovery_code'] = $this->t('Invalid recovery code.');
     return $this->isValid;
   }

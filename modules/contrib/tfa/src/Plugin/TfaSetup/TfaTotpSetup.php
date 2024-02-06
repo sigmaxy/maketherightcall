@@ -125,7 +125,12 @@ class TfaTotpSetup extends TfaTotpValidation implements TfaSetupInterface {
    */
   protected function validate($code) {
     $code = preg_replace('/\s+/', '', $code);
-    return $this->auth->otp->checkTotp(Encoding::base32DecodeUpper($this->seed), $code, $this->timeSkew);
+    $current_window_base = floor((time() / 30)) - $this->timeSkew;
+    $token_valid = ($this->seed && ($validated_window = $this->auth->otp->checkHotpResync(Encoding::base32DecodeUpper($this->seed), $current_window_base, $code, $this->timeSkew * 2)));
+    if ($token_valid) {
+      $this->setUserData('tfa', ['tfa_totp_time_window' => $validated_window], $this->uid, $this->userData);
+    }
+    return $token_valid;
   }
 
   /**
