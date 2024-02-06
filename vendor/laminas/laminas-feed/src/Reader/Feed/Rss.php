@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Laminas\Feed\Reader\Feed;
 
 use DateTime;
@@ -18,7 +16,6 @@ use function preg_match;
 use function strtotime;
 use function trim;
 
-/** @template-extends AbstractFeed<Reader\Entry\Rss> */
 class Rss extends AbstractFeed
 {
     /**

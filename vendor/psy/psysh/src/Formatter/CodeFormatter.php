@@ -32,7 +32,7 @@ class CodeFormatter implements ReflectorFormatter
     const HIGHLIGHT_CONST = 'const';
     const HIGHLIGHT_NUMBER = 'number';
     const HIGHLIGHT_STRING = 'string';
-    const HIGHLIGHT_COMMENT = 'code_comment';
+    const HIGHLIGHT_COMMENT = 'comment';
     const HIGHLIGHT_INLINE_HTML = 'inline_html';
 
     private static $tokenMap = [
@@ -76,11 +76,12 @@ class CodeFormatter implements ReflectorFormatter
     /**
      * Format the code represented by $reflector for shell output.
      *
-     * @param \Reflector $reflector
+     * @param \Reflector  $reflector
+     * @param string|null $colorMode (deprecated and ignored)
      *
      * @return string formatted code
      */
-    public static function format(\Reflector $reflector): string
+    public static function format(\Reflector $reflector, string $colorMode = null): string
     {
         if (self::isReflectable($reflector)) {
             if ($code = @\file_get_contents($reflector->getFileName())) {

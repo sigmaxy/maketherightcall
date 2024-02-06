@@ -22,12 +22,15 @@ interface SettingsContainerInterface extends JsonSerializable{
 	 *
 	 * @return mixed|null
 	 */
-	public function __get(string $property):mixed;
+	public function __get(string $property);
 
 	/**
 	 * Set $property to $value while avoiding private and non-existing properties
+	 *
+	 * @param string $property
+	 * @param mixed  $value
 	 */
-	public function __set(string $property, mixed $value):void;
+	public function __set(string $property, $value):void;
 
 	/**
 	 * Checks if $property is set (aka. not null), excluding private properties
@@ -52,7 +55,7 @@ interface SettingsContainerInterface extends JsonSerializable{
 	/**
 	 * Sets properties from a given iterable
 	 */
-	public function fromIterable(iterable $properties):static;
+	public function fromIterable(iterable $properties):SettingsContainerInterface;
 
 	/**
 	 * Returns a JSON representation of the settings object
@@ -66,6 +69,6 @@ interface SettingsContainerInterface extends JsonSerializable{
 	 * @throws \Exception
 	 * @throws \JsonException
 	 */
-	public function fromJSON(string $json):static;
+	public function fromJSON(string $json):SettingsContainerInterface;
 
 }

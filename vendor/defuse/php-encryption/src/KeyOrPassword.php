@@ -39,10 +39,7 @@ final class KeyOrPassword
      *
      * @return KeyOrPassword
      */
-    public static function createFromPassword(
-        #[\SensitiveParameter]
-        $password
-    )
+    public static function createFromPassword($password)
     {
         return new KeyOrPassword(self::SECRET_TYPE_PASSWORD, $password);
     }
@@ -136,11 +133,7 @@ final class KeyOrPassword
      * @param int   $secret_type
      * @param mixed $secret      (either a Key or a password string)
      */
-    private function __construct(
-        $secret_type,
-        #[\SensitiveParameter]
-        $secret
-    )
+    private function __construct($secret_type, $secret)
     {
         // The constructor is private, so these should never throw.
         if ($secret_type === self::SECRET_TYPE_KEY) {

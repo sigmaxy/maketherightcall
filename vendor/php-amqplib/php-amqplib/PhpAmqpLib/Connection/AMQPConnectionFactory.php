@@ -30,6 +30,7 @@ class AMQPConnectionFactory
                         'keepalive' => $config->isKeepalive(),
                         'heartbeat' => $config->getHeartbeat(),
                     ],
+                    $config->getNetworkProtocol(),
                     $config
                 );
             } else {
@@ -49,6 +50,7 @@ class AMQPConnectionFactory
                     $config->isKeepalive(),
                     $config->getHeartbeat(),
                     $config->getChannelRPCTimeout(),
+                    $config->getNetworkProtocol(),
                     $config
                 );
             }
@@ -99,8 +101,7 @@ class AMQPConnectionFactory
             'verify_peer_name' => $config->getSslVerifyName(),
             'passphrase' => $config->getSslPassPhrase(),
             'ciphers' => $config->getSslCiphers(),
-            'security_level' => $config->getSslSecurityLevel(),
-            'crypto_method' => $config->getSslCryptoMethod(),
+            'security_level' => $config->getSslSecurityLevel()
         ], static function ($value) {
             return null !== $value;
         });

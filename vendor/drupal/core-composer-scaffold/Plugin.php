@@ -128,11 +128,9 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
   }
 
   /**
-   * Instantiates the handler object upon demand.
-   *
-   * It is dangerous to update a Composer plugin if it loads any classes prior
-   * to the `composer update` operation, and later tries to use them in a
-   * post-update hook.
+   * Lazy-instantiate the handler object. It is dangerous to update a Composer
+   * plugin if it loads any classes prior to the `composer update` operation,
+   * and later tries to use them in a post-update hook.
    */
   protected function handler() {
     if (!$this->handler) {
