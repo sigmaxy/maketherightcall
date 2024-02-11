@@ -70,12 +70,17 @@ class OrderController extends ControllerBase {
     $record = $query->execute()->fetchAssoc();
     return $record;
   }
-  public static function list_order($uid){
+  public static function list_order($conditions){
     $connection = Database::getConnection();
     $query = $connection->select('mtrc_order', 'mo');
     $query->fields('mo');
-    if(isset($uid)){
-      $query->condition('created_by', $uid);
+    
+    if(isset($conditions['uid'])){
+      $query->condition('created_by', $conditions['uid']);
+    }
+    if(isset($conditions['teams'])){
+      $query->condition('team', $conditions['teams'],'IN');
+      unset($conditions['teams']);
     }
     $record = $query->execute()->fetchAll();
     return $record;
