@@ -206,7 +206,7 @@ abstract class TfaBasePlugin extends PluginBase {
    */
   protected function storeAcceptedCode($code) {
     $code = preg_replace('/\s+/', '', $code);
-    $hash = Crypt::hashBase64(Settings::getHashSalt() . $code);
+    $hash = Crypt::hashBase64($code);
 
     // Store the hash made using the code in users_data.
     $store_data = ['tfa_accepted_code_' . $hash => \Drupal::time()->getRequestTime()];
@@ -223,14 +223,32 @@ abstract class TfaBasePlugin extends PluginBase {
    *   TRUE if already used otherwise FALSE
    */
   protected function alreadyAcceptedCode($code) {
-    $hash = Crypt::hashBase64(Settings::getHashSalt() . $code);
+    $hash = Crypt::hashBase64($code);
     // Check if the code has already been used or not.
-    $key    = 'tfa_accepted_code_' . $hash;
+    $key = 'tfa_accepted_code_' . $hash;
     $result = $this->getUserData('tfa', $key, $this->uid, $this->userData);
     if (!empty($result)) {
       $this->alreadyAccepted = TRUE;
       return TRUE;
     }
+
+    // Check historical hash keys.
+    $hash_keys[] = Settings::getHashSalt();
+    $older_hashes = Settings::get('tfa.previous_hash_salts');
+    if (is_array($older_hashes)) {
+      $hash_keys = array_merge($hash_keys, $older_hashes);
+    }
+
+    foreach ($hash_keys as $salt) {
+      $hash = Crypt::hashBase64($salt . $code);
+      $key = 'tfa_accepted_code_' . $hash;
+      $result = $this->getUserData('tfa', $key, $this->uid, $this->userData);
+      if (!empty($result)) {
+        $this->alreadyAccepted = TRUE;
+        return TRUE;
+      }
+    }
+
     return FALSE;
   }
 

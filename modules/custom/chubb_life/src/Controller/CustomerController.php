@@ -70,6 +70,11 @@ class CustomerController extends ControllerBase {
     $query->fields('mci');
     $query->leftJoin('mtrc_call', 'mc', 'mci.id = mc.import_customer_id');
 
+    if(isset($conditions['teams'])){
+      $query->condition('team', $conditions['teams'], 'IN');
+      unset($conditions['teams']);
+    }
+
     if(isset($conditions['assignee_id'])){
       $query->condition('assignee_id', $conditions['assignee_id']);
       unset($conditions['assignee_id']);

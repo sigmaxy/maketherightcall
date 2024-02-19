@@ -127,7 +127,9 @@ class ComposerStaticInit779fe0ccaafbd8cb02590a7b87080481
             'PhpParser\\' => 10,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
             'PhpAmqpLib\\' => 11,
+            'PedroSancao\\' => 12,
             'ParagonIE\\ConstantTime\\' => 23,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'O' => 
         array (
@@ -149,6 +151,7 @@ class ComposerStaticInit779fe0ccaafbd8cb02590a7b87080481
         ),
         'I' => 
         array (
+            'Inacho\\' => 7,
             'Ilex\\Validation\\HkidValidation\\' => 31,
         ),
         'G' => 
@@ -430,9 +433,18 @@ class ComposerStaticInit779fe0ccaafbd8cb02590a7b87080481
         array (
             0 => __DIR__ . '/..' . '/php-amqplib/php-amqplib/PhpAmqpLib',
         ),
+        'PedroSancao\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pedrosancao/php-otp/src',
+            1 => __DIR__ . '/..' . '/pedrosancao/php-random-data/src',
+        ),
         'ParagonIE\\ConstantTime\\' => 
         array (
             0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Otp\\' => 
         array (
@@ -469,6 +481,10 @@ class ComposerStaticInit779fe0ccaafbd8cb02590a7b87080481
         'Laminas\\Diactoros\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-diactoros/src',
+        ),
+        'Inacho\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/inacho/php-credit-card-validator/src',
         ),
         'Ilex\\Validation\\HkidValidation\\' => 
         array (

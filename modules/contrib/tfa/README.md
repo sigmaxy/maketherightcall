@@ -98,6 +98,27 @@ Now you should be ready to configure the TFA module.
 * Visit your account's TFA tab: `user/[uid]/security/tfa`
     * Configure the selected Validation Plugins as desired for your account.
 
+##### TFA Security Advisory Related Configuration
+
+###### Configured Plugins Enforce TFA Requiered
+Prior to 8.x-1.4 the TFA module would only check if a user had configured the
+current default validation plugin to determine if TFA was required for login.
+
+This could lead to TFA not being required for users if a site administrator
+changed the default plugin to one a user had not yet configured.
+
+In order to mitigate this risk TFA now must validate that no plugins indicate
+a provisioned status, this includes disabled plugins. This can create a
+situation where a user is unable to log in due to having a disabled plugin
+provisioned without any enabled plugins provisioned.
+
+If an adminsitrator is unable to re-enable a disabled plugin that prevents
+authentciation, or belives that this restriction is not neccessary for their
+site they may limit the validation to only test enabled plugins by adding the
+following into the sites settings.php file.
+
+`$settings['tfa.only_restrict_with_enabled_plugins'] = TRUE;`
+
 ##### TFA apps
 Users will need an application for their phone, tablet or computer that is
 capable of generating authentication codes.  As of the date of this ReadMe,

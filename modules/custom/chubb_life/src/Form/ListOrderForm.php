@@ -43,11 +43,21 @@ class ListOrderForm extends FormBase {
     $roles = \Drupal::currentUser()->getRoles();
     $uid = \Drupal::currentUser()->id();
     $order_status = AttributeController::get_order_status_options();
-    if(in_array('manager', $roles)||in_array('administrator', $roles)) {
-      $order_list = OrderController::list_order(null);
+    if(in_array('administrator', $roles)){
+      $conditions['uid'] = null;
+      $conditions['teams'] = null;
+    }else if(in_array('manager', $roles)) {
+      $conditions['uid'] = null;
+      $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id()); // pass your uid
+      $teams = [];
+      foreach ($user->get('field_team')->getValue() as $key => $value) {
+        $teams[] = $value['value'];
+      }
+      $conditions['teams'] = $teams;
     }else{
-      $order_list = OrderController::list_order($uid);
+      $conditions['uid'] = $uid;
     }
+    $order_list = OrderController::list_order($conditions);
     foreach($order_list as $key=>$data){
       $edit   = Url::fromUserInput('/chubb_life/form/edit_order/'.$data->id);
       $client_owner = OrderController::get_order_client_by_type($data->id,1);

@@ -5,7 +5,7 @@ package: Testing
 dependencies:
   - tfa:tfa
 
-# Information added by Drupal.org packaging script on 2022-12-02
-version: '8.x-1.0'
+# Information added by Drupal.org packaging script on 2024-01-24
+version: '8.x-1.5'
 project: 'tfa'
-datestamp: 1669940343
+datestamp: 1706085437

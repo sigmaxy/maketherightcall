@@ -1623,6 +1623,8 @@ class EditOrderForm extends FormBase {
    * {@inheritdoc}
    */
   public function prepare_order($fields){
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id()); // pass your uid
+    $order['team'] = $user->get('field_team')->getValue()[0]['value'];
     $order['aeonRefNumber'] = $fields['aeonRefNumber'];
     $order['same_as_owner'] = $fields['same_as_owner'];
     $order['payor_same_as_owner'] = $fields['payor_same_as_owner'];
