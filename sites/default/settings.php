@@ -812,8 +812,8 @@ $databases['default']['default']['autoload'] = 'core/modules/mysql/src/Driver/Da
 
 //local
 $databases['default']['default']['username'] = 'root';
-$databases['default']['default']['password'] = 'P@$$w0rd';
-$databases['default']['default']['host'] = 'localhost';
+$databases['default']['default']['password'] = 'password';
+$databases['default']['default']['host'] = '172.18.0.2';
 $databases['default']['default']['port'] = '3306';
 // $settings['email_username'] = 'noreply@first4figures.com';
 // $settings['email_password'] = 'P@$$w0rd';
