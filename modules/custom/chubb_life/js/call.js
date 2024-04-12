@@ -334,7 +334,7 @@ jQuery(document).ready(function($){
                             $('.rpa_product_premium_annual_usd_103').html('');
 
                             $('.rpa_product_premium_annual_'+currency.toLowerCase()).html(modal_premium_payment);
-                            // $('.rpa_product_initial_premium_annual_'+currency.toLowerCase()).html(initial_premium);
+                            $('.rpa_product_initial_premium_annual_'+currency.toLowerCase()).html(initial_premium);
                             if (plan_code=='DG08U'||plan_code=='DG08H') {
                                 console.log('sigma currency '+currency.toLowerCase());
                                 $('.rpa_product_year').html(8);
@@ -363,7 +363,7 @@ jQuery(document).ready(function($){
                             $('.rpa_product_premium_monthly_usd_103').html('');
 
                             $('.rpa_product_premium_monthly_'+currency.toLowerCase()).html(modal_premium_payment);
-                            // $('.rpa_product_initial_premium_monthly_'+currency.toLowerCase()).html(initial_premium);
+                            $('.rpa_product_initial_premium_monthly_'+currency.toLowerCase()).html(initial_premium);
                             // $('.rpa_product_premium_monthly_'+currency.toLowerCase()+'_ave').html((parseFloat(modal_premium_payment)/30).toFixed(2));
                             if (plan_code=='DG08U'||plan_code=='DG08H') {
                                 $('.rpa_product_year').html(8);
