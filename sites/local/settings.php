@@ -29,7 +29,7 @@ $databases['default']['default']['autoload'] = 'core/modules/mysql/src/Driver/Da
 $databases['default']['default']['username'] = 'root';
 $databases['default']['default']['password'] = 'password';
 // $databases['default']['default']['host'] = 'db-stag-mtrc.sigmaxu.com';
-$databases['default']['default']['host'] = '172.26.0.2';
+$databases['default']['default']['host'] = '172.18.0.2';
 $databases['default']['default']['port'] = '3306';
 
 $settings['sftp']['url'] = 'sftpuat.apac.chubb.com';

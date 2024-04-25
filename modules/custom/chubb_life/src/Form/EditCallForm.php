@@ -483,7 +483,7 @@ class EditCallForm extends FormBase {
     foreach ($form_state->getValues() as $key => $value) {
       // @TODO: Validate fields.
     }
-    parent::validateForm($form, $form_state);
+    // parent::validateForm($form, $form_state);
   }
   /**
    * {@inheritdoc}
