@@ -207,7 +207,7 @@ class EditCallForm extends FormBase {
       '#weight' => '2',
     ];
     
-    $form['rhc_detail']['plan_code'] = [
+    $form['rhc_detail']['rhc_plan_code'] = [
       '#type' => 'select',
       '#title' => $this->t('Plan Code'),
       '#options' => $rhc_plan_code_opt,
@@ -219,7 +219,7 @@ class EditCallForm extends FormBase {
       ],
       '#weight' => '1',
     ];
-    $form['rhc_detail']['age'] = [
+    $form['rhc_detail']['rhc_age'] = [
       '#type' => 'textfield',
       '#title' => 'Age',
       // '#default_value' => isset($record['product_name_english'])?$record['product_name_english']:'',
@@ -229,7 +229,7 @@ class EditCallForm extends FormBase {
       ],
       '#weight' => '2',
     ];
-    $form['rhc_detail']['genders'] = [
+    $form['rhc_detail']['rhc_genders'] = [
       '#type' => 'select',
       '#title' => $this->t('genders'),
       '#options' => $gender_opt,
@@ -241,7 +241,7 @@ class EditCallForm extends FormBase {
       '#wrapper_attributes' => ['class' => ['form_item_maxwidth']],
       '#weight' => '3',
     ];
-    $form['rhc_detail']['plan_level'] = [
+    $form['rhc_detail']['rhc_plan_level'] = [
       '#type' => 'select',
       '#title' => $this->t('Plan Level (RS)'),
       '#options' => $rhc_plan_level_opt,
@@ -252,7 +252,7 @@ class EditCallForm extends FormBase {
       ],
       '#weight' => '4',
     ];
-    $form['rhc_detail']['calculate'] = [
+    $form['rhc_detail']['rhc_calculate'] = [
       '#type' => 'button',
       '#value' => $this->t('Calculate'),
       '#attributes' => [
@@ -284,7 +284,7 @@ class EditCallForm extends FormBase {
     <tr><td><b>首期保費(連徵費)</b></td><td class="rhc_product_initial_premium_annual_usd"></td><td class="rhc_product_initial_premium_monthly_usd"></td><td class="rhc_product_initial_premium_annual_hkd"></td><td class="rhc_product_initial_premium_monthly_hkd"></td></tr>
     </table>';
     
-    $form['rhc_detail']['detail'] = [
+    $form['rhc_detail']['rhc_detail'] = [
       '#markup' => Markup::create($rhc_detail),
       '#weight' => '10',
     ];
@@ -381,7 +381,7 @@ class EditCallForm extends FormBase {
       '#open'  => true,
       '#weight' => '4',
     ];
-    $form['rpa_detail']['plan_code'] = [
+    $form['rpa_detail']['rpa_plan_code'] = [
       '#type' => 'select',
       '#title' => $this->t('Plan Code'),
       '#options' => $rpa_plan_code_opt,
@@ -393,7 +393,7 @@ class EditCallForm extends FormBase {
       ],
       '#weight' => '1',
     ];
-    $form['rpa_detail']['age'] = [
+    $form['rpa_detail']['rpa_age'] = [
       '#type' => 'textfield',
       '#title' => 'Age',
       // '#default_value' => isset($record['product_name_english'])?$record['product_name_english']:'',
@@ -403,7 +403,7 @@ class EditCallForm extends FormBase {
       ],
       '#weight' => '2',
     ];
-    $form['rpa_detail']['genders'] = [
+    $form['rpa_detail']['rpa_genders'] = [
       '#type' => 'select',
       '#title' => $this->t('genders'),
       '#options' => $gender_opt,
@@ -415,7 +415,7 @@ class EditCallForm extends FormBase {
       '#wrapper_attributes' => ['class' => ['form_item_maxwidth']],
       '#weight' => '3',
     ];
-    $form['rpa_detail']['plan_level'] = [
+    $form['rpa_detail']['rpa_plan_level'] = [
       '#type' => 'select',
       '#title' => $this->t('Plan Level (RS)'),
       '#options' => $rpa_plan_level_opt,
@@ -426,7 +426,7 @@ class EditCallForm extends FormBase {
       ],
       '#weight' => '4',
     ];
-    $form['rpa_detail']['calculate'] = [
+    $form['rpa_detail']['rpa_calculate'] = [
       '#type' => 'button',
       '#value' => $this->t('Calculate'),
       '#attributes' => [
@@ -458,7 +458,7 @@ class EditCallForm extends FormBase {
     <tr><td><b>首期保費(連徵費)</b></td><td class="rpa_product_initial_premium_annual_usd"></td><td class="rpa_product_initial_premium_monthly_usd"></td><td class="rpa_product_initial_premium_annual_hkd"></td><td class="rpa_product_initial_premium_monthly_hkd"></td></tr>
     </table>';
     
-    $form['rpa_detail']['detail'] = [
+    $form['rpa_detail']['rpa_detail'] = [
       '#markup' => Markup::create($rpa_detail),
       '#weight' => '10',
     ];
@@ -479,12 +479,12 @@ class EditCallForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  // public function validateForm(array &$form, FormStateInterface $form_state) {
-  //   // foreach ($form_state->getValues() as $key => $value) {
-  //   //   // @TODO: Validate fields.
-  //   // }
-  //   // parent::validateForm($form, $form_state);
-  // }
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    foreach ($form_state->getValues() as $key => $value) {
+      // @TODO: Validate fields.
+    }
+    parent::validateForm($form, $form_state);
+  }
   /**
    * {@inheritdoc}
    */
