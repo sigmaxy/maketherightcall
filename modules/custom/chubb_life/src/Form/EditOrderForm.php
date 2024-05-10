@@ -72,7 +72,7 @@ class EditOrderForm extends FormBase {
       $customer_residence_address1 = $record['owner']['residence_address1'];
       $customer_email = $record['owner']['email'];
       $customer_marital = $record['owner']['marital'];
-      $customer_aeonRefNumber = '';
+      $customer_aeonRefNumber = $record['aeonRefNumber'];
     }else{
       $customer_surname = '';
       $customer_givenName = '';
