@@ -415,6 +415,10 @@ class AttributeController extends ControllerBase {
         'plan'=>['DG08U','DG10U','DG08H','DG10H'],
         'discount'=>0.1
       ],
+      'CD75' => [
+        'plan'=>['DG08U','DG10U','DG08H','DG10H'],
+        'discount'=>0.25
+      ],
     ];
     return $results;
   }
