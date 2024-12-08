@@ -182,7 +182,7 @@ abstract class AbstractConnection extends AbstractChannel
         $login_method = 'AMQPLAIN',
         $login_response = null,
         $locale = 'en_US',
-        AbstractIO $io = null,
+        ?AbstractIO $io = null,
         $heartbeat = 0,
         $connection_timeout = 0,
         $channel_rpc_timeout = 0.0,
@@ -424,6 +424,7 @@ abstract class AbstractConnection extends AbstractChannel
         $this->frame_queue = new \SplQueue();
         $this->method_queue = [];
         $this->setIsConnected(false);
+        $this->closeChannelsIfDisconnected();
         $this->close_input();
         $this->close_socket();
     }
@@ -945,7 +946,7 @@ abstract class AbstractConnection extends AbstractChannel
         // To disable heartbeats, both peers have to opt in and use the value of 0
         // For BC, this library opts for disabled heartbeat if client value is 0.
         $v = $args->read_short();
-        if ($this->heartbeat > 0) {
+        if ($this->heartbeat > 0 && $v > 0) {
             $this->heartbeat = min($this->heartbeat, $v);
         }
 
@@ -1109,6 +1110,21 @@ abstract class AbstractConnection extends AbstractChannel
             } catch (\Exception $e) {
                 /* Ignore closing errors */
             }
+        }
+    }
+
+    /**
+     * Closes all available channels if disconnected
+     */
+    protected function closeChannelsIfDisconnected()
+    {
+        foreach ($this->channels as $key => $channel) {
+            // channels[0] is this connection object, so don't close it yet
+            if ($key === 0) {
+                continue;
+            }
+
+            $channel->closeIfDisconnected();
         }
     }
 

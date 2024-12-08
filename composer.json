@@ -27,6 +27,7 @@
         "drupal/jquery_ui": "^1.4",
         "drupal/jquery_ui_dialog": "^1.0",
         "drupal/jquery_ui_tooltip": "^1.1",
+        "drupal/phpexcel": "^4.0@beta",
         "drupal/rabbitmq": "^3.0",
         "drupal/real_aes": "^2.4",
         "drupal/restui": "^1.21",
@@ -111,5 +112,8 @@
                 "      composer remove drupal/core-project-message"
             ]
         }
+    },
+    "require-dev": {
+        "drush/drush": "^11.6"
     }
 }
