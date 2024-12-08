@@ -12,48 +12,24 @@ class AMQPConnectionFactory
     public static function create(AMQPConnectionConfig $config): AbstractConnection
     {
         if ($config->getIoType() === AMQPConnectionConfig::IO_TYPE_STREAM) {
-            if ($config->isSecure()) {
-                $connection = new AMQPSSLConnection(
-                    $config->getHost(),
-                    $config->getPort(),
-                    $config->getUser(),
-                    $config->getPassword(),
-                    $config->getVhost(),
-                    self::getSslOptions($config),
-                    [
-                        'insist' => $config->isInsist(),
-                        'login_method' => $config->getLoginMethod(),
-                        'login_response' => $config->getLoginResponse(),
-                        'locale' => $config->getLocale(),
-                        'connection_timeout' => $config->getConnectionTimeout(),
-                        'read_write_timeout' => self::getReadWriteTimeout($config),
-                        'keepalive' => $config->isKeepalive(),
-                        'heartbeat' => $config->getHeartbeat(),
-                    ],
-                    $config->getNetworkProtocol(),
-                    $config
-                );
-            } else {
-                $connection = new AMQPStreamConnection(
-                    $config->getHost(),
-                    $config->getPort(),
-                    $config->getUser(),
-                    $config->getPassword(),
-                    $config->getVhost(),
-                    $config->isInsist(),
-                    $config->getLoginMethod(),
-                    $config->getLoginResponse(),
-                    $config->getLocale(),
-                    $config->getConnectionTimeout(),
-                    self::getReadWriteTimeout($config),
-                    $config->getStreamContext(),
-                    $config->isKeepalive(),
-                    $config->getHeartbeat(),
-                    $config->getChannelRPCTimeout(),
-                    $config->getNetworkProtocol(),
-                    $config
-                );
-            }
+            $connection = new AMQPStreamConnection(
+                $config->getHost(),
+                $config->getPort(),
+                $config->getUser(),
+                $config->getPassword(),
+                $config->getVhost(),
+                $config->isInsist(),
+                $config->getLoginMethod(),
+                $config->getLoginResponse(),
+                $config->getLocale(),
+                $config->getConnectionTimeout(),
+                self::getReadWriteTimeout($config),
+                self::getStreamContext($config),
+                $config->isKeepalive(),
+                $config->getHeartbeat(),
+                $config->getChannelRPCTimeout(),
+                $config
+            );
         } else {
             if ($config->isSecure()) {
                 throw new LogicException('The socket connection implementation does not support secure connections.');
@@ -88,7 +64,7 @@ class AMQPConnectionFactory
 
     /**
      * @param AMQPConnectionConfig $config
-     * @return mixed[]
+     * @return string[]
      */
     private static function getSslOptions(AMQPConnectionConfig $config): array
     {
@@ -101,9 +77,33 @@ class AMQPConnectionFactory
             'verify_peer_name' => $config->getSslVerifyName(),
             'passphrase' => $config->getSslPassPhrase(),
             'ciphers' => $config->getSslCiphers(),
-            'security_level' => $config->getSslSecurityLevel()
+            'security_level' => $config->getSslSecurityLevel(),
+            'crypto_method' => $config->getSslCryptoMethod(),
         ], static function ($value) {
             return null !== $value;
         });
+    }
+
+    /**
+     * @param AMQPConnectionConfig $config
+     * @return resource|null
+     */
+    private static function getStreamContext(AMQPConnectionConfig $config)
+    {
+        $context = $config->getStreamContext();
+
+        if ($config->isSecure()) {
+            if (!$context) {
+                $context = stream_context_create();
+            }
+            $options = self::getSslOptions($config);
+            foreach ($options as $k => $v) {
+                // Note: 'ssl' applies to 'tls' as well
+                // https://www.php.net/manual/en/context.ssl.php
+                stream_context_set_option($context, 'ssl', $k, $v);
+            }
+        }
+
+        return $context;
     }
 }
