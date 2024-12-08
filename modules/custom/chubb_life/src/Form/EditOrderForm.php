@@ -50,8 +50,9 @@ class EditOrderForm extends FormBase {
       $customer_aeonRefNumber = $record['aeonRefNumber'];
     }else if(is_numeric($this->import_customer_id)){
       $customer = CustomerController::get_import_customer_by_id($this->import_customer_id);
-      $customer_surname = explode(' ',$customer['name'])[0];
-      $customer_givenName = trim(str_replace($customer_surname, "", $customer['name']));
+      $customer_name_arr = explode(' ',$customer['name']);
+      $customer_surname = array_shift($customer_name_arr);
+      $customer_givenName = implode(' ', $customer_name_arr);
       $customer_gender = $customer['gender'];
       $customer_mobile = $customer['tel_mbl'];
       $customer_identityNumber = $customer['hkid'];
