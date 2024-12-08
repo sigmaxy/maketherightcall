@@ -31,7 +31,7 @@ chubb_life.order:
   menu_name: main
   expanded: TRUE
   route_name: chubb_life.list_order_form
-  weight: 3
+  weight: 4
 
 # chubb_life.order_list:
 #   title: 'List Smart'
@@ -39,3 +39,10 @@ chubb_life.order:
 #   parent: chubb_life.order
 #   route_name: chubb_life.list_order_form
 #   weight: 1
+
+chubb_life.report:
+  title: 'Report'
+  menu_name: main
+  expanded: TRUE
+  route_name: chubb_life.report_form
+  weight: 5

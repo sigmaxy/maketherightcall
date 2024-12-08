@@ -148,3 +148,11 @@ chubb_life.close_window_form:
     _title: 'Close Window'
   requirements:
    _permission: 'access chubb_life_assignee configuration'
+
+chubb_life.report_form:
+  path: '/chubb_life/form/report'
+  defaults:
+    _form: '\Drupal\chubb_life\Form\ReportForm'
+    _title: 'Report Form'
+  requirements:
+   _permission: 'access chubb_life_manager configuration'
