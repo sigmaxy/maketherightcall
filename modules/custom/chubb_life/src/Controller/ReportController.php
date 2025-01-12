@@ -34,7 +34,7 @@ class ReportController extends ControllerBase {
                 date('Y-m-d', $each_call->updated_at),//colum E call Date
                 '',//colum F call hour
                 $each_call->count,//colum G Previous call
-                '',//colum H same day call
+                '=COUNTIFS(AK:AK,AK2,E:E,"=" &E2)',//colum H same day call
                 '',//colum I reachable
                 '',//colum J Presentable
                 '',//colum K List Batch
@@ -123,6 +123,19 @@ class ReportController extends ControllerBase {
         foreach ($order_list as $each_order) {
             $record= OrderController::get_order_by_id($each_order->id);
             $payment_mode_opt = AttributeController::get_payment_mode_options();
+            if($each_order->paymentMode=='12'){
+                
+                $column_r = number_format((float)$each_order->initial_premium, 2, '.', '');
+            }else if($each_order->paymentMode=='01'){
+                $column_r = number_format((float)$each_order->initial_premium*6, 2, '.', '');
+            }else{
+                $column_r = '';
+            }
+            if($column_r!=''){
+                $column_s = number_format((float)$column_r/7.8, 2, '.', '');
+            }else{
+                $column_s = '';
+            }
             $each_data = [
                 date('Y', $each_order->created_at),//colum A year
                 ceil(date('m', $each_order->created_at)/3),//colum B Quarter
@@ -141,11 +154,11 @@ class ReportController extends ControllerBase {
                 $record['owner']['surname'].' '.$record['owner']['givenName'],//colum O Insured
                 $each_order->beneficiary_relationship,//colum P Insured Relationship
                 $each_order->currency,//colum Q HKD
-                '',//colum R APE (HKD)
-                '',//colum S APE (USD)
+                $column_r,//colum R APE (HKD)
+                $column_s,//colum S APE (USD)
                 $payment_mode_opt[$each_order->paymentMode],//colum T Payment Mode
                 $each_order->initial_premium,//colum U Initial Premium (HKD)
-                '',//colum V Initial Premium (USD)
+                number_format((float)$each_order->initial_premium/7.8, 2, '.', ''),//colum V Initial Premium (USD)
                 $each_order->cardType,//colum W Card Type
                 '',//colum X Release Status
                 '',//colum Y Release Date
@@ -196,6 +209,7 @@ class ReportController extends ControllerBase {
                 $agent_created->field_agentname->value,//colum V created_by
                 date('Y-m-d', $each_customer->updated_at),//colum W updated_at
                 $agent_updated->field_agentname->value,//colum X updated_by
+                'TM6',//colum Y Segment
             ];
             $excel['data'][] = $each_data;
         }
