@@ -96,7 +96,7 @@ class ReportForm extends FormBase {
     }
     public function sales_report(array &$form, FormStateInterface $form_state) {
         $excel = ReportController::prepare_sales_report_data();
-        \Drupal::messenger()->addMessage(message: t('Download1 Report File <a href="@link" target="_blank">Click Here</a>', array('@link' => file_create_url($excel['path']))));
+        \Drupal::messenger()->addMessage(t('Download Report File <a href="@link" target="_blank">Click Here</a>', array('@link' => file_create_url($excel['path']))));
     }
     public function call_lead_status_report(array &$form, FormStateInterface $form_state) {
         $excel = ReportController::prepare_call_lead_status_report_data();
