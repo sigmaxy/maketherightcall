@@ -26,6 +26,7 @@ class ReportController extends ControllerBase {
         foreach ($call_list as $each_call) {
             $import_customer = CustomerController::get_import_customer_by_id($each_call->import_customer_id);
             $agent = \Drupal\user\Entity\User::load($each_call->assignee_id);
+            print_r($import_customer);exit;
             $each_data = [
                 date('Y', $each_call->updated_at),//colum A year
                 ceil(date('m', $each_call->updated_at)/3),//colum B Quarter
@@ -37,7 +38,7 @@ class ReportController extends ControllerBase {
                 '=COUNTIFS(AK:AK,AK2,E:E,"=" &E2)',//colum H same day call
                 '',//colum I reachable
                 '',//colum J Presentable
-                '',//colum K List Batch
+                $import_customer['fid'],//colum K List Batch
                 'TM6',//colum L Segment
                 $agent->field_agentcode->value,//colum M Agent ID
                 $agent->field_agentname->value,//colum N Agent Name
