@@ -26,7 +26,6 @@ class ReportController extends ControllerBase {
         foreach ($call_list as $each_call) {
             $import_customer = CustomerController::get_import_customer_by_id($each_call->import_customer_id);
             $agent = \Drupal\user\Entity\User::load($each_call->assignee_id);
-            print_r($import_customer);exit;
             $each_data = [
                 date('Y', $each_call->updated_at),//colum A year
                 ceil(date('m', $each_call->updated_at)/3),//colum B Quarter
